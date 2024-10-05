@@ -31,20 +31,29 @@ func open_options_menu() -> void:
 	get_node("ServerListVBox").visible = false
 
 func open_serverlist_menu() -> void:
+	print("Opening serverlist menu")
 	var lobby_list = MultiplayerManager.get_lobbies_with_friends() 
 	var friends_list_node = get_node("ServerListVBox/MarginContainer/VBoxContainer/MarginContainer/ScrollContainer/VBoxContainer")
+	# remove all old lobbies
+	print("Deleting old lobby buttons")
 	for child in friends_list_node.get_children():
 			child.queue_free()
+	# repopulate the lobby list
+	print("Repopulating lobby buttons")
+	print("List of lobbies: %s" % str(lobby_list))
 	for lobby in lobby_list:
-		var data = MultiplayerManager.get_lobby_info(lobby)
+		var data = await MultiplayerManager.get_lobby_info(lobby)
 		if data == null:
 			continue
-		var lobby_name = data["name"] 
-		var lobby_owner = data["owner"]
+		var lobby_name = data["lobby_name"] 
+		var owner_id = data["owner_id"]
+		var owner_name = data["owner_name"]
+		var owner_avatar = data["owner_avatar"]
 		var button = Button.new()
-		button.icon = load("res://friendo.png")
+		button.icon = owner_avatar
 		button.text = (lobby_name)
 		friends_list_node.add_child(button)
+	print("Done repopulating lobby buttons")
 	get_node("MenuVBox").visible = false
 	get_node("OptionsVBox").visible = false
 	get_node("ServerListVBox").visible = true
@@ -57,7 +66,6 @@ func _on_options_button_pressed() -> void:
 
 func _on_back_button_pressed() -> void:
 	set_default_visibility()
-
 
 func _on_gameplay_settings_button_pressed() -> void:
 	for scroll_container in scroll_containers.get_children():

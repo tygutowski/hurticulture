@@ -5,6 +5,7 @@ var lobby_members: Array[Dictionary] = []
 var steam_id: int = -1
 var steam_username: String = ''
 var nickname: String = 'player'
+var avatar_list = {}
 
 const PACKET_READ_LIMIT = 32
 
@@ -36,6 +37,7 @@ func connect_signals() -> void:
 	Steam.lobby_joined.connect(_on_lobby_joined)
 	Steam.lobby_data_update.connect(_on_lobby_data_update)
 	Steam.persona_state_change.connect(_on_persona_change)
+	Steam.avatar_loaded.connect(_on_loaded_avatar)
 	check_command_line() # check cmd line arguments
 
 func _process(_delta) -> void:
@@ -190,9 +192,9 @@ func _on_lobby_created(error: int, this_lobby_id: int) -> void:
 		lobby_id = this_lobby_id
 		print("Created a lobby: %s" % lobby_id)
 		Steam.setLobbyJoinable(lobby_id, true)
-		Steam.setLobbyData(lobby_id, "owner", str(steam_id))
-		Steam.setLobbyData(lobby_id, "name", str(Steam.getPersonaName()) + "'s Lobby")
-		
+		Steam.setLobbyData(lobby_id, "owner_id", str(steam_id))
+		Steam.setLobbyData(lobby_id, "owner_name", Steam.getPersonaName())
+		Steam.setLobbyData(lobby_id, "lobby_name", Steam.getPersonaName() + "'s Lobby")
 		# allow p2p connections to fallback to being relayed
 		# through steam if necessary
 		var set_relay: bool = Steam.allowP2PPacketRelay(true)
@@ -253,13 +255,24 @@ func _on_p2p_session_connect_fail(this_steam_id: int, session_error: int) -> voi
 		print("WARNING: Session failure with %s: unknown error %s" % [this_steam_id, session_error])
 
 func get_lobby_info(lobby_id: int):
+	print("Getting info for lobby %s" % str(lobby_id))
 	var data: Dictionary
 	var error = Steam.requestLobbyData(lobby_id)
+	# wait for the lobby data to update
+	await Steam.lobby_data_update
 	if not error:
 		print("WARNING: Failure to get lobby data for lobby %s" % str(lobby_id))
 		return null
-	data["owner"] = Steam.getLobbyData(lobby_id, "owner")
-	data["name"] = Steam.getLobbyData(lobby_id, "name")
+	# str
+	data["owner_id"] = Steam.getLobbyData(lobby_id, data["owner_id"])
+	# str
+	data["owner_name"] = Steam.getLobbyData(lobby_id, "owner")
+	# load player avatar
+	await Steam.getPlayerAvatar(3, int(data["owner"]))
+	# bytes
+	data["owner_avatar"] = avatar_list[int(data["owner"])]
+	# str
+	data["lobby_name"] = Steam.getLobbyData(lobby_id, "name")
 	return data
 
 func get_lobbies_with_friends() -> Dictionary:
@@ -295,4 +308,10 @@ func get_lobbies_with_friends() -> Dictionary:
 
 func _on_lobby_data_update(success: int, lobby_id: int, member_id: int) -> void:
 	print("Lobby data updated")
-	
+
+func _on_loaded_avatar(user_id: int, avatar_size: int, avatar_buffer: PackedByteArray) -> void:
+	var avatar_image: Image = Image.create_from_data(avatar_size, avatar_size, false, Image.FORMAT_RGBA8, avatar_buffer)
+	if avatar_size > 128:
+		avatar_image.resize(128, 128, Image.INTERPOLATE_LANCZOS)
+	var avatar_texture: ImageTexture = ImageTexture.create_from_image(avatar_image)
+	avatar_list[user_id] = avatar_texture
