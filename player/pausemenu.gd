@@ -12,13 +12,11 @@ func _on_quit_button_pressed() -> void:
 	get_tree().quit()
 
 func open_pause_menu() -> void:
-	get_tree().paused = true
 	Input.mouse_mode = Input.MOUSE_MODE_VISIBLE
 	pause_menu_opened = true
 	visible = true
 
 func close_pause_menu() -> void:
-	get_tree().paused = false
 	Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
 	pause_menu_opened = false
 	visible = false

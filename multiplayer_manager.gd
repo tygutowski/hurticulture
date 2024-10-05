@@ -33,10 +33,13 @@ func do_stuff_with_packet(data: Dictionary) -> void:
 		# checking to be safe lol
 		if node != null:
 			node.transform = transform
-	elif data["type"] == MessageType.HANDSHAKE:
-		var current_power = int(data["pow"])
-		PowerManager.current_power = current_power
-	
+	# if youre the host, tell the peers whats going on
+	if not is_host:
+		if data["type"] == MessageType.HANDSHAKE:
+			var current_power = int(data["pow"])
+			PowerManager.current_power = current_power
+
+
 func initialize_steam() -> void:
 	var error: Dictionary = Steam.steamInit(true, 480)
 	if error["status"] != 1:
