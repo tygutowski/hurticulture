@@ -179,8 +179,9 @@ func add_to_lobby(player_id: int):
 	print("A player joined! Adding them to lobby")
 	var peer_scene = load("res://peer.tscn")
 	var peer = peer_scene.instantiate()
-	peer.name = Steam.getFriendPersonaName(player_id)
-	peer.get_node("Label3D").text = peer.name
+	peer.name = str(player_id)
+	var username = Steam.getFriendPersonaName(player_id)
+	peer.get_node("Label3D").text = username
 	peers.add_child(peer)
 
 #when the lobby is updated
