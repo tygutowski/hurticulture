@@ -50,6 +50,7 @@ func connect_signals() -> void:
 	Steam.lobby_data_update.connect(_on_lobby_data_update)
 	Steam.persona_state_change.connect(_on_persona_change)
 	Steam.avatar_loaded.connect(_on_loaded_avatar)
+	Steam.lobby_chat_update.connect(_on_lobby_chat_updated)
 	check_command_line() # check cmd line arguments
 
 func _process(_delta) -> void:
@@ -174,6 +175,7 @@ func make_p2p_handshake() -> void:
 	})
 
 func add_to_lobby(player_id: int):
+	print("A player joined! Adding them to lobby")
 	var peer_scene = load("res://peer.tscn")
 	var peer = peer_scene.instantiate()
 	peer.name = Steam.getFriendPersonaName(player_id)
