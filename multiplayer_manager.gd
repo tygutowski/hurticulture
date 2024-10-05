@@ -263,16 +263,18 @@ func get_lobby_info(lobby_id: int):
 	if not error:
 		print("WARNING: Failure to get lobby data for lobby %s" % str(lobby_id))
 		return null
+
 	# str
-	data["owner_id"] = Steam.getLobbyData(lobby_id, data["owner_id"])
+	data["owner_id"] = Steam.getLobbyData(lobby_id, "owner_id")
 	# str
-	data["owner_name"] = Steam.getLobbyData(lobby_id, "owner")
+	data["owner_name"] = Steam.getLobbyData(lobby_id, "owner_name")
 	# load player avatar
-	await Steam.getPlayerAvatar(3, int(data["owner"]))
+	Steam.getPlayerAvatar(3, int(data["owner_id"]))
+	await Steam.avatar_loaded
 	# bytes
-	data["owner_avatar"] = avatar_list[int(data["owner"])]
+	data["owner_avatar"] = avatar_list[int(data["owner_id"])]
 	# str
-	data["lobby_name"] = Steam.getLobbyData(lobby_id, "name")
+	data["lobby_name"] = Steam.getLobbyData(lobby_id, "lobby_name")
 	return data
 
 func get_lobbies_with_friends() -> Dictionary:
