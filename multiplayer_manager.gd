@@ -91,10 +91,11 @@ func load_game():
 			continue
 		var peer_scene = load("res://peer.tscn")
 		var peer = peer_scene.instantiate()
-		peer.name = str(lobby_members[i]["steam_id"])
+		peer.name = str(lobby_members[i]["steam_name"])
 		peer.get_node("Label3D").text = peer.name
 		peers.add_child(peer)
 
+# when you join a lobby
 func _on_lobby_joined(this_lobby_id: int, _permissions: int, _locked: bool, response: int) -> void:
 	if response == Steam.CHAT_ROOM_ENTER_RESPONSE_SUCCESS:
 		print("Lobby %s joined" % this_lobby_id)
@@ -141,7 +142,6 @@ func get_lobby_members() -> void:
 
 # this is really updating friend info
 func _on_persona_change(this_steam_id: int, _flag: int) -> void:
-	print("PERSONA CHANGED!")
 	if lobby_id > 0:
 		print("%s's information has changed, updating the lobby list" % this_steam_id)
 		get_lobby_members()
@@ -173,22 +173,29 @@ func make_p2p_handshake() -> void:
 		"from"    : steam_id,
 	})
 
+func add_to_lobby(player_id: int):
+	var peer_scene = load("res://peer.tscn")
+	var peer = peer_scene.instantiate()
+	peer.name = Steam.getFriendPersonaName(player_id)
+	peer.get_node("Label3D").text = peer.name
+	peers.add_child(peer)
+
 #when the lobby is updated
 func _on_lobby_chat_updated(_this_lobby_id: int, change_id: int, _making_change_id: int, chat_state: int) -> void:
 	var changer_name: String = Steam.getFriendPersonaName(change_id)
 	# If a player has joined the lobby
 	if chat_state == Steam.CHAT_MEMBER_STATE_CHANGE_ENTERED:
 		print("%s has joined the lobby." % changer_name)
-	# Else if a player has left the lobby
+		add_to_lobby(_making_change_id)
 	elif chat_state == Steam.CHAT_MEMBER_STATE_CHANGE_LEFT:
 		print("%s has left the lobby." % changer_name)
-	# Else if a player has been kicked
+		peers.get_node(str(_making_change_id)).queue_free()
 	elif chat_state == Steam.CHAT_MEMBER_STATE_CHANGE_KICKED:
 		print("%s has been kicked from the lobby." % changer_name)
-	# Else if a player has been banned
+		peers.get_node(str(_making_change_id)).queue_free()
 	elif chat_state == Steam.CHAT_MEMBER_STATE_CHANGE_BANNED:
 		print("%s has been banned from the lobby." % changer_name)
-	# Else there was some unknown change
+		peers.get_node(str(_making_change_id)).queue_free()
 	else:
 		print("%s did something." % changer_name)
 	get_lobby_members()

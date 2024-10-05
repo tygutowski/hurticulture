@@ -43,7 +43,6 @@ shape = SubResource("WorldBoundaryShape3D_vvh74")
 transform = Transform3D(0.422365, 0, -0.906426, 0, 1, 0, 0.906426, 0, 0.422365, 0, 2, 0)
 
 [node name="Peers" type="Node3D" parent="." groups=["peers"]]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.06589, 2.09051)
 
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
 transform = Transform3D(0.678815, 0.125559, -0.723495, 0.733342, -0.0653659, 0.67671, 0.0376752, -0.98993, -0.136449, -302.138, 113.218, 0.275)
