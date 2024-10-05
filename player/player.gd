@@ -40,11 +40,7 @@ func drop_item() -> void:
 		is_holding = false
 
 func _physics_process(delta: float) -> void:
-	MultiplayerManager.send_p2p_packet(0, {
-		"message"   : "player_update",
-		"from"      : MultiplayerManager.get_steam_id(),
-		"transform" : global_transform
-	})
+	send_packet()
 	if is_holding and can_interact:
 		if Input.is_action_just_pressed("interact"):
 			drop_item()
@@ -86,3 +82,11 @@ func _input(event):
 func _on_timer_timeout() -> void:
 	print("you can interact now")
 	can_interact = true
+
+func send_packet() -> void:
+	var packet = {
+		"type" : MultiplayerManager.MessageType.PLAYER_UPDATE,
+		"from" : MultiplayerManager.get_steam_id(),
+		"pos" : get_tree().get_first_node_in_group("player").global_transform
+	}
+	MultiplayerManager.send_p2p_packet(0, packet)

@@ -47,20 +47,20 @@ func open_serverlist_menu() -> void:
 			continue
 		var lobby_id = lobby
 		var lobby_name = data["lobby_name"] 
-		var owner_id = int(data["owner_id"])
-		var owner_name = data["owner_name"]
+		var _owner_id = int(data["owner_id"])
+		var _owner_name = data["owner_name"]
 		var owner_avatar = data["owner_avatar"]
 		var button = Button.new()
 		button.icon = owner_avatar
 		button.text = (lobby_name)
 		friends_list_node.add_child(button)
-		button.pressed.connect(_pressed_join_lobby_button.bind(lobby_id, owner_name))
+		button.pressed.connect(_pressed_join_lobby_button.bind(lobby_id))
 	print("Done repopulating lobby buttons")
 	get_node("MenuVBox").visible = false
 	get_node("OptionsVBox").visible = false
 	get_node("ServerListVBox").visible = true
 
-func _pressed_join_lobby_button(lobby_id: int, owner_name: String) -> void:
+func _pressed_join_lobby_button(lobby_id: int) -> void:
 	MultiplayerManager.join_lobby(lobby_id)
 
 func _on_exit_game_button_pressed() -> void:
