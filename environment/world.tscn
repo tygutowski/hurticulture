@@ -1,11 +1,10 @@
-[gd_scene load_steps=12 format=3 uid="uid://xqixgx0mkgd5"]
+[gd_scene load_steps=11 format=3 uid="uid://xqixgx0mkgd5"]
 
 [ext_resource type="Script" path="res://environment/world.gd" id="1_qtdeh"]
 [ext_resource type="PackedScene" uid="uid://bcfemkf41qw1s" path="res://environment/warehouse.tscn" id="2_1foud"]
 [ext_resource type="PackedScene" uid="uid://b5xjtp4qjtafs" path="res://player/player.tscn" id="2_p8avn"]
 [ext_resource type="PackedScene" uid="uid://cfv5rt8hsxylt" path="res://environment/fruits/test_fruit.tscn" id="4_ia2ke"]
 [ext_resource type="PackedScene" uid="uid://bwu8dfp2qp3kc" path="res://environment/fruits/gourd.tscn" id="5_uivlw"]
-[ext_resource type="PackedScene" uid="uid://dl2xhyvd2y8cm" path="res://ghoul.tscn" id="6_7ysr4"]
 
 [sub_resource type="CompressedTexture2D" id="CompressedTexture2D_4giyo"]
 load_path = "res://.godot/imported/Dirt_01-128x128.png-1601d2428b446862b46f09295d776018.ctex"
@@ -43,6 +42,9 @@ shape = SubResource("WorldBoundaryShape3D_vvh74")
 [node name="player" parent="." instance=ExtResource("2_p8avn")]
 transform = Transform3D(0.422365, 0, -0.906426, 0, 1, 0, 0.906426, 0, 0.422365, 0, 2, 0)
 
+[node name="Peers" type="Node3D" parent="." groups=["peers"]]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.06589, 2.09051)
+
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
 transform = Transform3D(0.678815, 0.125559, -0.723495, 0.733342, -0.0653659, 0.67671, 0.0376752, -0.98993, -0.136449, -302.138, 113.218, 0.275)
 shadow_enabled = true
@@ -67,7 +69,3 @@ transform = Transform3D(1, 0, 0, 0, 0.998501, 0.0547411, 0, -0.0547411, 0.998501
 
 [node name="RigidBody3D20" parent="." instance=ExtResource("5_uivlw")]
 transform = Transform3D(1, 0, 0, 0, 0.977611, -0.210421, 0, 0.210421, 0.977611, 3.69579, 1.49753, -1.08889)
-
-[node name="Ghoul" parent="." instance=ExtResource("6_7ysr4")]
-transform = Transform3D(0.25, 0, 0, 0, 0.25, 0, 0, 0, 0.25, -2.79697, 2.82074, 3.97176)
-run_distance = 4

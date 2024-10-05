@@ -6,7 +6,7 @@ var steam_id: int = -1
 var steam_username: String = ''
 var nickname: String = 'player'
 var avatar_list = {}
-
+var peers: Node3D = null
 const PACKET_READ_LIMIT = 32
 
 func _init():
@@ -18,6 +18,10 @@ func _ready() -> void:
 	connect_signals()
 	steam_id = Steam.getSteamID()
 	steam_username = Steam.getPersonaName()
+
+func do_stuff_with_packet(data: Dictionary) -> void:
+	if data["message"] == "player_update":
+		data["from"].transform = data["transform"]
 
 func initialize_steam() -> void:
 	var error: Dictionary = Steam.steamInit(true, 480)
@@ -60,17 +64,35 @@ func join_lobby(this_lobby_id: int) -> void:
 	lobby_members.clear()
 	Steam.joinLobby(this_lobby_id)
 
-func instance_players():
-	for player in lobby_members:
-		print(player)
+func game_started():
+	print("World is loaded")
+
+func load_game():
+	# change scene
+	var world_scene = load("res://environment/world.tscn")
+	var world = world_scene.instantiate()
+	await world._ready()
+	get_tree().get_root().get_node("Control").queue_free()
+	get_tree().get_root().add_child(world)
+	
+	# instance players
+	peers = world.get_node("Peers")
+	for i in range(len(lobby_members)):
+		# if its you, skip
+		if lobby_members[i]["steam_id"] == steam_id:
+			continue
+		var peer_scene = load("res://peer.tscn")
+		var peer = peer_scene.instantiate()
+		peer.name = str(lobby_members[i]["steam_id"])
+		peers.add_child(peer)
 
 func _on_lobby_joined(this_lobby_id: int, _permissions: int, _locked: bool, response: int) -> void:
-	print("Lobby joined")
 	if response == Steam.CHAT_ROOM_ENTER_RESPONSE_SUCCESS:
+		print("Lobby %s joined" % this_lobby_id)
 		lobby_id = this_lobby_id
 		get_lobby_members()
 		make_p2p_handshake()
-		instance_players()
+		load_game()
 	else:
 		var fail_reason: String
 	
@@ -85,16 +107,10 @@ func _on_lobby_joined(this_lobby_id: int, _permissions: int, _locked: bool, resp
 			Steam.CHAT_ROOM_ENTER_RESPONSE_COMMUNITY_BAN: fail_reason = "This lobby is community locked."
 			Steam.CHAT_ROOM_ENTER_RESPONSE_MEMBER_BLOCKED_YOU: fail_reason = "A user in the lobby has blocked you from joining."
 			Steam.CHAT_ROOM_ENTER_RESPONSE_YOU_BLOCKED_MEMBER: fail_reason = "A user you have blocked is in the lobby."
-		
 		print("Failed to join this lobby: %s" % fail_reason)
-	
-	#reopen lobby list
+		# go back to the menu
 
 func _on_lobby_join_requested(this_lobby_id: int, friend_id: int) -> void:
-	var owner_name: String = Steam.getFriendPersonaName(friend_id)
-	
-	print("Joining %s's lobby" % owner_name)
-	
 	join_lobby(this_lobby_id)
 
 func get_lobby_members() -> void:
@@ -104,13 +120,19 @@ func get_lobby_members() -> void:
 		var member_steam_id: int = Steam.getLobbyMemberByIndex(lobby_id, this_member)
 		
 		var member_steam_name: String = Steam.getFriendPersonaName(member_steam_id)
+		var node: Node3D = null
+		
+		if peers != null:
+			node = peers.get_node_or_null(str(member_steam_id))
 		lobby_members.append({
 			"steam_id"   : member_steam_id,
-			"steam_name" : member_steam_name
+			"steam_name" : member_steam_name,
+			"node"       : node
 			})
 
 # this is really updating friend info
 func _on_persona_change(this_steam_id: int, _flag: int) -> void:
+	print("PERSONA CHANGED!")
 	if lobby_id > 0:
 		print("%s's information has changed, updating the lobby list" % this_steam_id)
 		get_lobby_members()
@@ -205,7 +227,6 @@ func _on_lobby_created(error: int, this_lobby_id: int) -> void:
 func read_all_p2p_packets(read_count: int = 0) -> void:
 	if read_count >= PACKET_READ_LIMIT:
 		return
-	
 	if Steam.getAvailableP2PPacketSize(0) > 0:
 		read_p2p_packet()
 		read_all_p2p_packets(read_count + 1)
@@ -229,8 +250,9 @@ func read_p2p_packet() -> void:
 		var packet_code: PackedByteArray = this_packet['data']
 		
 		var readable_data: Dictionary = bytes_to_var(packet_code.decompress_dynamic(-1, FileAccess.COMPRESSION_GZIP))
-		print("Packet: %s" % readable_data)
 		
+		do_stuff_with_packet(readable_data)
+
 func _on_p2p_session_connect_fail(this_steam_id: int, session_error: int) -> void:
 	# If no error was given
 	if session_error == 0:
@@ -264,16 +286,12 @@ func get_lobby_info(lobby_id: int):
 		print("WARNING: Failure to get lobby data for lobby %s" % str(lobby_id))
 		return null
 
-	# str
 	data["owner_id"] = Steam.getLobbyData(lobby_id, "owner_id")
-	# str
 	data["owner_name"] = Steam.getLobbyData(lobby_id, "owner_name")
-	# load player avatar
+	# Make sure you finish loading the player's avatar
 	Steam.getPlayerAvatar(3, int(data["owner_id"]))
 	await Steam.avatar_loaded
-	# bytes
 	data["owner_avatar"] = avatar_list[int(data["owner_id"])]
-	# str
 	data["lobby_name"] = Steam.getLobbyData(lobby_id, "lobby_name")
 	return data
 

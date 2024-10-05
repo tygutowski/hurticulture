@@ -36,6 +36,7 @@ enemy=""
 electrical=""
 electrical_manager=""
 world=""
+peers=""
 
 [input]
 
