@@ -20,11 +20,16 @@ func _ready() -> void:
 	steam_username = Steam.getPersonaName()
 
 func do_stuff_with_packet(data: Dictionary) -> void:
+	# if youre sending yourself shit
+	if data["from"] == steam_id:
+		return
 	if data["message"] == "player_update":
 		var node_name = data["from"]
-		var node = peers.get_node(node_name)
+		var node = peers.get_node_or_null(str(node_name))
 		var transform = data["transform"]
-		node.transform = transform
+		# checking to be safe lol
+		if node != null:
+			node.transform = transform
 
 func initialize_steam() -> void:
 	var error: Dictionary = Steam.steamInit(true, 480)
