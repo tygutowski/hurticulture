@@ -1,0 +1,9 @@
+[gd_resource type="StandardMaterial3D" load_steps=2 format=3 uid="uid://c3v741g5b1csm"]
+
+[ext_resource type="Texture2D" uid="uid://ce1vmbq6iffyx" path="res://128x128/Plaster/Plaster_02-128x128.png" id="1_q0wnp"]
+
+[resource]
+albedo_texture = ExtResource("1_q0wnp")
+uv1_scale = Vector3(0.255, 0.255, 0.255)
+uv1_triplanar = true
+texture_filter = 0

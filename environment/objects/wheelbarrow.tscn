@@ -1,0 +1,5 @@
+[gd_scene load_steps=2 format=3 uid="uid://cklmrln4govbd"]
+
+[ext_resource type="PackedScene" uid="uid://bpm0gt4s4jdi4" path="res://psxpack/meshes/storage/Wheelbarrow01.blend" id="1_xkp6p"]
+
+[node name="Wheelbarrow012" instance=ExtResource("1_xkp6p")]

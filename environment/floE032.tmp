@@ -1,0 +1,48 @@
+[gd_scene load_steps=11 format=3 uid="uid://bxq1mnjbcjkj1"]
+
+[ext_resource type="Script" path="res://environment/florescentlight.gd" id="1_as7jy"]
+[ext_resource type="ArrayMesh" uid="uid://bldtvcm18efg3" path="res://Case_Obj/Fluorecent_Light_Case_LP.obj" id="1_r2c7q"]
+[ext_resource type="Texture2D" uid="uid://dt4j2anw4kq15" path="res://Case_Obj/Fluorecent_Light_Case_LP_Color.png" id="2_igoww"]
+[ext_resource type="Texture2D" uid="uid://c2jdllwmmtxdq" path="res://Case_Obj/Fluorecent_Light_Case_LP_Normal.png" id="3_a0gh3"]
+[ext_resource type="ArrayMesh" uid="uid://btu86wogjxqn1" path="res://Tube_Obj/LightTube_LP.obj" id="4_x3bjd"]
+[ext_resource type="Texture2D" uid="uid://2332d26ofamw" path="res://Tube_Obj/LightTube_LP_Color.png" id="5_3ow78"]
+[ext_resource type="Texture2D" uid="uid://fow4caf3jb0a" path="res://Tube_Obj/LightTube_LP_Em.png" id="6_epr5x"]
+[ext_resource type="Texture2D" uid="uid://c130lvjglqw1w" path="res://Tube_Obj/LightTube_LP_Normal.png" id="7_ufokg"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_cc435"]
+albedo_texture = ExtResource("2_igoww")
+normal_enabled = true
+normal_texture = ExtResource("3_a0gh3")
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_38ti1"]
+albedo_texture = ExtResource("5_3ow78")
+emission_enabled = true
+emission_texture = ExtResource("6_epr5x")
+normal_enabled = true
+normal_texture = ExtResource("7_ufokg")
+
+[node name="florescentlight" type="Node3D"]
+transform = Transform3D(0.2, 0, 0, 0, -8.74228e-09, -0.2, 0, 0.2, -8.74228e-09, 0, 0, 0)
+script = ExtResource("1_as7jy")
+
+[node name="FluorecentLightCaseLp" type="MeshInstance3D" parent="."]
+mesh = ExtResource("1_r2c7q")
+surface_material_override/0 = SubResource("StandardMaterial3D_cc435")
+
+[node name="LightTubeLp" type="MeshInstance3D" parent="."]
+transform = Transform3D(0.1, 0, 0, 0, 0.1, 0, 0, 0, 0.1, 0, 0.713728, 1.82629)
+mesh = ExtResource("4_x3bjd")
+surface_material_override/0 = SubResource("StandardMaterial3D_38ti1")
+
+[node name="LightTubeLp2" type="MeshInstance3D" parent="."]
+transform = Transform3D(0.1, 0, 0, 0, 0.1, 0, 0, 0, 0.1, 0, -0.705616, 1.81936)
+mesh = ExtResource("4_x3bjd")
+surface_material_override/0 = SubResource("StandardMaterial3D_38ti1")
+
+[node name="OmniLight3D" type="OmniLight3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, -8.52651e-15, 0, 8.52651e-15, 1, 0, 2.18557e-07, 5)
+light_energy = 3.0
+shadow_enabled = true
+shadow_blur = 7.111
+distance_fade_begin = 20.0
+omni_range = 12.0

@@ -1,0 +1,22 @@
+[remap]
+
+importer="wavefront_obj"
+importer_version=1
+type="Mesh"
+uid="uid://d02i3yeap2rhh"
+path="res://.godot/imported/LightTube_HP.obj-8c08b2e3e73171e063e45b62c5511ada.mesh"
+
+[deps]
+
+files=["res://.godot/imported/LightTube_HP.obj-8c08b2e3e73171e063e45b62c5511ada.mesh"]
+
+source_file="res://environment/objects/fluorescent_light_tube/LightTube_HP.obj"
+dest_files=["res://.godot/imported/LightTube_HP.obj-8c08b2e3e73171e063e45b62c5511ada.mesh", "res://.godot/imported/LightTube_HP.obj-8c08b2e3e73171e063e45b62c5511ada.mesh"]
+
+[params]
+
+generate_tangents=true
+scale_mesh=Vector3(1, 1, 1)
+offset_mesh=Vector3(0, 0, 0)
+optimize_mesh=true
+force_disable_mesh_compression=false

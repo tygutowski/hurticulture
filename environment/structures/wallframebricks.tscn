@@ -1,0 +1,5 @@
+[gd_scene load_steps=2 format=3 uid="uid://cxxikac0i2k3w"]
+
+[ext_resource type="PackedScene" uid="uid://vvvn5d8ce47t" path="res://psxpack/meshes/buildings/modular/mDFrameBricksWhite01.blend" id="1_7hahs"]
+
+[node name="mDFrameBricksWhite01" instance=ExtResource("1_7hahs")]

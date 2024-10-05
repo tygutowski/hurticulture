@@ -1,0 +1,13 @@
+[gd_scene load_steps=4 format=3 uid="uid://ii6ecejkltl6"]
+
+[ext_resource type="PackedScene" uid="uid://ceeru7y46u3qn" path="res://psxpack/meshes/electronics/Radio01.blend" id="1_45d38"]
+[ext_resource type="Texture2D" uid="uid://d3dqlfraw2sac" path="res://psxpack/textures/meshes/electronics/Radio01_a.png" id="2_fc6c1"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_ajggb"]
+albedo_texture = ExtResource("2_fc6c1")
+texture_filter = 0
+
+[node name="Radio012" instance=ExtResource("1_45d38")]
+
+[node name="Radio01" parent="." index="0"]
+material_override = SubResource("StandardMaterial3D_ajggb")

@@ -1,0 +1,62 @@
+[gd_scene load_steps=7 format=3 uid="uid://dl2xhyvd2y8cm"]
+
+[ext_resource type="Script" path="res://environment/ghoul.gd" id="1_xolrn"]
+[ext_resource type="Texture2D" uid="uid://bsohjdyr4l6oh" path="res://ghoul_body.png" id="2_7p72h"]
+[ext_resource type="Texture2D" uid="uid://df1m8x8di7ubt" path="res://ghoul_hand.png" id="3_2nv5p"]
+[ext_resource type="Texture2D" uid="uid://bgidnapco2ppu" path="res://ghoul_fingers.png" id="4_gxfkd"]
+[ext_resource type="Texture2D" uid="uid://c4876nq6e2amc" path="res://ghoul_head.png" id="5_3spyi"]
+[ext_resource type="Texture2D" uid="uid://bso3vx4xibctg" path="res://ghoul_eyes.png" id="6_glwy0"]
+
+[node name="Ghoul" type="Node3D"]
+transform = Transform3D(0.25, 0, 0, 0, 0.25, 0, 0, 0, 0.25, 0, 0, 0)
+script = ExtResource("1_xolrn")
+run_dir = -1
+run_distance = 6
+
+[node name="RayCast3D" type="RayCast3D" parent="."]
+transform = Transform3D(1, 0, -2.98023e-08, 0, 1, 0, 2.98023e-08, 0, 1, 0, 0, 0)
+target_position = Vector3(0, 0, 0)
+collision_mask = 5
+
+[node name="Body" type="Sprite3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.356812, 0, 0.38713)
+offset = Vector2(10, 0)
+flip_h = true
+billboard = 2
+texture = ExtResource("2_7p72h")
+
+[node name="Hand" type="Sprite3D" parent="Body"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.49012e-08, 0, -1.06568)
+flip_h = true
+billboard = 2
+double_sided = false
+no_depth_test = true
+texture = ExtResource("3_2nv5p")
+
+[node name="Fingers" type="Sprite3D" parent="Body/Hand"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.98023e-08, 0, -0.205533)
+flip_h = true
+billboard = 2
+double_sided = false
+no_depth_test = true
+texture = ExtResource("4_gxfkd")
+
+[node name="Head" type="Sprite3D" parent="Body"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -0.2)
+flip_h = true
+billboard = 2
+no_depth_test = true
+texture = ExtResource("5_3spyi")
+
+[node name="Eyes" type="Sprite3D" parent="Body/Head"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -0.186408)
+flip_h = true
+billboard = 2
+no_depth_test = true
+texture_filter = 0
+texture = ExtResource("6_glwy0")
+
+[node name="Timer" type="Timer" parent="."]
+one_shot = true
+
+[connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]

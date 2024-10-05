@@ -1,0 +1,43 @@
+[gd_scene load_steps=8 format=3 uid="uid://dsyc6dijis1a1"]
+
+[ext_resource type="Script" path="res://electrical/switch.gd" id="1_7saqq"]
+[ext_resource type="AudioStream" uid="uid://lopeu6dcnkjl" path="res://audio/switch-on.wav" id="2_ysaer"]
+[ext_resource type="AudioStream" uid="uid://cp1pykwd01p47" path="res://audio/switch-off.wav" id="3_b7gqp"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_k0cxb"]
+size = Vector3(0.373291, 0.468018, 0.005)
+
+[sub_resource type="BoxMesh" id="BoxMesh_rhdw3"]
+size = Vector3(0.25, 0.375, 0.005)
+
+[sub_resource type="BoxMesh" id="BoxMesh_l4k8h"]
+size = Vector3(0.175, 0.3, 0.006)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_bxtxw"]
+emission_enabled = true
+emission = Color(0, 0.263619, 0.0451739, 1)
+
+[node name="lightswitch" type="StaticBody3D"]
+collision_layer = 2
+collision_mask = 2
+script = ExtResource("1_7saqq")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.00915527, -0.0155029, -1.86265e-09)
+shape = SubResource("BoxShape3D_k0cxb")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+mesh = SubResource("BoxMesh_rhdw3")
+skeleton = NodePath("")
+
+[node name="SwitchOnStream" type="AudioStreamPlayer3D" parent="."]
+stream = ExtResource("2_ysaer")
+volume_db = -40.0
+
+[node name="SwitchOffStream" type="AudioStreamPlayer3D" parent="."]
+stream = ExtResource("3_b7gqp")
+volume_db = -40.0
+
+[node name="MeshInstance3D2" type="MeshInstance3D" parent="."]
+mesh = SubResource("BoxMesh_l4k8h")
+surface_material_override/0 = SubResource("StandardMaterial3D_bxtxw")

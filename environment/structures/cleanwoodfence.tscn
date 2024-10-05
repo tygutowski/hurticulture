@@ -1,0 +1,5 @@
+[gd_scene load_steps=2 format=3 uid="uid://c6ls1ct5qyrs8"]
+
+[ext_resource type="PackedScene" uid="uid://bl1q7nvw3k1el" path="res://psxpack/meshes/decor/FenceWoodPlanks03.blend" id="1_exq1l"]
+
+[node name="FenceWoodPlanks03" instance=ExtResource("1_exq1l")]

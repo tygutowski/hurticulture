@@ -1,0 +1,60 @@
+[gd_scene load_steps=8 format=3 uid="uid://ddfxev1m3e0r3"]
+
+[ext_resource type="Script" path="res://electrical/siren_light.gd" id="1_gfrl7"]
+[ext_resource type="Material" uid="uid://c4au2o6d00ylh" path="res://environment/materials/sirenlight_on.tres" id="2_pml5m"]
+[ext_resource type="Material" uid="uid://bsa0d2vibumou" path="res://environment/materials/metal_material.tres" id="3_wcpbq"]
+
+[sub_resource type="CylinderMesh" id="CylinderMesh_il1ag"]
+top_radius = 0.3
+bottom_radius = 0.3
+height = 0.2
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_ju3tj"]
+albedo_color = Color(0.147672, 0.147672, 0.147672, 1)
+
+[sub_resource type="CylinderMesh" id="CylinderMesh_quie0"]
+lightmap_size_hint = Vector2i(8, 7)
+top_radius = 0.2
+bottom_radius = 0.15
+height = 0.3
+
+[sub_resource type="BoxMesh" id="BoxMesh_vxbnt"]
+material = ExtResource("3_wcpbq")
+size = Vector3(0.05, 0.2, 0.05)
+
+[node name="sirenlight" type="Node3D" groups=["electrical"]]
+script = ExtResource("1_gfrl7")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+mesh = SubResource("CylinderMesh_il1ag")
+surface_material_override/0 = SubResource("StandardMaterial3D_ju3tj")
+
+[node name="LightMesh" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.2375, 0)
+mesh = SubResource("CylinderMesh_quie0")
+surface_material_override/0 = ExtResource("2_pml5m")
+
+[node name="Pivot" type="Node3D" parent="."]
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Pivot"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.2, 0)
+mesh = SubResource("BoxMesh_vxbnt")
+
+[node name="SpotLight3D" type="SpotLight3D" parent="Pivot"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.25, -0.25)
+light_color = Color(1, 0.269902, 0.247604, 1)
+shadow_enabled = true
+spot_range = 30.0
+spot_attenuation = 1.8
+spot_angle = 39.65
+spot_angle_attenuation = 1.91901
+
+[node name="SpotLight3D2" type="SpotLight3D" parent="Pivot"]
+transform = Transform3D(-1, 0, -8.9407e-08, 0, 1, 0, 8.9407e-08, 0, -1, 0, -0.25, 0.25)
+light_color = Color(1, 0.269902, 0.247604, 1)
+light_energy = 20.0
+shadow_enabled = true
+spot_range = 30.0
+spot_attenuation = 1.8
+spot_angle = 39.65
+spot_angle_attenuation = 1.91901

@@ -1,0 +1,12 @@
+[gd_resource type="StandardMaterial3D" load_steps=4 format=3 uid="uid://cla63pyn7wlty"]
+
+[ext_resource type="Texture2D" uid="uid://dt4j2anw4kq15" path="res://environment/objects/fluorescent_light_case/Fluorecent_Light_Case_LP_Color.png" id="1_w1hbv"]
+[ext_resource type="Texture2D" uid="uid://c2jdllwmmtxdq" path="res://environment/objects/fluorescent_light_case/Fluorecent_Light_Case_LP_Normal.png" id="2_fxaxo"]
+
+[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_fajos"]
+
+[resource]
+albedo_texture = ExtResource("1_w1hbv")
+emission_texture = SubResource("CompressedTexture2D_fajos")
+normal_enabled = true
+normal_texture = ExtResource("2_fxaxo")

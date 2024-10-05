@@ -1,0 +1,39 @@
+[gd_scene load_steps=2 format=3 uid="uid://ck6nwgao2uvq6"]
+
+[ext_resource type="Script" path="res://electrical/terminal.gd" id="1_ns5t6"]
+
+[node name="Node3D" type="Node3D"]
+script = ExtResource("1_ns5t6")
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="ColorRect" type="ColorRect" parent="CanvasLayer"]
+anchors_preset = -1
+anchor_right = 0.349
+anchor_bottom = 0.343
+offset_right = -115.048
+offset_bottom = -31.264
+color = Color(0.00561353, 0.0726669, 0.107267, 1)
+
+[node name="PowerSumLabel" type="Label" parent="CanvasLayer"]
+anchors_preset = -1
+anchor_right = 0.304
+anchor_bottom = 0.304
+offset_left = 17.0
+offset_top = 32.0
+offset_right = -76.208
+offset_bottom = -108.992
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_colors/font_color = Color(0.860315, 0.679019, 0.278276, 1)
+theme_override_font_sizes/font_size = 24
+text = "power_sum"
+
+[node name="CurrentPowerLabel" type="Label" parent="CanvasLayer"]
+offset_left = 14.0
+offset_top = 100.0
+offset_right = 275.0
+offset_bottom = 167.0
+theme_override_colors/font_color = Color(0.860315, 0.679019, 0.278276, 1)
+theme_override_font_sizes/font_size = 24
+text = "current_power"

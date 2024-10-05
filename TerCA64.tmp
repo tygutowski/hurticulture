@@ -1,0 +1,33 @@
+[gd_scene load_steps=6 format=3 uid="uid://d0iaubm3uhvyd"]
+
+[ext_resource type="Script" path="res://terrain_generator.gd" id="1_6kqi0"]
+[ext_resource type="PackedScene" uid="uid://bbv3di801oest" path="res://chunk.tscn" id="2_kfu4g"]
+[ext_resource type="PackedScene" uid="uid://b5xjtp4qjtafs" path="res://environment/player.tscn" id="3_4666g"]
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_n78np"]
+noise_type = 2
+frequency = 0.0013
+domain_warp_enabled = true
+domain_warp_type = 2
+domain_warp_frequency = 0.03
+domain_warp_fractal_octaves = 10
+domain_warp_fractal_lacunarity = 9.265
+domain_warp_fractal_gain = -0.045
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_4jw5r"]
+
+[node name="World" type="Node3D"]
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 242.375, -1.05945e-05)
+
+[node name="player" parent="." instance=ExtResource("3_4666g")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 10.7616, 0.479158, 5.25235)
+
+[node name="WorldGenerator" type="Node3D" parent="." node_paths=PackedStringArray("viewer")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -159.5, 0)
+script = ExtResource("1_6kqi0")
+viewer = NodePath("../player")
+chunk_mesh_scene = ExtResource("2_kfu4g")
+mountain_noise = SubResource("FastNoiseLite_n78np")
+fields_noise = SubResource("FastNoiseLite_4jw5r")
