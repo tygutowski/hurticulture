@@ -33,9 +33,9 @@ func do_stuff_with_packet(data: Dictionary) -> void:
 		# checking to be safe lol
 		if node != null:
 			node.transform = transform
-	# if youre the host, tell the peers whats going on
-	if not is_host:
-		if data["type"] == MessageType.HANDSHAKE:
+	# if you're a peer, update to be equal to the host
+	elif data["type"] == MessageType.HANDSHAKE:
+		if not is_host:
 			var current_power = int(data["pow"])
 			PowerManager.current_power = current_power
 
@@ -82,15 +82,16 @@ func join_lobby(this_lobby_id: int) -> void:
 	lobby_members.clear()
 	Steam.joinLobby(this_lobby_id)
 
-func load_game():
+func load_world():
 	# change scene
 	var world_scene = load("res://environment/world.tscn")
 	var world = world_scene.instantiate()
 	await world._ready()
 	get_tree().get_root().get_node("Control").queue_free()
 	get_tree().get_root().add_child(world)
-	
-	# instance players
+
+func load_players() -> void:
+	var world = get_tree().get_root().get_node("world")
 	peers = world.get_node("Peers")
 	for i in range(len(lobby_members)):
 		# if its you, skip
@@ -109,8 +110,9 @@ func _on_lobby_joined(this_lobby_id: int, _permissions: int, _locked: bool, resp
 		print("Lobby %s joined" % this_lobby_id)
 		lobby_id = this_lobby_id
 		get_lobby_members()
+		load_world()
 		make_p2p_handshake()
-		load_game()
+		load_players()
 	else:
 		var fail_reason: String
 	
