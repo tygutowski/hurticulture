@@ -204,8 +204,6 @@ func create_lobby() -> void:
 	if lobby_id == 0:
 		print("Creating lobby")
 		Steam.createLobby(Steam.LOBBY_TYPE_FRIENDS_ONLY, 3)
-		
-		get_tree().change_scene_to_file("res://environment/world.tscn")
 	else:
 		print("ERROR: Cannot create a lobby, as you are already in a lobby.")
 
