@@ -92,8 +92,9 @@ func load_game():
 			continue
 		var peer_scene = load("res://peer.tscn")
 		var peer = peer_scene.instantiate()
-		peer.name = str(lobby_members[i]["steam_name"])
-		peer.get_node("Label3D").text = peer.name
+		peer.name = str(lobby_members[i]["steam_id"])
+		var username = str(lobby_members[i]["steam_name"])
+		peer.get_node("Label3D").text = username
 		peers.add_child(peer)
 
 # when you join a lobby
