@@ -15,22 +15,22 @@ func game_started() -> void:
 		assert(node is Electrical)
 	has_game_started = true
 
-func _process(_delta : float) -> void:
+func _process(delta : float) -> void:
 	if not has_game_started:
 		return
 	if not power_out:
 		power_sum = 0
 		for electrical_item in electrical_items:
 			if is_on(electrical_item):
-				drain(electrical_item)
+				drain(electrical_item, delta)
 	if not power_out and current_power == 0:
 		power_outage()
 	if power_out and current_power > 0:
 		power_return()
 
-func drain(electrical_item : Node):
+func drain(electrical_item : Node, delta: float):
 	var power_consumption = electrical_item.power_consumption
-	power_sum += power_consumption
+	power_sum += power_consumption * delta
 	current_power = clamp(current_power - power_consumption, 0, max_power)
 
 func is_on(electrical_item : Node):

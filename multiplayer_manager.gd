@@ -87,10 +87,10 @@ func load_world():
 	var world_scene = load("res://environment/world.tscn")
 	var world = world_scene.instantiate()
 	await world._ready()
-	get_tree().get_root().get_node("Control").queue_free()
 	get_tree().get_root().add_child(world)
 
 func load_players() -> void:
+	get_tree().get_root().get_node("Control").queue_free()
 	var world = get_tree().get_root().get_node("world")
 	peers = world.get_node("Peers")
 	for i in range(len(lobby_members)):
