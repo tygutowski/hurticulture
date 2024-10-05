@@ -21,7 +21,10 @@ func _ready() -> void:
 
 func do_stuff_with_packet(data: Dictionary) -> void:
 	if data["message"] == "player_update":
-		data["from"].transform = data["transform"]
+		var node_name = data["from"]
+		var node = peers.get_node(node_name)
+		var transform = data["transform"]
+		node.transform = transform
 
 func initialize_steam() -> void:
 	var error: Dictionary = Steam.steamInit(true, 480)
