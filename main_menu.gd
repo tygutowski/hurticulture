@@ -3,13 +3,13 @@ extends Control
 @onready var scroll_containers = get_node("OptionsVBox/MarginContainer2/VBoxContainer/VBoxContainer/ScrollContainers")
 
 func _ready() -> void:
-	get_node("ColorRect").visible = false
 	set_default_visibility()
 	var window_size = get_viewport().size.y
 	for scroll_container in scroll_containers.get_children():
 		scroll_container.set_custom_minimum_size(Vector2(0, floori(window_size * 0.3)))
 	_on_gameplay_settings_button_pressed()
 	setup_setting_signals()
+	get_node("ColorRect").visible = false
 
 func setup_setting_signals() -> void:
 	var fov_slider = get_node("OptionsVBox/MarginContainer2/VBoxContainer/VBoxContainer/ScrollContainers/GameplayScrollContainer/VBoxContainer/MarginContainer/HBoxContainer/MarginContainer/VBoxContainer/HBoxContainer/HSlider")
