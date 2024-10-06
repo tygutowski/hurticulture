@@ -10,7 +10,7 @@ var peers: Node3D = null
 const PACKET_READ_LIMIT = 32
 var is_host: bool = false
 
-enum MessageType {HANDSHAKE, PLAYER_UPDATE}
+enum MessageType {HANDSHAKE, PLAYER_UPDATE, INTERACTION}
 
 func _init():
 	OS.set_environment("SteamAppId", str(480))
@@ -24,8 +24,6 @@ func _ready() -> void:
 
 func do_stuff_with_packet(data: Dictionary) -> void:
 	# if youre sending yourself shit
-	if data["from"] == steam_id:
-		return
 	if data["type"] == MessageType.PLAYER_UPDATE:
 		var node_name = data["from"]
 		var node = peers.get_node_or_null(str(node_name))
@@ -41,7 +39,9 @@ func do_stuff_with_packet(data: Dictionary) -> void:
 			PowerManager.start_game()
 			var current_power = int(data["power"])
 			PowerManager.current_power = current_power
-
+	elif data["type"] == MessageType.INTERACTION:
+		var node = data["node"]
+		node.locally_interact()
 
 func initialize_steam() -> void:
 	var error: Dictionary = Steam.steamInit(true, 480)
