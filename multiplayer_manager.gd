@@ -36,9 +36,10 @@ func do_stuff_with_packet(data: Dictionary) -> void:
 	# if you're a peer, update to be equal to the host
 	elif data["type"] == MessageType.HANDSHAKE:
 		print("Received P2P handshake")
-		if not is_host:
-			print("Setting the power")
-			var current_power = int(data["pow"])
+		var already_started = data["has_started"]
+		if already_started:
+			PowerManager.start_game()
+			var current_power = int(data["power"])
 			PowerManager.current_power = current_power
 
 
@@ -116,7 +117,6 @@ func _on_lobby_joined(this_lobby_id: int, _permissions: int, _locked: bool, resp
 		# load the world in
 		load_world()
 		# get world data
-		make_p2p_handshake()
 		main_menu.finish_loading()
 	else:
 		var fail_reason: String
@@ -181,17 +181,17 @@ func send_p2p_packet(this_target: int, packet_data: Dictionary) -> void:
 func get_steam_id() -> int:
 	return steam_id
 
-func make_p2p_handshake() -> void:
-	print("Sending P2P handshake to the lobby")
-	send_p2p_packet(0, {
+func initialize_new_peer(player_id: int) -> void:
+	print("Sending P2P handshake to new player")
+	send_p2p_packet(player_id, {
 		"type" : MessageType.HANDSHAKE,
-		"from" : steam_id,
 		# power
-		"pow" : PowerManager.current_power,
+		"has_started" : PowerManager.has_game_started,
+		"power" : PowerManager.current_power
 		# upgrades
-		"ups" : []
 	})
 
+# when someone joins the lobby youre in lobby
 func add_to_lobby(player_id: int):
 	print("A player joined! Adding them to lobby")
 	var peer_scene = load("res://peer.tscn")
@@ -200,7 +200,8 @@ func add_to_lobby(player_id: int):
 	var username = Steam.getFriendPersonaName(player_id)
 	peer.get_node("Label3D").text = username
 	peers.add_child(peer)
-	make_p2p_handshake()
+	if is_host:
+		initialize_new_peer(player_id)
 
 #when the lobby is updated
 func _on_lobby_chat_updated(_this_lobby_id: int, change_id: int, _making_change_id: int, chat_state: int) -> void:
@@ -271,9 +272,7 @@ func read_all_p2p_packets(read_count: int = 0) -> void:
 func _on_p2p_session_request(remote_id: int) -> void:
 	var requester: String = Steam.getFriendPersonaName(remote_id)
 	print("%s is requesting a P2P session" % requester)
-	
 	Steam.acceptP2PSessionWithUser(remote_id)
-	make_p2p_handshake()
 
 func read_p2p_packet() -> void:
 	var packet_size: int = Steam.getAvailableP2PPacketSize(0)
