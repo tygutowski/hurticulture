@@ -10,7 +10,7 @@ func locally_interact():
 func interact():
 	var packet = {
 		"type" = MultiplayerManager.MessageType.INTERACTION,
-		"node_id" = get_instance_id()
+		"node_path" = get_path()
 	}
 	MultiplayerManager.send_p2p_packet(0, packet)
 	locally_interact()
