@@ -200,6 +200,7 @@ func add_to_lobby(player_id: int):
 	var username = Steam.getFriendPersonaName(player_id)
 	peer.get_node("Label3D").text = username
 	peers.add_child(peer)
+	make_p2p_handshake()
 
 #when the lobby is updated
 func _on_lobby_chat_updated(_this_lobby_id: int, change_id: int, _making_change_id: int, chat_state: int) -> void:
