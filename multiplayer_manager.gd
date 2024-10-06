@@ -40,7 +40,7 @@ func do_stuff_with_packet(data: Dictionary) -> void:
 			var current_power = int(data["power"])
 			PowerManager.current_power = current_power
 	elif data["type"] == MessageType.INTERACTION:
-		var encoded_object_as_id = int(data["node"])
+		var encoded_object_as_id: int = data["node"]
 		var node = instance_from_id(encoded_object_as_id)
 		node.locally_interact()
 
