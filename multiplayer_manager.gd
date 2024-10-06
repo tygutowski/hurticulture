@@ -35,7 +35,7 @@ func do_stuff_with_packet(data: Dictionary) -> void:
 			node.transform = transform
 	# if you're a peer, update to be equal to the host
 	elif data["type"] == MessageType.HANDSHAKE:
-		print("Received handshake")
+		print("Received P2P handshake")
 		if not is_host:
 			print("Setting the power")
 			var current_power = int(data["pow"])
@@ -85,6 +85,7 @@ func join_lobby(this_lobby_id: int) -> void:
 	Steam.joinLobby(this_lobby_id)
 
 func load_world() -> void:
+	print("Loading world")
 	# load the world scene
 	var world_scene = load("res://environment/world.tscn")
 	var world = world_scene.instantiate()
@@ -101,6 +102,7 @@ func load_world() -> void:
 		peer.get_node("Label3D").text = username
 		peers.add_child(peer)
 	get_tree().get_root().add_child(world)
+	print("World finished loading")
 	
 # when you join a lobby
 func _on_lobby_joined(this_lobby_id: int, _permissions: int, _locked: bool, response: int) -> void:
