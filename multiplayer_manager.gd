@@ -101,6 +101,7 @@ func load_world() -> void:
 		peer.get_node("Label3D").text = username
 		peers.add_child(peer)
 	get_tree().get_root().add_child(world)
+
 # when you join a lobby
 func _on_lobby_joined(this_lobby_id: int, _permissions: int, _locked: bool, response: int) -> void:
 	if response == Steam.CHAT_ROOM_ENTER_RESPONSE_SUCCESS:

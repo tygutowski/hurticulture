@@ -3,6 +3,7 @@ extends Control
 @onready var scroll_containers = get_node("OptionsVBox/MarginContainer2/VBoxContainer/VBoxContainer/ScrollContainers")
 
 func _ready() -> void:
+	get_node("ColorRect").visible = false
 	set_default_visibility()
 	var window_size = get_viewport().size.y
 	for scroll_container in scroll_containers.get_children():
