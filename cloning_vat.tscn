@@ -1,0 +1,59 @@
+[gd_scene load_steps=9 format=3 uid="uid://duotb7ol03ihn"]
+
+[ext_resource type="Script" path="res://cloning_vat.gd" id="1_46yrm"]
+[ext_resource type="Texture2D" uid="uid://b5a47b40ls11r" path="res://128x128/Metal/Metal_12-128x128.png" id="1_rh6oi"]
+[ext_resource type="Texture2D" uid="uid://cdnu4n17ag1q6" path="res://128x128/Metal/Metal_01-128x128.png" id="2_rij0f"]
+[ext_resource type="Material" uid="uid://ts2y0jb4bp6o" path="res://cloning_vat_window.tres" id="4_5ipw6"]
+
+[sub_resource type="BoxMesh" id="BoxMesh_0jt16"]
+size = Vector3(2, 1, 2)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_vp7i0"]
+albedo_color = Color(0.381703, 0.381703, 0.381703, 1)
+albedo_texture = ExtResource("1_rh6oi")
+metallic = 1.0
+metallic_specular = 0.3
+metallic_texture = ExtResource("2_rij0f")
+uv1_triplanar = true
+
+[sub_resource type="BoxMesh" id="BoxMesh_7wgbu"]
+size = Vector3(2, 3, 2)
+
+[sub_resource type="BoxMesh" id="BoxMesh_voij8"]
+size = Vector3(0.01, 3, 1.8)
+
+[node name="Node3D" type="Node3D"]
+script = ExtResource("1_46yrm")
+
+[node name="Base" type="MeshInstance3D" parent="."]
+mesh = SubResource("BoxMesh_0jt16")
+surface_material_override/0 = SubResource("StandardMaterial3D_vp7i0")
+
+[node name="Top" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 5, 0)
+layers = 5
+mesh = SubResource("BoxMesh_7wgbu")
+surface_material_override/0 = SubResource("StandardMaterial3D_vp7i0")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.9, 2, 0)
+mesh = SubResource("BoxMesh_voij8")
+surface_material_override/0 = ExtResource("4_5ipw6")
+
+[node name="MeshInstance3D2" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.9, 2, 0)
+mesh = SubResource("BoxMesh_voij8")
+surface_material_override/0 = ExtResource("4_5ipw6")
+
+[node name="MeshInstance3D3" type="MeshInstance3D" parent="."]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 0, 2, -0.9)
+mesh = SubResource("BoxMesh_voij8")
+surface_material_override/0 = ExtResource("4_5ipw6")
+
+[node name="door_pivot" type="Node3D" parent="."]
+
+[node name="MeshInstance3D4" type="MeshInstance3D" parent="door_pivot"]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 0, 2, 0.9)
+mesh = SubResource("BoxMesh_voij8")
+skeleton = NodePath("../..")
+surface_material_override/0 = ExtResource("4_5ipw6")

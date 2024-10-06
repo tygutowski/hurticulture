@@ -35,7 +35,9 @@ func do_stuff_with_packet(data: Dictionary) -> void:
 			node.transform = transform
 	# if you're a peer, update to be equal to the host
 	elif data["type"] == MessageType.HANDSHAKE:
+		print("Received handshake")
 		if not is_host:
+			print("Setting the power")
 			var current_power = int(data["pow"])
 			PowerManager.current_power = current_power
 
@@ -82,17 +84,12 @@ func join_lobby(this_lobby_id: int) -> void:
 	lobby_members.clear()
 	Steam.joinLobby(this_lobby_id)
 
-func load_world():
-	# change scene
+func load_world() -> void:
+	# load the world scene
 	var world_scene = load("res://environment/world.tscn")
 	var world = world_scene.instantiate()
-	await world._ready()
-	get_tree().get_root().add_child(world)
-
-func load_players() -> void:
-	get_tree().get_root().get_node("Control").queue_free()
-	var world = get_tree().get_root().get_node("world")
 	peers = world.get_node("Peers")
+	# load and add players
 	for i in range(len(lobby_members)):
 		# if its you, skip
 		if lobby_members[i]["steam_id"] == steam_id:
@@ -103,16 +100,21 @@ func load_players() -> void:
 		var username = str(lobby_members[i]["steam_name"])
 		peer.get_node("Label3D").text = username
 		peers.add_child(peer)
-
+	get_tree().get_root().add_child(world)
 # when you join a lobby
 func _on_lobby_joined(this_lobby_id: int, _permissions: int, _locked: bool, response: int) -> void:
 	if response == Steam.CHAT_ROOM_ENTER_RESPONSE_SUCCESS:
 		print("Lobby %s joined" % this_lobby_id)
 		lobby_id = this_lobby_id
+		var main_menu = get_tree().current_scene
+		main_menu.begin_loading()
+		# update the list of current lobby members
 		get_lobby_members()
+		# load the world in
 		load_world()
+		# get world data
 		make_p2p_handshake()
-		load_players()
+		main_menu.finish_loading()
 	else:
 		var fail_reason: String
 	

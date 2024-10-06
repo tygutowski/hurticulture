@@ -9,7 +9,7 @@ var power_sum : float = 0
 
 var has_game_started : bool = false
 
-func game_started() -> void:
+func start_game() -> void:
 	electrical_items = get_tree().get_nodes_in_group("electrical")
 	for node in electrical_items:
 		assert(node is Electrical)

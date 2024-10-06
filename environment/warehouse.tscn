@@ -1,4 +1,4 @@
-[gd_scene load_steps=75 format=3 uid="uid://bcfemkf41qw1s"]
+[gd_scene load_steps=76 format=3 uid="uid://bcfemkf41qw1s"]
 
 [ext_resource type="Material" uid="uid://c3v741g5b1csm" path="res://environment/materials/concrete_material.tres" id="1_bapng"]
 [ext_resource type="PackedScene" uid="uid://bxq1mnjbcjkj1" path="res://environment/structures/florescentlight.tscn" id="2_fwg1e"]
@@ -10,6 +10,7 @@
 [ext_resource type="PackedScene" uid="uid://d2bf5huvt4ak2" path="res://electrical/button.tscn" id="7_gou3n"]
 [ext_resource type="Script" path="res://environment/power_generator.gd" id="8_xc0j5"]
 [ext_resource type="PackedScene" uid="uid://drkfhhj11qpqf" path="res://environment/objects/generator.tscn" id="11_7heok"]
+[ext_resource type="Script" path="res://environment/game_starter.gd" id="11_n0l0v"]
 
 [sub_resource type="BoxMesh" id="BoxMesh_nksia"]
 size = Vector3(3, 2, 0.25)
@@ -317,45 +318,42 @@ texture = SubResource("ViewportTexture_i76td")
 
 [node name="Structure" type="Node3D" parent="."]
 
-[node name="button" parent="Structure" node_paths=PackedStringArray("electronic") instance=ExtResource("7_gou3n")]
+[node name="button" parent="Structure" node_paths=PackedStringArray("electronics") instance=ExtResource("7_gou3n")]
 transform = Transform3D(1.31134e-07, 0, -1, 0, 1, 0, 1, 0, 1.31134e-07, 4, -0.0652124, 2.25)
-electronic = NodePath("../Door")
+electronics = [NodePath("../../GameStarter"), NodePath("../Door")]
 
 [node name="Door" parent="Structure" instance=ExtResource("4_s5px5")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 7.5, 0.375, 0)
 state = 1
 power_consumption = 20.0
 
-[node name="button2" parent="Structure" node_paths=PackedStringArray("electronic") instance=ExtResource("7_gou3n")]
+[node name="button2" parent="Structure" node_paths=PackedStringArray("electronics") instance=ExtResource("7_gou3n")]
 transform = Transform3D(1.31134e-07, 0, -1, 0, 1, 0, 1, 0, 1.31134e-07, 4, -0.669364, 2.25)
-electronic = NodePath("../Door2")
+electronics = [NodePath("../../GameStarter"), NodePath("../Door2")]
 
 [node name="Door2" parent="Structure" instance=ExtResource("4_s5px5")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4.5, 0.375, 0)
-state = 1
 power_consumption = 20.0
 
-[node name="button3" parent="Structure" node_paths=PackedStringArray("electronic") instance=ExtResource("7_gou3n")]
+[node name="button3" parent="Structure" node_paths=PackedStringArray("electronics") instance=ExtResource("7_gou3n")]
 transform = Transform3D(-2.18557e-07, 0, 1, 0, 1, 0, -1, 0, -2.18557e-07, -4, -0.1062, 2.25)
-electronic = NodePath("../Door3")
+electronics = [NodePath("../../GameStarter"), NodePath("../Door3")]
 
 [node name="Door3" parent="Structure" instance=ExtResource("4_s5px5")]
 transform = Transform3D(-1, 0, 8.74228e-08, 0, 1, 0, -8.74228e-08, 0, -1, -7.5, 0.375, 0)
 state = 1
 power_consumption = 20.0
 
-[node name="button4" parent="Structure" node_paths=PackedStringArray("electronic") instance=ExtResource("7_gou3n")]
+[node name="button4" parent="Structure" node_paths=PackedStringArray("electronics") instance=ExtResource("7_gou3n")]
 transform = Transform3D(-2.18557e-07, 0, 1, 0, 1, 0, -1, 0, -2.18557e-07, -4, -0.718607, 2.25)
-electronic = NodePath("../Door4")
+electronics = [NodePath("../../GameStarter"), NodePath("../Door4")]
 
 [node name="Door4" parent="Structure" instance=ExtResource("4_s5px5")]
 transform = Transform3D(-1, 0, 8.74228e-08, 0, 1, 0, -8.74228e-08, 0, -1, -4.5, 0.375, 3.97904e-13)
-state = 1
 power_consumption = 20.0
 
-[node name="button5" parent="Structure" node_paths=PackedStringArray("electronic") instance=ExtResource("7_gou3n")]
+[node name="button5" parent="Structure" instance=ExtResource("7_gou3n")]
 transform = Transform3D(1, 0, 1.74845e-07, 0, 1, 0, -1.74845e-07, 0, 1, -1.97637, -0.0931054, -5.71054)
-electronic = NodePath("../PowerGenerator")
 
 [node name="PowerGenerator" type="Node3D" parent="Structure"]
 transform = Transform3D(-1, 0, -2.62268e-07, 0, 1, 0, 2.62268e-07, 0, -1, -1, 0.25, 5.75)
@@ -861,3 +859,6 @@ shape = SubResource("ConcavePolygonShape3D_ywuoh")
 
 [node name="Generator2" parent="." instance=ExtResource("11_7heok")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -6.375, -1.5, 4.125)
+
+[node name="GameStarter" type="Node3D" parent="."]
+script = ExtResource("11_n0l0v")

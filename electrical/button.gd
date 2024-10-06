@@ -1,7 +1,8 @@
 extends Interactable
 
 # node that we will be interacting with
-@export var electronic : Node3D
+@export var electronics : Array[Node3D] = []
 
 func interact():
-	electronic.interact()
+	for electronic in electronics:
+		electronic.interact()

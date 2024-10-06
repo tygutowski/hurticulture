@@ -101,3 +101,9 @@ func _on_join_lobby_button_pressed() -> void:
 
 func _on_create_lobby_button_pressed() -> void:
 	MultiplayerManager.create_lobby()
+
+func begin_loading() -> void:
+	get_node("ColorRect").visible = true
+
+func finish_loading() -> void:
+	queue_free()
