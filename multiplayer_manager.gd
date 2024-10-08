@@ -9,18 +9,45 @@ var avatar_list = {}
 var peers: Node3D = null
 const PACKET_READ_LIMIT = 32
 var is_host: bool = false
-
+const GAME_ID: int = 3281120
 enum MessageType {HANDSHAKE, PLAYER_UPDATE, INTERACTION}
 
 func _init():
-	OS.set_environment("SteamAppId", str(480))
-	OS.set_environment("SteamGameId", str(480))
-
+	OS.set_environment("SteamAppId", str(GAME_ID))
+	OS.set_environment("SteamGameId", str(GAME_ID))
+	
 func _ready() -> void:
 	initialize_steam()
 	connect_signals()
 	steam_id = Steam.getSteamID()
 	steam_username = Steam.getPersonaName()
+
+func connect_signals() -> void:
+	print("Connecting signals")
+	Steam.p2p_session_request.connect(_on_p2p_session_request)
+	Steam.p2p_session_connect_fail.connect(_on_p2p_session_connect_fail)
+	Steam.join_requested.connect(_on_lobby_join_requested)
+	Steam.lobby_created.connect(_on_lobby_created)
+	Steam.lobby_joined.connect(_on_lobby_joined)
+	Steam.lobby_data_update.connect(_on_lobby_data_update)
+	Steam.persona_state_change.connect(_on_persona_change)
+	Steam.avatar_loaded.connect(_on_loaded_avatar)
+	Steam.lobby_chat_update.connect(_on_lobby_chat_updated)
+	check_command_line() # check cmd line arguments
+
+func initialize_steam() -> void:
+	var error: Dictionary = Steam.steamInit(true, GAME_ID)
+	if error["status"] != 1:
+		print("Steamworks Error: " + error["verbal"])
+		get_tree().quit()
+	if not Steam.isSubscribed():
+		print("User does not own this game")
+		get_tree().quit()
+
+func _process(_delta) -> void:
+	Steam.run_callbacks()
+	if lobby_id > 0:
+		read_all_p2p_packets()
 
 func do_stuff_with_packet(data: Dictionary) -> void:
 	# if youre sending yourself shit
@@ -43,33 +70,6 @@ func do_stuff_with_packet(data: Dictionary) -> void:
 		var node_path = data["node_path"]
 		var node = get_node(node_path)
 		node.locally_interact()
-
-func initialize_steam() -> void:
-	var error: Dictionary = Steam.steamInit(true, 480)
-	if error["status"] != 1:
-		print("Steamworks Error: " + error["verbal"])
-		get_tree().quit()
-	if not Steam.isSubscribed():
-		print("User does not own this game")
-		get_tree().quit()
-
-func connect_signals() -> void:
-	print("Connecting signals")
-	Steam.p2p_session_request.connect(_on_p2p_session_request)
-	Steam.p2p_session_connect_fail.connect(_on_p2p_session_connect_fail)
-	Steam.join_requested.connect(_on_lobby_join_requested)
-	Steam.lobby_created.connect(_on_lobby_created)
-	Steam.lobby_joined.connect(_on_lobby_joined)
-	Steam.lobby_data_update.connect(_on_lobby_data_update)
-	Steam.persona_state_change.connect(_on_persona_change)
-	Steam.avatar_loaded.connect(_on_loaded_avatar)
-	Steam.lobby_chat_update.connect(_on_lobby_chat_updated)
-	check_command_line() # check cmd line arguments
-
-func _process(_delta) -> void:
-	Steam.run_callbacks()
-	if lobby_id > 0:
-		read_all_p2p_packets()
 
 # this is important for joining with shift+tab
 func check_command_line() -> void:
