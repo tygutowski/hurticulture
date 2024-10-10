@@ -14,6 +14,8 @@ func _ready() -> void:
 		turn_on(false, false)
 
 func interact() -> void:
+	var data: Dictionary = {}
+	MultiplayerManager.send_p2p_packet(0, data, MultiplayerManager.PacketTypes.TCP)
 	if PowerManager.power_out:
 		return
 	if tween and tween.is_running():

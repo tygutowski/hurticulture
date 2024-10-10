@@ -85,8 +85,8 @@ func _on_timer_timeout() -> void:
 
 func send_packet() -> void:
 	var packet = {
-		"type" : MultiplayerManager.MessageType.PLAYER_UPDATE,
 		"from" : MultiplayerManager.get_steam_id(),
-		"pos" : get_tree().get_first_node_in_group("player").global_transform
+		"position" : position,
+		"rotation" : rotation
 	}
-	MultiplayerManager.send_p2p_packet(0, packet)
+	MultiplayerManager.send_p2p_packet(0, packet, MultiplayerManager.MessageType.UPDATE)

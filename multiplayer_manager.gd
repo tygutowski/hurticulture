@@ -1,5 +1,10 @@
 extends Node
 
+const PACKET_READ_LIMIT = 32
+const GAME_ID: int = 3281120
+
+enum MessageType {HANDSHAKE, SPAWN_ITEM, SPAWN_ENEMY, USAGE, UPDATE, VOICE}
+
 var lobby_id: int = 0
 var lobby_members: Array[Dictionary] = []
 var steam_id: int = -1
@@ -7,10 +12,11 @@ var steam_username: String = ''
 var nickname: String = 'player'
 var avatar_list = {}
 var peers: Node3D = null
-const PACKET_READ_LIMIT = 32
 var is_host: bool = false
-const GAME_ID: int = 3281120
-enum MessageType {HANDSHAKE, PLAYER_UPDATE, INTERACTION}
+
+var item_data: Array = []
+var enemy_data: Array = []
+var player_data: Array = []
 
 func _init():
 	OS.set_environment("SteamAppId", str(GAME_ID))
@@ -50,26 +56,38 @@ func _process(_delta) -> void:
 		read_all_p2p_packets()
 
 func do_stuff_with_packet(data: Dictionary) -> void:
-	# if youre sending yourself shit
-	if data["type"] == MessageType.PLAYER_UPDATE:
-		var node_name = data["from"]
-		var node = peers.get_node_or_null(str(node_name))
-		var transform = data["pos"]
-		# checking to be safe lol
-		if node != null:
-			node.transform = transform
-	# if you're a peer, update to be equal to the host
-	elif data["type"] == MessageType.HANDSHAKE:
-		print("Received P2P handshake")
-		var already_started = data["has_started"]
-		if already_started:
-			PowerManager.start_game()
-			var current_power = int(data["power"])
-			PowerManager.current_power = current_power
-	elif data["type"] == MessageType.INTERACTION:
-		var node_path = data["node_path"]
-		var node = get_node(node_path)
-		node.locally_interact()
+	var keys = data.keys()
+	if "type" in keys:
+		var type: int = data["type"]
+		if type == MessageType.HANDSHAKE:
+			# List of all players
+			var player_data: Array = data["player_data"]
+			# List of all objects
+			var item_data: Array = data["item_data"]
+			# List of all enemies
+			var enemy_data: Array = data["enemy_data"]
+			var has_already_started: bool = data["has_game_started"]
+			var current_power: float = data["current_power"]
+			
+		elif type == MessageType.SPAWN_ITEM:
+			var item = data["item"]
+		elif type == MessageType.SPAWN_ENEMY:
+			var node_path = data["node_path"]
+			var enemy = get_node(node_path)
+		elif type == MessageType.USAGE:
+			var player_id = data["from"]
+			var node_path = data["node_path"]
+			var used_item = get_node(node_path)
+		elif type == MessageType.UPDATE:
+			var player_id = data["from"]
+			var player = peers.get_node(player_id)
+			if is_instance_valid(player):
+				var new_position = data["position"]
+				var new_rotation = data["rotation"]
+				player.position = new_position
+				player.rotation = new_rotation
+		elif type == MessageType.VOICE:
+			pass
 
 # this is important for joining with shift+tab
 func check_command_line() -> void:
@@ -162,8 +180,23 @@ func _on_persona_change(this_steam_id: int, _flag: int) -> void:
 		print("%s's information has changed, updating the lobby list" % this_steam_id)
 		get_lobby_members()
 
-func send_p2p_packet(this_target: int, packet_data: Dictionary) -> void:
-	var send_type: int = Steam.P2P_SEND_RELIABLE
+func send_p2p_packet(this_target: int, packet_data: Dictionary, type: MessageType) -> void:
+	var data: Dictionary = {}
+	data["type"] = type
+	var send_type: int = -1
+	if type == MessageType.HANDSHAKE:
+		send_type = Steam.P2P_SEND_RELIABLE
+	elif type == MessageType.USAGE:
+		send_type = Steam.P2P_SEND_RELIABLE
+	elif type == MessageType.SPAWN_ENEMY:
+		send_type = Steam.P2P_SEND_RELIABLE
+	elif type == MessageType.SPAWN_ITEM:
+		send_type = Steam.P2P_SEND_RELIABLE
+	elif type == MessageType.UPDATE:
+		send_type = Steam.P2P_SEND_UNRELIABLE
+	elif type == MessageType.VOICE:
+		send_type = Steam.P2P_SEND_UNRELIABLE_NO_DELAY
+	assert(send_type > 0)
 	var channel: int = 0
 	
 	var this_data: PackedByteArray
@@ -184,13 +217,14 @@ func get_steam_id() -> int:
 
 func initialize_new_peer(player_id: int) -> void:
 	print("Sending P2P handshake to new player")
-	send_p2p_packet(player_id, {
-		"type" : MessageType.HANDSHAKE,
-		# power
-		"has_started" : PowerManager.has_game_started,
-		"power" : PowerManager.current_power
-		# upgrades
-	})
+	var packet = {
+		"has_game_started" : PowerManager.has_game_started,
+		"current_power" : PowerManager.current_power,
+		"item_data" : item_data,
+		"enemy_data" : enemy_data,
+		"player_data" : player_data
+	}
+	send_p2p_packet(player_id, packet, MessageType.HANDSHAKE)
 
 # when someone joins the lobby youre in lobby
 func add_to_lobby(player_id: int):
