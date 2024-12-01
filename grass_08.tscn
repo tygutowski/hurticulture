@@ -1,0 +1,15 @@
+[gd_scene load_steps=4 format=3 uid="uid://dpjcmi84nnh01"]
+
+[ext_resource type="PackedScene" uid="uid://cnkdaueyl6cv5" path="res://environment/plants/models/glTF/grass/grass08.glb" id="1_fa76j"]
+[ext_resource type="Texture2D" uid="uid://canojyyi1qcv4" path="res://environment/plants/textures/grass/grass_fall.png" id="2_la5pc"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_e1atn"]
+transparency = 2
+alpha_scissor_threshold = 0.5
+alpha_antialiasing_mode = 0
+albedo_texture = ExtResource("2_la5pc")
+
+[node name="grass08" instance=ExtResource("1_fa76j")]
+
+[node name="grass8" parent="." index="0"]
+material_override = SubResource("StandardMaterial3D_e1atn")

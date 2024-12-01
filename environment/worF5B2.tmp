@@ -1,0 +1,188 @@
+[gd_scene load_steps=11 format=3 uid="uid://xqixgx0mkgd5"]
+
+[ext_resource type="Script" path="res://environment/world.gd" id="1_qtdeh"]
+[ext_resource type="Texture2D" uid="uid://k30tlkc6jkuv" path="res://128x128/Dirt/Dirt_17-128x128.png" id="4_fxcki"]
+[ext_resource type="Sky" uid="uid://bksnmedr4i5sw" path="res://environment/sky.tres" id="6_cuheq"]
+[ext_resource type="Script" path="res://environment/MapGenerator.gd" id="9_yuimj"]
+
+[sub_resource type="Animation" id="Animation_phebe"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("DirectionalLight3D:rotation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(-1.24946, -1.89504, 1.77926)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("WorldEnvironment:environment:sky")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [ExtResource("6_cuheq")]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("WorldEnvironment:environment:sky:sky_material:sky_curve")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [0.126135]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("WorldEnvironment:environment:sky:sky_material:sky_energy_multiplier")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [4.28708e-05]
+}
+tracks/4/type = "value"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("DirectionalLight3D:light_energy")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [1.0]
+}
+
+[sub_resource type="Animation" id="Animation_rwlcb"]
+resource_name = "day_night_cycle"
+length = 600.0
+loop_mode = 1
+step = 1.0
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("DirectionalLight3D:rotation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 600),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector3(6.28319, 0.261799, 0), Vector3(0, 0.261799, 0)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("WorldEnvironment:environment:sky:sky_material:sky_energy_multiplier")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 1, 296, 300),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 0,
+"values": [0.0, 1.0, 1.0, 4.28708e-05]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("DirectionalLight3D:light_energy")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 1, 296, 300),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 0,
+"values": [0.0, 1.0, 1.0, 0.0]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_jryhg"]
+_data = {
+"RESET": SubResource("Animation_phebe"),
+"day_night_cycle": SubResource("Animation_rwlcb")
+}
+
+[sub_resource type="Environment" id="Environment_qb20k"]
+background_mode = 2
+sky = ExtResource("6_cuheq")
+ambient_light_source = 1
+reflected_light_source = 2
+tonemap_mode = 3
+sdfgi_enabled = true
+sdfgi_use_occlusion = true
+sdfgi_cascades = 2
+sdfgi_y_scale = 0
+fog_mode = 1
+fog_light_color = Color(0, 0, 0, 1)
+fog_density = 1.0
+fog_depth_begin = 0.0
+fog_depth_end = 200.0
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_oqun7"]
+noise_type = 0
+frequency = 0.0094
+fractal_type = 3
+fractal_octaves = 3
+fractal_lacunarity = 0.845
+fractal_gain = 0.715
+fractal_weighted_strength = 0.85
+fractal_ping_pong_strength = 0.975
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_7scw3"]
+albedo_texture = ExtResource("4_fxcki")
+
+[node name="world" type="Node3D" groups=["world"]]
+script = ExtResource("1_qtdeh")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_jryhg")
+}
+autoplay = "day_night_cycle"
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
+transform = Transform3D(0.945837, 0.125563, -0.299377, 0.308997, -0.0653642, 0.948814, 0.0995672, -0.98993, -0.100622, 0, 0, 0)
+shadow_enabled = true
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_qb20k")
+
+[node name="WorldGenerator" type="Node" parent="."]
+script = ExtResource("9_yuimj")
+world_noise = SubResource("FastNoiseLite_oqun7")
+tree_scenes = null
+
+[node name="StaticBody3D" type="StaticBody3D" parent="WorldGenerator"]
+collision_layer = 257
+collision_mask = 257
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="WorldGenerator"]
+material_override = SubResource("StandardMaterial3D_7scw3")
+
+[node name="RayCast3D" type="RayCast3D" parent="WorldGenerator"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 100, 0)
+target_position = Vector3(0, -200, 0)
+collision_mask = 257
+hit_from_inside = true
+debug_shape_custom_color = Color(0.89, 0, 0.771333, 1)
+debug_shape_thickness = 3
+
+[node name="Peers" type="Node" parent="WorldGenerator" groups=["peers"]]
+
+[node name="GeneratedItems" type="Node" parent="WorldGenerator"]
+
+[node name="Trees" type="Node" parent="WorldGenerator/GeneratedItems"]

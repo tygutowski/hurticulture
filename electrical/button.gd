@@ -11,5 +11,5 @@ func interact():
 	var packet = {
 		"node_path" = get_path()
 	}
-	MultiplayerManager.send_p2p_packet(0, packet, MultiplayerManager.USAGE)
+	MultiplayerManager.send_p2p_packet(0, packet, MultiplayerManager.MessageType.USAGE)
 	push_button()

@@ -1,3 +1,4 @@
 extends Node3D
 
-@onready var player = get_node("player")
+func _ready() -> void:
+	get_node("WorldGenerator").generate_world()

@@ -1,0 +1,22 @@
+[gd_scene load_steps=5 format=3 uid="uid://cwy7dskdsutpv"]
+
+[ext_resource type="PackedScene" uid="uid://ctlvf5o4cu5w" path="res://environment/plants/models/glTF/trees/tree01.glb" id="1_qioxp"]
+[ext_resource type="Texture2D" uid="uid://cycv0byqr1lqu" path="res://environment/plants/textures/trees/tree01_fall.png" id="2_xc7xe"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_kl67a"]
+albedo_texture = ExtResource("2_xc7xe")
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_xa001"]
+transparency = 2
+alpha_scissor_threshold = 0.5
+alpha_antialiasing_mode = 0
+albedo_texture = ExtResource("2_xc7xe")
+
+[node name="tree012" instance=ExtResource("1_qioxp")]
+
+[node name="tree01" parent="." index="0"]
+transform = Transform3D(3, 0, 0, 0, 3, 0, 0, 0, 3, 0, 0, 0)
+surface_material_override/0 = SubResource("StandardMaterial3D_kl67a")
+
+[node name="tree01_top" parent="tree01" index="0"]
+material_override = SubResource("StandardMaterial3D_xa001")

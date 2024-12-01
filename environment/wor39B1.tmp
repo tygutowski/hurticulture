@@ -1,0 +1,229 @@
+[gd_scene load_steps=19 format=3 uid="uid://xqixgx0mkgd5"]
+
+[ext_resource type="Script" path="res://environment/world.gd" id="1_qtdeh"]
+[ext_resource type="PackedScene" uid="uid://bcfemkf41qw1s" path="res://environment/warehouse.tscn" id="2_1foud"]
+[ext_resource type="PackedScene" uid="uid://b5xjtp4qjtafs" path="res://player/player.tscn" id="2_p8avn"]
+[ext_resource type="PackedScene" uid="uid://cfv5rt8hsxylt" path="res://environment/fruits/test_fruit.tscn" id="4_ia2ke"]
+[ext_resource type="PackedScene" uid="uid://bwu8dfp2qp3kc" path="res://environment/fruits/gourd.tscn" id="5_uivlw"]
+[ext_resource type="PackedScene" uid="uid://brwsacpk1qa7g" path="res://bush.tscn" id="6_5urql"]
+[ext_resource type="Sky" uid="uid://bksnmedr4i5sw" path="res://environment/sky.tres" id="6_cuheq"]
+[ext_resource type="PackedScene" uid="uid://biuxgetxpg4en" path="res://environment/structures/oldlamp.tscn" id="8_pfe26"]
+[ext_resource type="Script" path="res://environment/MapGenerator.gd" id="9_yuimj"]
+
+[sub_resource type="ArrayMesh" id="ArrayMesh_fn5sy"]
+
+[sub_resource type="Animation" id="Animation_phebe"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("DirectionalLight3D:rotation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(-1.24946, -1.89504, 1.77926)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("WorldEnvironment:environment:sky")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [ExtResource("6_cuheq")]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("WorldEnvironment:environment:sky:sky_material:sky_curve")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [0.126135]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("WorldEnvironment:environment:sky:sky_material:sky_energy_multiplier")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [4.28708e-05]
+}
+tracks/4/type = "value"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("DirectionalLight3D:light_energy")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [1.0]
+}
+
+[sub_resource type="Animation" id="Animation_rwlcb"]
+resource_name = "day_night_cycle"
+length = 600.0
+loop_mode = 1
+step = 1.0
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("DirectionalLight3D:rotation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 600),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector3(6.28319, 0.261799, 0), Vector3(0, 0.261799, 0)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("WorldEnvironment:environment:sky:sky_material:sky_energy_multiplier")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 1, 296, 300),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 0,
+"values": [0.0, 1.0, 1.0, 4.28708e-05]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("DirectionalLight3D:light_energy")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 1, 296, 300),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 0,
+"values": [0.0, 1.0, 1.0, 0.0]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_jryhg"]
+_data = {
+"RESET": SubResource("Animation_phebe"),
+"day_night_cycle": SubResource("Animation_rwlcb")
+}
+
+[sub_resource type="Environment" id="Environment_qb20k"]
+background_mode = 2
+sky = ExtResource("6_cuheq")
+ambient_light_source = 1
+reflected_light_source = 2
+tonemap_mode = 3
+sdfgi_enabled = true
+sdfgi_use_occlusion = true
+sdfgi_cascades = 2
+sdfgi_y_scale = 0
+fog_mode = 1
+fog_light_color = Color(0, 0, 0, 1)
+fog_density = 1.0
+fog_depth_begin = 0.0
+fog_depth_end = 200.0
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_5kkx3"]
+radius = 25.0
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_14hle"]
+radius = 86.4921
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_3dqnd"]
+noise_type = 0
+frequency = 0.0174
+fractal_type = 0
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_oqun7"]
+
+[node name="world" type="Node3D" groups=["world"]]
+script = ExtResource("1_qtdeh")
+
+[node name="warehouse" parent="." instance=ExtResource("2_1foud")]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 0, 2.5, 0)
+
+[node name="ground" type="Node3D" parent="."]
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="ground"]
+visible = false
+mesh = SubResource("ArrayMesh_fn5sy")
+
+[node name="player" parent="." instance=ExtResource("2_p8avn")]
+transform = Transform3D(-0.170089, 0, -0.985429, 0, 1, 0, 0.985429, 0, -0.170089, 3.3379, 2, 0.294955)
+
+[node name="Peers" type="Node3D" parent="." groups=["peers"]]
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_jryhg")
+}
+autoplay = "day_night_cycle"
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
+transform = Transform3D(0.945837, 0.125563, -0.299377, 0.308997, -0.0653642, 0.948814, 0.0995672, -0.98993, -0.100622, 0, 0, 0)
+shadow_enabled = true
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_qb20k")
+
+[node name="RigidBody3D15" parent="." instance=ExtResource("4_ia2ke")]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, -4.35242, 3.55797, -4.58956)
+
+[node name="RigidBody3D16" parent="." instance=ExtResource("4_ia2ke")]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, -4.35242, 2.54179, -4.58956)
+
+[node name="RigidBody3D17" parent="." instance=ExtResource("4_ia2ke")]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, -4.35242, 1.53318, -4.58956)
+
+[node name="RigidBody3D18" parent="." instance=ExtResource("5_uivlw")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4.2207, 1.43559, -2.01155)
+
+[node name="RigidBody3D19" parent="." instance=ExtResource("5_uivlw")]
+transform = Transform3D(1, 0, 0, 0, 0.998501, 0.0547411, 0, -0.0547411, 0.998501, 3.53656, 1.45359, -2.01155)
+
+[node name="RigidBody3D20" parent="." instance=ExtResource("5_uivlw")]
+transform = Transform3D(1, 0, 0, 0, 0.977611, -0.210421, 0, 0.210421, 0.977611, 3.69579, 1.49753, -1.08889)
+
+[node name="Node3D" parent="." instance=ExtResource("6_5urql")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.41087, 0, 16.1798)
+
+[node name="OldLantern01b2" parent="." instance=ExtResource("8_pfe26")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5.29247, 0, 17.1413)
+
+[node name="OldLantern01b3" parent="." instance=ExtResource("8_pfe26")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3.33, 0, 12.5403)
+
+[node name="Area3D" type="Area3D" parent="."]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Area3D"]
+shape = SubResource("SphereShape3D_5kkx3")
+
+[node name="Area3D2" type="Area3D" parent="."]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Area3D2"]
+shape = SubResource("SphereShape3D_14hle")
+
+[node name="WorldGenerator" type="Node" parent="." node_paths=PackedStringArray("map")]
+script = ExtResource("9_yuimj")
+tree_noise = SubResource("FastNoiseLite_3dqnd")
+world_noise = SubResource("FastNoiseLite_oqun7")
+map = NodePath("../ground")
+tree_scenes = null
+
+[node name="GeneratedItems" type="Node" parent="."]

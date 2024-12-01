@@ -1,0 +1,19 @@
+[gd_scene load_steps=4 format=3 uid="uid://bvonlhcpxwyr6"]
+
+[ext_resource type="PackedScene" uid="uid://b6pfdl4pehcac" path="res://Retro Foliage Pixel Art Nature Kit - AFGameAssets - V1/3D Models/Birch_002.fbx" id="1_xqum3"]
+[ext_resource type="Texture2D" uid="uid://bqmbncpf3q8a8" path="res://Retro Foliage Pixel Art Nature Kit - AFGameAssets - V1/Textures/Tree_Birch_Autumn.png" id="2_rv1r3"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_pvo55"]
+transparency = 2
+alpha_scissor_threshold = 0.5
+alpha_antialiasing_mode = 0
+albedo_texture = ExtResource("2_rv1r3")
+
+[node name="Birch_002" instance=ExtResource("1_xqum3")]
+
+[node name="Tree_Birch_Trunk2" parent="." index="0"]
+transform = Transform3D(100, 0, 0, 0, -4.37114e-06, 100, 0, -100, -4.37114e-06, 0, 0, 0)
+
+[node name="Tree_Birch_Leaves2" parent="." index="1"]
+transform = Transform3D(-65.4015, -45.8739, 60.1518, 47.8728, 36.4693, 79.8636, -58.5734, 81.0283, -1.89035, 2, 0, 0)
+material_override = SubResource("StandardMaterial3D_pvo55")

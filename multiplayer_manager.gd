@@ -109,7 +109,7 @@ func load_world() -> void:
 	# load the world scene
 	var world_scene = load("res://environment/world.tscn")
 	var world = world_scene.instantiate()
-	peers = world.get_node("Peers")
+	peers = get_tree().get_first_node_in_group("Peers")
 	# load and add players
 	for i in range(len(lobby_members)):
 		# if its you, skip
@@ -182,7 +182,6 @@ func _on_persona_change(this_steam_id: int, _flag: int) -> void:
 
 func send_p2p_packet(this_target: int, packet_data: Dictionary, type: MessageType) -> void:
 	var data: Dictionary = {}
-	data["type"] = type
 	var send_type: int = -1
 	if type == MessageType.HANDSHAKE:
 		send_type = Steam.P2P_SEND_RELIABLE
@@ -196,7 +195,8 @@ func send_p2p_packet(this_target: int, packet_data: Dictionary, type: MessageTyp
 		send_type = Steam.P2P_SEND_UNRELIABLE
 	elif type == MessageType.VOICE:
 		send_type = Steam.P2P_SEND_UNRELIABLE_NO_DELAY
-	assert(send_type > 0)
+	assert(send_type != -1)
+	data["type"] = type
 	var channel: int = 0
 	
 	var this_data: PackedByteArray
