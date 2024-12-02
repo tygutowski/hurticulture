@@ -3,20 +3,19 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://cf7lkjgsmwtj0"
-path.s3tc="res://.godot/imported/Ground079L_2K-PNG_Displacement.png-60f9fd4245b5292d465c8a4d86096538.s3tc.ctex"
+path="res://.godot/imported/Ground079L_2K-PNG_Displacement.png-60f9fd4245b5292d465c8a4d86096538.ctex"
 metadata={
-"imported_formats": ["s3tc_bptc"],
-"vram_texture": true
+"vram_texture": false
 }
 
 [deps]
 
 source_file="res://textures/gravel/Ground079L_2K-PNG_Displacement.png"
-dest_files=["res://.godot/imported/Ground079L_2K-PNG_Displacement.png-60f9fd4245b5292d465c8a4d86096538.s3tc.ctex"]
+dest_files=["res://.godot/imported/Ground079L_2K-PNG_Displacement.png-60f9fd4245b5292d465c8a4d86096538.ctex"]
 
 [params]
 
-compress/mode=2
+compress/mode=0
 compress/high_quality=false
 compress/lossy_quality=0.7
 compress/hdr_compression=1

@@ -3,20 +3,19 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://h2hptx3dtjt8"
-path.s3tc="res://.godot/imported/Ground037_2K-PNG_Color.png-98cd7c21496d2959aaeaa432f474c616.s3tc.ctex"
+path="res://.godot/imported/Ground037_2K-PNG_Color.png-98cd7c21496d2959aaeaa432f474c616.ctex"
 metadata={
-"imported_formats": ["s3tc_bptc"],
-"vram_texture": true
+"vram_texture": false
 }
 
 [deps]
 
 source_file="res://textures/grassyground1/Ground037_2K-PNG_Color.png"
-dest_files=["res://.godot/imported/Ground037_2K-PNG_Color.png-98cd7c21496d2959aaeaa432f474c616.s3tc.ctex"]
+dest_files=["res://.godot/imported/Ground037_2K-PNG_Color.png-98cd7c21496d2959aaeaa432f474c616.ctex"]
 
 [params]
 
-compress/mode=2
+compress/mode=0
 compress/high_quality=false
 compress/lossy_quality=0.7
 compress/hdr_compression=1
