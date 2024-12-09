@@ -1,0 +1,22 @@
+[remap]
+
+importer="wavefront_obj"
+importer_version=1
+type="Mesh"
+uid="uid://551fbwpke5r4"
+path="res://.godot/imported/mDivider01.obj-e4c0a21beee8827b6ae0fee3d95306dd.mesh"
+
+[deps]
+
+files=["res://.godot/imported/mDivider01.obj-e4c0a21beee8827b6ae0fee3d95306dd.mesh"]
+
+source_file="res://psxpack/meshes/decor/mDivider01.obj"
+dest_files=["res://.godot/imported/mDivider01.obj-e4c0a21beee8827b6ae0fee3d95306dd.mesh", "res://.godot/imported/mDivider01.obj-e4c0a21beee8827b6ae0fee3d95306dd.mesh"]
+
+[params]
+
+generate_tangents=true
+scale_mesh=Vector3(1, 1, 1)
+offset_mesh=Vector3(0, 0, 0)
+optimize_mesh=true
+force_disable_mesh_compression=false

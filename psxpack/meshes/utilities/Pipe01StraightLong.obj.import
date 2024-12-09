@@ -1,0 +1,22 @@
+[remap]
+
+importer="wavefront_obj"
+importer_version=1
+type="Mesh"
+uid="uid://ddvsmult4kbm4"
+path="res://.godot/imported/Pipe01StraightLong.obj-20707e4a38d9d03b4e5e4665fcd38da6.mesh"
+
+[deps]
+
+files=["res://.godot/imported/Pipe01StraightLong.obj-20707e4a38d9d03b4e5e4665fcd38da6.mesh"]
+
+source_file="res://psxpack/meshes/utilities/Pipe01StraightLong.obj"
+dest_files=["res://.godot/imported/Pipe01StraightLong.obj-20707e4a38d9d03b4e5e4665fcd38da6.mesh", "res://.godot/imported/Pipe01StraightLong.obj-20707e4a38d9d03b4e5e4665fcd38da6.mesh"]
+
+[params]
+
+generate_tangents=true
+scale_mesh=Vector3(1, 1, 1)
+offset_mesh=Vector3(0, 0, 0)
+optimize_mesh=true
+force_disable_mesh_compression=false

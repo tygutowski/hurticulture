@@ -1,0 +1,22 @@
+[remap]
+
+importer="wavefront_obj"
+importer_version=1
+type="Mesh"
+uid="uid://dphectkqp4unb"
+path="res://.godot/imported/Mat02.obj-715f3808b9f87e2a4e6fe4394bafa8ed.mesh"
+
+[deps]
+
+files=["res://.godot/imported/Mat02.obj-715f3808b9f87e2a4e6fe4394bafa8ed.mesh"]
+
+source_file="res://psxpack/meshes/residential/Mat02.obj"
+dest_files=["res://.godot/imported/Mat02.obj-715f3808b9f87e2a4e6fe4394bafa8ed.mesh", "res://.godot/imported/Mat02.obj-715f3808b9f87e2a4e6fe4394bafa8ed.mesh"]
+
+[params]
+
+generate_tangents=true
+scale_mesh=Vector3(1, 1, 1)
+offset_mesh=Vector3(0, 0, 0)
+optimize_mesh=true
+force_disable_mesh_compression=false

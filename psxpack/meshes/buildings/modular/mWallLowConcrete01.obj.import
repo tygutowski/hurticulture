@@ -1,0 +1,22 @@
+[remap]
+
+importer="wavefront_obj"
+importer_version=1
+type="Mesh"
+uid="uid://cbd63dx4q6iy8"
+path="res://.godot/imported/mWallLowConcrete01.obj-d821e0ee69cf46fe405949b3a2593d85.mesh"
+
+[deps]
+
+files=["res://.godot/imported/mWallLowConcrete01.obj-d821e0ee69cf46fe405949b3a2593d85.mesh"]
+
+source_file="res://psxpack/meshes/buildings/modular/mWallLowConcrete01.obj"
+dest_files=["res://.godot/imported/mWallLowConcrete01.obj-d821e0ee69cf46fe405949b3a2593d85.mesh", "res://.godot/imported/mWallLowConcrete01.obj-d821e0ee69cf46fe405949b3a2593d85.mesh"]
+
+[params]
+
+generate_tangents=true
+scale_mesh=Vector3(1, 1, 1)
+offset_mesh=Vector3(0, 0, 0)
+optimize_mesh=true
+force_disable_mesh_compression=false

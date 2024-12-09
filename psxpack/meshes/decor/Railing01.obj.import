@@ -1,0 +1,22 @@
+[remap]
+
+importer="wavefront_obj"
+importer_version=1
+type="Mesh"
+uid="uid://5b4apm5ch5oj"
+path="res://.godot/imported/Railing01.obj-44a4fd1e152bfc01800646a2bb48f91b.mesh"
+
+[deps]
+
+files=["res://.godot/imported/Railing01.obj-44a4fd1e152bfc01800646a2bb48f91b.mesh"]
+
+source_file="res://psxpack/meshes/decor/Railing01.obj"
+dest_files=["res://.godot/imported/Railing01.obj-44a4fd1e152bfc01800646a2bb48f91b.mesh", "res://.godot/imported/Railing01.obj-44a4fd1e152bfc01800646a2bb48f91b.mesh"]
+
+[params]
+
+generate_tangents=true
+scale_mesh=Vector3(1, 1, 1)
+offset_mesh=Vector3(0, 0, 0)
+optimize_mesh=true
+force_disable_mesh_compression=false

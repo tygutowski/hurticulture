@@ -1,0 +1,22 @@
+[remap]
+
+importer="wavefront_obj"
+importer_version=1
+type="Mesh"
+uid="uid://cbgtorh51xvoq"
+path="res://.godot/imported/mWallRampBricksWhite01.obj-6bae2eb53e226b4c61de0d8267cf415e.mesh"
+
+[deps]
+
+files=["res://.godot/imported/mWallRampBricksWhite01.obj-6bae2eb53e226b4c61de0d8267cf415e.mesh"]
+
+source_file="res://psxpack/meshes/buildings/modular/mWallRampBricksWhite01.obj"
+dest_files=["res://.godot/imported/mWallRampBricksWhite01.obj-6bae2eb53e226b4c61de0d8267cf415e.mesh", "res://.godot/imported/mWallRampBricksWhite01.obj-6bae2eb53e226b4c61de0d8267cf415e.mesh"]
+
+[params]
+
+generate_tangents=true
+scale_mesh=Vector3(1, 1, 1)
+offset_mesh=Vector3(0, 0, 0)
+optimize_mesh=true
+force_disable_mesh_compression=false

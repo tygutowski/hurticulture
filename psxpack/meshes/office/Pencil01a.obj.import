@@ -1,0 +1,22 @@
+[remap]
+
+importer="wavefront_obj"
+importer_version=1
+type="Mesh"
+uid="uid://bt23rfqq533q4"
+path="res://.godot/imported/Pencil01a.obj-8e55f63bc153656d8deb37df7a774cfe.mesh"
+
+[deps]
+
+files=["res://.godot/imported/Pencil01a.obj-8e55f63bc153656d8deb37df7a774cfe.mesh"]
+
+source_file="res://psxpack/meshes/office/Pencil01a.obj"
+dest_files=["res://.godot/imported/Pencil01a.obj-8e55f63bc153656d8deb37df7a774cfe.mesh", "res://.godot/imported/Pencil01a.obj-8e55f63bc153656d8deb37df7a774cfe.mesh"]
+
+[params]
+
+generate_tangents=true
+scale_mesh=Vector3(1, 1, 1)
+offset_mesh=Vector3(0, 0, 0)
+optimize_mesh=true
+force_disable_mesh_compression=false

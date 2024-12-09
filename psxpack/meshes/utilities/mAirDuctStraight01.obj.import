@@ -1,0 +1,22 @@
+[remap]
+
+importer="wavefront_obj"
+importer_version=1
+type="Mesh"
+uid="uid://c76r138itjv2n"
+path="res://.godot/imported/mAirDuctStraight01.obj-0a18657642a88d667f39defa80e7394c.mesh"
+
+[deps]
+
+files=["res://.godot/imported/mAirDuctStraight01.obj-0a18657642a88d667f39defa80e7394c.mesh"]
+
+source_file="res://psxpack/meshes/utilities/mAirDuctStraight01.obj"
+dest_files=["res://.godot/imported/mAirDuctStraight01.obj-0a18657642a88d667f39defa80e7394c.mesh", "res://.godot/imported/mAirDuctStraight01.obj-0a18657642a88d667f39defa80e7394c.mesh"]
+
+[params]
+
+generate_tangents=true
+scale_mesh=Vector3(1, 1, 1)
+offset_mesh=Vector3(0, 0, 0)
+optimize_mesh=true
+force_disable_mesh_compression=false

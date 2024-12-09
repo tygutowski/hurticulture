@@ -1,0 +1,22 @@
+[remap]
+
+importer="wavefront_obj"
+importer_version=1
+type="Mesh"
+uid="uid://cc7ksdhx7ebpy"
+path="res://.godot/imported/GasPump01.obj-7e16b7ddb381df939aa9cb2cb6a0edcb.mesh"
+
+[deps]
+
+files=["res://.godot/imported/GasPump01.obj-7e16b7ddb381df939aa9cb2cb6a0edcb.mesh"]
+
+source_file="res://psxpack/meshes/utilities/GasPump01.obj"
+dest_files=["res://.godot/imported/GasPump01.obj-7e16b7ddb381df939aa9cb2cb6a0edcb.mesh", "res://.godot/imported/GasPump01.obj-7e16b7ddb381df939aa9cb2cb6a0edcb.mesh"]
+
+[params]
+
+generate_tangents=true
+scale_mesh=Vector3(1, 1, 1)
+offset_mesh=Vector3(0, 0, 0)
+optimize_mesh=true
+force_disable_mesh_compression=false

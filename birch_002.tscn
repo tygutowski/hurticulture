@@ -1,7 +1,7 @@
 [gd_scene load_steps=4 format=3 uid="uid://bvonlhcpxwyr6"]
 
-[ext_resource type="PackedScene" uid="uid://b6pfdl4pehcac" path="res://Retro Foliage Pixel Art Nature Kit - AFGameAssets - V1/3D Models/Birch_002.fbx" id="1_xqum3"]
-[ext_resource type="Texture2D" uid="uid://bqmbncpf3q8a8" path="res://Retro Foliage Pixel Art Nature Kit - AFGameAssets - V1/Textures/Tree_Birch_Autumn.png" id="2_rv1r3"]
+[ext_resource type="PackedScene" uid="uid://b6pfdl4pehcac" path="res://Retro Foliage Pixel Art Nature Kit/3D Models/Birch_002.fbx" id="1_xqum3"]
+[ext_resource type="Texture2D" uid="uid://bqmbncpf3q8a8" path="res://Retro Foliage Pixel Art Nature Kit/Textures/Tree_Birch_Autumn.png" id="2_rv1r3"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_pvo55"]
 transparency = 2

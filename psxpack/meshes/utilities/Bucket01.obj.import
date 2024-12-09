@@ -1,0 +1,22 @@
+[remap]
+
+importer="wavefront_obj"
+importer_version=1
+type="Mesh"
+uid="uid://ccp823vpgs6eo"
+path="res://.godot/imported/Bucket01.obj-c8fe0c6b26648aa6277d7434bb121bf9.mesh"
+
+[deps]
+
+files=["res://.godot/imported/Bucket01.obj-c8fe0c6b26648aa6277d7434bb121bf9.mesh"]
+
+source_file="res://psxpack/meshes/utilities/Bucket01.obj"
+dest_files=["res://.godot/imported/Bucket01.obj-c8fe0c6b26648aa6277d7434bb121bf9.mesh", "res://.godot/imported/Bucket01.obj-c8fe0c6b26648aa6277d7434bb121bf9.mesh"]
+
+[params]
+
+generate_tangents=true
+scale_mesh=Vector3(1, 1, 1)
+offset_mesh=Vector3(0, 0, 0)
+optimize_mesh=true
+force_disable_mesh_compression=false

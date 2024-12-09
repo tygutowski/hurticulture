@@ -1,0 +1,22 @@
+[remap]
+
+importer="wavefront_obj"
+importer_version=1
+type="Mesh"
+uid="uid://b6fek3sryopdj"
+path="res://.godot/imported/TableTennisRacket01.obj-9a8e6b03389b8da2da44f435d2fed466.mesh"
+
+[deps]
+
+files=["res://.godot/imported/TableTennisRacket01.obj-9a8e6b03389b8da2da44f435d2fed466.mesh"]
+
+source_file="res://psxpack/meshes/exercise/TableTennisRacket01.obj"
+dest_files=["res://.godot/imported/TableTennisRacket01.obj-9a8e6b03389b8da2da44f435d2fed466.mesh", "res://.godot/imported/TableTennisRacket01.obj-9a8e6b03389b8da2da44f435d2fed466.mesh"]
+
+[params]
+
+generate_tangents=true
+scale_mesh=Vector3(1, 1, 1)
+offset_mesh=Vector3(0, 0, 0)
+optimize_mesh=true
+force_disable_mesh_compression=false

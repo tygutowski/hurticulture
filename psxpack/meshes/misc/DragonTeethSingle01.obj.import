@@ -1,0 +1,22 @@
+[remap]
+
+importer="wavefront_obj"
+importer_version=1
+type="Mesh"
+uid="uid://velvsnm0s06h"
+path="res://.godot/imported/DragonTeethSingle01.obj-5fe971d1bbf524d891fd38fc49720725.mesh"
+
+[deps]
+
+files=["res://.godot/imported/DragonTeethSingle01.obj-5fe971d1bbf524d891fd38fc49720725.mesh"]
+
+source_file="res://psxpack/meshes/misc/DragonTeethSingle01.obj"
+dest_files=["res://.godot/imported/DragonTeethSingle01.obj-5fe971d1bbf524d891fd38fc49720725.mesh", "res://.godot/imported/DragonTeethSingle01.obj-5fe971d1bbf524d891fd38fc49720725.mesh"]
+
+[params]
+
+generate_tangents=true
+scale_mesh=Vector3(1, 1, 1)
+offset_mesh=Vector3(0, 0, 0)
+optimize_mesh=true
+force_disable_mesh_compression=false

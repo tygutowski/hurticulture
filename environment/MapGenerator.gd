@@ -3,7 +3,13 @@
 extends Node
 class_name MapGenerator
 
+signal generation_stage_changed
+signal generation_finished
+
 @export_category("Debug")
+
+@export var keep_map_upon_creating_lobby: bool = false
+
 @export var debugging: bool = false:
 	set(value):
 		if value == debugging : return
@@ -76,7 +82,7 @@ var weightmap_times_to_blend: int
 @onready var ray: RayCast3D = $RayCast3D
 
 func get_vertex_count() -> int:
-	return ((map_size + 1) * resolution_multiplier) ** 2
+	return floor(float(map_size) + 1 * resolution_multiplier) ** 2
 
 func _get_property_list():
 	if Engine.is_editor_hint():
@@ -189,21 +195,32 @@ func clear_objects() -> void:
 		for object in spawned_object_categories.get_children():
 			object.queue_free()
 
-func generate_world() -> void:
-	var number_of_vertices = get_vertex_count()
-	set_seeds()
-	clear_world()
-	generate_terrain()
+func randomize_environment() -> void:
+	var color: Color = Color.from_hsv(randf_range(0.0, 1.0), randf_range(0.2, 0.4), randf_range(0.1, 0.3), 1.0)
+	var environment: Environment = get_node("../WorldEnvironment").environment
+	environment.fog_light_color = color
 
+func generate_world() -> void:
+	set_seeds()
+	
+	clear_world()
+	await generate_terrain()
 	await get_tree().physics_frame
 	await get_tree().physics_frame
+	
+	await randomize_environment()
+	
 	if not Engine.is_editor_hint():
 		generate_vegetation()
-		spawn_object("res://player/player.tscn", Vector2(0, 0), 3)
+		set_text("Spawning player and warehouse")
+		spawn_object("res://environment/items/flashlight.tscn", Vector2(10, 0))
+		spawn_object("res://player/player.tscn", Vector2(0, 0), 1)
 		spawn_object("res://environment/warehouse.tscn", Vector2(0, 0))
 	reset_generation_values()
+	generation_finished.emit()
 
 func set_seeds() -> void:
+	set_text("Setting seed")
 	if random:
 		randomize()
 	else:
@@ -224,20 +241,21 @@ func spawn_object(packed_scene: String, position: Vector2, height_offset: int = 
 		var object_scene: PackedScene = load(packed_scene)
 		var object = object_scene.instantiate()
 		object.position = ray.get_collision_point() + Vector3(0, height_offset, 0)
-		print("Spawning " + str(packed_scene) + " at " + str(object.position))
+		#set_text("Spawning " + str(packed_scene.get_basename()))
 		get_node("GeneratedItems").add_child(object)
-	else:
-		print("Could not spawn " + str(packed_scene))
 
 func generate_vegetation() -> void:
+	set_text("Planting trees")
 	generate_objects(tree_scenes, 50, 1000, 25, 150, "GeneratedItems/Trees")
+	set_text("Planting seeds")
 	generate_objects(bush_scenes, 100, 20000, 0, 99999, "GeneratedItems/Bushes")
 
 func generate_objects(object_scenes: Array, count: int, max_attempts: int, min_distance: float, max_distance: float, parent_path: String) -> void:
 	var attempts = 0
+	var half_map = float(map_size) / 2
 	while count > 0 and attempts < max_attempts:
 		attempts += 1
-		ray.position = Vector3(randf_range(-map_size / 2, map_size / 2), 100, randf_range(-map_size / 2, map_size / 2))
+		ray.position = Vector3(randf_range(-half_map, half_map), 100, randf_range(-half_map, half_map))
 		ray.target_position = Vector3(0, -1000, 0)
 		ray.force_raycast_update()
 
@@ -254,6 +272,7 @@ func generate_objects(object_scenes: Array, count: int, max_attempts: int, min_d
 
 func normalize_biome_heightmaps() -> void:
 	for biome: Biome in biome_list:
+		set_text("Generating heightmap for " + str(biome.biome_name))
 		biome.normalize_heightmap(map_size)
 
 func prepare_biome_weightmaps(biomemap) -> void:
@@ -303,9 +322,11 @@ func convert_noise_to_array(noise: FastNoiseLite) -> Array:
 
 func blend_biome_weights() -> void:
 	for biome: Biome in biome_list:
+		set_text("Blending biome weights for " + str(biome.biome_name))
 		biome.blend_weights(map_size, weightmap_blend_area, weightmap_times_to_blend)
 
 func prepare_biome_weights() -> Array:
+	set_text("Preparing weights for each biome")
 	# Sum up all weights
 	var total_weight: float = 0
 	for biome: Biome in biome_list:
@@ -327,6 +348,7 @@ func prepare_biome_weights() -> Array:
 	return noise_weights
 
 func split_biomes_by_weight(biomemap: Array, biome_weights: Array) -> Array:
+	set_text("Splitting biomes by weights")
 	var split_biomemap = []
 
 	# Initialize each layer map for the biome ID ranges
@@ -343,7 +365,6 @@ func split_biomes_by_weight(biomemap: Array, biome_weights: Array) -> Array:
 	for y in range(map_size):
 		for x in range(map_size):
 			var value = biomemap[y][x]
-			var counter = 0
 			for i in range(len(biome_weights) - 1):
 				if biome_weights[i] <= value and value < biome_weights[i + 1]:
 					split_biomemap[i][y][x] = 1
@@ -353,7 +374,6 @@ func split_biomes_by_weight(biomemap: Array, biome_weights: Array) -> Array:
 func distribute_weights_to_biomes(biomemap_split: Array) -> void:
 	for i: int in range(len(biome_list)):
 		var biome: Biome = biome_list[i]
-		var biomemap: Array = biomemap_split[i]
 		biome.weightmap = biomemap_split[i]
 
 func set_biome_ids() -> void:
@@ -364,34 +384,44 @@ func set_biome_ids() -> void:
 func generate_terrain() -> void:
 	# Generate the heightmap for each biome
 	normalize_biome_heightmaps()
+	await get_tree().process_frame
 	var biomemap = convert_noise_to_array(biomemap_noise)
 	# Set the ID of each biome
 	set_biome_ids()
+	await get_tree().process_frame
 	# Prepare a array of each biome's weights
 	var biome_weights: Array = prepare_biome_weights()
+	await get_tree().process_frame
 	# Use the cellular biome map to split each cell into a biome
 	var biomemap_split = split_biomes_by_weight(biomemap, biome_weights)
 	# Split the weightmap for each biome
 	distribute_weights_to_biomes(biomemap_split)
+	await get_tree().process_frame
 	# Blend the biome map for each biome
 	blend_biome_weights()
+	await get_tree().process_frame
 	# Each noise should be summed to 1.0
 	assert_biome_weights_sum_to_one()
+	await get_tree().process_frame
 	# Take each weight and noise, then create a heightmap
 	heightmap = generate_heightmap()
+	await get_tree().process_frame
 	# Create terrain and collisionshape
 	create_terrain_mesh()
+	await get_tree().process_frame
 	create_collision_shape()
+	await get_tree().process_frame
 	
 	send_shader_data()
+	await get_tree().process_frame
 
 func send_shader_data() -> void:
+	set_text("Sending shader data to the GPU")
 	for biome: Biome in biome_list:
 		biome.prepare_textures()
 
 	# Sends slopemap
 	var slopemap = generate_slopemap(heightmap)
-	var slopemap_normalized = normalize_array(slopemap)
 	var slopemap_as_image = convert_slopemap_to_image(slopemap)
 	slopemap_as_texture = convert_image_to_texture(slopemap_as_image)
 	var mesh: Mesh = $MeshInstance3D.mesh
@@ -430,10 +460,10 @@ func normalize_array(array: Array) -> Array:
 	return map
 
 func assert_biome_weights_sum_to_one() -> void:
+	set_text("Ensuring biome weights equal 1.0")
 	for y in range(map_size):
 		for x in range(map_size):
 			var sum: float = 0
-			var scaled_sum: float = 0
 			for biome: Biome in biome_list:
 				var weight = biome.weightmap[x][y]
 				sum += weight
@@ -443,7 +473,6 @@ func assert_biome_weights_sum_to_one() -> void:
 				var scale = 1.0 / sum
 				for biome: Biome in biome_list:
 					biome.weightmap[x][y] *= scale
-					scaled_sum += biome.weightmap[x][y]
 
 func sum_array(array):
 	var sum = 0.0
@@ -452,7 +481,7 @@ func sum_array(array):
 	return sum
 
 func generate_heightmap() -> Array:
-	print("Generating heightmap")
+	set_text("Generating heightmap")
 	var map: Array = []
 	for y in range(map_size):
 		var row: Array = []
@@ -469,22 +498,22 @@ func generate_heightmap() -> Array:
 		map.append(row)
 	return map
 
-func generate_slopemap(heightmap: Array) -> Array:
-	print("Generating slope map")
+func generate_slopemap(map: Array) -> Array:
+	set_text("Generating slope map")
 	var slopemap: Array = []
-	var map_size = heightmap.size()
+	var size = map.size()
 
-	for y in range(map_size):
+	for y in range(size):
 		var row: Array = []
-		for x in range(map_size):
+		for x in range(size):
 			# Compute dx and dy using neighboring points
 			var dx: float = 0.0
 			var dy: float = 0.0
 
-			if y > 0 and y < map_size - 1:
-				dx = heightmap[x][y + 1] - heightmap[x][y - 1]
-			if x > 0 and x < map_size - 1:
-				dy = heightmap[x + 1][y] - heightmap[x - 1][y]
+			if y > 0 and y < size - 1:
+				dx = map[x][y + 1] - map[x][y - 1]
+			if x > 0 and x < size - 1:
+				dy = map[x + 1][y] - map[x - 1][y]
 
 			# Compute slope magnitude
 			var slope = sqrt(dx * dx + dy * dy)
@@ -495,12 +524,12 @@ func generate_slopemap(heightmap: Array) -> Array:
 
 
 func create_terrain_mesh() -> void:
-	print("Generating mesh")
+	set_text("Generating mesh")
 	var st = SurfaceTool.new()
 	st.begin(Mesh.PRIMITIVE_TRIANGLES)
 	var step = 1.0 / float(resolution_multiplier)
 	var total_map_size = map_size * resolution_multiplier
-
+	var edge = float(-map_size) / 2
 	for y in range(total_map_size - 1):
 		for x in range(total_map_size - 1):
 			# Fetch heights at the four corners of the grid cell
@@ -510,10 +539,10 @@ func create_terrain_mesh() -> void:
 			var h4 = heightmap[x + 1][y + 1]
 
 			# Calculate vertex positions
-			var p1 = Vector3(-map_size / 2 + y * step, h1, -map_size / 2 + x * step)
-			var p2 = Vector3(-map_size / 2 + y * step, h2, -map_size / 2 + (x + 1) * step)
-			var p3 = Vector3(-map_size / 2 + (y + 1) * step, h3, -map_size / 2 + x * step)
-			var p4 = Vector3(-map_size / 2 + (y + 1) * step, h4, -map_size / 2 + (x + 1) * step)
+			var p1 = Vector3(edge + y * step, h1, edge + x * step)
+			var p2 = Vector3(edge + y * step, h2, edge + (x + 1) * step)
+			var p3 = Vector3(edge + (y + 1) * step, h3, edge + x * step)
+			var p4 = Vector3(edge + (y + 1) * step, h4, edge + (x + 1) * step)
 
 			# Calculate UV coordinates
 			var uv1 = Vector2(y / (total_map_size - 1), x / (total_map_size - 1))
@@ -543,12 +572,12 @@ func create_terrain_mesh() -> void:
 	$MeshInstance3D.mesh = generated_mesh
 
 func create_collision_shape() -> void:
-	print("Generating collision shape")
+	set_text("Generating collision shape")
 	var collision_shape = ConcavePolygonShape3D.new()
 	var vertices: Array[Vector3] = []
 	var step = 1.0 / float(resolution_multiplier)
 	var total_map_size = map_size * resolution_multiplier
-
+	var edge = float(-map_size) / 2
 	for y in range(total_map_size - 1):
 		for x in range(total_map_size - 1):
 			var h1 = heightmap[x    ][y    ]
@@ -556,10 +585,10 @@ func create_collision_shape() -> void:
 			var h3 = heightmap[x    ][y + 1]
 			var h4 = heightmap[x + 1][y + 1]
 
-			var p1 = Vector3(-map_size / 2 +  y      * step, h1, -map_size / 2 +  x      * step)
-			var p2 = Vector3(-map_size / 2 +  y      * step, h2, -map_size / 2 + (x + 1) * step)
-			var p3 = Vector3(-map_size / 2 + (y + 1) * step, h3, -map_size / 2 +  x      * step)
-			var p4 = Vector3(-map_size / 2 + (y + 1) * step, h4, -map_size / 2 + (x + 1) * step)
+			var p1 = Vector3(edge +  y      * step, h1, edge +  x      * step)
+			var p2 = Vector3(edge +  y      * step, h2, edge + (x + 1) * step)
+			var p3 = Vector3(edge + (y + 1) * step, h3, edge +  x      * step)
+			var p4 = Vector3(edge + (y + 1) * step, h4, edge + (x + 1) * step)
 
 			vertices.append_array([p1, p3, p2, p2, p3, p4])
 
@@ -567,3 +596,7 @@ func create_collision_shape() -> void:
 	var collision_shape_instance = CollisionShape3D.new()
 	collision_shape_instance.shape = collision_shape
 	$StaticBody3D.add_child(collision_shape_instance)
+
+func set_text(generation_text: String) -> void:
+	if not Engine.is_editor_hint():
+		generation_stage_changed.emit(generation_text)

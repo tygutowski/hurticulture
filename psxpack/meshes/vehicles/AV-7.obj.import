@@ -1,0 +1,22 @@
+[remap]
+
+importer="wavefront_obj"
+importer_version=1
+type="Mesh"
+uid="uid://bcqfi1ip7gwmw"
+path="res://.godot/imported/AV-7.obj-2147cd34975e9b2523d69a3e2c47a620.mesh"
+
+[deps]
+
+files=["res://.godot/imported/AV-7.obj-2147cd34975e9b2523d69a3e2c47a620.mesh"]
+
+source_file="res://psxpack/meshes/vehicles/AV-7.obj"
+dest_files=["res://.godot/imported/AV-7.obj-2147cd34975e9b2523d69a3e2c47a620.mesh", "res://.godot/imported/AV-7.obj-2147cd34975e9b2523d69a3e2c47a620.mesh"]
+
+[params]
+
+generate_tangents=true
+scale_mesh=Vector3(1, 1, 1)
+offset_mesh=Vector3(0, 0, 0)
+optimize_mesh=true
+force_disable_mesh_compression=false

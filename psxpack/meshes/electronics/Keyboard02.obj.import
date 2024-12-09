@@ -1,0 +1,22 @@
+[remap]
+
+importer="wavefront_obj"
+importer_version=1
+type="Mesh"
+uid="uid://nbgotp1333ak"
+path="res://.godot/imported/Keyboard02.obj-e750116523f30c619aabf9ec1447f9c3.mesh"
+
+[deps]
+
+files=["res://.godot/imported/Keyboard02.obj-e750116523f30c619aabf9ec1447f9c3.mesh"]
+
+source_file="res://psxpack/meshes/electronics/Keyboard02.obj"
+dest_files=["res://.godot/imported/Keyboard02.obj-e750116523f30c619aabf9ec1447f9c3.mesh", "res://.godot/imported/Keyboard02.obj-e750116523f30c619aabf9ec1447f9c3.mesh"]
+
+[params]
+
+generate_tangents=true
+scale_mesh=Vector3(1, 1, 1)
+offset_mesh=Vector3(0, 0, 0)
+optimize_mesh=true
+force_disable_mesh_compression=false

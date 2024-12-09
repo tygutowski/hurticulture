@@ -1,0 +1,22 @@
+[remap]
+
+importer="wavefront_obj"
+importer_version=1
+type="Mesh"
+uid="uid://ceebqcm3shkjm"
+path="res://.godot/imported/Rock02b.obj-a34239e25bf62ee64b7a783a8cd05464.mesh"
+
+[deps]
+
+files=["res://.godot/imported/Rock02b.obj-a34239e25bf62ee64b7a783a8cd05464.mesh"]
+
+source_file="res://psxpack/meshes/foliage/Rock02b.obj"
+dest_files=["res://.godot/imported/Rock02b.obj-a34239e25bf62ee64b7a783a8cd05464.mesh", "res://.godot/imported/Rock02b.obj-a34239e25bf62ee64b7a783a8cd05464.mesh"]
+
+[params]
+
+generate_tangents=true
+scale_mesh=Vector3(1, 1, 1)
+offset_mesh=Vector3(0, 0, 0)
+optimize_mesh=true
+force_disable_mesh_compression=false

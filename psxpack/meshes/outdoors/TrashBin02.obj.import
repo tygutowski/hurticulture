@@ -1,0 +1,22 @@
+[remap]
+
+importer="wavefront_obj"
+importer_version=1
+type="Mesh"
+uid="uid://mft2wy8hkwe"
+path="res://.godot/imported/TrashBin02.obj-1cd87968e18984603f0d32b72398ca56.mesh"
+
+[deps]
+
+files=["res://.godot/imported/TrashBin02.obj-1cd87968e18984603f0d32b72398ca56.mesh"]
+
+source_file="res://psxpack/meshes/outdoors/TrashBin02.obj"
+dest_files=["res://.godot/imported/TrashBin02.obj-1cd87968e18984603f0d32b72398ca56.mesh", "res://.godot/imported/TrashBin02.obj-1cd87968e18984603f0d32b72398ca56.mesh"]
+
+[params]
+
+generate_tangents=true
+scale_mesh=Vector3(1, 1, 1)
+offset_mesh=Vector3(0, 0, 0)
+optimize_mesh=true
+force_disable_mesh_compression=false

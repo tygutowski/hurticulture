@@ -1,0 +1,22 @@
+[remap]
+
+importer="wavefront_obj"
+importer_version=1
+type="Mesh"
+uid="uid://dkudd817io0lw"
+path="res://.godot/imported/VHSCassette01.obj-6c6aea6f4a4625b249b288363111700a.mesh"
+
+[deps]
+
+files=["res://.godot/imported/VHSCassette01.obj-6c6aea6f4a4625b249b288363111700a.mesh"]
+
+source_file="res://psxpack/meshes/electronics/VHSCassette01.obj"
+dest_files=["res://.godot/imported/VHSCassette01.obj-6c6aea6f4a4625b249b288363111700a.mesh", "res://.godot/imported/VHSCassette01.obj-6c6aea6f4a4625b249b288363111700a.mesh"]
+
+[params]
+
+generate_tangents=true
+scale_mesh=Vector3(1, 1, 1)
+offset_mesh=Vector3(0, 0, 0)
+optimize_mesh=true
+force_disable_mesh_compression=false

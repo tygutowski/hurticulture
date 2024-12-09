@@ -1,0 +1,22 @@
+[remap]
+
+importer="wavefront_obj"
+importer_version=1
+type="Mesh"
+uid="uid://q0pyu83k8d7h"
+path="res://.godot/imported/mWallRampConcretePlates01.obj-813deb5773c63405c374880ae894f9cf.mesh"
+
+[deps]
+
+files=["res://.godot/imported/mWallRampConcretePlates01.obj-813deb5773c63405c374880ae894f9cf.mesh"]
+
+source_file="res://psxpack/meshes/buildings/modular/mWallRampConcretePlates01.obj"
+dest_files=["res://.godot/imported/mWallRampConcretePlates01.obj-813deb5773c63405c374880ae894f9cf.mesh", "res://.godot/imported/mWallRampConcretePlates01.obj-813deb5773c63405c374880ae894f9cf.mesh"]
+
+[params]
+
+generate_tangents=true
+scale_mesh=Vector3(1, 1, 1)
+offset_mesh=Vector3(0, 0, 0)
+optimize_mesh=true
+force_disable_mesh_compression=false

@@ -1,0 +1,22 @@
+[remap]
+
+importer="wavefront_obj"
+importer_version=1
+type="Mesh"
+uid="uid://b204j1a7qxbk5"
+path="res://.godot/imported/SwimmingFin01Rht.obj-8edc87bd41cd3fa1264c3bd7d889ac26.mesh"
+
+[deps]
+
+files=["res://.godot/imported/SwimmingFin01Rht.obj-8edc87bd41cd3fa1264c3bd7d889ac26.mesh"]
+
+source_file="res://psxpack/meshes/exercise/SwimmingFin01Rht.obj"
+dest_files=["res://.godot/imported/SwimmingFin01Rht.obj-8edc87bd41cd3fa1264c3bd7d889ac26.mesh", "res://.godot/imported/SwimmingFin01Rht.obj-8edc87bd41cd3fa1264c3bd7d889ac26.mesh"]
+
+[params]
+
+generate_tangents=true
+scale_mesh=Vector3(1, 1, 1)
+offset_mesh=Vector3(0, 0, 0)
+optimize_mesh=true
+force_disable_mesh_compression=false

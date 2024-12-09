@@ -1,0 +1,22 @@
+[remap]
+
+importer="wavefront_obj"
+importer_version=1
+type="Mesh"
+uid="uid://d258inhoeqnu7"
+path="res://.godot/imported/Pipe01StraightShort.obj-b098d9d6d51f11d6fd35816dd6de181b.mesh"
+
+[deps]
+
+files=["res://.godot/imported/Pipe01StraightShort.obj-b098d9d6d51f11d6fd35816dd6de181b.mesh"]
+
+source_file="res://psxpack/meshes/utilities/Pipe01StraightShort.obj"
+dest_files=["res://.godot/imported/Pipe01StraightShort.obj-b098d9d6d51f11d6fd35816dd6de181b.mesh", "res://.godot/imported/Pipe01StraightShort.obj-b098d9d6d51f11d6fd35816dd6de181b.mesh"]
+
+[params]
+
+generate_tangents=true
+scale_mesh=Vector3(1, 1, 1)
+offset_mesh=Vector3(0, 0, 0)
+optimize_mesh=true
+force_disable_mesh_compression=false

@@ -1,0 +1,22 @@
+[remap]
+
+importer="wavefront_obj"
+importer_version=1
+type="Mesh"
+uid="uid://43dhpjywf407"
+path="res://.godot/imported/MP5.obj-a539a740184533a97cedd97b1feac737.mesh"
+
+[deps]
+
+files=["res://.godot/imported/MP5.obj-a539a740184533a97cedd97b1feac737.mesh"]
+
+source_file="res://psxpack/meshes/weapons/MP5.obj"
+dest_files=["res://.godot/imported/MP5.obj-a539a740184533a97cedd97b1feac737.mesh", "res://.godot/imported/MP5.obj-a539a740184533a97cedd97b1feac737.mesh"]
+
+[params]
+
+generate_tangents=true
+scale_mesh=Vector3(1, 1, 1)
+offset_mesh=Vector3(0, 0, 0)
+optimize_mesh=true
+force_disable_mesh_compression=false

@@ -1,0 +1,22 @@
+[remap]
+
+importer="wavefront_obj"
+importer_version=1
+type="Mesh"
+uid="uid://dcgcyht8nu02b"
+path="res://.godot/imported/Lamp01.obj-877fd3fd71c849eb05b917aabab5a673.mesh"
+
+[deps]
+
+files=["res://.godot/imported/Lamp01.obj-877fd3fd71c849eb05b917aabab5a673.mesh"]
+
+source_file="res://psxpack/meshes/lights/Lamp01.obj"
+dest_files=["res://.godot/imported/Lamp01.obj-877fd3fd71c849eb05b917aabab5a673.mesh", "res://.godot/imported/Lamp01.obj-877fd3fd71c849eb05b917aabab5a673.mesh"]
+
+[params]
+
+generate_tangents=true
+scale_mesh=Vector3(1, 1, 1)
+offset_mesh=Vector3(0, 0, 0)
+optimize_mesh=true
+force_disable_mesh_compression=false

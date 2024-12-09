@@ -1,0 +1,22 @@
+[remap]
+
+importer="wavefront_obj"
+importer_version=1
+type="Mesh"
+uid="uid://ch7pgca5k8p7c"
+path="res://.godot/imported/mDFrameConcrete02.obj-22f4664afd1a5c718e9018722ebdf4dc.mesh"
+
+[deps]
+
+files=["res://.godot/imported/mDFrameConcrete02.obj-22f4664afd1a5c718e9018722ebdf4dc.mesh"]
+
+source_file="res://psxpack/meshes/buildings/modular/mDFrameConcrete02.obj"
+dest_files=["res://.godot/imported/mDFrameConcrete02.obj-22f4664afd1a5c718e9018722ebdf4dc.mesh", "res://.godot/imported/mDFrameConcrete02.obj-22f4664afd1a5c718e9018722ebdf4dc.mesh"]
+
+[params]
+
+generate_tangents=true
+scale_mesh=Vector3(1, 1, 1)
+offset_mesh=Vector3(0, 0, 0)
+optimize_mesh=true
+force_disable_mesh_compression=false

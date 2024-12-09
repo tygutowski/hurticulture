@@ -1,0 +1,22 @@
+[remap]
+
+importer="wavefront_obj"
+importer_version=1
+type="Mesh"
+uid="uid://doqb2m80skx8s"
+path="res://.godot/imported/Umbrella01a.obj-ac5ee9216b57b1adf2cb9322e34e38fa.mesh"
+
+[deps]
+
+files=["res://.godot/imported/Umbrella01a.obj-ac5ee9216b57b1adf2cb9322e34e38fa.mesh"]
+
+source_file="res://psxpack/meshes/outdoors/Umbrella01a.obj"
+dest_files=["res://.godot/imported/Umbrella01a.obj-ac5ee9216b57b1adf2cb9322e34e38fa.mesh", "res://.godot/imported/Umbrella01a.obj-ac5ee9216b57b1adf2cb9322e34e38fa.mesh"]
+
+[params]
+
+generate_tangents=true
+scale_mesh=Vector3(1, 1, 1)
+offset_mesh=Vector3(0, 0, 0)
+optimize_mesh=true
+force_disable_mesh_compression=false

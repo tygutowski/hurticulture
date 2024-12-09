@@ -1,0 +1,32 @@
+# Blender 4.2.0 MTL File: 'Pallete03.blend'
+# www.blender.org
+
+newmtl Fruits01
+Ns 250.000000
+Ka 1.000000 1.000000 1.000000
+Ks 0.050000 0.050000 0.050000
+Ke 0.000000 0.000000 0.000000
+Ni 1.450000
+d 1.000000
+illum 2
+map_Kd C:/Godot/Projects/PSXPack/textures/meshes/store_grocery/Fruits01_a.png
+
+newmtl Fruits02
+Ns 250.000000
+Ka 1.000000 1.000000 1.000000
+Ks 0.050000 0.050000 0.050000
+Ke 0.000000 0.000000 0.000000
+Ni 1.450000
+d 1.000000
+illum 2
+map_Kd C:/Godot/Projects/PSXPack/textures/meshes/store_grocery/Fruits02_a.png
+
+newmtl Primary
+Ns 250.000000
+Ka 1.000000 1.000000 1.000000
+Ks 0.500000 0.500000 0.500000
+Ke 0.000000 0.000000 0.000000
+Ni 1.450000
+d 1.000000
+illum 2
+map_Kd C:/Godot/Projects/PSXPack/textures/meshes/utilities/Palette03_a.png

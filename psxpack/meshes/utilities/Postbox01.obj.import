@@ -1,0 +1,22 @@
+[remap]
+
+importer="wavefront_obj"
+importer_version=1
+type="Mesh"
+uid="uid://bom4xtrdtcya3"
+path="res://.godot/imported/Postbox01.obj-307e667e9cd11e198b1c63f7f9d53433.mesh"
+
+[deps]
+
+files=["res://.godot/imported/Postbox01.obj-307e667e9cd11e198b1c63f7f9d53433.mesh"]
+
+source_file="res://psxpack/meshes/utilities/Postbox01.obj"
+dest_files=["res://.godot/imported/Postbox01.obj-307e667e9cd11e198b1c63f7f9d53433.mesh", "res://.godot/imported/Postbox01.obj-307e667e9cd11e198b1c63f7f9d53433.mesh"]
+
+[params]
+
+generate_tangents=true
+scale_mesh=Vector3(1, 1, 1)
+offset_mesh=Vector3(0, 0, 0)
+optimize_mesh=true
+force_disable_mesh_compression=false

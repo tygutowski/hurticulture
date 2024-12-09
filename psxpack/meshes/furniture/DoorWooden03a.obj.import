@@ -1,0 +1,22 @@
+[remap]
+
+importer="wavefront_obj"
+importer_version=1
+type="Mesh"
+uid="uid://btsqm232b56qr"
+path="res://.godot/imported/DoorWooden03a.obj-b2293ef409a9e4d4b612dfa4a675697e.mesh"
+
+[deps]
+
+files=["res://.godot/imported/DoorWooden03a.obj-b2293ef409a9e4d4b612dfa4a675697e.mesh"]
+
+source_file="res://psxpack/meshes/furniture/DoorWooden03a.obj"
+dest_files=["res://.godot/imported/DoorWooden03a.obj-b2293ef409a9e4d4b612dfa4a675697e.mesh", "res://.godot/imported/DoorWooden03a.obj-b2293ef409a9e4d4b612dfa4a675697e.mesh"]
+
+[params]
+
+generate_tangents=true
+scale_mesh=Vector3(1, 1, 1)
+offset_mesh=Vector3(0, 0, 0)
+optimize_mesh=true
+force_disable_mesh_compression=false

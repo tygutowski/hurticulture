@@ -1,0 +1,22 @@
+[remap]
+
+importer="wavefront_obj"
+importer_version=1
+type="Mesh"
+uid="uid://c3wmadv54tdax"
+path="res://.godot/imported/Television02.obj-4c606b6cc048a9cdbab6255be17b7d5a.mesh"
+
+[deps]
+
+files=["res://.godot/imported/Television02.obj-4c606b6cc048a9cdbab6255be17b7d5a.mesh"]
+
+source_file="res://psxpack/meshes/electronics/Television02.obj"
+dest_files=["res://.godot/imported/Television02.obj-4c606b6cc048a9cdbab6255be17b7d5a.mesh", "res://.godot/imported/Television02.obj-4c606b6cc048a9cdbab6255be17b7d5a.mesh"]
+
+[params]
+
+generate_tangents=true
+scale_mesh=Vector3(1, 1, 1)
+offset_mesh=Vector3(0, 0, 0)
+optimize_mesh=true
+force_disable_mesh_compression=false

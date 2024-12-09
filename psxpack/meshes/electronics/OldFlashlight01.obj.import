@@ -1,0 +1,22 @@
+[remap]
+
+importer="wavefront_obj"
+importer_version=1
+type="Mesh"
+uid="uid://djcg6v6f57c8h"
+path="res://.godot/imported/OldFlashlight01.obj-9282b8c4bddfdab37d0a0d6c13242820.mesh"
+
+[deps]
+
+files=["res://.godot/imported/OldFlashlight01.obj-9282b8c4bddfdab37d0a0d6c13242820.mesh"]
+
+source_file="res://psxpack/meshes/electronics/OldFlashlight01.obj"
+dest_files=["res://.godot/imported/OldFlashlight01.obj-9282b8c4bddfdab37d0a0d6c13242820.mesh", "res://.godot/imported/OldFlashlight01.obj-9282b8c4bddfdab37d0a0d6c13242820.mesh"]
+
+[params]
+
+generate_tangents=true
+scale_mesh=Vector3(1, 1, 1)
+offset_mesh=Vector3(0, 0, 0)
+optimize_mesh=true
+force_disable_mesh_compression=false

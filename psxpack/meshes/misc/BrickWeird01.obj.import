@@ -1,0 +1,22 @@
+[remap]
+
+importer="wavefront_obj"
+importer_version=1
+type="Mesh"
+uid="uid://xuk8oo24pk73"
+path="res://.godot/imported/BrickWeird01.obj-dfb4eddd35b10e8e72e0e1d57f95f166.mesh"
+
+[deps]
+
+files=["res://.godot/imported/BrickWeird01.obj-dfb4eddd35b10e8e72e0e1d57f95f166.mesh"]
+
+source_file="res://psxpack/meshes/misc/BrickWeird01.obj"
+dest_files=["res://.godot/imported/BrickWeird01.obj-dfb4eddd35b10e8e72e0e1d57f95f166.mesh", "res://.godot/imported/BrickWeird01.obj-dfb4eddd35b10e8e72e0e1d57f95f166.mesh"]
+
+[params]
+
+generate_tangents=true
+scale_mesh=Vector3(1, 1, 1)
+offset_mesh=Vector3(0, 0, 0)
+optimize_mesh=true
+force_disable_mesh_compression=false

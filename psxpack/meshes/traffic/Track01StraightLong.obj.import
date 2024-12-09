@@ -1,0 +1,22 @@
+[remap]
+
+importer="wavefront_obj"
+importer_version=1
+type="Mesh"
+uid="uid://bwciyo0m2hhpd"
+path="res://.godot/imported/Track01StraightLong.obj-57a96b1a89442f0929a50c93dedf04cd.mesh"
+
+[deps]
+
+files=["res://.godot/imported/Track01StraightLong.obj-57a96b1a89442f0929a50c93dedf04cd.mesh"]
+
+source_file="res://psxpack/meshes/traffic/Track01StraightLong.obj"
+dest_files=["res://.godot/imported/Track01StraightLong.obj-57a96b1a89442f0929a50c93dedf04cd.mesh", "res://.godot/imported/Track01StraightLong.obj-57a96b1a89442f0929a50c93dedf04cd.mesh"]
+
+[params]
+
+generate_tangents=true
+scale_mesh=Vector3(1, 1, 1)
+offset_mesh=Vector3(0, 0, 0)
+optimize_mesh=true
+force_disable_mesh_compression=false

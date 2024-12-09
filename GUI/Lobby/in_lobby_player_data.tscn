@@ -1,0 +1,19 @@
+[gd_scene load_steps=2 format=3 uid="uid://cob18i2kinwh0"]
+
+[ext_resource type="Texture2D" uid="uid://b88jvtac1btqp" path="res://GUI/default_icon.png" id="1_neup0"]
+
+[node name="HBoxContainer" type="HBoxContainer"]
+offset_top = 181.0
+offset_right = 189.0
+offset_bottom = 181.0
+theme_override_constants/separation = 10
+
+[node name="TextureRect" type="TextureRect" parent="."]
+layout_mode = 2
+texture = ExtResource("1_neup0")
+expand_mode = 2
+
+[node name="Label" type="Label" parent="."]
+layout_mode = 2
+theme_override_font_sizes/font_size = 32
+text = "<name>"

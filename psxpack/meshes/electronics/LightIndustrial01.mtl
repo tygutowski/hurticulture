@@ -1,0 +1,12 @@
+# Blender 4.2.0 MTL File: 'LightIndustrial01.blend'
+# www.blender.org
+
+newmtl Lamp
+Ns 250.000000
+Ka 1.000000 1.000000 1.000000
+Ks 0.500000 0.500000 0.500000
+Ni 1.450000
+d 1.000000
+illum 2
+map_Kd C:/Godot/Projects/PSXPack/textures/meshes/electronics/LightIndustrial01_a.png
+map_Ke C:/Godot/Projects/PSXPack/textures/meshes/electronics/LightIndustrial01_e.png

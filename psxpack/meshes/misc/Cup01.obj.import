@@ -1,0 +1,22 @@
+[remap]
+
+importer="wavefront_obj"
+importer_version=1
+type="Mesh"
+uid="uid://cwjmi688x4dic"
+path="res://.godot/imported/Cup01.obj-0415cbb304012b1da9ce218a92c3c286.mesh"
+
+[deps]
+
+files=["res://.godot/imported/Cup01.obj-0415cbb304012b1da9ce218a92c3c286.mesh"]
+
+source_file="res://psxpack/meshes/misc/Cup01.obj"
+dest_files=["res://.godot/imported/Cup01.obj-0415cbb304012b1da9ce218a92c3c286.mesh", "res://.godot/imported/Cup01.obj-0415cbb304012b1da9ce218a92c3c286.mesh"]
+
+[params]
+
+generate_tangents=true
+scale_mesh=Vector3(1, 1, 1)
+offset_mesh=Vector3(0, 0, 0)
+optimize_mesh=true
+force_disable_mesh_compression=false

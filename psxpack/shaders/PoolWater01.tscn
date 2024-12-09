@@ -1,0 +1,63 @@
+[gd_scene load_steps=10 format=3 uid="uid://br2yfkicxrgse"]
+
+[ext_resource type="Shader" path="res://shaders/PoolWater01.gdshader" id="1_1rnnf"]
+
+[sub_resource type="QuadMesh" id="QuadMesh_kgiww"]
+subdivide_width = 200
+subdivide_depth = 200
+orientation = 1
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_vg4if"]
+noise_type = 3
+fractal_type = 2
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_3p5vi"]
+seamless = true
+as_normal_map = true
+bump_strength = 11.5
+noise = SubResource("FastNoiseLite_vg4if")
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_8s1s1"]
+noise_type = 3
+seed = 10
+fractal_type = 2
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_kng7a"]
+seamless = true
+as_normal_map = true
+bump_strength = 10.0
+noise = SubResource("FastNoiseLite_8s1s1")
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_otwpd"]
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_xxcrw"]
+seamless = true
+noise = SubResource("FastNoiseLite_otwpd")
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_rmknv"]
+render_priority = 0
+shader = ExtResource("1_1rnnf")
+shader_parameter/albedo = Color(0, 0.321569, 0.431373, 1)
+shader_parameter/albedo2 = Color(0, 0.47451, 0.764706, 1)
+shader_parameter/metallic = 0.0
+shader_parameter/roughness = 0.02
+shader_parameter/wave_dir = Vector2(0.25, 0)
+shader_parameter/wave_dir2 = Vector2(0, 0.125)
+shader_parameter/time_scale = 0.05
+shader_parameter/noise_scale = 10.0
+shader_parameter/height_scale = 0.15
+shader_parameter/color_deep = null
+shader_parameter/color_shallow = null
+shader_parameter/beers_law = 2.0
+shader_parameter/depth_offset = -0.75
+shader_parameter/wave = SubResource("NoiseTexture2D_xxcrw")
+shader_parameter/texture_normal = SubResource("NoiseTexture2D_3p5vi")
+shader_parameter/texture_normal2 = SubResource("NoiseTexture2D_kng7a")
+
+[node name="PoolWater01" type="Node3D"]
+
+[node name="Water01" type="MeshInstance3D" parent="."]
+transparency = 0.03
+cast_shadow = 0
+mesh = SubResource("QuadMesh_kgiww")
+surface_material_override/0 = SubResource("ShaderMaterial_rmknv")

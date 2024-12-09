@@ -1,0 +1,22 @@
+[remap]
+
+importer="wavefront_obj"
+importer_version=1
+type="Mesh"
+uid="uid://bmrw5ns0kb4oy"
+path="res://.godot/imported/Tent01GA.obj-4213fa96110a26ef7023fdc9e1438f2c.mesh"
+
+[deps]
+
+files=["res://.godot/imported/Tent01GA.obj-4213fa96110a26ef7023fdc9e1438f2c.mesh"]
+
+source_file="res://psxpack/meshes/outdoors/Tent01GA.obj"
+dest_files=["res://.godot/imported/Tent01GA.obj-4213fa96110a26ef7023fdc9e1438f2c.mesh", "res://.godot/imported/Tent01GA.obj-4213fa96110a26ef7023fdc9e1438f2c.mesh"]
+
+[params]
+
+generate_tangents=true
+scale_mesh=Vector3(1, 1, 1)
+offset_mesh=Vector3(0, 0, 0)
+optimize_mesh=true
+force_disable_mesh_compression=false

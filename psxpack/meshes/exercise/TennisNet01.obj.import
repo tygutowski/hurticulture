@@ -1,0 +1,22 @@
+[remap]
+
+importer="wavefront_obj"
+importer_version=1
+type="Mesh"
+uid="uid://gj0hvp5o7lcj"
+path="res://.godot/imported/TennisNet01.obj-0b97a728f4c376bd67605bd91bd57341.mesh"
+
+[deps]
+
+files=["res://.godot/imported/TennisNet01.obj-0b97a728f4c376bd67605bd91bd57341.mesh"]
+
+source_file="res://psxpack/meshes/exercise/TennisNet01.obj"
+dest_files=["res://.godot/imported/TennisNet01.obj-0b97a728f4c376bd67605bd91bd57341.mesh", "res://.godot/imported/TennisNet01.obj-0b97a728f4c376bd67605bd91bd57341.mesh"]
+
+[params]
+
+generate_tangents=true
+scale_mesh=Vector3(1, 1, 1)
+offset_mesh=Vector3(0, 0, 0)
+optimize_mesh=true
+force_disable_mesh_compression=false

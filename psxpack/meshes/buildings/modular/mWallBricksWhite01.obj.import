@@ -1,0 +1,22 @@
+[remap]
+
+importer="wavefront_obj"
+importer_version=1
+type="Mesh"
+uid="uid://ctgm110h4y8kd"
+path="res://.godot/imported/mWallBricksWhite01.obj-900596d0d29d6a15ff724951ecf5b1a3.mesh"
+
+[deps]
+
+files=["res://.godot/imported/mWallBricksWhite01.obj-900596d0d29d6a15ff724951ecf5b1a3.mesh"]
+
+source_file="res://psxpack/meshes/buildings/modular/mWallBricksWhite01.obj"
+dest_files=["res://.godot/imported/mWallBricksWhite01.obj-900596d0d29d6a15ff724951ecf5b1a3.mesh", "res://.godot/imported/mWallBricksWhite01.obj-900596d0d29d6a15ff724951ecf5b1a3.mesh"]
+
+[params]
+
+generate_tangents=true
+scale_mesh=Vector3(1, 1, 1)
+offset_mesh=Vector3(0, 0, 0)
+optimize_mesh=true
+force_disable_mesh_compression=false

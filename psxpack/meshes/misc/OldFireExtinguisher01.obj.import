@@ -1,0 +1,22 @@
+[remap]
+
+importer="wavefront_obj"
+importer_version=1
+type="Mesh"
+uid="uid://bspim3xxjgsns"
+path="res://.godot/imported/OldFireExtinguisher01.obj-8e0d71006ed8175a6798e6783b1165bd.mesh"
+
+[deps]
+
+files=["res://.godot/imported/OldFireExtinguisher01.obj-8e0d71006ed8175a6798e6783b1165bd.mesh"]
+
+source_file="res://psxpack/meshes/misc/OldFireExtinguisher01.obj"
+dest_files=["res://.godot/imported/OldFireExtinguisher01.obj-8e0d71006ed8175a6798e6783b1165bd.mesh", "res://.godot/imported/OldFireExtinguisher01.obj-8e0d71006ed8175a6798e6783b1165bd.mesh"]
+
+[params]
+
+generate_tangents=true
+scale_mesh=Vector3(1, 1, 1)
+offset_mesh=Vector3(0, 0, 0)
+optimize_mesh=true
+force_disable_mesh_compression=false

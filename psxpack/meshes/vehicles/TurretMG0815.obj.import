@@ -1,0 +1,22 @@
+[remap]
+
+importer="wavefront_obj"
+importer_version=1
+type="Mesh"
+uid="uid://cgxvp1cdkaqv3"
+path="res://.godot/imported/TurretMG0815.obj-136f74d9151aa157f0e4d3fce9c2199a.mesh"
+
+[deps]
+
+files=["res://.godot/imported/TurretMG0815.obj-136f74d9151aa157f0e4d3fce9c2199a.mesh"]
+
+source_file="res://psxpack/meshes/vehicles/TurretMG0815.obj"
+dest_files=["res://.godot/imported/TurretMG0815.obj-136f74d9151aa157f0e4d3fce9c2199a.mesh", "res://.godot/imported/TurretMG0815.obj-136f74d9151aa157f0e4d3fce9c2199a.mesh"]
+
+[params]
+
+generate_tangents=true
+scale_mesh=Vector3(1, 1, 1)
+offset_mesh=Vector3(0, 0, 0)
+optimize_mesh=true
+force_disable_mesh_compression=false

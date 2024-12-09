@@ -1,0 +1,62 @@
+# Blender 4.2.0 MTL File: 'BumperCarArena01.blend'
+# www.blender.org
+
+newmtl Floor
+Ks 0.150000 0.150000 0.150000
+Ke 0.000000 0.000000 0.000000
+Ni 1.450000
+d 1.000000
+illum 2
+Pr 0.500000
+Pm 0.000000
+Ps 0.000000
+Pc 0.000000
+Pcr 0.030000
+aniso 0.000000
+anisor 0.000000
+map_Kd C:/Godot/Projects/PSXPack/textures/meshes/buildings/ArenaBumperCars01Floor_a.png
+
+newmtl Material
+Ks 0.050000 0.050000 0.050000
+Ke 0.000000 0.000000 0.000000
+Ni 1.450000
+d 1.000000
+illum 2
+Pr 0.500000
+Pm 0.000000
+Ps 0.000000
+Pc 0.000000
+Pcr 0.030000
+aniso 0.000000
+anisor 0.000000
+map_Kd C:/Godot/Projects/PSXPack/textures/meshes/buildings/ArenaBumperCars01_a.png
+
+newmtl Net
+Ks 0.250000 0.250000 0.250000
+Ke 0.000000 0.000000 0.000000
+Ni 1.450000
+d 1.000000
+illum 2
+Pr 0.500000
+Pm 0.000000
+Ps 0.000000
+Pc 0.000000
+Pcr 0.030000
+aniso 0.000000
+anisor 0.000000
+map_Kd C:/Godot/Projects/PSXPack/textures/meshes/buildings/ArenaBumperCars01Net_a.png
+
+newmtl Roof
+Ks 0.250000 0.250000 0.250000
+Ke 0.000000 0.000000 0.000000
+Ni 1.450000
+d 1.000000
+illum 2
+Pr 0.500000
+Pm 0.000000
+Ps 0.000000
+Pc 0.000000
+Pcr 0.030000
+aniso 0.000000
+anisor 0.000000
+map_Kd C:/Godot/Projects/PSXPack/textures/meshes/buildings/ArenaBumperCars01Roof_a.png

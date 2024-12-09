@@ -1,0 +1,22 @@
+[remap]
+
+importer="wavefront_obj"
+importer_version=1
+type="Mesh"
+uid="uid://bi7i12ubm7o8o"
+path="res://.godot/imported/BookStack01b.obj-d542414fc27dae290d55988f13eb1f70.mesh"
+
+[deps]
+
+files=["res://.godot/imported/BookStack01b.obj-d542414fc27dae290d55988f13eb1f70.mesh"]
+
+source_file="res://psxpack/meshes/misc/BookStack01b.obj"
+dest_files=["res://.godot/imported/BookStack01b.obj-d542414fc27dae290d55988f13eb1f70.mesh", "res://.godot/imported/BookStack01b.obj-d542414fc27dae290d55988f13eb1f70.mesh"]
+
+[params]
+
+generate_tangents=true
+scale_mesh=Vector3(1, 1, 1)
+offset_mesh=Vector3(0, 0, 0)
+optimize_mesh=true
+force_disable_mesh_compression=false

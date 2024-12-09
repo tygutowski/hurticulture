@@ -1,0 +1,22 @@
+[remap]
+
+importer="wavefront_obj"
+importer_version=1
+type="Mesh"
+uid="uid://b7qy1ypyy16p"
+path="res://.godot/imported/PaymentCard01b.obj-b3631736a738b634ef7c8a9ed5282c26.mesh"
+
+[deps]
+
+files=["res://.godot/imported/PaymentCard01b.obj-b3631736a738b634ef7c8a9ed5282c26.mesh"]
+
+source_file="res://psxpack/meshes/finances/PaymentCard01b.obj"
+dest_files=["res://.godot/imported/PaymentCard01b.obj-b3631736a738b634ef7c8a9ed5282c26.mesh", "res://.godot/imported/PaymentCard01b.obj-b3631736a738b634ef7c8a9ed5282c26.mesh"]
+
+[params]
+
+generate_tangents=true
+scale_mesh=Vector3(1, 1, 1)
+offset_mesh=Vector3(0, 0, 0)
+optimize_mesh=true
+force_disable_mesh_compression=false

@@ -1,0 +1,22 @@
+[remap]
+
+importer="wavefront_obj"
+importer_version=1
+type="Mesh"
+uid="uid://b5hihvo4jnkxa"
+path="res://.godot/imported/Sign08.obj-42535c681afdfc70051b5692cc466cfc.mesh"
+
+[deps]
+
+files=["res://.godot/imported/Sign08.obj-42535c681afdfc70051b5692cc466cfc.mesh"]
+
+source_file="res://psxpack/meshes/traffic/Sign08.obj"
+dest_files=["res://.godot/imported/Sign08.obj-42535c681afdfc70051b5692cc466cfc.mesh", "res://.godot/imported/Sign08.obj-42535c681afdfc70051b5692cc466cfc.mesh"]
+
+[params]
+
+generate_tangents=true
+scale_mesh=Vector3(1, 1, 1)
+offset_mesh=Vector3(0, 0, 0)
+optimize_mesh=true
+force_disable_mesh_compression=false

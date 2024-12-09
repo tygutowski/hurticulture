@@ -1,0 +1,22 @@
+[remap]
+
+importer="wavefront_obj"
+importer_version=1
+type="Mesh"
+uid="uid://bljfrv0gm6qt7"
+path="res://.godot/imported/Palette01.obj-9af696bbe8e21a9b2595f87af8067830.mesh"
+
+[deps]
+
+files=["res://.godot/imported/Palette01.obj-9af696bbe8e21a9b2595f87af8067830.mesh"]
+
+source_file="res://psxpack/meshes/utilities/Palette01.obj"
+dest_files=["res://.godot/imported/Palette01.obj-9af696bbe8e21a9b2595f87af8067830.mesh", "res://.godot/imported/Palette01.obj-9af696bbe8e21a9b2595f87af8067830.mesh"]
+
+[params]
+
+generate_tangents=true
+scale_mesh=Vector3(1, 1, 1)
+offset_mesh=Vector3(0, 0, 0)
+optimize_mesh=true
+force_disable_mesh_compression=false

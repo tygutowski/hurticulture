@@ -1,4 +1,4 @@
-[gd_scene load_steps=65 format=3 uid="uid://bcfemkf41qw1s"]
+[gd_scene load_steps=68 format=3 uid="uid://bcfemkf41qw1s"]
 
 [ext_resource type="Material" uid="uid://c3v741g5b1csm" path="res://environment/materials/concrete_material.tres" id="1_bapng"]
 [ext_resource type="PackedScene" uid="uid://bxq1mnjbcjkj1" path="res://environment/structures/florescentlight.tscn" id="2_fwg1e"]
@@ -11,6 +11,7 @@
 [ext_resource type="Script" path="res://environment/power_generator.gd" id="8_xc0j5"]
 [ext_resource type="PackedScene" uid="uid://drkfhhj11qpqf" path="res://environment/objects/generator.tscn" id="11_7heok"]
 [ext_resource type="Script" path="res://environment/game_starter.gd" id="11_n0l0v"]
+[ext_resource type="PackedScene" uid="uid://cv15t3tmcetnu" path="res://environment/items/flashlight.tscn" id="12_wdngk"]
 
 [sub_resource type="BoxMesh" id="BoxMesh_nksia"]
 size = Vector3(3, 2, 0.25)
@@ -171,6 +172,13 @@ data = PackedVector3Array(-7, 0.5, 2, 7, 0.5, 2, -7, -0.5, 2, 7, 0.5, 2, 7, -0.5
 
 [sub_resource type="ConcavePolygonShape3D" id="ConcavePolygonShape3D_ywuoh"]
 data = PackedVector3Array(-7, 0.5, 2, 7, 0.5, 2, -7, -0.5, 2, 7, 0.5, 2, 7, -0.5, 2, -7, -0.5, 2, 7, 0.5, -2, -7, 0.5, -2, 7, -0.5, -2, -7, 0.5, -2, -7, -0.5, -2, 7, -0.5, -2, 7, 0.5, 2, 7, 0.5, -2, 7, -0.5, 2, 7, 0.5, -2, 7, -0.5, -2, 7, -0.5, 2, -7, 0.5, -2, -7, 0.5, 2, -7, -0.5, -2, -7, 0.5, 2, -7, -0.5, 2, -7, -0.5, -2, 7, 0.5, 2, -7, 0.5, 2, 7, 0.5, -2, -7, 0.5, 2, -7, 0.5, -2, 7, 0.5, -2, -7, -0.5, 2, 7, -0.5, 2, -7, -0.5, -2, 7, -0.5, 2, 7, -0.5, -2, -7, -0.5, -2)
+
+[sub_resource type="BoxMesh" id="BoxMesh_qug5h"]
+material = ExtResource("1_bapng")
+size = Vector3(16, 5, 13.5)
+
+[sub_resource type="ConcavePolygonShape3D" id="ConcavePolygonShape3D_lh60p"]
+data = PackedVector3Array(-8, 2.5, 6.75, 8, 2.5, 6.75, -8, -2.5, 6.75, 8, 2.5, 6.75, 8, -2.5, 6.75, -8, -2.5, 6.75, 8, 2.5, -6.75, -8, 2.5, -6.75, 8, -2.5, -6.75, -8, 2.5, -6.75, -8, -2.5, -6.75, 8, -2.5, -6.75, 8, 2.5, 6.75, 8, 2.5, -6.75, 8, -2.5, 6.75, 8, 2.5, -6.75, 8, -2.5, -6.75, 8, -2.5, 6.75, -8, 2.5, -6.75, -8, 2.5, 6.75, -8, -2.5, -6.75, -8, 2.5, 6.75, -8, -2.5, 6.75, -8, -2.5, -6.75, 8, 2.5, 6.75, -8, 2.5, 6.75, 8, 2.5, -6.75, -8, 2.5, 6.75, -8, 2.5, -6.75, 8, 2.5, -6.75, -8, -2.5, 6.75, 8, -2.5, 6.75, -8, -2.5, -6.75, 8, -2.5, 6.75, 8, -2.5, -6.75, -8, -2.5, -6.75)
 
 [node name="warehouse" type="Node3D"]
 
@@ -686,8 +694,30 @@ surface_material_override/0 = ExtResource("1_bapng")
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Structure/MeshInstance3D44/StaticBody3D"]
 shape = SubResource("ConcavePolygonShape3D_ywuoh")
 
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Structure"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -2.9495, 0)
+mesh = SubResource("BoxMesh_qug5h")
+skeleton = NodePath("")
+
+[node name="StaticBody3D" type="StaticBody3D" parent="Structure/MeshInstance3D"]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Structure/MeshInstance3D/StaticBody3D"]
+shape = SubResource("ConcavePolygonShape3D_lh60p")
+
 [node name="Generator2" parent="." instance=ExtResource("11_7heok")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -6.375, 0.542679, 4.125)
 
 [node name="GameStarter" type="Node3D" parent="."]
 script = ExtResource("11_n0l0v")
+
+[node name="Item" parent="." instance=ExtResource("12_wdngk")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.415036, 0.686565, -2.14177)
+
+[node name="Item4" parent="." instance=ExtResource("12_wdngk")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5.61442, 0.686565, -4.52992)
+
+[node name="Item2" parent="." instance=ExtResource("12_wdngk")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5.22969, 0.732993, 3.50544)
+
+[node name="Item3" parent="." instance=ExtResource("12_wdngk")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4.38579, 0.732993, 3.49991)

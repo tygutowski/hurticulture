@@ -1,0 +1,22 @@
+[remap]
+
+importer="wavefront_obj"
+importer_version=1
+type="Mesh"
+uid="uid://bvthl5jy7qkrw"
+path="res://.godot/imported/Bottle03.obj-c7b6a955266d5777e759e81af722dafd.mesh"
+
+[deps]
+
+files=["res://.godot/imported/Bottle03.obj-c7b6a955266d5777e759e81af722dafd.mesh"]
+
+source_file="res://psxpack/meshes/food/Bottle03.obj"
+dest_files=["res://.godot/imported/Bottle03.obj-c7b6a955266d5777e759e81af722dafd.mesh", "res://.godot/imported/Bottle03.obj-c7b6a955266d5777e759e81af722dafd.mesh"]
+
+[params]
+
+generate_tangents=true
+scale_mesh=Vector3(1, 1, 1)
+offset_mesh=Vector3(0, 0, 0)
+optimize_mesh=true
+force_disable_mesh_compression=false

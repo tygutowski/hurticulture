@@ -1,0 +1,22 @@
+[remap]
+
+importer="wavefront_obj"
+importer_version=1
+type="Mesh"
+uid="uid://mhcrq2g8v3bp"
+path="res://.godot/imported/MobilePhone01.obj-eba680ffd8c91b75e16c741d5aba741e.mesh"
+
+[deps]
+
+files=["res://.godot/imported/MobilePhone01.obj-eba680ffd8c91b75e16c741d5aba741e.mesh"]
+
+source_file="res://psxpack/meshes/electronics/MobilePhone01.obj"
+dest_files=["res://.godot/imported/MobilePhone01.obj-eba680ffd8c91b75e16c741d5aba741e.mesh", "res://.godot/imported/MobilePhone01.obj-eba680ffd8c91b75e16c741d5aba741e.mesh"]
+
+[params]
+
+generate_tangents=true
+scale_mesh=Vector3(1, 1, 1)
+offset_mesh=Vector3(0, 0, 0)
+optimize_mesh=true
+force_disable_mesh_compression=false

@@ -1,0 +1,22 @@
+[remap]
+
+importer="wavefront_obj"
+importer_version=1
+type="Mesh"
+uid="uid://cjm7vhh6s2ner"
+path="res://.godot/imported/TinBox01a.obj-d175fb59afa0aa3f75550d5122c6a03d.mesh"
+
+[deps]
+
+files=["res://.godot/imported/TinBox01a.obj-d175fb59afa0aa3f75550d5122c6a03d.mesh"]
+
+source_file="res://psxpack/meshes/misc/TinBox01a.obj"
+dest_files=["res://.godot/imported/TinBox01a.obj-d175fb59afa0aa3f75550d5122c6a03d.mesh", "res://.godot/imported/TinBox01a.obj-d175fb59afa0aa3f75550d5122c6a03d.mesh"]
+
+[params]
+
+generate_tangents=true
+scale_mesh=Vector3(1, 1, 1)
+offset_mesh=Vector3(0, 0, 0)
+optimize_mesh=true
+force_disable_mesh_compression=false

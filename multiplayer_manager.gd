@@ -6,30 +6,34 @@ const GAME_ID: int = 3281120
 enum MessageType {HANDSHAKE, SPAWN_ITEM, SPAWN_ENEMY, USAGE, UPDATE, VOICE}
 
 var lobby_id: int = 0
-var lobby_members: Array[Dictionary] = []
 var steam_id: int = -1
-var steam_username: String = ''
-var nickname: String = 'player'
 var avatar_list = {}
-var peers: Node3D = null
+var peer_container: Node = null
 var is_host: bool = false
 
 var item_data: Array = []
 var enemy_data: Array = []
 var player_data: Array = []
 
+var peer_list: Dictionary = {}
+
 func _init():
 	OS.set_environment("SteamAppId", str(GAME_ID))
 	OS.set_environment("SteamGameId", str(GAME_ID))
-	
+
 func _ready() -> void:
 	initialize_steam()
 	connect_signals()
 	steam_id = Steam.getSteamID()
-	steam_username = Steam.getPersonaName()
+
+func _process(_delta) -> void:
+	Steam.run_callbacks()
+	if lobby_id > 0:
+		peer_list[steam_id].send_packet()
+		read_all_p2p_packets()
 
 func connect_signals() -> void:
-	print("Connecting signals")
+	# connect all Steam signals to functions
 	Steam.p2p_session_request.connect(_on_p2p_session_request)
 	Steam.p2p_session_connect_fail.connect(_on_p2p_session_connect_fail)
 	Steam.join_requested.connect(_on_lobby_join_requested)
@@ -39,8 +43,10 @@ func connect_signals() -> void:
 	Steam.persona_state_change.connect(_on_persona_change)
 	Steam.avatar_loaded.connect(_on_loaded_avatar)
 	Steam.lobby_chat_update.connect(_on_lobby_chat_updated)
-	check_command_line() # check cmd line arguments
+	# check cmd line arguments
+	check_command_line()
 
+# if there are any errors, close the game
 func initialize_steam() -> void:
 	var error: Dictionary = Steam.steamInit(true, GAME_ID)
 	if error["status"] != 1:
@@ -50,37 +56,32 @@ func initialize_steam() -> void:
 		print("User does not own this game")
 		get_tree().quit()
 
-func _process(_delta) -> void:
-	Steam.run_callbacks()
-	if lobby_id > 0:
-		read_all_p2p_packets()
-
 func do_stuff_with_packet(data: Dictionary) -> void:
 	var keys = data.keys()
 	if "type" in keys:
 		var type: int = data["type"]
 		if type == MessageType.HANDSHAKE:
 			# List of all players
-			var player_data: Array = data["player_data"]
+			var _player_data: Array = data["player_data"]
 			# List of all objects
-			var item_data: Array = data["item_data"]
+			var _item_data: Array = data["item_data"]
 			# List of all enemies
-			var enemy_data: Array = data["enemy_data"]
-			var has_already_started: bool = data["has_game_started"]
-			var current_power: float = data["current_power"]
+			var _enemy_data: Array = data["enemy_data"]
+			var _has_already_started: bool = data["has_game_started"]
+			var _current_power: float = data["current_power"]
 			
 		elif type == MessageType.SPAWN_ITEM:
-			var item = data["item"]
+			var _item = data["item"]
 		elif type == MessageType.SPAWN_ENEMY:
 			var node_path = data["node_path"]
-			var enemy = get_node(node_path)
+			var _enemy = get_node(node_path)
 		elif type == MessageType.USAGE:
-			var player_id = data["from"]
+			var _player_id = data["from"]
 			var node_path = data["node_path"]
-			var used_item = get_node(node_path)
+			var _used_item = get_node(node_path)
 		elif type == MessageType.UPDATE:
 			var player_id = data["from"]
-			var player = peers.get_node(player_id)
+			var player = peer_container.get_node(player_id)
 			if is_instance_valid(player):
 				var new_position = data["position"]
 				var new_rotation = data["rotation"]
@@ -99,47 +100,46 @@ func check_command_line() -> void:
 				print('Commandline lobby ID: %s' % these_arguments[1])
 				join_lobby(int(these_arguments[1]))
 
+# when someone attempts to join a lobby
 func join_lobby(this_lobby_id: int) -> void:
 	print("Attempting to join lobby %s" % lobby_id)
-	lobby_members.clear()
 	Steam.joinLobby(this_lobby_id)
 
-func load_world() -> void:
-	print("Loading world")
-	# load the world scene
+# load a new world scene and instance all players that are in the lobby
+func instance_world() -> Node3D:
 	var world_scene = load("res://environment/world.tscn")
 	var world = world_scene.instantiate()
-	peers = get_tree().get_first_node_in_group("Peers")
-	# load and add players
-	for i in range(len(lobby_members)):
-		# if its you, skip
-		if lobby_members[i]["steam_id"] == steam_id:
-			continue
-		var peer_scene = load("res://peer.tscn")
-		var peer = peer_scene.instantiate()
-		peer.name = str(lobby_members[i]["steam_id"])
-		var username = str(lobby_members[i]["steam_name"])
-		peer.get_node("Label3D").text = username
-		peers.add_child(peer)
 	get_tree().get_root().add_child(world)
-	print("World finished loading")
 	
+	peer_container = world.get_node("%PeerContainer")
+	# load and add players
+	for peer_id in peer_list:
+		var peer = peer_list[peer_id]
+		# if its you, skip
+		if peer_is_me(peer):
+			continue
+		var peer_instance = preload("res://peer.tscn").instantiate()
+		peer_instance.name = str(peer.id)
+		peer_instance.get_node("Label3D").text = peer.username
+		peer_container.add_child(peer_instance)
+	return world
+
+func peer_is_me(peer: Peer) -> bool:
+	return int(peer.id) == steam_id
+
 # when you join a lobby
 func _on_lobby_joined(this_lobby_id: int, _permissions: int, _locked: bool, response: int) -> void:
+	# if you successfully join the lobby
 	if response == Steam.CHAT_ROOM_ENTER_RESPONSE_SUCCESS:
 		print("Lobby %s joined" % this_lobby_id)
 		lobby_id = this_lobby_id
-		var main_menu = get_tree().current_scene
-		main_menu.begin_loading()
 		# update the list of current lobby members
 		get_lobby_members()
 		# load the world in
-		load_world()
-		# get world data
-		main_menu.finish_loading()
+
+	# if you fail joining the lobby
 	else:
 		var fail_reason: String
-	
 		match response:
 			Steam.CHAT_ROOM_ENTER_RESPONSE_DOESNT_EXIST: fail_reason = "This lobby no longer exists."
 			Steam.CHAT_ROOM_ENTER_RESPONSE_NOT_ALLOWED: fail_reason = "You don't have permission to join this lobby."
@@ -152,13 +152,13 @@ func _on_lobby_joined(this_lobby_id: int, _permissions: int, _locked: bool, resp
 			Steam.CHAT_ROOM_ENTER_RESPONSE_MEMBER_BLOCKED_YOU: fail_reason = "A user in the lobby has blocked you from joining."
 			Steam.CHAT_ROOM_ENTER_RESPONSE_YOU_BLOCKED_MEMBER: fail_reason = "A user you have blocked is in the lobby."
 		print("Failed to join this lobby: %s" % fail_reason)
-		# go back to the menu
 
+# this is when the peer clicks to join a lobby
 func _on_lobby_join_requested(this_lobby_id: int) -> void:
 	join_lobby(this_lobby_id)
 
+# this is called all the time to update the lobby info
 func get_lobby_members() -> void:
-	lobby_members.clear()
 	var number_of_members: int = Steam.getNumLobbyMembers(lobby_id)
 	for this_member in range(0, number_of_members):
 		var member_steam_id: int = Steam.getLobbyMemberByIndex(lobby_id, this_member)
@@ -166,13 +166,15 @@ func get_lobby_members() -> void:
 		var member_steam_name: String = Steam.getFriendPersonaName(member_steam_id)
 		var node: Node3D = null
 		
-		if peers != null:
-			node = peers.get_node_or_null(str(member_steam_id))
-		lobby_members.append({
-			"steam_id"   : member_steam_id,
-			"steam_name" : member_steam_name,
-			"node"       : node
-			})
+		# check if the peer youre parsing doesnt exist yet
+		if not peer_list.has(member_steam_id):
+			var peer = populate_peer(member_steam_id)
+			peer_list[member_steam_id] = peer
+
+func populate_peer(peer_id: int) -> Peer:
+	var peer = Peer.new()
+	
+	return peer
 
 # this is really updating friend info
 func _on_persona_change(this_steam_id: int, _flag: int) -> void:
@@ -204,16 +206,13 @@ func send_p2p_packet(this_target: int, packet_data: Dictionary, type: MessageTyp
 	this_data.append_array(compressed_data)
 	
 	if this_target == 0:
-		if lobby_members.size():
-			# loop through everyone that isnt you
-			for this_member in lobby_members:
-				if this_member['steam_id'] != steam_id:
-					Steam.sendP2PPacket(this_member['steam_id'], this_data, send_type, channel)
+
+		for peer_id in peer_list:
+			var peer = peer_list[peer_id]
+			if not peer_is_me(peer):
+				Steam.sendP2PPacket(peer.id, this_data, send_type, channel)
 	else:
 		Steam.sendP2PPacket(this_target, this_data, send_type, channel)
-
-func get_steam_id() -> int:
-	return steam_id
 
 func initialize_new_peer(player_id: int) -> void:
 	print("Sending P2P handshake to new player")
@@ -234,7 +233,7 @@ func add_to_lobby(player_id: int):
 	peer.name = str(player_id)
 	var username = Steam.getFriendPersonaName(player_id)
 	peer.get_node("Label3D").text = username
-	peers.add_child(peer)
+	peer_container.add_child(peer)
 	if is_host:
 		initialize_new_peer(player_id)
 
@@ -247,13 +246,13 @@ func _on_lobby_chat_updated(_this_lobby_id: int, change_id: int, _making_change_
 		add_to_lobby(_making_change_id)
 	elif chat_state == Steam.CHAT_MEMBER_STATE_CHANGE_LEFT:
 		print("%s has left the lobby." % changer_name)
-		peers.get_node(str(_making_change_id)).queue_free()
+		peer_container.get_node(str(_making_change_id)).queue_free()
 	elif chat_state == Steam.CHAT_MEMBER_STATE_CHANGE_KICKED:
 		print("%s has been kicked from the lobby." % changer_name)
-		peers.get_node(str(_making_change_id)).queue_free()
+		peer_container.get_node(str(_making_change_id)).queue_free()
 	elif chat_state == Steam.CHAT_MEMBER_STATE_CHANGE_BANNED:
 		print("%s has been banned from the lobby." % changer_name)
-		peers.get_node(str(_making_change_id)).queue_free()
+		peer_container.get_node(str(_making_change_id)).queue_free()
 	else:
 		print("%s did something." % changer_name)
 	get_lobby_members()
@@ -266,13 +265,14 @@ func leave_lobby() -> void:
 		# Wipe the Steam lobby ID then display the default lobby ID and player list title
 		lobby_id = 0
 		# Close session with all users
-		for this_member in lobby_members:
+		for peer_id in peer_list:
+			var peer = peer_list[peer_id]
 			# Make sure this isn't your Steam ID
-			if this_member['steam_id'] != steam_id:
+			if not peer_is_me(peer):
 				# Close the P2P session
-				Steam.closeP2PSessionWithUser(this_member['steam_id'])
+				Steam.closeP2PSessionWithUser(peer.id)
 		# Clear the local lobby list
-		lobby_members.clear()
+		peer_list.clear()
 
 func create_lobby() -> void:
 	if lobby_id == 0:

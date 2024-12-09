@@ -15,7 +15,6 @@ var normalized_heightmap: Array
 @export var weight: float
 var offset: float
 @export_range(1, 100) var intensity: float
-@export var material: Material
 
 func prepare_textures() -> void:
 	if sloped_texture == null:

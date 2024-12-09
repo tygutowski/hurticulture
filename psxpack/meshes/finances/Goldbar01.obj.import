@@ -1,0 +1,22 @@
+[remap]
+
+importer="wavefront_obj"
+importer_version=1
+type="Mesh"
+uid="uid://buk2fjxydroqv"
+path="res://.godot/imported/Goldbar01.obj-5f19b753b96b83c86636a4301d9c3de9.mesh"
+
+[deps]
+
+files=["res://.godot/imported/Goldbar01.obj-5f19b753b96b83c86636a4301d9c3de9.mesh"]
+
+source_file="res://psxpack/meshes/finances/Goldbar01.obj"
+dest_files=["res://.godot/imported/Goldbar01.obj-5f19b753b96b83c86636a4301d9c3de9.mesh", "res://.godot/imported/Goldbar01.obj-5f19b753b96b83c86636a4301d9c3de9.mesh"]
+
+[params]
+
+generate_tangents=true
+scale_mesh=Vector3(1, 1, 1)
+offset_mesh=Vector3(0, 0, 0)
+optimize_mesh=true
+force_disable_mesh_compression=false

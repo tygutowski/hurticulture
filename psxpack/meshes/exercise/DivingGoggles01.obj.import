@@ -1,0 +1,22 @@
+[remap]
+
+importer="wavefront_obj"
+importer_version=1
+type="Mesh"
+uid="uid://da4gpdkm13wau"
+path="res://.godot/imported/DivingGoggles01.obj-3fa946a13866c94bc5322e3a7b9f764e.mesh"
+
+[deps]
+
+files=["res://.godot/imported/DivingGoggles01.obj-3fa946a13866c94bc5322e3a7b9f764e.mesh"]
+
+source_file="res://psxpack/meshes/exercise/DivingGoggles01.obj"
+dest_files=["res://.godot/imported/DivingGoggles01.obj-3fa946a13866c94bc5322e3a7b9f764e.mesh", "res://.godot/imported/DivingGoggles01.obj-3fa946a13866c94bc5322e3a7b9f764e.mesh"]
+
+[params]
+
+generate_tangents=true
+scale_mesh=Vector3(1, 1, 1)
+offset_mesh=Vector3(0, 0, 0)
+optimize_mesh=true
+force_disable_mesh_compression=false

@@ -1,0 +1,22 @@
+[remap]
+
+importer="wavefront_obj"
+importer_version=1
+type="Mesh"
+uid="uid://daf4npdi1f7qp"
+path="res://.godot/imported/SausagePack01A.obj-5864fc32b4a0e02b42aeb074d2ade0db.mesh"
+
+[deps]
+
+files=["res://.godot/imported/SausagePack01A.obj-5864fc32b4a0e02b42aeb074d2ade0db.mesh"]
+
+source_file="res://psxpack/meshes/food/SausagePack01A.obj"
+dest_files=["res://.godot/imported/SausagePack01A.obj-5864fc32b4a0e02b42aeb074d2ade0db.mesh", "res://.godot/imported/SausagePack01A.obj-5864fc32b4a0e02b42aeb074d2ade0db.mesh"]
+
+[params]
+
+generate_tangents=true
+scale_mesh=Vector3(1, 1, 1)
+offset_mesh=Vector3(0, 0, 0)
+optimize_mesh=true
+force_disable_mesh_compression=false

@@ -1,0 +1,22 @@
+[remap]
+
+importer="wavefront_obj"
+importer_version=1
+type="Mesh"
+uid="uid://dmex04b4j8oh7"
+path="res://.godot/imported/Organizer01.obj-6204de6b0789ac1035d3231b267fd228.mesh"
+
+[deps]
+
+files=["res://.godot/imported/Organizer01.obj-6204de6b0789ac1035d3231b267fd228.mesh"]
+
+source_file="res://psxpack/meshes/office/Organizer01.obj"
+dest_files=["res://.godot/imported/Organizer01.obj-6204de6b0789ac1035d3231b267fd228.mesh", "res://.godot/imported/Organizer01.obj-6204de6b0789ac1035d3231b267fd228.mesh"]
+
+[params]
+
+generate_tangents=true
+scale_mesh=Vector3(1, 1, 1)
+offset_mesh=Vector3(0, 0, 0)
+optimize_mesh=true
+force_disable_mesh_compression=false

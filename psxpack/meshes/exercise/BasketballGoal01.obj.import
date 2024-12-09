@@ -1,0 +1,22 @@
+[remap]
+
+importer="wavefront_obj"
+importer_version=1
+type="Mesh"
+uid="uid://b8jcs3jyw064a"
+path="res://.godot/imported/BasketballGoal01.obj-3e5c03cb076346070043d12b286345e1.mesh"
+
+[deps]
+
+files=["res://.godot/imported/BasketballGoal01.obj-3e5c03cb076346070043d12b286345e1.mesh"]
+
+source_file="res://psxpack/meshes/exercise/BasketballGoal01.obj"
+dest_files=["res://.godot/imported/BasketballGoal01.obj-3e5c03cb076346070043d12b286345e1.mesh", "res://.godot/imported/BasketballGoal01.obj-3e5c03cb076346070043d12b286345e1.mesh"]
+
+[params]
+
+generate_tangents=true
+scale_mesh=Vector3(1, 1, 1)
+offset_mesh=Vector3(0, 0, 0)
+optimize_mesh=true
+force_disable_mesh_compression=false

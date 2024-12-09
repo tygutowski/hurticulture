@@ -1,0 +1,22 @@
+[remap]
+
+importer="wavefront_obj"
+importer_version=1
+type="Mesh"
+uid="uid://dnxx8gasfj71v"
+path="res://.godot/imported/CanalLid01.obj-27e548a22c3929ac1a08bf5beadf6fee.mesh"
+
+[deps]
+
+files=["res://.godot/imported/CanalLid01.obj-27e548a22c3929ac1a08bf5beadf6fee.mesh"]
+
+source_file="res://psxpack/meshes/traffic/CanalLid01.obj"
+dest_files=["res://.godot/imported/CanalLid01.obj-27e548a22c3929ac1a08bf5beadf6fee.mesh", "res://.godot/imported/CanalLid01.obj-27e548a22c3929ac1a08bf5beadf6fee.mesh"]
+
+[params]
+
+generate_tangents=true
+scale_mesh=Vector3(1, 1, 1)
+offset_mesh=Vector3(0, 0, 0)
+optimize_mesh=true
+force_disable_mesh_compression=false

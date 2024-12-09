@@ -1,0 +1,22 @@
+# Blender 4.2.0 MTL File: 'Tent02GA.blend'
+# www.blender.org
+
+newmtl Rope
+Ns 250.000000
+Ka 1.000000 1.000000 1.000000
+Ks 0.000000 0.000000 0.000000
+Ke 0.000000 0.000000 0.000000
+Ni 1.500000
+d 1.000000
+illum 1
+map_Kd C:/Godot/Projects/PSXPack/textures/meshes/outdoors/Tarp01G_a.jpg
+
+newmtl Tarp
+Ns 250.000000
+Ka 1.000000 1.000000 1.000000
+Ks 0.250000 0.250000 0.250000
+Ke 0.000000 0.000000 0.000000
+Ni 1.450000
+d 1.000000
+illum 2
+map_Kd C:/Godot/Projects/PSXPack/textures/meshes/outdoors/Tarp01G_a.jpg

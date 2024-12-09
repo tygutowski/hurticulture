@@ -1,0 +1,22 @@
+[remap]
+
+importer="wavefront_obj"
+importer_version=1
+type="Mesh"
+uid="uid://bc2tkdtq7egpo"
+path="res://.godot/imported/Radio01.obj-f493e7f3c5fd3eb5cbe1f8e06fe97567.mesh"
+
+[deps]
+
+files=["res://.godot/imported/Radio01.obj-f493e7f3c5fd3eb5cbe1f8e06fe97567.mesh"]
+
+source_file="res://psxpack/meshes/electronics/Radio01.obj"
+dest_files=["res://.godot/imported/Radio01.obj-f493e7f3c5fd3eb5cbe1f8e06fe97567.mesh", "res://.godot/imported/Radio01.obj-f493e7f3c5fd3eb5cbe1f8e06fe97567.mesh"]
+
+[params]
+
+generate_tangents=true
+scale_mesh=Vector3(1, 1, 1)
+offset_mesh=Vector3(0, 0, 0)
+optimize_mesh=true
+force_disable_mesh_compression=false

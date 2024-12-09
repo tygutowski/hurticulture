@@ -1,0 +1,22 @@
+[remap]
+
+importer="wavefront_obj"
+importer_version=1
+type="Mesh"
+uid="uid://cy0pv0ylp4307"
+path="res://.godot/imported/GasStorage01.obj-5860782c8d9495aa440536474d7f29fd.mesh"
+
+[deps]
+
+files=["res://.godot/imported/GasStorage01.obj-5860782c8d9495aa440536474d7f29fd.mesh"]
+
+source_file="res://psxpack/meshes/buildings/GasStorage01.obj"
+dest_files=["res://.godot/imported/GasStorage01.obj-5860782c8d9495aa440536474d7f29fd.mesh", "res://.godot/imported/GasStorage01.obj-5860782c8d9495aa440536474d7f29fd.mesh"]
+
+[params]
+
+generate_tangents=true
+scale_mesh=Vector3(1, 1, 1)
+offset_mesh=Vector3(0, 0, 0)
+optimize_mesh=true
+force_disable_mesh_compression=false

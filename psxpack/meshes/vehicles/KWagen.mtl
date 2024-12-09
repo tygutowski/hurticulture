@@ -1,0 +1,42 @@
+# Blender 4.2.0 MTL File: 'KWagen.blend'
+# www.blender.org
+
+newmtl Body
+Ns 250.000000
+Ka 1.000000 1.000000 1.000000
+Ks 0.500000 0.500000 0.500000
+Ke 0.000000 0.000000 0.000000
+Ni 1.450000
+d 1.000000
+illum 2
+map_Kd C:/Godot/Projects/PSXPack/textures/meshes/vehicles/KWagen_a.png
+
+newmtl MG0815
+Ns 250.000000
+Ka 1.000000 1.000000 1.000000
+Ks 0.150000 0.150000 0.150000
+Ke 0.000000 0.000000 0.000000
+Ni 1.450000
+d 1.000000
+illum 2
+map_Kd C:/Godot/Projects/PSXPack/textures/meshes/vehicles/TurretMG0815_a.png
+
+newmtl Tracks
+Ns 250.000000
+Ka 1.000000 1.000000 1.000000
+Ks 0.500000 0.500000 0.500000
+Ke 0.000000 0.000000 0.000000
+Ni 1.450000
+d 1.000000
+illum 2
+map_Kd C:/Godot/Projects/PSXPack/textures/meshes/vehicles/KWagen_a.png
+
+newmtl Turret
+Ns 250.000000
+Ka 1.000000 1.000000 1.000000
+Ks 0.500000 0.500000 0.500000
+Ke 0.000000 0.000000 0.000000
+Ni 1.450000
+d 1.000000
+illum 2
+map_Kd C:/Godot/Projects/PSXPack/textures/meshes/vehicles/Turret7.7_a.png
