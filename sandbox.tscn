@@ -1,0 +1,87 @@
+[gd_scene load_steps=9 format=3 uid="uid://bnf8skrh5pjuk"]
+
+[ext_resource type="Material" uid="uid://c8olfqsah5dxj" path="res://TestMaterial.tres" id="2_f2mx5"]
+[ext_resource type="PackedScene" uid="uid://cv15t3tmcetnu" path="res://environment/items/flashlight.tscn" id="2_y41ub"]
+[ext_resource type="PackedScene" uid="uid://bwu8dfp2qp3kc" path="res://environment/fruits/gourd.tscn" id="3_ep13c"]
+[ext_resource type="PackedScene" uid="uid://b5xjtp4qjtafs" path="res://player/player.tscn" id="4_1vgli"]
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_hipxm"]
+material = ExtResource("2_f2mx5")
+size = Vector2(50, 50)
+
+[sub_resource type="ConcavePolygonShape3D" id="ConcavePolygonShape3D_et2sf"]
+data = PackedVector3Array(500, 0, 500, -500, 0, 500, 500, 0, -500, -500, 0, 500, -500, 0, -500, 500, 0, -500)
+
+[sub_resource type="BoxMesh" id="BoxMesh_4thw1"]
+material = ExtResource("2_f2mx5")
+size = Vector3(4, 4, 4)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_k85kl"]
+size = Vector3(4, 4, 4)
+
+[node name="Node3D" type="Node3D"]
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+mesh = SubResource("PlaneMesh_hipxm")
+
+[node name="StaticBody3D" type="StaticBody3D" parent="MeshInstance3D"]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="MeshInstance3D/StaticBody3D"]
+shape = SubResource("ConcavePolygonShape3D_et2sf")
+
+[node name="Flashlight" parent="." instance=ExtResource("2_y41ub")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.33977, 0.0250332, -0.172498)
+
+[node name="MeshInstance3D2" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -9, 2, -6.59239)
+mesh = SubResource("BoxMesh_4thw1")
+
+[node name="StaticBody3D" type="StaticBody3D" parent="MeshInstance3D2"]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="MeshInstance3D2/StaticBody3D"]
+shape = SubResource("BoxShape3D_k85kl")
+
+[node name="MeshInstance3D6" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5, 2, -11.5924)
+mesh = SubResource("BoxMesh_4thw1")
+
+[node name="StaticBody3D" type="StaticBody3D" parent="MeshInstance3D6"]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="MeshInstance3D6/StaticBody3D"]
+shape = SubResource("BoxShape3D_k85kl")
+
+[node name="MeshInstance3D3" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 10.7797, 2, -1.14453)
+mesh = SubResource("BoxMesh_4thw1")
+
+[node name="StaticBody3D" type="StaticBody3D" parent="MeshInstance3D3"]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="MeshInstance3D3/StaticBody3D"]
+shape = SubResource("BoxShape3D_k85kl")
+
+[node name="MeshInstance3D5" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -9.38559, 0, -1.14453)
+mesh = SubResource("BoxMesh_4thw1")
+
+[node name="StaticBody3D" type="StaticBody3D" parent="MeshInstance3D5"]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="MeshInstance3D5/StaticBody3D"]
+shape = SubResource("BoxShape3D_k85kl")
+
+[node name="MeshInstance3D4" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 10.7797, 6, -1.14453)
+mesh = SubResource("BoxMesh_4thw1")
+
+[node name="StaticBody3D" type="StaticBody3D" parent="MeshInstance3D4"]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="MeshInstance3D4/StaticBody3D"]
+shape = SubResource("BoxShape3D_k85kl")
+
+[node name="RigidBody3D" parent="." instance=ExtResource("3_ep13c")]
+transform = Transform3D(-0.0585398, 0, -0.998285, 0, 1, 0, 0.998285, 0, -0.0585398, 0.205522, 0.273275, 2.6917)
+
+[node name="RigidBody3D2" parent="." instance=ExtResource("3_ep13c")]
+transform = Transform3D(-0.97942, 0, -0.20183, 0, 1, 0, 0.20183, 0, -0.97942, 7.22468, 0.273275, -0.437016)
+
+[node name="player" parent="." instance=ExtResource("4_1vgli")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.806516, 1, -0.852248)

@@ -1,17 +1,17 @@
 extends Item
 
-var energy 
+var energy: int
 
 func _ready():
-	energy = $SpotLight3D.light_energy
-	set_power(false)
+	set_power(0)
 
 func use_item() -> void:
 	cycle_intensity()
 
 func cycle_intensity():
-	energy = fmod((energy + 1.0), 3.0)
-	$SpotLight3D.light_energy = energy
+	var new_energy = (energy + 5) % 10
+	set_power(new_energy)
 
-func set_power(value: bool) -> void:
-	$SpotLight3D.light_energy = 0
+func set_power(value: int) -> void:
+	energy = value
+	$SpotLight3D.light_energy = energy

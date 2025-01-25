@@ -22,11 +22,10 @@ func _physics_process(delta : float) -> void:
 		var current_position = global_transform.origin
 		var distance = current_position.distance_to(target_position)
 		var distance_to_player = current_position.distance_to(player.get_node("Head").global_transform.origin)
-		print("hand " + str(player.get_node("Head/Hand").global_position))
+		Debug.debug("hand " + str(player.get_node("Head/Hand").global_position))
 		if self is Fruit:
-			print("berr " + str(initial_position))
+			Debug.debug("berr " + str(initial_position))
 		var position_diff = initial_position.distance_to(player.get_node("Head/Hand").global_position)
-		print(position_diff)
 		if position_diff >= pull_distance:
 			var speed = lerp_speed * delta
 			var direction = current_position.direction_to(target_position)

@@ -19,15 +19,16 @@ config/features=PackedStringArray("4.3", "Forward Plus")
 PowerManager="*res://environment/powermanager.gd"
 Settings="*res://settings.gd"
 MultiplayerManager="*res://multiplayer_manager.gd"
+Debug="*res://debug.gd"
 
 [display]
 
-window/size/viewport_width=1920
-window/size/viewport_height=1080
+window/size/viewport_width=640
+window/size/viewport_height=360
 window/size/initial_position=Vector2i(50, 50)
 window/size/resizable=false
 window/stretch/mode="viewport"
-window/stretch/aspect="expand"
+window/stretch/scale_mode="integer"
 
 [global_group]
 
@@ -37,6 +38,21 @@ electrical=""
 electrical_manager=""
 world=""
 map_generator=""
+
+[importer_defaults]
+
+texture={
+"detect_3d/compress_to": 0
+}
+3d_texture={
+"compress/mode": 0
+}
+scene={
+"animation/fps": 24.0,
+"meshes/create_shadow_meshes": false,
+"meshes/generate_lods": false,
+"meshes/light_baking": 3
+}
 
 [input]
 
@@ -138,7 +154,50 @@ drop={
 
 [rendering]
 
+textures/canvas_textures/default_texture_filter=0
+textures/canvas_textures/default_texture_repeat=1
+textures/lossless_compression/force_png=true
 lights_and_shadows/directional_shadow/soft_shadow_filter_quality=3
 lights_and_shadows/directional_shadow/16_bits=false
 lights_and_shadows/positional_shadow/soft_shadow_filter_quality.mobile=2
 global_illumination/gi/use_half_resolution=true
+shading/overrides/force_vertex_shading=true
+shading/overrides/force_lambert_over_burley=true
+textures/default_filters/anisotropic_filtering_level=0
+2d/snap/snap_2d_transforms_to_pixel=true
+2d/snap/snap_2d_vertices_to_pixel=true
+
+[shader_globals]
+
+affine_texture_mapping={
+"type": "bool",
+"value": false
+}
+fog_color={
+"type": "color",
+"value": Color(0, 0, 0, 1)
+}
+fog_start_distance={
+"type": "float",
+"value": 0.0
+}
+fog_end_distance={
+"type": "float",
+"value": 0.0
+}
+cull_distance={
+"type": "float",
+"value": 64.0
+}
+texture_filtering={
+"type": "bool",
+"value": true
+}
+texture_lod_halve_distance={
+"type": "float",
+"value": 0.0
+}
+vertex_snap_intensity={
+"type": "int",
+"value": 1
+}

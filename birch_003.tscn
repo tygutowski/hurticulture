@@ -1,13 +1,7 @@
-[gd_scene load_steps=4 format=3 uid="uid://dv1orfsam5ts1"]
+[gd_scene load_steps=3 format=3 uid="uid://dv1orfsam5ts1"]
 
 [ext_resource type="PackedScene" uid="uid://pn1w684poole" path="res://Retro Foliage Pixel Art Nature Kit/3D Models/Birch_003.fbx" id="1_t83sb"]
-[ext_resource type="Texture2D" uid="uid://bqmbncpf3q8a8" path="res://Retro Foliage Pixel Art Nature Kit/Textures/Tree_Birch_Autumn.png" id="2_bbajw"]
-
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_qtrff"]
-transparency = 2
-alpha_scissor_threshold = 0.5
-alpha_antialiasing_mode = 0
-albedo_texture = ExtResource("2_bbajw")
+[ext_resource type="Material" uid="uid://dlyvh6r8kk7wt" path="res://birch_leaves_2.tres" id="2_6rauc"]
 
 [node name="Birch_003" instance=ExtResource("1_t83sb")]
 
@@ -15,5 +9,5 @@ albedo_texture = ExtResource("2_bbajw")
 transform = Transform3D(100, 0, 0, 0, -1.19209e-05, 100, 0, -100, -1.19209e-05, 0, 0, 0)
 
 [node name="Tree_Birch_Leaves3" parent="." index="1"]
-transform = Transform3D(-42.6073, -56.9227, 72.3739, 53.6248, 49.4867, 70.4912, -74.8503, 67.856, 9.30413, 2, 0, 0)
-material_override = SubResource("StandardMaterial3D_qtrff")
+transform = Transform3D(-42.6073, -56.9227, 72.3739, 53.6248, 49.4867, 70.4912, -74.8503, 67.856, 9.30413, 0, 0, 0)
+surface_material_override/0 = ExtResource("2_6rauc")

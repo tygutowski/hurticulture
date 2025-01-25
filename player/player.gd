@@ -9,12 +9,14 @@ var is_holding : bool = false
 @onready var dropray: RayCast3D = $Head/RayCast3D
 @onready var downray: RayCast3D = $Head/RayCast3D/DownRay
 
-var held_item = null
+var held_item: Item = null
 
 @onready var head = get_node("Head")
 @onready var pause_menu = get_node("pausemenu")
 @onready var timer = get_node("Timer")
 
+var WALK_SPEED = 1.0
+var RUN_SPEED = 1.5
 var pullback_time : float = 0.0
 var max_pullback_time : float = 2.0
 
@@ -30,7 +32,7 @@ func _ready() -> void:
 	Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
 
 func interact() -> void:
-	print("you can not interact now")
+	Debug.debug("you can not interact now")
 	can_interact = false
 	timer.start()
 
@@ -39,28 +41,40 @@ func pickup_item(item: Item) -> void:
 	item.rotation = Vector3.ZERO
 	item.get_node("CollisionShape3D").disabled = true
 	item.get_parent().remove_child(item)
-	print("Attempting to pick up item")
+	item.get_picked_up_by(self)
+	Debug.debug("Attempting to pick up item")
 	# if the player has an item, fill in next slot
 	if held_item != null:
-		for i in range(len(inventory) - 1):
-			inventory[i] = item
-			var new_slot = hotbar.get_child(i)
-			new_slot.get_node("SlotTexture").texture = item.slot_texture
-			print("Picking up item in inventory")
+		for i in range(len(inventory)):
+			if inventory[i] == null:
+				inventory[i] = item
+				var new_slot = hotbar.get_child(i)
+				new_slot.texture = item.slot_texture
+				Debug.debug("Picking up item in inventory")
+				break
 	else:
 		inventory[inventory_index] = item
 		var new_slot = hotbar.get_child(inventory_index)
-		new_slot.get_node("SlotTexture").texture = item.slot_texture
-		print("Picking up item in hand")
+		new_slot.texture = item.slot_texture
+		new_slot.stretch_mode = TextureRect.StretchMode.STRETCH_SCALE
+		Debug.debug("Picking up item in hand")
 	update_held_item()
+
+func get_looking_at_ray():
+	dropray.force_raycast_update()
+	if dropray.is_colliding():
+		return (dropray.get_collision_point())
+	else:
+		return null
 
 func drop_it() -> void:
 	# if youre holding an item
 	if held_item != null:
+		held_item.get_dropped()
 		# make sure its not yours anymore
 		inventory[inventory_index] = null
+		hotbar.get_child(inventory_index).texture = null
 		held_item.get_parent().remove_child(held_item)
-		
 		# fix hitboxes and positions
 		dropray.force_raycast_update()
 		var droppoint = Vector3.ZERO
@@ -79,6 +93,8 @@ func drop_it() -> void:
 			held_item.get_node("CollisionShape3D").disabled = false
 			var world = get_tree().get_first_node_in_group("world")
 			world.get_node("Items").add_child(held_item)
+			held_item.rotation.y = rotation.y
+			held_item.position.y += .025
 		update_held_item()
 
 func update_held_item() -> void:
@@ -90,7 +106,7 @@ func update_held_item() -> void:
 		get_node("Head/ItemHand").add_child(held_item)
 
 func hold_item(item : Node3D) -> void:
-	print("holding item")
+	Debug.debug("holding item")
 	if not is_holding and can_interact:
 		interact()
 		held_item = item
@@ -98,7 +114,7 @@ func hold_item(item : Node3D) -> void:
 		is_holding = true
 
 func drop_item() -> void:
-	print("drop item")
+	Debug.debug("drop item")
 	if is_holding and can_interact:
 		interact()
 		held_item.is_being_held = false
@@ -156,15 +172,40 @@ func _physics_process(delta: float) -> void:
 	
 	var input_dir := Input.get_vector("left", "right", "forward", "backwards")
 	var direction := (transform.basis * Vector3(input_dir.x, 0, input_dir.y)).normalized()
-	var run_scalar = 1.0 + float(Input.is_action_pressed("run"))/2
+	if input_dir.x != 0:
+		# Interpolate rotation to the target angle
+		$Head/Camera3D.rotation.z = lerp($Head/Camera3D.rotation.z, round(input_dir.x) * deg_to_rad(-1.5), .2)
+	else:
+		# Interpolate back to the neutral position (0 rotation)
+		$Head/Camera3D.rotation.z = lerp($Head/Camera3D.rotation.z, 0.0, 0.2)
+	var movement_speed = WALK_SPEED
+	if Input.is_action_pressed("run") and input_dir.y < 0:
+		movement_speed = RUN_SPEED
+		if movement_speed > 1.0:
+			$Head/Camera3D.fov = lerp($Head/Camera3D.fov, float(Settings.fov + 10), 0.2)
+	else:
+		$Head/Camera3D.fov = lerp($Head/Camera3D.fov, float(Settings.fov), 0.2)
+	if input_dir != Vector2.ZERO:
+		$Head/Camera3D.v_offset = lerp($Head/Camera3D.v_offset, sin(Time.get_unix_time_from_system()*8 * movement_speed)/48 * movement_speed, 0.2)
+	else:
+		$Head/Camera3D.v_offset = lerp($Head/Camera3D.v_offset, 0.0, 0.2)
 	if direction:
-		velocity.x = direction.x * SPEED * run_scalar
-		velocity.z = direction.z * SPEED * run_scalar
+		velocity.x = direction.x * SPEED * movement_speed
+		velocity.z = direction.z * SPEED * movement_speed
 	else:
 		velocity.x = move_toward(velocity.x, 0, SPEED)
 		velocity.z = move_toward(velocity.z, 0, SPEED)
 
+	#if not Engine.is_editor_hint():
+	#	debug_biome_weights()
+
 	move_and_slide()
+
+func debug_biome_weights() -> void:
+	var output = ""
+	for biome: Biome in get_tree().get_first_node_in_group("world").get_node("WorldGenerator").biome_list:
+		output += str(biome.weightmap[int(position.z)][int(position.x)]) + ", "
+	Debug.debug(output)
 
 func _input(event):
 	if event is InputEventMouseMotion and Input.mouse_mode == Input.MOUSE_MODE_CAPTURED:
@@ -173,6 +214,7 @@ func _input(event):
 		head.rotation.x = clampf(head.rotation.x, -deg_to_rad(85), deg_to_rad(85))
 
 
+
 func _on_timer_timeout() -> void:
-	print("you can interact now")
+	Debug.debug("you can interact now")
 	can_interact = true

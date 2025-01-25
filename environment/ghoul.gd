@@ -39,7 +39,7 @@ func _process(_delta: float) -> void:
 			perpendicular_vector = Vector3(perpendicular_vector.x, 0, perpendicular_vector.z)
 			var tween = get_tree().create_tween()
 			tween.set_ease(Tween.EASE_IN)
-			print(perpendicular_vector * run_dir)
+			Debug.debug(perpendicular_vector * run_dir)
 			tween.tween_property(self, "global_position", global_position + perpendicular_vector * -10 * run_dir, death_time - .01)
 		else:
 			if collider != player or player_global.distance_to(global_position) <= run_distance:

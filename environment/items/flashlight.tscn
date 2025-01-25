@@ -1,7 +1,8 @@
-[gd_scene load_steps=7 format=4 uid="uid://cv15t3tmcetnu"]
+[gd_scene load_steps=8 format=4 uid="uid://cv15t3tmcetnu"]
 
 [ext_resource type="Script" path="res://environment/items/flashlight.gd" id="1_hp6w2"]
-[ext_resource type="Texture2D" uid="uid://bjev117e6gm3c" path="res://Exploration objects/Flashlight/Flashlight.png" id="2_78h6x"]
+[ext_resource type="Texture2D" uid="uid://bv82mnr1h3get" path="res://GUI/flashlight_texture.png" id="2_7eryb"]
+[ext_resource type="Texture2D" uid="uid://bjev117e6gm3c" path="res://items/Flashlight/Flashlight.png" id="2_78h6x"]
 
 [sub_resource type="CylinderShape3D" id="CylinderShape3D_5exht"]
 margin = 1.0
@@ -52,12 +53,11 @@ shadow_mesh = SubResource("ArrayMesh_vkqwq")
 
 [node name="Flashlight" type="StaticBody3D"]
 script = ExtResource("1_hp6w2")
+slot_texture = ExtResource("2_7eryb")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
 transform = Transform3D(-1.08148e-14, -3.12639e-13, 2.5366, -2.5366, 4.53579e-07, -9.0118e-15, -4.53579e-07, -2.5366, -3.12639e-13, 0, 0, 0.0125006)
 shape = SubResource("CylinderShape3D_5exht")
-
-[node name="Item" type="Node3D" parent="."]
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="."]
 transform = Transform3D(4.53579e-07, 2.5366, -1.10878e-07, -2.5366, 4.53579e-07, -9.0118e-15, 9.0118e-15, 1.10878e-07, 2.5366, 0, 0, 0)
@@ -66,7 +66,9 @@ skeleton = NodePath("")
 
 [node name="SpotLight3D" type="SpotLight3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -0.113311)
+light_color = Color(0.83, 1, 0.9915, 1)
 light_energy = 2.0
+shadow_enabled = true
 spot_range = 20.0
 spot_angle = 30.0
 spot_angle_attenuation = 1.68179

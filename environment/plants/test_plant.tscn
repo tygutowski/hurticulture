@@ -1,0 +1,15 @@
+[gd_scene load_steps=3 format=3 uid="uid://d1vls1lqbqdde"]
+
+[ext_resource type="Script" path="res://environment/plants/plant.gd" id="1_tklxx"]
+
+[sub_resource type="CylinderMesh" id="CylinderMesh_7hyqx"]
+top_radius = 0.2
+bottom_radius = 0.25
+height = 1.0
+
+[node name="Plant" type="Node3D"]
+script = ExtResource("1_tklxx")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 0)
+mesh = SubResource("CylinderMesh_7hyqx")

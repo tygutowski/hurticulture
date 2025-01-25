@@ -1,0 +1,24 @@
+[gd_scene load_steps=4 format=3 uid="uid://cb8f1calsvae5"]
+
+[ext_resource type="Script" path="res://seed.gd" id="1_q21fr"]
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_8p7lw"]
+radius = 0.05
+
+[sub_resource type="SphereMesh" id="SphereMesh_7lidg"]
+radius = 0.05
+height = 0.1
+
+[node name="Seed" type="StaticBody3D"]
+collision_layer = 3
+collision_mask = 2
+script = ExtResource("1_q21fr")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+transform = Transform3D(4.53579e-07, 2.5366, -1.10878e-07, -2.5366, 4.53579e-07, -9.0118e-15, 9.0118e-15, 1.10878e-07, 2.5366, 0, 0, 0)
+shape = SubResource("SphereShape3D_8p7lw")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+transform = Transform3D(4.53579e-07, 2.5366, -1.10878e-07, -2.5366, 4.53579e-07, -9.0118e-15, 9.0118e-15, 1.10878e-07, 2.5366, 0, 0, 0)
+mesh = SubResource("SphereMesh_7lidg")
+skeleton = NodePath("")

@@ -9,7 +9,6 @@ data = PackedVector3Array(0.0087, 0.005, -0.0116, 0.0087, 0.005, 0.0358, 0, 0.01
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_6u3v0"]
 resource_name = "Flashlight"
 vertex_color_use_as_albedo = true
-albedo_color = Color(1, 1, 1, 1)
 albedo_texture = ExtResource("2_6trrr")
 emission_enabled = true
 emission = Color(1, 1, 1, 1)

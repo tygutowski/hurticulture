@@ -1,13 +1,18 @@
-[gd_scene load_steps=7 format=3 uid="uid://b5xjtp4qjtafs"]
+[gd_scene load_steps=8 format=3 uid="uid://b5xjtp4qjtafs"]
 
 [ext_resource type="Script" path="res://player/player.gd" id="1_gksjs"]
 [ext_resource type="PackedScene" uid="uid://1krap1lcosn6" path="res://player/pause_menu.tscn" id="2_7lsas"]
 [ext_resource type="Script" path="res://player/interactray.gd" id="2_a7d5u"]
 [ext_resource type="PackedScene" uid="uid://dpif4niheytqv" path="res://inventory_slot.tscn" id="4_5q3xr"]
 
+[sub_resource type="QuadMesh" id="QuadMesh_mgxca"]
+flip_faces = true
+size = Vector2(2, 2)
+
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_pvv27"]
 
 [sub_resource type="CapsuleMesh" id="CapsuleMesh_sd2qq"]
+lightmap_size_hint = Vector2i(4, 4)
 
 [node name="player" type="CharacterBody3D" groups=["player"]]
 collision_layer = 4
@@ -44,6 +49,7 @@ grow_horizontal = 2
 grow_vertical = 2
 size_flags_horizontal = 6
 size_flags_vertical = 3
+theme_override_font_sizes/font_size = 8
 horizontal_alignment = 1
 vertical_alignment = 1
 
@@ -53,10 +59,16 @@ target_position = Vector3(0, -100, 0)
 
 [node name="Camera3D" type="Camera3D" parent="Head"]
 
+[node name="PostProcessMesh" type="MeshInstance3D" parent="Head/Camera3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -0.55019)
+mesh = SubResource("QuadMesh_mgxca")
+
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
 shape = SubResource("CapsuleShape3D_pvv27")
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+cast_shadow = 2
+gi_mode = 2
 mesh = SubResource("CapsuleMesh_sd2qq")
 
 [node name="Timer" type="Timer" parent="."]
@@ -65,6 +77,17 @@ one_shot = true
 
 [node name="hud" type="CanvasLayer" parent="."]
 unique_name_in_owner = true
+
+[node name="RichTextLabel" type="RichTextLabel" parent="hud"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 6
+size_flags_vertical = 6
+mouse_filter = 2
+theme_override_font_sizes/normal_font_size = 8
 
 [node name="MarginContainer" type="MarginContainer" parent="hud"]
 anchors_preset = 15
@@ -85,19 +108,27 @@ layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 8
 mouse_filter = 2
-theme_override_constants/separation = 40
+theme_override_constants/separation = 16
 alignment = 1
 
 [node name="Slot1" parent="hud/MarginContainer/HBoxContainer" instance=ExtResource("4_5q3xr")]
 layout_mode = 2
+stretch_mode = 3
 
 [node name="Slot2" parent="hud/MarginContainer/HBoxContainer" instance=ExtResource("4_5q3xr")]
 layout_mode = 2
+stretch_mode = 3
 
 [node name="Slot3" parent="hud/MarginContainer/HBoxContainer" instance=ExtResource("4_5q3xr")]
 layout_mode = 2
+stretch_mode = 3
 
 [node name="Slot4" parent="hud/MarginContainer/HBoxContainer" instance=ExtResource("4_5q3xr")]
 layout_mode = 2
+stretch_mode = 3
+
+[node name="OmniLight3D" type="OmniLight3D" parent="."]
+light_energy = 0.2
+omni_range = 2.0
 
 [connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]

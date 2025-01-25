@@ -23,5 +23,3 @@ func _physics_process(_delta: float) -> void:
 				prompt.text = 'Pickup [E]'
 				if Input.is_action_just_pressed("interact"):
 					player.pickup_item(detected)
-			else:
-				prompt.text = 'NO!'

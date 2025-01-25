@@ -50,10 +50,10 @@ func connect_signals() -> void:
 func initialize_steam() -> void:
 	var error: Dictionary = Steam.steamInit(true, GAME_ID)
 	if error["status"] != 1:
-		print("Steamworks Error: " + error["verbal"])
+		Debug.debug("Steamworks Error: " + error["verbal"])
 		get_tree().quit()
 	if not Steam.isSubscribed():
-		print("User does not own this game")
+		Debug.debug("User does not own this game")
 		get_tree().quit()
 
 func do_stuff_with_packet(data: Dictionary) -> void:
@@ -92,21 +92,21 @@ func do_stuff_with_packet(data: Dictionary) -> void:
 
 # this is important for joining with shift+tab
 func check_command_line() -> void:
-	print("Checking command line arguments")
+	Debug.debug("Checking command line arguments")
 	var these_arguments: Array = OS.get_cmdline_args()
 	if these_arguments.size() > 0:
 		if these_arguments[0] == '+connect_lobby':
 			if int(these_arguments[1]) > 0:
-				print('Commandline lobby ID: %s' % these_arguments[1])
+				Debug.debug('Commandline lobby ID: %s' % these_arguments[1])
 				join_lobby(int(these_arguments[1]))
 
 # when someone attempts to join a lobby
 func join_lobby(this_lobby_id: int) -> void:
-	print("Attempting to join lobby %s" % lobby_id)
+	Debug.debug("Attempting to join lobby %s" % lobby_id)
 	Steam.joinLobby(this_lobby_id)
 
 # load a new world scene and instance all players that are in the lobby
-func instance_world() -> Node3D:
+func instance_world() -> Node:
 	var world_scene = load("res://environment/world.tscn")
 	var world = world_scene.instantiate()
 	get_tree().get_root().add_child(world)
@@ -131,7 +131,7 @@ func peer_is_me(peer: Peer) -> bool:
 func _on_lobby_joined(this_lobby_id: int, _permissions: int, _locked: bool, response: int) -> void:
 	# if you successfully join the lobby
 	if response == Steam.CHAT_ROOM_ENTER_RESPONSE_SUCCESS:
-		print("Lobby %s joined" % this_lobby_id)
+		Debug.debug("Lobby %s joined" % this_lobby_id)
 		lobby_id = this_lobby_id
 		# update the list of current lobby members
 		get_lobby_members()
@@ -151,7 +151,7 @@ func _on_lobby_joined(this_lobby_id: int, _permissions: int, _locked: bool, resp
 			Steam.CHAT_ROOM_ENTER_RESPONSE_COMMUNITY_BAN: fail_reason = "This lobby is community locked."
 			Steam.CHAT_ROOM_ENTER_RESPONSE_MEMBER_BLOCKED_YOU: fail_reason = "A user in the lobby has blocked you from joining."
 			Steam.CHAT_ROOM_ENTER_RESPONSE_YOU_BLOCKED_MEMBER: fail_reason = "A user you have blocked is in the lobby."
-		print("Failed to join this lobby: %s" % fail_reason)
+		Debug.debug("Failed to join this lobby: %s" % fail_reason)
 
 # this is when the peer clicks to join a lobby
 func _on_lobby_join_requested(this_lobby_id: int) -> void:
@@ -179,7 +179,7 @@ func populate_peer(peer_id: int) -> Peer:
 # this is really updating friend info
 func _on_persona_change(this_steam_id: int, _flag: int) -> void:
 	if lobby_id > 0:
-		print("%s's information has changed, updating the lobby list" % this_steam_id)
+		Debug.debug("%s's information has changed, updating the lobby list" % this_steam_id)
 		get_lobby_members()
 
 func send_p2p_packet(this_target: int, packet_data: Dictionary, type: MessageType) -> void:
@@ -215,7 +215,7 @@ func send_p2p_packet(this_target: int, packet_data: Dictionary, type: MessageTyp
 		Steam.sendP2PPacket(this_target, this_data, send_type, channel)
 
 func initialize_new_peer(player_id: int) -> void:
-	print("Sending P2P handshake to new player")
+	Debug.debug("Sending P2P handshake to new player")
 	var packet = {
 		"has_game_started" : PowerManager.has_game_started,
 		"current_power" : PowerManager.current_power,
@@ -227,7 +227,7 @@ func initialize_new_peer(player_id: int) -> void:
 
 # when someone joins the lobby youre in lobby
 func add_to_lobby(player_id: int):
-	print("A player joined! Adding them to lobby")
+	Debug.debug("A player joined! Adding them to lobby")
 	var peer_scene = load("res://peer.tscn")
 	var peer = peer_scene.instantiate()
 	peer.name = str(player_id)
@@ -242,19 +242,19 @@ func _on_lobby_chat_updated(_this_lobby_id: int, change_id: int, _making_change_
 	var changer_name: String = Steam.getFriendPersonaName(change_id)
 	# If a player has joined the lobby
 	if chat_state == Steam.CHAT_MEMBER_STATE_CHANGE_ENTERED:
-		print("%s has joined the lobby." % changer_name)
+		Debug.debug("%s has joined the lobby." % changer_name)
 		add_to_lobby(_making_change_id)
 	elif chat_state == Steam.CHAT_MEMBER_STATE_CHANGE_LEFT:
-		print("%s has left the lobby." % changer_name)
+		Debug.debug("%s has left the lobby." % changer_name)
 		peer_container.get_node(str(_making_change_id)).queue_free()
 	elif chat_state == Steam.CHAT_MEMBER_STATE_CHANGE_KICKED:
-		print("%s has been kicked from the lobby." % changer_name)
+		Debug.debug("%s has been kicked from the lobby." % changer_name)
 		peer_container.get_node(str(_making_change_id)).queue_free()
 	elif chat_state == Steam.CHAT_MEMBER_STATE_CHANGE_BANNED:
-		print("%s has been banned from the lobby." % changer_name)
+		Debug.debug("%s has been banned from the lobby." % changer_name)
 		peer_container.get_node(str(_making_change_id)).queue_free()
 	else:
-		print("%s did something." % changer_name)
+		Debug.debug("%s did something." % changer_name)
 	get_lobby_members()
 
 func leave_lobby() -> void:
@@ -276,16 +276,16 @@ func leave_lobby() -> void:
 
 func create_lobby() -> void:
 	if lobby_id == 0:
-		print("Creating lobby")
+		Debug.debug("Creating lobby")
 		Steam.createLobby(Steam.LOBBY_TYPE_FRIENDS_ONLY, 3)
 		is_host = true
 	else:
-		print("ERROR: Cannot create a lobby, as you are already in a lobby.")
+		Debug.debug("ERROR: Cannot create a lobby, as you are already in a lobby.")
 
 func _on_lobby_created(error: int, this_lobby_id: int) -> void:
 	if error == 1:
 		lobby_id = this_lobby_id
-		print("Created a lobby: %s" % lobby_id)
+		Debug.debug("Created a lobby: %s" % lobby_id)
 		Steam.setLobbyJoinable(lobby_id, true)
 		Steam.setLobbyData(lobby_id, "owner_id", str(steam_id))
 		Steam.setLobbyData(lobby_id, "owner_name", Steam.getPersonaName())
@@ -293,9 +293,9 @@ func _on_lobby_created(error: int, this_lobby_id: int) -> void:
 		# allow p2p connections to fallback to being relayed
 		# through steam if necessary
 		var set_relay: bool = Steam.allowP2PPacketRelay(true)
-		print("Allowing Steam to be relay backup: %s" % set_relay)
+		Debug.debug("Allowing Steam to be relay backup: %s" % set_relay)
 	else:
-		print("Failure creating lobby: %s" % error)
+		Debug.debug("Failure creating lobby: %s" % error)
 
 func read_all_p2p_packets(read_count: int = 0) -> void:
 	if read_count >= PACKET_READ_LIMIT:
@@ -306,7 +306,7 @@ func read_all_p2p_packets(read_count: int = 0) -> void:
 
 func _on_p2p_session_request(remote_id: int) -> void:
 	var requester: String = Steam.getFriendPersonaName(remote_id)
-	print("%s is requesting a P2P session" % requester)
+	Debug.debug("%s is requesting a P2P session" % requester)
 	Steam.acceptP2PSessionWithUser(remote_id)
 
 func read_p2p_packet() -> void:
@@ -314,7 +314,7 @@ func read_p2p_packet() -> void:
 	if packet_size > 0:
 		var this_packet: Dictionary = Steam.readP2PPacket(packet_size, 0)
 		if this_packet.is_empty() or this_packet == null:
-			print("WARNING: read an empty packet with non-zero size!")
+			Debug.debug("WARNING: read an empty packet with non-zero size!")
 		
 		# get remote user ID
 		#var packet_sender: int = this_packet['remote_steam_id']
@@ -326,34 +326,34 @@ func read_p2p_packet() -> void:
 func _on_p2p_session_connect_fail(this_steam_id: int, session_error: int) -> void:
 	# If no error was given
 	if session_error == 0:
-		print("WARNING: Session failure with %s: no error given" % this_steam_id)
+		Debug.debug("WARNING: Session failure with %s: no error given" % this_steam_id)
 	# Else if target user was not running the same game
 	elif session_error == 1:
-		print("WARNING: Session failure with %s: target user not running the same game" % this_steam_id)
+		Debug.debug("WARNING: Session failure with %s: target user not running the same game" % this_steam_id)
 	# Else if local user doesn't own app / game
 	elif session_error == 2:
-		print("WARNING: Session failure with %s: local user doesn't own app / game" % this_steam_id)
+		Debug.debug("WARNING: Session failure with %s: local user doesn't own app / game" % this_steam_id)
 	# Else if target user isn't connected to Steam
 	elif session_error == 3:
-		print("WARNING: Session failure with %s: target user isn't connected to Steam" % this_steam_id)
+		Debug.debug("WARNING: Session failure with %s: target user isn't connected to Steam" % this_steam_id)
 	# Else if connection timed out
 	elif session_error == 4:
-		print("WARNING: Session failure with %s: connection timed out" % this_steam_id)
+		Debug.debug("WARNING: Session failure with %s: connection timed out" % this_steam_id)
 	# Else if unused
 	elif session_error == 5:
-		print("WARNING: Session failure with %s: unused" % this_steam_id)
+		Debug.debug("WARNING: Session failure with %s: unused" % this_steam_id)
 	# Else no known error
 	else:
-		print("WARNING: Session failure with %s: unknown error %s" % [this_steam_id, session_error])
+		Debug.debug("WARNING: Session failure with %s: unknown error %s" % [this_steam_id, session_error])
 
 func get_lobby_info(this_lobby_id: int):
-	print("Getting info for lobby %s" % str(this_lobby_id))
+	Debug.debug("Getting info for lobby %s" % str(this_lobby_id))
 	var data: Dictionary
 	var error = Steam.requestLobbyData(this_lobby_id)
 	# wait for the lobby data to update
 	await Steam.lobby_data_update
 	if not error:
-		print("WARNING: Failure to get lobby data for lobby %s" % str(this_lobby_id))
+		Debug.debug("WARNING: Failure to get lobby data for lobby %s" % str(this_lobby_id))
 		return null
 
 	data["owner_id"] = Steam.getLobbyData(this_lobby_id, "owner_id")
@@ -368,7 +368,7 @@ func get_lobby_info(this_lobby_id: int):
 func get_lobbies_with_friends() -> Dictionary:
 	var results: Dictionary = {}
 	# find all friends
-	print("Finding all friends online")
+	Debug.debug("Finding all friends online")
 	for i in range(0, Steam.getFriendCount(Steam.FRIEND_FLAG_ALL)):
 		var this_steam_id: int = Steam.getFriendByIndex(i, Steam.FRIEND_FLAG_IMMEDIATE)
 		var game_info: Dictionary = Steam.getFriendGamePlayed(this_steam_id)
@@ -397,7 +397,7 @@ func get_lobbies_with_friends() -> Dictionary:
 	return results
 
 func _on_lobby_data_update(_success: int, _lobby_id: int, _member_id: int) -> void:
-	print("Lobby data updated")
+	Debug.debug("Lobby data updated")
 
 func _on_loaded_avatar(user_id: int, avatar_size: int, avatar_buffer: PackedByteArray) -> void:
 	var avatar_image: Image = Image.create_from_data(avatar_size, avatar_size, false, Image.FORMAT_RGBA8, avatar_buffer)

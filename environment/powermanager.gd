@@ -16,6 +16,8 @@ func start_game() -> void:
 	has_game_started = true
 
 func _physics_process(delta: float) -> void:
+	if Engine.is_editor_hint():
+		return
 	if not has_game_started:
 		return
 	if not power_out:

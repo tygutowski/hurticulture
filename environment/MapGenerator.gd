@@ -67,6 +67,7 @@ var might_crash: bool = false
 @export_category("Heightmap Generation")
 var heightmap: Array = []
 var heightmap_texture: ImageTexture
+var slopemap: Array = []
 
 @export_category("Biome Map Generation")
 var biomemap_noise: FastNoiseLite
@@ -80,6 +81,9 @@ var heightmap_as_texture: ImageTexture
 var weightmap_blend_area: int
 var weightmap_times_to_blend: int
 @onready var ray: RayCast3D = $RayCast3D
+
+func _ready() -> void:
+	generation_finished.connect(Debug.setup_debug)
 
 func get_vertex_count() -> int:
 	return floor(float(map_size) + 1 * resolution_multiplier) ** 2
@@ -198,26 +202,77 @@ func clear_objects() -> void:
 func randomize_environment() -> void:
 	var color: Color = Color.from_hsv(randf_range(0.0, 1.0), randf_range(0.2, 0.4), randf_range(0.1, 0.3), 1.0)
 	var environment: Environment = get_node("../WorldEnvironment").environment
-	environment.fog_light_color = color
+	#environment.fog_light_color = color
 
-func generate_world() -> void:
+func generate_world(sandbox: bool = false) -> void:
 	set_seeds()
 	
 	clear_world()
-	await generate_terrain()
-	await get_tree().physics_frame
-	await get_tree().physics_frame
+	if not sandbox:
+		await generate_terrain()
+		await get_tree().physics_frame
+		await get_tree().physics_frame
 	
 	await randomize_environment()
 	
 	if not Engine.is_editor_hint():
-		generate_vegetation()
-		set_text("Spawning player and warehouse")
-		spawn_object("res://environment/items/flashlight.tscn", Vector2(10, 0))
-		spawn_object("res://player/player.tscn", Vector2(0, 0), 1)
-		spawn_object("res://environment/warehouse.tscn", Vector2(0, 0))
+		if not sandbox:
+			generate_vegetation()
+			set_text("Spawning player and warehouse")
+			spawn_object("res://environment/items/flashlight.tscn", Vector3(10, 0, 0))
+		if sandbox:
+			force_spawn_object("res://sandbox.tscn", Vector3.ZERO)
+		else:
+			var warehouse_position = spawn_warehouse(0.2)
+			if warehouse_position != null:
+				print(warehouse_position)
+				force_spawn_object("res://player/player.tscn", warehouse_position)
 	reset_generation_values()
+	print("FINISH(ING GENERATION!!!!)")
 	generation_finished.emit()
+
+func spawn_warehouse(slope_threshold: float):
+	var warehouse_scene: PackedScene = load("res://environment/warehouse.tscn")
+	var warehouse: Node3D = warehouse_scene.instantiate()
+	get_node("GeneratedItems").add_child(warehouse)
+	var edges: Array[Node] = warehouse.get_node("GroundedAreas").get_children()
+	var has_found_valid_terrain: bool = false
+	var attempts: int = 0
+	var max_attempts: int = 10000  # Avoid infinite loops
+
+	while not has_found_valid_terrain and attempts < max_attempts:
+		attempts += 1
+		# Randomize a position within the map bounds
+		var x_pos = randf_range(-map_size / 2, map_size / 2)
+		var z_pos = randf_range(-map_size / 2, map_size / 2)
+		ray.position = Vector3(x_pos, 100, z_pos)
+		ray.target_position = Vector3(x_pos, -100, z_pos)
+		ray.force_raycast_update()
+	
+		if ray.is_colliding():
+			var collision_point = ray.get_collision_point()
+			warehouse.position = collision_point
+
+			# Check slope for all edges
+			has_found_valid_terrain = true
+			for edge in edges:
+				var edge_x = clamp(collision_point.x + edge.global_position.x + map_size / 2, 0, map_size - 1)
+				var edge_z = clamp(collision_point.z + edge.global_position.z + map_size / 2, 0, map_size - 1)
+
+				# Use slopemap to check slope at the edge's position
+				var edge_slope = slopemap[edge_z][edge_x]
+				print("found " + str(edge_slope)) 
+				if edge_slope > slope_threshold:
+					has_found_valid_terrain = false
+					break  # Invalid slope for this edge
+
+	if has_found_valid_terrain:
+		print("Successfully placed warehouse after " + str(attempts) + " attempts")
+		return warehouse.global_position
+	else:
+		print("Failed to place warehouse after maximum attempts.")
+		return null
+
 
 func set_seeds() -> void:
 	set_text("Setting seed")
@@ -233,7 +288,7 @@ func reset_generation_values() -> void:
 	generate = false
 	generation_override = false
 
-func spawn_object(packed_scene: String, position: Vector2, height_offset: int = 0) -> void:
+func spawn_object(packed_scene: String, position: Vector3, height_offset: int = 0):
 	ray.position = Vector3(position.x, 100, position.y)
 	ray.target_position = Vector3(0, -300, 0)
 	ray.force_raycast_update()
@@ -241,14 +296,49 @@ func spawn_object(packed_scene: String, position: Vector2, height_offset: int = 
 		var object_scene: PackedScene = load(packed_scene)
 		var object = object_scene.instantiate()
 		object.position = ray.get_collision_point() + Vector3(0, height_offset, 0)
-		#set_text("Spawning " + str(packed_scene.get_basename()))
 		get_node("GeneratedItems").add_child(object)
+		return object
+
+func force_spawn_object(packed_scene: String, position: Vector3):
+	var object_scene: PackedScene = load(packed_scene)
+	var object = object_scene.instantiate()
+	object.position = position
+	get_node("GeneratedItems").add_child(object)
+
+func generate_trees(number_of_trees: int) -> void:
+	var half_map = float(map_size) / 2
+	for tree in range(number_of_trees):
+		var pos = Vector2(randf_range(-half_map, half_map), randf_range(-half_map, half_map))
+		var int_pos = Vector2i(int(pos.x) + int(half_map), int(pos.y) + int(half_map))
+		# random value between 0 and 1
+		# to check which biome foliage it should generate for
+		var value: float = .7#randf()
+		for biome: Biome in biome_list:
+			var weight = biome.weightmap[int_pos.x][int_pos.y]
+			if weight >= value:
+				spawn_tree(pos, biome.get_tree())
+				break
+
+
+
+func spawn_tree(pos: Vector2, tree: Node) -> void:
+	print("spawning tree")
+	get_node("GeneratedItems/Trees").add_child(tree)
+	var position = Vector3(pos.x, 100, pos.y)
+	ray.position = position
+	tree.rotate_y(randf())
+	ray.force_raycast_update()
+	if not ray.is_colliding():
+		return
+	tree.position = ray.get_collision_point()
+	
 
 func generate_vegetation() -> void:
 	set_text("Planting trees")
-	generate_objects(tree_scenes, 50, 1000, 25, 150, "GeneratedItems/Trees")
+	generate_trees(750)
+	#generate_objects(tree_scenes, 750, 750, 0, 99999, "GeneratedItems/Bushes")
 	set_text("Planting seeds")
-	generate_objects(bush_scenes, 100, 20000, 0, 99999, "GeneratedItems/Bushes")
+	generate_objects(bush_scenes, 150, 150, 0, 99999, "GeneratedItems/Bushes")
 
 func generate_objects(object_scenes: Array, count: int, max_attempts: int, min_distance: float, max_distance: float, parent_path: String) -> void:
 	var attempts = 0
@@ -421,14 +511,15 @@ func send_shader_data() -> void:
 		biome.prepare_textures()
 
 	# Sends slopemap
-	var slopemap = generate_slopemap(heightmap)
+	slopemap = generate_slopemap(heightmap)
 	var slopemap_as_image = convert_slopemap_to_image(slopemap)
 	slopemap_as_texture = convert_image_to_texture(slopemap_as_image)
 	var mesh: Mesh = $MeshInstance3D.mesh
 	var terrain_material: Material = preload("res://environment/TerrainMaterial.tres")
 	mesh.surface_set_material(0, terrain_material)
-	var shader: ShaderMaterial = mesh.surface_get_material(0)
-	shader.set_shader_parameter("slopemap", slopemap_as_texture)
+	var terrain_shader: ShaderMaterial = mesh.surface_get_material(0)
+	terrain_shader.set_shader_parameter("slopemap", slopemap_as_texture)
+
 	
 	var weightmap_array: Array = []
 	var flat_biome_array: Array = []
@@ -443,9 +534,9 @@ func send_shader_data() -> void:
 		flat_biome_array.append(biome.flat_texture)
 		sloped_biome_array.append(biome.sloped_texture)
 		
-	shader.set_shader_parameter("weightmaps", weightmap_array)
-	shader.set_shader_parameter("flat_biome_textures", flat_biome_array)
-	shader.set_shader_parameter("sloped_biome_textures", sloped_biome_array)
+	terrain_shader.set_shader_parameter("weightmaps", weightmap_array)
+	terrain_shader.set_shader_parameter("flat_biome_textures", flat_biome_array)
+	terrain_shader.set_shader_parameter("sloped_biome_textures", sloped_biome_array)
 	
 func normalize_array(array: Array) -> Array:
 	var map: Array = []

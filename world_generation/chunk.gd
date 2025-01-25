@@ -88,7 +88,7 @@ func update_lod(view_pos : Vector2):
 	var update_terrain = false
 	var new_lod = chunk_lods[0]
 	if chunk_lods.size() != LOD_distances.size():
-		print("Error: LODs and distance count mismatch")
+		Debug.debug("Error: LODs and distance count mismatch")
 		return
 	for i in range(chunk_lods.size()):
 		var lod = chunk_lods[i]

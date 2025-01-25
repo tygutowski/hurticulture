@@ -15,6 +15,11 @@ var normalized_heightmap: Array
 @export var weight: float
 var offset: float
 @export_range(1, 100) var intensity: float
+@export var tree_scenes: Array[PackedScene] = []
+
+func get_tree() -> Node:
+	var tree_scene = tree_scenes.pick_random()
+	return tree_scene.instantiate()
 
 func prepare_textures() -> void:
 	if sloped_texture == null:

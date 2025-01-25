@@ -1,0 +1,14 @@
+[gd_resource type="ShaderMaterial" load_steps=3 format=3 uid="uid://cge5bk5xvrbhl"]
+
+[ext_resource type="Shader" path="res://environment/psx.gdshader" id="1_dijjv"]
+[ext_resource type="Texture2D" uid="uid://dydtrsoltaw67" path="res://psxpack/textures/ground/Sand01.jpg" id="2_tovxp"]
+
+[resource]
+render_priority = 0
+shader = ExtResource("1_dijjv")
+shader_parameter/jitter = 0.629
+shader_parameter/jitter_z_coordinate = true
+shader_parameter/jitter_depth_independent = true
+shader_parameter/affine_texture_mapping = true
+shader_parameter/alpha_scissor = 1.0
+shader_parameter/albedo = ExtResource("2_tovxp")

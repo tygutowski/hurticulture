@@ -11,9 +11,8 @@ theme_override_constants/separation = 10
 [node name="TextureRect" type="TextureRect" parent="."]
 layout_mode = 2
 texture = ExtResource("1_neup0")
-expand_mode = 2
+stretch_mode = 2
 
 [node name="Label" type="Label" parent="."]
 layout_mode = 2
-theme_override_font_sizes/font_size = 32
 text = "<name>"

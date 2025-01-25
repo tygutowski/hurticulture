@@ -86,6 +86,7 @@ func _input(event: InputEvent) -> void:
 		end_bootup()
 
 func _ready() -> void:
+	miniscreen.visible = false
 	toggle_visibility(main_menu)
 	var window_size = get_viewport().size.y
 	for scroll_container in settings.get_children():
@@ -94,12 +95,12 @@ func _ready() -> void:
 	play_bootup()
 
 func _set_generation_info(info: String) -> void:
-	print("INFO: " + info)
+	Debug.debug("INFO: " + info)
 	var label = worldloading.get_node("MarginContainer/GeneratingBox/Label")
 	label.text = info
 
 func _generation_finished() -> void:
-	print("GENERATION FINISHED!")
+	Debug.debug("GENERATION FINISHED!")
 	visible = false
 
 func setup_setting_signals() -> void:
@@ -120,17 +121,17 @@ func change_settings_tab(node) -> void:
 	node.scroll_vertical = 0
 
 func open_serverlist_menu() -> void:
-	print("Opening serverlist menu")
+	Debug.debug("Opening serverlist menu")
 	var lobby_list = MultiplayerManager.get_lobbies_with_friends() 
 	if lobby_list.is_empty():
 		return
 	# remove all old lobbies
-	print("Deleting old lobby buttons")
+	Debug.debug("Deleting old lobby buttons")
 	for lobby in lobby_grid.get_children():
 			lobby.queue_free()
 	# repopulate the lobby list
-	print("Repopulating lobby buttons")
-	print("List of lobbies: %s" % str(lobby_list))
+	Debug.debug("Repopulating lobby buttons")
+	Debug.debug("List of lobbies: %s" % str(lobby_list))
 	for lobby in lobby_list:
 		var data = await MultiplayerManager.get_lobby_info(lobby)
 		
@@ -145,7 +146,7 @@ func open_serverlist_menu() -> void:
 		var lobby_data = lobby_data_node.instantiate()
 		lobby_grid.add_child(lobby_data)
 		lobby_data.pressed.connect(_pressed_join_lobby_button.bind(lobby_id))
-	print("Done repopulating lobby buttons")
+	Debug.debug("Done repopulating lobby buttons")
 	open_miniscreen()
 	set_grid_focus(lobby_grid)
 
@@ -239,11 +240,11 @@ func _generate_world() -> void:
 	set_miniscreen_focus(worldloading)
 	await get_tree().physics_frame
 	await get_tree().physics_frame
-	var world: Node3D = MultiplayerManager.instance_world()
+	var world: Node = MultiplayerManager.instance_world()
 	var world_generator: Node = world.get_node("WorldGenerator")
 	world_generator.generation_stage_changed.connect(_set_generation_info)
 	world_generator.generation_finished.connect(_generation_finished)
-	world_generator.generate_world()
+	world_generator.generate_world(false)
 
 
 func _on_slider_value_changed(_value: float) -> void:
@@ -266,3 +267,14 @@ func update_micintensity(value: float) -> void:
 	
 func update_micthreshold(value: float) -> void:
 	%MicrophoneThresholdLabel.text = str(value)
+
+func _load_sandbox_world() -> void:
+	set_miniscreen_focus(worldloading)
+	await get_tree().physics_frame
+	await get_tree().physics_frame
+	var world: Node = MultiplayerManager.instance_world()
+	var world_generator: Node = world.get_node("WorldGenerator")
+	world_generator.generation_stage_changed.connect(_set_generation_info)
+	world_generator.generation_finished.connect(_generation_finished)
+	world_generator.generate_world(true)
+	
