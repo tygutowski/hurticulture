@@ -6,6 +6,7 @@ const SPEED = 5.0
 const JUMP_VELOCITY = 4.5
 var is_holding : bool = false
 
+var item_preventing_movement: bool = false
 @onready var dropray: RayCast3D = $Head/RayCast3D
 @onready var downray: RayCast3D = $Head/RayCast3D/DownRay
 
@@ -93,8 +94,7 @@ func drop_it() -> void:
 			held_item.get_node("CollisionShape3D").disabled = false
 			var world = get_tree().get_first_node_in_group("world")
 			world.get_node("Items").add_child(held_item)
-			held_item.rotation.y = rotation.y
-			held_item.position.y += .025
+			held_item.rotation = Vector3(0, rotation.y, 0)
 		update_held_item()
 
 func update_held_item() -> void:
@@ -143,12 +143,16 @@ func _physics_process(delta: float) -> void:
 		velocity += get_gravity() * delta
 
 	if held_item != null:
+		if held_item.held_down_item: # if its an item you must hold down to use
+			if Input.is_action_just_released("lmb"):
+				held_item.stop_using_item()
+			if Input.is_action_just_pressed("lmb"):
+				held_item.begin_using_item()
+		else: # if its an item you click to use
+			if Input.is_action_just_pressed("lmb"):
+				held_item.use_item()
 		if Input.is_action_just_pressed("drop"):
 			drop_it()
-		if Input.is_action_just_pressed("lmb"):
-			held_item.use_item()
-		elif Input.is_action_just_pressed("rmb"):
-			held_item.alt_use_item()
 		elif Input.is_action_just_pressed("reload"):
 			held_item.reload_item()
 	
@@ -169,8 +173,9 @@ func _physics_process(delta: float) -> void:
 	
 	if Input.is_action_just_pressed("pause"):
 		pause_menu.toggle_pause_menu()
-	
 	var input_dir := Input.get_vector("left", "right", "forward", "backwards")
+	if held_item != null and not held_item.can_move_while_using and held_item.using_item:
+		input_dir = Vector2.ZERO
 	var direction := (transform.basis * Vector3(input_dir.x, 0, input_dir.y)).normalized()
 	if input_dir.x != 0:
 		# Interpolate rotation to the target angle
@@ -208,10 +213,11 @@ func debug_biome_weights() -> void:
 	Debug.debug(output)
 
 func _input(event):
-	if event is InputEventMouseMotion and Input.mouse_mode == Input.MOUSE_MODE_CAPTURED:
-		rotate_y(-event.relative.x * deg_to_rad(mouse_sensitivity))
-		head.rotate_x(-event.relative.y * deg_to_rad(mouse_sensitivity))
-		head.rotation.x = clampf(head.rotation.x, -deg_to_rad(85), deg_to_rad(85))
+	if not (held_item != null and not held_item.can_move_while_using and held_item.using_item):
+		if event is InputEventMouseMotion and Input.mouse_mode == Input.MOUSE_MODE_CAPTURED:
+			rotate_y(-event.relative.x * deg_to_rad(mouse_sensitivity))
+			head.rotate_x(-event.relative.y * deg_to_rad(mouse_sensitivity))
+			head.rotation.x = clampf(head.rotation.x, -deg_to_rad(85), deg_to_rad(85))
 
 
 

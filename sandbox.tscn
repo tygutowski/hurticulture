@@ -1,9 +1,10 @@
-[gd_scene load_steps=9 format=3 uid="uid://bnf8skrh5pjuk"]
+[gd_scene load_steps=10 format=3 uid="uid://bnf8skrh5pjuk"]
 
 [ext_resource type="Material" uid="uid://c8olfqsah5dxj" path="res://TestMaterial.tres" id="2_f2mx5"]
 [ext_resource type="PackedScene" uid="uid://cv15t3tmcetnu" path="res://environment/items/flashlight.tscn" id="2_y41ub"]
 [ext_resource type="PackedScene" uid="uid://bwu8dfp2qp3kc" path="res://environment/fruits/gourd.tscn" id="3_ep13c"]
 [ext_resource type="PackedScene" uid="uid://b5xjtp4qjtafs" path="res://player/player.tscn" id="4_1vgli"]
+[ext_resource type="PackedScene" uid="uid://8h1lgp0f7ekv" path="res://environment/items/shovel.tscn" id="5_e4vjf"]
 
 [sub_resource type="PlaneMesh" id="PlaneMesh_hipxm"]
 material = ExtResource("2_f2mx5")
@@ -68,6 +69,24 @@ mesh = SubResource("BoxMesh_4thw1")
 [node name="CollisionShape3D" type="CollisionShape3D" parent="MeshInstance3D5/StaticBody3D"]
 shape = SubResource("BoxShape3D_k85kl")
 
+[node name="MeshInstance3D7" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -5.38559, 0, 2.85547)
+mesh = SubResource("BoxMesh_4thw1")
+
+[node name="StaticBody3D" type="StaticBody3D" parent="MeshInstance3D7"]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="MeshInstance3D7/StaticBody3D"]
+shape = SubResource("BoxShape3D_k85kl")
+
+[node name="MeshInstance3D8" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -9.38559, 2, 2.85547)
+mesh = SubResource("BoxMesh_4thw1")
+
+[node name="StaticBody3D" type="StaticBody3D" parent="MeshInstance3D8"]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="MeshInstance3D8/StaticBody3D"]
+shape = SubResource("BoxShape3D_k85kl")
+
 [node name="MeshInstance3D4" type="MeshInstance3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 10.7797, 6, -1.14453)
 mesh = SubResource("BoxMesh_4thw1")
@@ -85,3 +104,5 @@ transform = Transform3D(-0.97942, 0, -0.20183, 0, 1, 0, 0.20183, 0, -0.97942, 7.
 
 [node name="player" parent="." instance=ExtResource("4_1vgli")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.806516, 1, -0.852248)
+
+[node name="Flashlight2" parent="." instance=ExtResource("5_e4vjf")]

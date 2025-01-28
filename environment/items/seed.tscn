@@ -18,7 +18,7 @@ script = ExtResource("1_q21fr")
 transform = Transform3D(4.53579e-07, 2.5366, -1.10878e-07, -2.5366, 4.53579e-07, -9.0118e-15, 9.0118e-15, 1.10878e-07, 2.5366, 0, 0, 0)
 shape = SubResource("SphereShape3D_8p7lw")
 
-[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+[node name="Mesh" type="MeshInstance3D" parent="."]
 transform = Transform3D(4.53579e-07, 2.5366, -1.10878e-07, -2.5366, 4.53579e-07, -9.0118e-15, 9.0118e-15, 1.10878e-07, 2.5366, 0, 0, 0)
 mesh = SubResource("SphereMesh_7lidg")
 skeleton = NodePath("")

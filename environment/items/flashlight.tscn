@@ -1,4 +1,4 @@
-[gd_scene load_steps=8 format=4 uid="uid://cv15t3tmcetnu"]
+[gd_scene load_steps=12 format=4 uid="uid://cv15t3tmcetnu"]
 
 [ext_resource type="Script" path="res://environment/items/flashlight.gd" id="1_hp6w2"]
 [ext_resource type="Texture2D" uid="uid://bv82mnr1h3get" path="res://GUI/flashlight_texture.png" id="2_7eryb"]
@@ -8,6 +8,9 @@
 margin = 1.0
 height = 0.103817
 radius = 0.0148278
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_vdkfi"]
+albedo_texture = ExtResource("2_78h6x")
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_6u3v0"]
 resource_name = "Flashlight"
@@ -51,6 +54,67 @@ _surfaces = [{
 blend_shape_mode = 0
 shadow_mesh = SubResource("ArrayMesh_vkqwq")
 
+[sub_resource type="Animation" id="Animation_tht03"]
+resource_name = "pickup"
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(0.345, -0.18, -0.43)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".:rotation")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(0, -0.113446, 0.228638)]
+}
+
+[sub_resource type="Animation" id="Animation_xq4fn"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(0, 0, 0)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".:rotation")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(0, 0, 0)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_d7dp8"]
+_data = {
+"RESET": SubResource("Animation_xq4fn"),
+"pickup": SubResource("Animation_tht03")
+}
+
 [node name="Flashlight" type="StaticBody3D"]
 script = ExtResource("1_hp6w2")
 slot_texture = ExtResource("2_7eryb")
@@ -59,8 +123,9 @@ slot_texture = ExtResource("2_7eryb")
 transform = Transform3D(-1.08148e-14, -3.12639e-13, 2.5366, -2.5366, 4.53579e-07, -9.0118e-15, -4.53579e-07, -2.5366, -3.12639e-13, 0, 0, 0.0125006)
 shape = SubResource("CylinderShape3D_5exht")
 
-[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+[node name="Mesh" type="MeshInstance3D" parent="."]
 transform = Transform3D(4.53579e-07, 2.5366, -1.10878e-07, -2.5366, 4.53579e-07, -9.0118e-15, 9.0118e-15, 1.10878e-07, 2.5366, 0, 0, 0)
+material_override = SubResource("StandardMaterial3D_vdkfi")
 mesh = SubResource("ArrayMesh_ldxw6")
 skeleton = NodePath("")
 
@@ -72,3 +137,8 @@ shadow_enabled = true
 spot_range = 20.0
 spot_angle = 30.0
 spot_angle_attenuation = 1.68179
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_d7dp8")
+}

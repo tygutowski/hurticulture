@@ -1,8 +1,9 @@
-[gd_scene load_steps=8 format=3 uid="uid://b5xjtp4qjtafs"]
+[gd_scene load_steps=9 format=3 uid="uid://b5xjtp4qjtafs"]
 
 [ext_resource type="Script" path="res://player/player.gd" id="1_gksjs"]
 [ext_resource type="PackedScene" uid="uid://1krap1lcosn6" path="res://player/pause_menu.tscn" id="2_7lsas"]
 [ext_resource type="Script" path="res://player/interactray.gd" id="2_a7d5u"]
+[ext_resource type="PackedScene" uid="uid://8h1lgp0f7ekv" path="res://environment/items/shovel.tscn" id="3_oref6"]
 [ext_resource type="PackedScene" uid="uid://dpif4niheytqv" path="res://inventory_slot.tscn" id="4_5q3xr"]
 
 [sub_resource type="QuadMesh" id="QuadMesh_mgxca"]
@@ -25,7 +26,9 @@ visible = false
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 0)
 
 [node name="ItemHand" type="Node3D" parent="Head"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.31457, -0.216337, -0.369417)
+
+[node name="Flashlight" parent="Head/ItemHand" instance=ExtResource("3_oref6")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0)
 
 [node name="Hand" type="Node3D" parent="Head"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -2)
@@ -132,3 +135,5 @@ light_energy = 0.2
 omni_range = 2.0
 
 [connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]
+
+[editable path="Head/ItemHand/Flashlight"]
