@@ -6,6 +6,7 @@ class_name Item
 @export var hold_duration: float = 1.0
 @export var use_interval: float = 0.5
 @export var can_move_while_using: bool = true
+@onready var player = get_tree().get_first_node_in_group("player")
 var use_duration: float = 0.0
 var interval_duration: float = 0.0
 var thing_holding_me: Node = null
@@ -21,11 +22,20 @@ func _process(delta) -> void:
 			interval_duration -= use_interval
 			update_interval()
 
+func stop_player_chargebar() -> void:
+	player.get_node("hud/TextureProgressBar").visible = false
+
+func start_player_chargebar() -> void:
+	player.get_node("hud/TextureProgressBar").visible = true
+	player.get_node("hud/TextureProgressBar").value = 0
+	player.increment_progress_bar = true
+
 func begin_using_item() -> void:
 	Debug.debug("Begin using item")
 	using_item = true
 	use_duration = 0
 	interval_duration = 0
+	start_player_chargebar()
 	begin_being_used()
 
 func use_item() -> void:
@@ -40,12 +50,14 @@ func stop_using_item() -> void:
 	if using_item:
 		Debug.debug("Stop using item")
 		using_item = false
+		stop_player_chargebar()
 		stop_being_used()
 
 func finish_using_item() -> void:
 	if using_item:
 		Debug.debug("Finish using item")
 		using_item = false
+		stop_player_chargebar()
 		finish_being_used()
 		use_item()
 

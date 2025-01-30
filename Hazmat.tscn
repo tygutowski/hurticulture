@@ -1,0 +1,101 @@
+[gd_scene load_steps=12 format=3 uid="uid://ynrqaj7uju07"]
+
+[ext_resource type="PackedScene" uid="uid://dfevfoxk4n8ie" path="res://Hazmat.fbx" id="1_osvek"]
+[ext_resource type="Texture2D" uid="uid://lnmo20wjy1gb" path="res://hazmat/Hazmat Yellow.png" id="2_p8n8i"]
+[ext_resource type="Animation" uid="uid://cno4j4yfueq4s" path="res://Hazmat Animations/Idle.res" id="3_g1r2s"]
+[ext_resource type="Animation" uid="uid://b8osf3hpw3ehw" path="res://Hazmat Animations/Running.res" id="4_t4o8g"]
+[ext_resource type="Animation" uid="uid://cxv8dr502aotl" path="res://Hazmat Animations/Walking.res" id="5_psp1y"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_6j7w4"]
+albedo_texture = ExtResource("2_p8n8i")
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_b3sh1"]
+_data = {
+"Idle": ExtResource("3_g1r2s"),
+"Running 2": ExtResource("4_t4o8g"),
+"Walking 2": ExtResource("5_psp1y")
+}
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_2mrt0"]
+animation = &"Hazmat Animations/Idle"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_08sn2"]
+animation = &"Hazmat Animations/Walking 2"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_s73bl"]
+animation = &"Hazmat Animations/Running 2"
+
+[sub_resource type="AnimationNodeBlendSpace1D" id="AnimationNodeBlendSpace1D_yotwx"]
+blend_point_0/node = SubResource("AnimationNodeAnimation_2mrt0")
+blend_point_0/pos = 0.0
+blend_point_1/node = SubResource("AnimationNodeAnimation_08sn2")
+blend_point_1/pos = 5.0
+blend_point_2/node = SubResource("AnimationNodeAnimation_s73bl")
+blend_point_2/pos = 7.5
+max_space = 10.0
+value_label = "movement"
+blend_mode = 2
+
+[node name="Hazmat" instance=ExtResource("1_osvek")]
+
+[node name="Skeleton3D" parent="." index="0"]
+transform = Transform3D(-1, 0, 8.74228e-08, 0, 1, 0, -8.74228e-08, 0, -1, 0, 0, 0)
+bones/0/position = Vector3(-0.0552994, -0.011496, 0.0911751)
+bones/0/rotation = Quaternion(-0.72936, -0.0135512, -0.0513497, 0.682066)
+bones/0/scale = Vector3(100, 100, 100)
+bones/2/rotation = Quaternion(0.0793202, 0.0134032, 0.024853, 0.996449)
+bones/2/scale = Vector3(1, 1, 1)
+bones/3/rotation = Quaternion(0.00532295, 0.00396737, 0.0140904, 0.999879)
+bones/3/scale = Vector3(1, 1, 1)
+bones/4/rotation = Quaternion(-0.00170562, 0.00405431, 0.0141929, 0.99989)
+bones/4/scale = Vector3(1, 1, 1)
+bones/5/rotation = Quaternion(0.248973, -0.000437919, 0.0050595, 0.968497)
+bones/5/scale = Vector3(1, 1, 1)
+bones/6/rotation = Quaternion(-0.204782, -0.000608635, -0.00885896, 0.978767)
+bones/6/scale = Vector3(1, 1, 1)
+bones/8/rotation = Quaternion(-0.533201, -0.451756, -0.472147, 0.537299)
+bones/8/scale = Vector3(1, 1, 1)
+bones/9/rotation = Quaternion(-0.211061, 0.673265, -0.639215, 0.305895)
+bones/9/scale = Vector3(1, 1, 1)
+bones/10/rotation = Quaternion(0.0137517, -3.56905e-07, 0.000325627, 0.999905)
+bones/10/scale = Vector3(1, 1, 1)
+bones/11/rotation = Quaternion(-0.0209847, -0.00155377, -0.073809, 0.99705)
+bones/11/scale = Vector3(1, 1, 1)
+bones/13/rotation = Quaternion(-0.547416, 0.426511, 0.480966, 0.535813)
+bones/13/scale = Vector3(1, 1, 1)
+bones/14/rotation = Quaternion(0.119012, 0.739954, -0.602183, -0.275102)
+bones/14/scale = Vector3(1, 1, 1)
+bones/15/rotation = Quaternion(0.0578022, -1.83638e-06, -0.00136861, 0.998327)
+bones/15/scale = Vector3(1, 1, 1)
+bones/16/rotation = Quaternion(-0.0209843, 0.00155552, 0.0738092, 0.99705)
+bones/16/scale = Vector3(1, 1, 1)
+bones/18/rotation = Quaternion(0.98278, 0.0905333, -0.109615, 0.118034)
+bones/18/scale = Vector3(1, 1, 1.00001)
+bones/19/rotation = Quaternion(0.265603, -0.0150146, -0.0344895, 0.963348)
+bones/19/scale = Vector3(1, 1, 1)
+bones/20/rotation = Quaternion(-0.571527, -0.0463879, 0.0492341, 0.81779)
+bones/20/scale = Vector3(1, 1, 1)
+bones/21/rotation = Quaternion(-1.43572e-06, 0.969239, -0.246121, -6.22986e-06)
+bones/21/scale = Vector3(1, 1, 1)
+bones/23/rotation = Quaternion(0.996487, 0.0124693, 0.0781937, 0.0272794)
+bones/23/scale = Vector3(1, 1, 1.00001)
+bones/24/rotation = Quaternion(0.226909, 0.0822917, 0.0309611, 0.969939)
+bones/24/scale = Vector3(1, 1, 1)
+bones/25/rotation = Quaternion(-0.615568, 0.0410541, -0.0178254, 0.786812)
+bones/25/scale = Vector3(1, 1, 1)
+bones/26/rotation = Quaternion(1.45533e-06, 0.969239, -0.246121, 7.32396e-06)
+bones/26/scale = Vector3(1, 1, 1)
+
+[node name="Body" parent="Skeleton3D" index="0"]
+material_override = SubResource("StandardMaterial3D_6j7w4")
+cast_shadow = 3
+
+[node name="AnimationPlayer" parent="." index="1"]
+libraries = {
+"Hazmat Animations": SubResource("AnimationLibrary_b3sh1")
+}
+
+[node name="AnimationTree" type="AnimationTree" parent="." index="2"]
+tree_root = SubResource("AnimationNodeBlendSpace1D_yotwx")
+anim_player = NodePath("../AnimationPlayer")
+parameters/blend_position = 0.985413

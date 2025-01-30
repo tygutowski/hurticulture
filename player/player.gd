@@ -6,6 +6,7 @@ const SPEED = 5.0
 const JUMP_VELOCITY = 4.5
 var is_holding : bool = false
 
+var increment_progress_bar: bool = false
 var item_preventing_movement: bool = false
 @onready var dropray: RayCast3D = $Head/RayCast3D
 @onready var downray: RayCast3D = $Head/RayCast3D/DownRay
@@ -51,6 +52,7 @@ func pickup_item(item: Item) -> void:
 				inventory[i] = item
 				var new_slot = hotbar.get_child(i)
 				new_slot.texture = item.slot_texture
+				new_slot.stretch_mode = TextureRect.StretchMode.STRETCH_SCALE
 				Debug.debug("Picking up item in inventory")
 				break
 	else:
@@ -128,6 +130,9 @@ func set_inventory_index(index: int) -> void:
 	update_held_item()
 
 func _physics_process(delta: float) -> void:
+	if held_item != null and increment_progress_bar:
+		var diff = 100.0/held_item.hold_duration * delta
+		$hud/TextureProgressBar.value += diff
 	if is_holding and can_interact:
 		if Input.is_action_just_pressed("interact"):
 			drop_item()
@@ -190,6 +195,9 @@ func _physics_process(delta: float) -> void:
 			$Head/Camera3D.fov = lerp($Head/Camera3D.fov, float(Settings.fov + 10), 0.2)
 	else:
 		$Head/Camera3D.fov = lerp($Head/Camera3D.fov, float(Settings.fov), 0.2)
+	
+	get_node("Hazmat/AnimationTree")["parameters/blend_position"] = Vector2(velocity.x, velocity.z).length()
+
 	if input_dir != Vector2.ZERO:
 		$Head/Camera3D.v_offset = lerp($Head/Camera3D.v_offset, sin(Time.get_unix_time_from_system()*8 * movement_speed)/48 * movement_speed, 0.2)
 	else:
@@ -218,8 +226,6 @@ func _input(event):
 			rotate_y(-event.relative.x * deg_to_rad(mouse_sensitivity))
 			head.rotate_x(-event.relative.y * deg_to_rad(mouse_sensitivity))
 			head.rotation.x = clampf(head.rotation.x, -deg_to_rad(85), deg_to_rad(85))
-
-
 
 func _on_timer_timeout() -> void:
 	Debug.debug("you can interact now")

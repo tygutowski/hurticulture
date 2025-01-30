@@ -31,7 +31,6 @@ mesh = SubResource("PlaneMesh_hipxm")
 shape = SubResource("ConcavePolygonShape3D_et2sf")
 
 [node name="Flashlight" parent="." instance=ExtResource("2_y41ub")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.33977, 0.0250332, -0.172498)
 
 [node name="MeshInstance3D2" type="MeshInstance3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -9, 2, -6.59239)

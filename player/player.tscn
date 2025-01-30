@@ -1,10 +1,12 @@
-[gd_scene load_steps=9 format=3 uid="uid://b5xjtp4qjtafs"]
+[gd_scene load_steps=11 format=3 uid="uid://b5xjtp4qjtafs"]
 
 [ext_resource type="Script" path="res://player/player.gd" id="1_gksjs"]
 [ext_resource type="PackedScene" uid="uid://1krap1lcosn6" path="res://player/pause_menu.tscn" id="2_7lsas"]
 [ext_resource type="Script" path="res://player/interactray.gd" id="2_a7d5u"]
-[ext_resource type="PackedScene" uid="uid://8h1lgp0f7ekv" path="res://environment/items/shovel.tscn" id="3_oref6"]
 [ext_resource type="PackedScene" uid="uid://dpif4niheytqv" path="res://inventory_slot.tscn" id="4_5q3xr"]
+[ext_resource type="PackedScene" uid="uid://ynrqaj7uju07" path="res://Hazmat.tscn" id="4_xggns"]
+[ext_resource type="Texture2D" uid="uid://ham4xunaagqj" path="res://GUI/progress_bar_under.png" id="6_j5tpf"]
+[ext_resource type="Texture2D" uid="uid://cyhmhqgh34gqo" path="res://GUI/progress_bar_progress.png" id="7_krbu7"]
 
 [sub_resource type="QuadMesh" id="QuadMesh_mgxca"]
 flip_faces = true
@@ -12,8 +14,7 @@ size = Vector2(2, 2)
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_pvv27"]
 
-[sub_resource type="CapsuleMesh" id="CapsuleMesh_sd2qq"]
-lightmap_size_hint = Vector2i(4, 4)
+[sub_resource type="AnimationNodeStateMachine" id="AnimationNodeStateMachine_hfokc"]
 
 [node name="player" type="CharacterBody3D" groups=["player"]]
 collision_layer = 4
@@ -26,9 +27,6 @@ visible = false
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 0)
 
 [node name="ItemHand" type="Node3D" parent="Head"]
-
-[node name="Flashlight" parent="Head/ItemHand" instance=ExtResource("3_oref6")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0)
 
 [node name="Hand" type="Node3D" parent="Head"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -2)
@@ -61,18 +59,21 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -2.5)
 target_position = Vector3(0, -100, 0)
 
 [node name="Camera3D" type="Camera3D" parent="Head"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -0.176465)
+fov = 37.8493
 
 [node name="PostProcessMesh" type="MeshInstance3D" parent="Head/Camera3D"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -0.55019)
 mesh = SubResource("QuadMesh_mgxca")
 
+[node name="Hazmat" parent="." instance=ExtResource("4_xggns")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -1, 0)
+
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
 shape = SubResource("CapsuleShape3D_pvv27")
 
-[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
-cast_shadow = 2
-gi_mode = 2
-mesh = SubResource("CapsuleMesh_sd2qq")
+[node name="AnimationTree" type="AnimationTree" parent="."]
+tree_root = SubResource("AnimationNodeStateMachine_hfokc")
 
 [node name="Timer" type="Timer" parent="."]
 wait_time = 0.5
@@ -130,10 +131,27 @@ stretch_mode = 3
 layout_mode = 2
 stretch_mode = 3
 
+[node name="TextureProgressBar" type="TextureProgressBar" parent="hud"]
+visible = false
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -8.0
+offset_top = -8.0
+offset_right = 8.0
+offset_bottom = 8.0
+grow_horizontal = 2
+grow_vertical = 2
+step = 0.0
+value = 5.0
+fill_mode = 4
+texture_under = ExtResource("6_j5tpf")
+texture_progress = ExtResource("7_krbu7")
+
 [node name="OmniLight3D" type="OmniLight3D" parent="."]
 light_energy = 0.2
 omni_range = 2.0
 
 [connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]
-
-[editable path="Head/ItemHand/Flashlight"]
