@@ -1,10 +1,11 @@
-[gd_scene load_steps=10 format=3 uid="uid://bnf8skrh5pjuk"]
+[gd_scene load_steps=15 format=3 uid="uid://bnf8skrh5pjuk"]
 
 [ext_resource type="Material" uid="uid://c8olfqsah5dxj" path="res://TestMaterial.tres" id="2_f2mx5"]
 [ext_resource type="PackedScene" uid="uid://cv15t3tmcetnu" path="res://environment/items/flashlight.tscn" id="2_y41ub"]
 [ext_resource type="PackedScene" uid="uid://bwu8dfp2qp3kc" path="res://environment/fruits/gourd.tscn" id="3_ep13c"]
 [ext_resource type="PackedScene" uid="uid://b5xjtp4qjtafs" path="res://player/player.tscn" id="4_1vgli"]
 [ext_resource type="PackedScene" uid="uid://8h1lgp0f7ekv" path="res://environment/items/shovel.tscn" id="5_e4vjf"]
+[ext_resource type="PackedScene" uid="uid://bfs70m7rkn6ic" path="res://electrical/cctv_camera.tscn" id="6_ypj6x"]
 
 [sub_resource type="PlaneMesh" id="PlaneMesh_hipxm"]
 material = ExtResource("2_f2mx5")
@@ -19,6 +20,17 @@ size = Vector3(4, 4, 4)
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_k85kl"]
 size = Vector3(4, 4, 4)
+
+[sub_resource type="BoxMesh" id="BoxMesh_44b12"]
+size = Vector3(3, 2, 0.25)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_0fpt2"]
+albedo_color = Color(0, 0, 0, 1)
+
+[sub_resource type="GDScript" id="GDScript_igx0j"]
+
+[sub_resource type="ViewportTexture" id="ViewportTexture_tctsc"]
+viewport_path = NodePath("CCTV1_Viewport")
 
 [node name="Node3D" type="Node3D"]
 
@@ -105,3 +117,27 @@ transform = Transform3D(-0.97942, 0, -0.20183, 0, 1, 0, 0.20183, 0, -0.97942, 7.
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.806516, 1, -0.852248)
 
 [node name="Flashlight2" parent="." instance=ExtResource("5_e4vjf")]
+
+[node name="CCTV1_Viewport" type="SubViewport" parent="."]
+gui_disable_input = true
+size = Vector2i(287, 187)
+
+[node name="Camera3D" type="Camera3D" parent="CCTV1_Viewport"]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 7.89084, 1.25255, -1.01945)
+current = true
+
+[node name="CCTV1" parent="." node_paths=PackedStringArray("camera") instance=ExtResource("6_ypj6x")]
+transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 8.96096, 1.25255, -1.01945)
+visible = false
+camera = NodePath("../CCTV1_Viewport/Camera3D")
+
+[node name="TV1" type="MeshInstance3D" parent="."]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 8.84062, 1.37569, -1.04753)
+mesh = SubResource("BoxMesh_44b12")
+skeleton = NodePath("")
+surface_material_override/0 = SubResource("StandardMaterial3D_0fpt2")
+script = SubResource("GDScript_igx0j")
+
+[node name="Sprite3D" type="Sprite3D" parent="TV1"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -0.126011)
+texture = SubResource("ViewportTexture_tctsc")

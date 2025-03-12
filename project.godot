@@ -12,7 +12,7 @@ config_version=5
 
 config/name="Hurticulture"
 run/main_scene="res://main_menu.tscn"
-config/features=PackedStringArray("4.3", "Forward Plus")
+config/features=PackedStringArray("4.4", "Forward Plus")
 
 [autoload]
 
@@ -149,6 +149,9 @@ drop={
 
 [layer_names]
 
+3d_render/layer_1="Normal"
+3d_render/layer_2="Only self can see"
+3d_render/layer_3="Only self cannot see"
 3d_physics/layer_1="World"
 3d_physics/layer_2="Items"
 
@@ -161,7 +164,6 @@ lights_and_shadows/directional_shadow/soft_shadow_filter_quality=3
 lights_and_shadows/directional_shadow/16_bits=false
 lights_and_shadows/positional_shadow/soft_shadow_filter_quality.mobile=2
 global_illumination/gi/use_half_resolution=true
-shading/overrides/force_vertex_shading=true
 shading/overrides/force_lambert_over_burley=true
 textures/default_filters/anisotropic_filtering_level=0
 2d/snap/snap_2d_transforms_to_pixel=true

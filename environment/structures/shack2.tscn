@@ -1,7 +1,7 @@
 [gd_scene load_steps=4 format=3 uid="uid://bakngax6i8obw"]
 
-[ext_resource type="PackedScene" uid="uid://cw454sl2ymiw" path="res://psxpack/meshes/buildings/Shack01a.blend" id="1_xe1cn"]
-[ext_resource type="Texture2D" uid="uid://2deooqboutec" path="res://psxpack/textures/meshes/buildings/Shack01b_a.png" id="2_t36gc"]
+[ext_resource type="PackedScene" uid="uid://tcjxf0g6fddc" path="res://psxpack/meshes/buildings/Shack01a.blend" id="1_xe1cn"]
+[ext_resource type="Texture2D" uid="uid://euhvf5g3324l" path="res://psxpack/textures/meshes/buildings/Shack01b_a.png" id="2_t36gc"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_6ap7j"]
 albedo_texture = ExtResource("2_t36gc")

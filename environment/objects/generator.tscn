@@ -1,7 +1,7 @@
 [gd_scene load_steps=7 format=3 uid="uid://drkfhhj11qpqf"]
 
 [ext_resource type="PackedScene" uid="uid://bmxtbir8jbbn7" path="res://factory/Generator.blend" id="1_t8oox"]
-[ext_resource type="Script" path="res://environment/objects/generator.gd" id="2_o7xcb"]
+[ext_resource type="Script" uid="uid://d1tn6rt7avfo5" path="res://environment/objects/generator.gd" id="2_o7xcb"]
 [ext_resource type="Texture2D" uid="uid://b57rwatm8vpi2" path="res://factory/Generator-Texture.png" id="2_on1ie"]
 
 [sub_resource type="ConcavePolygonShape3D" id="ConcavePolygonShape3D_mk3t2"]

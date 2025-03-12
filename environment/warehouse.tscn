@@ -8,9 +8,9 @@
 [ext_resource type="PackedScene" uid="uid://cgbaw7yp8q8j4" path="res://electrical/door.tscn" id="4_s5px5"]
 [ext_resource type="PackedScene" uid="uid://ddfxev1m3e0r3" path="res://electrical/siren_light.tscn" id="5_lks6v"]
 [ext_resource type="PackedScene" uid="uid://d2bf5huvt4ak2" path="res://electrical/button.tscn" id="7_gou3n"]
-[ext_resource type="Script" path="res://environment/power_generator.gd" id="8_xc0j5"]
+[ext_resource type="Script" uid="uid://cxv0cofia8x23" path="res://environment/power_generator.gd" id="8_xc0j5"]
 [ext_resource type="PackedScene" uid="uid://drkfhhj11qpqf" path="res://environment/objects/generator.tscn" id="11_7heok"]
-[ext_resource type="Script" path="res://environment/game_starter.gd" id="11_n0l0v"]
+[ext_resource type="Script" uid="uid://de34gck4uknth" path="res://environment/game_starter.gd" id="11_n0l0v"]
 [ext_resource type="PackedScene" uid="uid://cv15t3tmcetnu" path="res://environment/items/flashlight.tscn" id="12_wdngk"]
 [ext_resource type="PackedScene" uid="uid://cb8f1calsvae5" path="res://environment/items/seed.tscn" id="13_oij87"]
 
@@ -728,16 +728,12 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.837444, 0)
 script = ExtResource("11_n0l0v")
 
 [node name="Item" parent="." instance=ExtResource("12_wdngk")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.415036, 1.52401, -2.14177)
 
 [node name="Item4" parent="." instance=ExtResource("12_wdngk")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5.61442, 1.52401, -4.52992)
 
 [node name="Item2" parent="." instance=ExtResource("12_wdngk")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5.22969, 1.57044, 3.50544)
 
 [node name="Item3" parent="." instance=ExtResource("12_wdngk")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4.38579, 1.57044, 3.49991)
 
 [node name="Seed" parent="." instance=ExtResource("13_oij87")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3.40575, 1.57924, -0.819326)

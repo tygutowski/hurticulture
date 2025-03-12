@@ -1,7 +1,7 @@
 [gd_scene load_steps=11 format=3 uid="uid://cgbaw7yp8q8j4"]
 
 [ext_resource type="Material" uid="uid://bsa0d2vibumou" path="res://environment/materials/metal_material.tres" id="1_3js0s"]
-[ext_resource type="Script" path="res://electrical/door.gd" id="1_8g17h"]
+[ext_resource type="Script" uid="uid://detjeeq1cvrvw" path="res://electrical/door.gd" id="1_8g17h"]
 [ext_resource type="AudioStream" uid="uid://coj7ublas6ur4" path="res://audio/hydraulic.wav" id="4_md4p6"]
 [ext_resource type="AudioStream" uid="uid://wuxr5hxbu1q2" path="res://audio/air_release.wav" id="5_bvx5h"]
 [ext_resource type="AudioStream" uid="uid://cff72r3ennjm4" path="res://audio/metal_hit.mp3" id="6_wkhkc"]

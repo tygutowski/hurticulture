@@ -2,10 +2,13 @@ class_name Player
 extends CharacterBody3D
 
 var mouse_sensitivity = 0.3
-const SPEED = 5.0
 const JUMP_VELOCITY = 4.5
 var is_holding : bool = false
 
+const ACCELERATION : float = 10
+const FRICTION : float = 12
+
+var head_rotation : Vector3 = Vector3.ZERO
 var increment_progress_bar: bool = false
 var item_preventing_movement: bool = false
 @onready var dropray: RayCast3D = $Head/RayCast3D
@@ -17,8 +20,8 @@ var held_item: Item = null
 @onready var pause_menu = get_node("pausemenu")
 @onready var timer = get_node("Timer")
 
-var WALK_SPEED = 1.0
-var RUN_SPEED = 1.5
+const WALK_SPEED : float = 3
+const RUN_SPEED : float = 5
 var pullback_time : float = 0.0
 var max_pullback_time : float = 2.0
 
@@ -191,27 +194,26 @@ func _physics_process(delta: float) -> void:
 	var movement_speed = WALK_SPEED
 	if Input.is_action_pressed("run") and input_dir.y < 0:
 		movement_speed = RUN_SPEED
-		if movement_speed > 1.0:
-			$Head/Camera3D.fov = lerp($Head/Camera3D.fov, float(Settings.fov + 10), 0.2)
+		$Head/Camera3D.fov = lerp($Head/Camera3D.fov, float(Settings.fov + 10), 0.2)
 	else:
 		$Head/Camera3D.fov = lerp($Head/Camera3D.fov, float(Settings.fov), 0.2)
 	
-	get_node("Hazmat/AnimationTree")["parameters/blend_position"] = Vector2(velocity.x, velocity.z).length()
+	get_node("AnimationTree")["parameters/WalkSpeed/blend_position"] = Vector2(velocity.x, velocity.z).length()
 
 	if input_dir != Vector2.ZERO:
-		$Head/Camera3D.v_offset = lerp($Head/Camera3D.v_offset, sin(Time.get_unix_time_from_system()*8 * movement_speed)/48 * movement_speed, 0.2)
+		$Head/Camera3D.v_offset = lerp($Head/Camera3D.v_offset, sin(Time.get_unix_time_from_system()*3 * movement_speed)/48 * movement_speed, 0.2)
 	else:
 		$Head/Camera3D.v_offset = lerp($Head/Camera3D.v_offset, 0.0, 0.2)
+	Debug.debug(direction)
 	if direction:
-		velocity.x = direction.x * SPEED * movement_speed
-		velocity.z = direction.z * SPEED * movement_speed
+		velocity.x = move_toward(velocity.x, direction.x * movement_speed, ACCELERATION * delta)
+		velocity.z = move_toward(velocity.z, direction.z * movement_speed, ACCELERATION * delta)
 	else:
-		velocity.x = move_toward(velocity.x, 0, SPEED)
-		velocity.z = move_toward(velocity.z, 0, SPEED)
+		velocity.x = move_toward(velocity.x, 0, FRICTION * delta)
+		velocity.z = move_toward(velocity.z, 0, FRICTION * delta)
 
 	#if not Engine.is_editor_hint():
 	#	debug_biome_weights()
-
 	move_and_slide()
 
 func debug_biome_weights() -> void:
@@ -223,10 +225,16 @@ func debug_biome_weights() -> void:
 func _input(event):
 	if not (held_item != null and not held_item.can_move_while_using and held_item.using_item):
 		if event is InputEventMouseMotion and Input.mouse_mode == Input.MOUSE_MODE_CAPTURED:
+			# rotate player body left/right
 			rotate_y(-event.relative.x * deg_to_rad(mouse_sensitivity))
+			# rotate head up and down
 			head.rotate_x(-event.relative.y * deg_to_rad(mouse_sensitivity))
+			# clamp the rotation so you can only look so far up/down
 			head.rotation.x = clampf(head.rotation.x, -deg_to_rad(85), deg_to_rad(85))
-
+			
+			var skeleton : Skeleton3D = get_node("HazmatMesh/Skeleton3D")
+			get_node("AnimationTree")["parameters/LookAngle/blend_position"] = rad_to_deg(head.rotation.x)
+			
 func _on_timer_timeout() -> void:
 	Debug.debug("you can interact now")
 	can_interact = true

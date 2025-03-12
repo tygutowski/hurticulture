@@ -1,6 +1,6 @@
 [gd_scene load_steps=3 format=3 uid="uid://bvrxlnr3ego2p"]
 
-[ext_resource type="PackedScene" uid="uid://vamm3pjr1ch0" path="res://psxpack/meshes/utilities/Shelf01.blend" id="1_3t8pl"]
+[ext_resource type="PackedScene" uid="uid://br57eddhvdd5f" path="res://psxpack/meshes/utilities/Shelf01.blend" id="1_3t8pl"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_uhxaf"]
 size = Vector3(1.79, 2.17676, 1.15)

@@ -3,7 +3,7 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://cjtfjubrcc01d"
-path.s3tc="res://.godot/imported/TreeTextureAtlas_Tree.png-f9427596ccc3c5f9a95c7c9f8956bf2e.s3tc.ctex"
+path.s3tc="res://.godot/imported/TreeTextureAtlas_Tree.png-c366558d0c272738633c716453095fdb.s3tc.ctex"
 metadata={
 "imported_formats": ["s3tc_bptc"],
 "vram_texture": true
@@ -11,8 +11,8 @@ metadata={
 
 [deps]
 
-source_file="res://Retro Foliage Pixel Art Nature Kit/textures/TreeTextureAtlas_Tree.png"
-dest_files=["res://.godot/imported/TreeTextureAtlas_Tree.png-f9427596ccc3c5f9a95c7c9f8956bf2e.s3tc.ctex"]
+source_file="res://Retro Foliage Pixel Art Nature Kit/Textures/TreeTextureAtlas_Tree.png"
+dest_files=["res://.godot/imported/TreeTextureAtlas_Tree.png-c366558d0c272738633c716453095fdb.s3tc.ctex"]
 
 [params]
 

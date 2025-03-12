@@ -1,6 +1,6 @@
 [gd_scene load_steps=15 format=4 uid="uid://8h1lgp0f7ekv"]
 
-[ext_resource type="Script" path="res://environment/items/shovel.gd" id="1_rmqyr"]
+[ext_resource type="Script" uid="uid://ck0t2huwfk4k4" path="res://environment/items/shovel.gd" id="1_rmqyr"]
 [ext_resource type="Texture2D" uid="uid://cyylg8apqlf0f" path="res://GUI/shovel_texture.png" id="2_2vk1g"]
 [ext_resource type="Texture2D" uid="uid://dbxh87l4t3k2x" path="res://farm assets/PSX-Farm Assets/Shovel_Variant_1/Shovel_Variant_1_Base_color.png" id="2_wi1sr"]
 
@@ -166,10 +166,10 @@ tracks/1/keys = {
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_vjfl8"]
 _data = {
-"RESET": SubResource("Animation_orh6s"),
-"dig": SubResource("Animation_ckbkt"),
-"pickup": SubResource("Animation_5cvje"),
-"stop": SubResource("Animation_l0xr8")
+&"RESET": SubResource("Animation_orh6s"),
+&"dig": SubResource("Animation_ckbkt"),
+&"pickup": SubResource("Animation_5cvje"),
+&"stop": SubResource("Animation_l0xr8")
 }
 
 [node name="Shovel" type="StaticBody3D"]
@@ -196,5 +196,5 @@ shape = SubResource("BoxShape3D_q5cc1")
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 libraries = {
-"": SubResource("AnimationLibrary_vjfl8")
+&"": SubResource("AnimationLibrary_vjfl8")
 }

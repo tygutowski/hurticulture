@@ -1,6 +1,6 @@
 [gd_scene load_steps=8 format=4 uid="uid://bwu8dfp2qp3kc"]
 
-[ext_resource type="Script" path="res://environment/fruits/fruit.gd" id="1_i6dha"]
+[ext_resource type="Script" uid="uid://cp0mu4ypahxao" path="res://environment/fruits/fruit.gd" id="1_i6dha"]
 
 [sub_resource type="CylinderShape3D" id="CylinderShape3D_1xqey"]
 height = 0.375

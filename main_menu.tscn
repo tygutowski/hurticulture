@@ -1,12 +1,12 @@
 [gd_scene load_steps=21 format=3 uid="uid://cw367a11cr7h3"]
 
-[ext_resource type="Script" path="res://main_menu.gd" id="1_x1p8u"]
+[ext_resource type="Script" uid="uid://dh1c1p5u3g1wc" path="res://main_menu.gd" id="1_x1p8u"]
 [ext_resource type="Theme" uid="uid://cngnc0iq1p6d4" path="res://computer_ui_theme.tres" id="2_vmb14"]
 [ext_resource type="PackedScene" uid="uid://cob18i2kinwh0" path="res://GUI/Lobby/in_lobby_player_data.tscn" id="3_6dwyr"]
 [ext_resource type="StyleBox" uid="uid://boauq2nvdk32m" path="res://GUI/Button/blue_panel.tres" id="3_ppg07"]
 [ext_resource type="Texture2D" uid="uid://oemum0qey2fa" path="res://GUI/join_icon.png" id="4_2cpus"]
 [ext_resource type="Texture2D" uid="uid://cgi6npypybmet" path="res://GUI/host_icon.png" id="5_hhgsd"]
-[ext_resource type="Shader" path="res://GUI/Shaders/crt_shader.gdshader" id="6_6xv8o"]
+[ext_resource type="Shader" uid="uid://dgl24llh84a45" path="res://GUI/Shaders/crt_shader.gdshader" id="6_6xv8o"]
 [ext_resource type="Texture2D" uid="uid://chbqnpux2a406" path="res://GUI/gear_icon.png" id="6_ijft3"]
 [ext_resource type="AudioStream" uid="uid://kwxe8mqmsm5f" path="res://GUI/accept_button_sound.wav" id="7_1b08p"]
 [ext_resource type="Texture2D" uid="uid://blvbwmir1femd" path="res://GUI/back_icon.png" id="7_htnu3"]
@@ -47,8 +47,8 @@ shader_parameter/scanlines_interval = 6.0
 shader_parameter/scanline_opacity = 0.45
 shader_parameter/scanline_thickness = 3.0
 shader_parameter/chromatic_aberration_strength = 1.0
-shader_parameter/wiggle = 0.002
 shader_parameter/noise_texture = SubResource("NoiseTexture2D_fti5c")
+shader_parameter/wiggle = 0.002
 
 [node name="Control" type="Control"]
 layout_mode = 3
@@ -396,6 +396,7 @@ focus_mode = 0
 selected = 0
 item_count = 3
 popup/item_0/text = "fullscreen"
+popup/item_0/id = 0
 popup/item_1/text = "borderless windowed"
 popup/item_1/id = 1
 popup/item_2/text = "windowed"
@@ -743,14 +744,14 @@ volume_db = -80.0
 pitch_scale = 4.0
 
 [connection signal="mouse_entered" from="Menu/Interface/HBoxContainer/InterfaceHBox/MainMenu/MainMenuGrid/VBoxContainer/JoinLobbyButton" to="." method="_mouse_hovered"]
-[connection signal="pressed" from="Menu/Interface/HBoxContainer/InterfaceHBox/MainMenu/MainMenuGrid/VBoxContainer/JoinLobbyButton" to="." method="_click_button"]
 [connection signal="pressed" from="Menu/Interface/HBoxContainer/InterfaceHBox/MainMenu/MainMenuGrid/VBoxContainer/JoinLobbyButton" to="." method="_on_join_lobby_button_pressed"]
+[connection signal="pressed" from="Menu/Interface/HBoxContainer/InterfaceHBox/MainMenu/MainMenuGrid/VBoxContainer/JoinLobbyButton" to="." method="_click_button"]
 [connection signal="mouse_entered" from="Menu/Interface/HBoxContainer/InterfaceHBox/MainMenu/MainMenuGrid/VBoxContainer2/CreateLobbyButton" to="." method="_mouse_hovered"]
 [connection signal="pressed" from="Menu/Interface/HBoxContainer/InterfaceHBox/MainMenu/MainMenuGrid/VBoxContainer2/CreateLobbyButton" to="." method="_on_create_lobby_button_pressed"]
 [connection signal="pressed" from="Menu/Interface/HBoxContainer/InterfaceHBox/MainMenu/MainMenuGrid/VBoxContainer2/CreateLobbyButton" to="." method="_click_button"]
 [connection signal="mouse_entered" from="Menu/Interface/HBoxContainer/InterfaceHBox/MainMenu/MainMenuGrid/VBoxContainer3/OptionsButton" to="." method="_mouse_hovered"]
-[connection signal="pressed" from="Menu/Interface/HBoxContainer/InterfaceHBox/MainMenu/MainMenuGrid/VBoxContainer3/OptionsButton" to="." method="_on_options_button_pressed"]
 [connection signal="pressed" from="Menu/Interface/HBoxContainer/InterfaceHBox/MainMenu/MainMenuGrid/VBoxContainer3/OptionsButton" to="." method="_click_button"]
+[connection signal="pressed" from="Menu/Interface/HBoxContainer/InterfaceHBox/MainMenu/MainMenuGrid/VBoxContainer3/OptionsButton" to="." method="_on_options_button_pressed"]
 [connection signal="mouse_entered" from="Menu/Interface/HBoxContainer/InterfaceHBox/MainMenu/MainMenuGrid/VBoxContainer4/ExitGameButton" to="." method="play_hovering_noise"]
 [connection signal="pressed" from="Menu/Interface/HBoxContainer/InterfaceHBox/MainMenu/MainMenuGrid/VBoxContainer4/ExitGameButton" to="." method="_on_exit_game_button_pressed"]
 [connection signal="mouse_entered" from="Menu/Interface/HBoxContainer/InterfaceHBox/MainMenu/SettingsGrid/VBoxContainer/Button" to="." method="_mouse_hovered"]
@@ -763,8 +764,8 @@ pitch_scale = 4.0
 [connection signal="pressed" from="Menu/Interface/HBoxContainer/InterfaceHBox/MainMenu/SettingsGrid/VBoxContainer3/Button" to="." method="_click_button"]
 [connection signal="pressed" from="Menu/Interface/HBoxContainer/InterfaceHBox/MainMenu/SettingsGrid/VBoxContainer3/Button" to="." method="_settings_video_clicked"]
 [connection signal="pressed" from="Menu/Interface/HBoxContainer/VBoxContainer/MarginContainer/MiniScreen/MiniScreenBar/Button" to="." method="_close_miniscreen"]
-[connection signal="value_changed" from="Menu/Interface/HBoxContainer/VBoxContainer/MarginContainer/MiniScreen/MiniScreenScreen/Settings/gameplay/VBoxContainer/MarginContainer/HBoxContainer/MarginContainer/VBoxContainer/HBoxContainer/FovSlider" to="." method="update_fov"]
 [connection signal="value_changed" from="Menu/Interface/HBoxContainer/VBoxContainer/MarginContainer/MiniScreen/MiniScreenScreen/Settings/gameplay/VBoxContainer/MarginContainer/HBoxContainer/MarginContainer/VBoxContainer/HBoxContainer/FovSlider" to="." method="_on_slider_value_changed"]
+[connection signal="value_changed" from="Menu/Interface/HBoxContainer/VBoxContainer/MarginContainer/MiniScreen/MiniScreenScreen/Settings/gameplay/VBoxContainer/MarginContainer/HBoxContainer/MarginContainer/VBoxContainer/HBoxContainer/FovSlider" to="." method="update_fov"]
 [connection signal="item_selected" from="Menu/Interface/HBoxContainer/VBoxContainer/MarginContainer/MiniScreen/MiniScreenScreen/Settings/video/VBoxContainer/MarginContainer/HBoxContainer/MarginContainer/VBoxContainer/WindowMode" to="." method="play_clicking_noise2"]
 [connection signal="mouse_entered" from="Menu/Interface/HBoxContainer/VBoxContainer/MarginContainer/MiniScreen/MiniScreenScreen/Settings/video/VBoxContainer/MarginContainer/HBoxContainer/MarginContainer/VBoxContainer/WindowMode" to="." method="play_hovering_noise"]
 [connection signal="value_changed" from="Menu/Interface/HBoxContainer/VBoxContainer/MarginContainer/MiniScreen/MiniScreenScreen/Settings/audio/VBoxContainer/HBoxContainer/MarginContainer/VBoxContainer/HBoxContainer/MasterVolumeSlider" to="." method="_on_slider_value_changed"]
@@ -775,8 +776,8 @@ pitch_scale = 4.0
 [connection signal="value_changed" from="Menu/Interface/HBoxContainer/VBoxContainer/MarginContainer/MiniScreen/MiniScreenScreen/Settings/audio/VBoxContainer/HBoxContainer5/MarginContainer/VBoxContainer/HBoxContainer/VoiceVolumeSlider" to="." method="update_voicevolume"]
 [connection signal="value_changed" from="Menu/Interface/HBoxContainer/VBoxContainer/MarginContainer/MiniScreen/MiniScreenScreen/Settings/audio/VBoxContainer/HBoxContainer4/MarginContainer/VBoxContainer/HBoxContainer/MicrophoneIntensitySlider" to="." method="_on_slider_value_changed"]
 [connection signal="value_changed" from="Menu/Interface/HBoxContainer/VBoxContainer/MarginContainer/MiniScreen/MiniScreenScreen/Settings/audio/VBoxContainer/HBoxContainer4/MarginContainer/VBoxContainer/HBoxContainer/MicrophoneIntensitySlider" to="." method="update_micintensity"]
-[connection signal="value_changed" from="Menu/Interface/HBoxContainer/VBoxContainer/MarginContainer/MiniScreen/MiniScreenScreen/Settings/audio/VBoxContainer/HBoxContainer3/MarginContainer/VBoxContainer/HBoxContainer/MicrophoneThresholdSlider" to="." method="update_micthreshold"]
 [connection signal="value_changed" from="Menu/Interface/HBoxContainer/VBoxContainer/MarginContainer/MiniScreen/MiniScreenScreen/Settings/audio/VBoxContainer/HBoxContainer3/MarginContainer/VBoxContainer/HBoxContainer/MicrophoneThresholdSlider" to="." method="_on_slider_value_changed"]
+[connection signal="value_changed" from="Menu/Interface/HBoxContainer/VBoxContainer/MarginContainer/MiniScreen/MiniScreenScreen/Settings/audio/VBoxContainer/HBoxContainer3/MarginContainer/VBoxContainer/HBoxContainer/MicrophoneThresholdSlider" to="." method="update_micthreshold"]
 [connection signal="mouse_entered" from="Menu/Interface/HBoxContainer/VBoxContainer/MarginContainer/MiniScreen/MiniScreenScreen/OwnerLobby/VBoxContainer/Button" to="." method="play_hovering_noise"]
 [connection signal="pressed" from="Menu/Interface/HBoxContainer/VBoxContainer/MarginContainer/MiniScreen/MiniScreenScreen/OwnerLobby/VBoxContainer/Button" to="." method="play_clicking_noise"]
 [connection signal="pressed" from="Menu/Interface/HBoxContainer/VBoxContainer/MarginContainer/MiniScreen/MiniScreenScreen/OwnerLobby/VBoxContainer/Button" to="." method="_generate_world"]

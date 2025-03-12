@@ -1,6 +1,6 @@
 [gd_scene load_steps=12 format=4 uid="uid://cv15t3tmcetnu"]
 
-[ext_resource type="Script" path="res://environment/items/flashlight.gd" id="1_hp6w2"]
+[ext_resource type="Script" uid="uid://bndnfp3qyajme" path="res://environment/items/flashlight.gd" id="1_hp6w2"]
 [ext_resource type="Texture2D" uid="uid://bv82mnr1h3get" path="res://GUI/flashlight_texture.png" id="2_7eryb"]
 [ext_resource type="Texture2D" uid="uid://bjev117e6gm3c" path="res://items/Flashlight/Flashlight.png" id="2_78h6x"]
 
@@ -111,8 +111,8 @@ tracks/1/keys = {
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_d7dp8"]
 _data = {
-"RESET": SubResource("Animation_xq4fn"),
-"pickup": SubResource("Animation_tht03")
+&"RESET": SubResource("Animation_xq4fn"),
+&"pickup": SubResource("Animation_tht03")
 }
 
 [node name="Flashlight" type="StaticBody3D"]

@@ -1,6 +1,6 @@
 [gd_scene load_steps=7 format=3 uid="uid://bxq1mnjbcjkj1"]
 
-[ext_resource type="Script" path="res://environment/florescentlight.gd" id="1_3ud4b"]
+[ext_resource type="Script" uid="uid://djiwyia17h48d" path="res://environment/florescentlight.gd" id="1_3ud4b"]
 [ext_resource type="ArrayMesh" uid="uid://bldtvcm18efg3" path="res://environment/objects/fluorescent_light_case/Fluorecent_Light_Case_LP.obj" id="2_gqxft"]
 [ext_resource type="ArrayMesh" uid="uid://btu86wogjxqn1" path="res://environment/objects/fluorescent_light_tube/LightTube_LP.obj" id="3_s2hnc"]
 [ext_resource type="AudioStream" uid="uid://s4eydfqv1f00" path="res://audio/fluorescent-clinking1.wav" id="4_wxs50"]

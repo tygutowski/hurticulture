@@ -1,8 +1,8 @@
 [gd_scene load_steps=9 format=3 uid="uid://duotb7ol03ihn"]
 
-[ext_resource type="Script" path="res://cloning_vat.gd" id="1_46yrm"]
-[ext_resource type="Texture2D" uid="uid://b5a47b40ls11r" path="res://128x128/Metal/Metal_12-128x128.png" id="1_rh6oi"]
-[ext_resource type="Texture2D" uid="uid://cdnu4n17ag1q6" path="res://128x128/Metal/Metal_01-128x128.png" id="2_rij0f"]
+[ext_resource type="Script" uid="uid://bbm31v0vm7wpc" path="res://cloning_vat.gd" id="1_46yrm"]
+[ext_resource type="Texture2D" uid="uid://b5a47b40ls11r" path="res://textures/Metal/Metal_12-128x128.png" id="1_rh6oi"]
+[ext_resource type="Texture2D" uid="uid://cdnu4n17ag1q6" path="res://textures/Metal/Metal_01-128x128.png" id="2_rij0f"]
 [ext_resource type="Material" uid="uid://ts2y0jb4bp6o" path="res://cloning_vat_window.tres" id="4_5ipw6"]
 
 [sub_resource type="BoxMesh" id="BoxMesh_0jt16"]

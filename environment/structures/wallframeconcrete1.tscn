@@ -1,5 +1,5 @@
 [gd_scene load_steps=2 format=3 uid="uid://b0a4nywh0e5a1"]
 
-[ext_resource type="PackedScene" uid="uid://d0cnxhnsxn3uk" path="res://psxpack/meshes/buildings/modular/mDFrameConcrete02.blend" id="1_5emai"]
+[ext_resource type="PackedScene" uid="uid://duymdvxwclquk" path="res://psxpack/meshes/buildings/modular/mDFrameConcrete02.blend" id="1_5emai"]
 
 [node name="mDFrameConcrete02" instance=ExtResource("1_5emai")]

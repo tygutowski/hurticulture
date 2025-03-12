@@ -1,6 +1,6 @@
 [gd_scene load_steps=9 format=3 uid="uid://d2bf5huvt4ak2"]
 
-[ext_resource type="Script" path="res://electrical/button.gd" id="1_rstvn"]
+[ext_resource type="Script" uid="uid://dpjyrn4wj5ahr" path="res://electrical/button.gd" id="1_rstvn"]
 [ext_resource type="AudioStream" uid="uid://lopeu6dcnkjl" path="res://audio/switch-on.wav" id="2_syw27"]
 [ext_resource type="AudioStream" uid="uid://cp1pykwd01p47" path="res://audio/switch-off.wav" id="3_8nqs8"]
 

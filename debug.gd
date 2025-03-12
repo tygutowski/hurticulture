@@ -10,8 +10,8 @@ func setup_debug() -> void:
 	player = get_tree().get_first_node_in_group("player")
 	debug_text = player.get_node("hud/RichTextLabel")
 
-func debug(string: String) -> void:
-	print(string)
+func debug(string) -> void:
+	string = str(string)
 	if debug_text != null:
 		if len(debug_text_array) > debug_text_array_max_length:
 			debug_text_array.pop_back()

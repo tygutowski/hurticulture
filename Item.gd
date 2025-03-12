@@ -93,7 +93,6 @@ func reload_item() -> void:
 func alt_use_item() -> void:
 	pass
 
-
 func be_used() -> void:
 	pass
 

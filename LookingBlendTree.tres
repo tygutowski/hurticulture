@@ -1,0 +1,22 @@
+[gd_resource type="AnimationNodeBlendSpace1D" load_steps=4 format=3 uid="uid://dj820svdxv1wn"]
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_wodsf"]
+animation = &"Idle"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_8t03j"]
+animation = &"LookDown"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_2ieo8"]
+animation = &"LookUp"
+
+[resource]
+blend_point_0/node = SubResource("AnimationNodeAnimation_wodsf")
+blend_point_0/pos = 0.0
+blend_point_1/node = SubResource("AnimationNodeAnimation_8t03j")
+blend_point_1/pos = -85.0
+blend_point_2/node = SubResource("AnimationNodeAnimation_2ieo8")
+blend_point_2/pos = 85.0
+min_space = -85.0
+max_space = 85.0
+snap = 5.0
+value_label = "mouse_angle"

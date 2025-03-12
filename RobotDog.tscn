@@ -1331,14 +1331,14 @@ tracks/22/keys = PackedFloat32Array(0, 1, 0.00173006, -0.755607, 0.655004, 0.004
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_dveet"]
 _data = {
-"Armature|ATACK": SubResource("Animation_40ixq"),
-"Armature|IDLE": SubResource("Animation_ojpa7"),
-"Armature|LOOK": SubResource("Animation_nf2ks"),
-"Armature|RUN": SubResource("Animation_xmw0m"),
-"Armature|SLEEP": SubResource("Animation_qjh1f"),
-"Armature|TRACK": SubResource("Animation_1qi52"),
-"Armature|WAKE UP": SubResource("Animation_4sve6"),
-"Armature|WALK": SubResource("Animation_dnlsm")
+&"Armature|ATACK": SubResource("Animation_40ixq"),
+&"Armature|IDLE": SubResource("Animation_ojpa7"),
+&"Armature|LOOK": SubResource("Animation_nf2ks"),
+&"Armature|RUN": SubResource("Animation_xmw0m"),
+&"Armature|SLEEP": SubResource("Animation_qjh1f"),
+&"Armature|TRACK": SubResource("Animation_1qi52"),
+&"Armature|WAKE UP": SubResource("Animation_4sve6"),
+&"Armature|WALK": SubResource("Animation_dnlsm")
 }
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_f1vgt"]
