@@ -1,0 +1,10 @@
+[gd_scene load_steps=3 format=3 uid="uid://dfqd0uad23uwb"]
+
+[ext_resource type="Texture2D" uid="uid://d3eu54ab3b72j" path="res://InventorySingleShape.png" id="1_iu6pg"]
+[ext_resource type="Script" uid="uid://b4aedpvq8kjae" path="res://InventoryItem.gd" id="2_t0seh"]
+
+[node name="TextureRect" type="TextureRect"]
+offset_right = 40.0
+offset_bottom = 40.0
+texture = ExtResource("1_iu6pg")
+script = ExtResource("2_t0seh")

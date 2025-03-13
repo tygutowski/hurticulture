@@ -225,7 +225,7 @@ func generate_world(sandbox: bool = false) -> void:
 		else:
 			var warehouse_position = spawn_warehouse(0.2)
 			if warehouse_position != null:
-				print(warehouse_position)
+				warehouse_position.y += 10
 				force_spawn_object("res://player/player.tscn", warehouse_position)
 	reset_generation_values()
 	print("FINISH(ING GENERATION!!!!)")
