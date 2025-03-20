@@ -22,9 +22,10 @@ func _init():
 	OS.set_environment("SteamGameId", str(GAME_ID))
 
 func _ready() -> void:
-	initialize_steam()
+	if not Global.OFFLINE_MODE:
+		initialize_steam()
+		steam_id = Steam.getSteamID()
 	connect_signals()
-	steam_id = Steam.getSteamID()
 
 func _process(_delta) -> void:
 	Steam.run_callbacks()

@@ -14,3 +14,6 @@ var seed_type = SeedType.TEST
 var seed_types: Dictionary = {
 	SeedType.TEST: "PlantTest"
 }
+
+const INVENTORY_SLOT_SIZE: int = 64
+const OFFLINE_MODE: bool = true

@@ -16,27 +16,26 @@ var current_slot_hovered: Vector2i = Vector2i(-1, -1)
 
 # inventory item that is held with mouse, NOT in the player's hand.
 var held_inventory_item: Item = null
-@onready var held_item_texture: TextureRect = TextureRect.new()
 #var held_inventory_control_node: Control = null
 
 @onready var columns: Control = get_node("MarginContainer/MarginContainer/MarginContainer/HBoxContainer")
 @onready var inventory_slot: PackedScene = preload("res://InventorySlot.tscn")
 
 func _ready() -> void:
-	print("inventory")
 	var flashlight: Item = preload("res://environment/items/tools/ItemFlashlight.tscn").instantiate()
 	await flashlight._ready()
+	var moonfruit: Item = preload("res://environment/items/fruits/ItemMoonFruit.tscn").instantiate()
+	await moonfruit._ready()
+
 	prepare_default_state()
 	clear_inventory_slots()
 	add_inventory_slots()
 	put_item(flashlight, Vector2i(1, 1), true)
-	
+	put_item(moonfruit, Vector2i(2, 2), true)
 	#var item3: Item = load("res://environment/items/tools/ItemSeedPacket.tscn").instantiate()
 	#place_item_in_slot(item3, Vector2i(2, 1))
 
 func put_item(item: Item, root_slot: Vector2i, debug: bool = false):
-	print("Putting item " + item.name + " at " + str(current_slot_hovered) + ", which originates at " + str(root_slot))
-	
 	var offset = item.slot - slot_picked_up_from
 	root_slot += offset
 	
@@ -53,11 +52,18 @@ func put_item(item: Item, root_slot: Vector2i, debug: bool = false):
 		slot = root_slot + slot
 		inventory[slot.x][slot.y] = item
 	item.slot = root_slot
-	columns.get_child(root_slot.x).get_child(root_slot.y).get_node("SlotContents").texture = item.inventory_texture
+	
 	set_held_inventory_item(null)
+	set_slot_texture(item.slot, item.inventory_texture)
+	if not debug:
+		add_item_outline(item.slot)
+
+func set_slot_texture(slot: Vector2i, texture: Texture) -> void:
+	columns.get_child(slot.x).get_child(slot.y).get_node("SlotContents").texture = texture
+
 
 func pick_item(slot: Vector2i) -> void:
-	print("Picking item up at" + inventory[slot.x][slot.y].name + " at " + str(slot))
+	remove_item_outline(slot)
 	if inventory[slot.x][slot.y] == null:
 		return
 	
@@ -66,37 +72,26 @@ func pick_item(slot: Vector2i) -> void:
 		var actual_slot = item.slot + occupied_slot
 		inventory[actual_slot.x][actual_slot.y] = null
 	
-	set_held_inventory_item(item)
-	$HeldItem.texture = item.inventory_texture
 	slot_picked_up_from = slot
+	set_slot_texture(item.slot, null)
+	set_held_inventory_item(item)
 
-func set_held_inventory_item(item: Item) -> void:
-	if item == null:
-		held_item_texture.visible = false
-		$HeldItem.texture = null
-		held_inventory_item = null
-	else:
-		held_inventory_item = item
-		if held_inventory_item.inventory_texture != null:
-			held_item_texture.texture = held_inventory_item.inventory_texture
-			held_item_texture.visible = true  # Make sure the texture is visible
-			var slot_offset: Vector2 = Vector2(held_inventory_item.slot) - Vector2(slot_picked_up_from)
-			held_item_texture.position = get_viewport().get_mouse_position() - mouse_offset + (Vector2(slot_offset.x * 64, slot_offset.y * 64))
-			
-			# Ensure the held texture is added to the root if not already
-			$HeldItem.texture = held_item_texture
-
-		# if you have a scene selected
-		#if held_inventory_item.inventory_texture_scene != null:
-		#	var held_inventory_texture = held_inventory_item.inventory_texture_scene
-
-func _process(_delta: float) -> void:
-	if Input.is_action_just_pressed("rmb"):
-		print(inventory)
+func set_held_inventory_item_position() -> void:
 	if held_inventory_item != null:
 		var slot_offset: Vector2 = Vector2(held_inventory_item.slot) - Vector2(slot_picked_up_from)
-		$HeldItem.position = get_viewport().get_mouse_position() - mouse_offset + (Vector2(slot_offset.x * 64, slot_offset.y * 64))
+		$HeldItem.position = get_viewport().get_mouse_position() - mouse_offset + (slot_offset * Global.INVENTORY_SLOT_SIZE)
 
+func set_held_inventory_item(item: Item) -> void:
+	held_inventory_item = item
+	if held_inventory_item == null:
+		$HeldItem.texture = null
+	else:
+		if held_inventory_item.inventory_texture != null:
+			$HeldItem.texture = held_inventory_item.inventory_texture
+	set_held_inventory_item_position()
+
+func _process(_delta: float) -> void:
+	set_held_inventory_item_position()
 	if Input.is_action_just_pressed("lmb"):
 		# if holding nothing
 		if held_inventory_item == null:
@@ -113,7 +108,6 @@ func _process(_delta: float) -> void:
 				# and slot is empty
 				if inventory[current_slot_hovered.x][current_slot_hovered.y] == null:
 					# put item into slot
-					print("putting item in slot")
 					var corrected_root = current_slot_hovered - slot_picked_up_from  # Adjust placement to align correctly
 					put_item(held_inventory_item, current_slot_hovered)
 
@@ -123,19 +117,26 @@ func darken_slot(slot_index) -> void:
 func lighten_slot(slot_index) -> void:
 	columns.get_child(slot_index.x).get_child(slot_index.y).texture = default_slot_texture
 
-func _mouse_entered(slot_index) -> void:
+func add_item_outline(slot_index) -> void:
 	if held_inventory_item == null:
 		var item = inventory[slot_index.x][slot_index.y]
 		if item != null:
-			columns.get_child(slot_index.x).get_child(slot_index.y).get_child(0).material = selected_shader
+			columns.get_child(item.slot.x).get_child(item.slot.y).get_child(0).material = selected_shader
+
+func _mouse_entered(slot_index) -> void:
+	add_item_outline(slot_index)
 	darken_slot(slot_index)
 	current_slot_hovered = slot_index
 
-func _mouse_exited(slot_index) -> void:
+func remove_item_outline(slot_index) -> void:
 	if held_inventory_item == null:
 		var item = inventory[slot_index.x][slot_index.y]
 		if item != null:
-			columns.get_child(slot_index.x).get_child(slot_index.y).get_child(0).material = null
+			columns.get_child(item.slot.x).get_child(item.slot.y).get_child(0).material = null
+
+func _mouse_exited(slot_index) -> void:
+	remove_item_outline(slot_index)
+
 	lighten_slot(slot_index)
 	current_slot_hovered = Vector2i(-1, -1)
 

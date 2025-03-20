@@ -9,6 +9,7 @@ size_flags_vertical = 4
 texture = ExtResource("1_4r0iv")
 
 [node name="SlotContents" type="TextureRect" parent="."]
+z_index = 1
 layout_mode = 0
 offset_right = 40.0
 offset_bottom = 40.0
