@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://52xlhwb1u5is"
-path="res://.godot/imported/InventoryLShape.png-aee6d5603d6fb06cb0d20bb40b02e72b.ctex"
+uid="uid://bnp0b2ekk4k7m"
+path="res://.godot/imported/InventoryItemSeedPacketBorder.png-5e9fa0af957529ebd59da961731b12d8.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://InventoryLShape.png"
-dest_files=["res://.godot/imported/InventoryLShape.png-aee6d5603d6fb06cb0d20bb40b02e72b.ctex"]
+source_file="res://InventoryItemSeedPacketBorder.png"
+dest_files=["res://.godot/imported/InventoryItemSeedPacketBorder.png-5e9fa0af957529ebd59da961731b12d8.ctex"]
 
 [params]
 

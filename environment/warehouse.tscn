@@ -11,8 +11,8 @@
 [ext_resource type="Script" uid="uid://cxv0cofia8x23" path="res://environment/power_generator.gd" id="8_xc0j5"]
 [ext_resource type="PackedScene" uid="uid://drkfhhj11qpqf" path="res://environment/objects/generator.tscn" id="11_7heok"]
 [ext_resource type="Script" uid="uid://de34gck4uknth" path="res://environment/game_starter.gd" id="11_n0l0v"]
-[ext_resource type="PackedScene" uid="uid://cv15t3tmcetnu" path="res://environment/items/flashlight.tscn" id="12_wdngk"]
-[ext_resource type="PackedScene" uid="uid://cb8f1calsvae5" path="res://environment/items/seed.tscn" id="13_oij87"]
+[ext_resource type="PackedScene" uid="uid://cv15t3tmcetnu" path="res://environment/items/tools/ItemFlashlight.tscn" id="12_wdngk"]
+[ext_resource type="PackedScene" uid="uid://cb8f1calsvae5" path="res://environment/items/tools/ItemSeedPacket.tscn" id="13_oij87"]
 
 [sub_resource type="BoxMesh" id="BoxMesh_nksia"]
 size = Vector3(3, 2, 0.25)

@@ -1,16 +1,14 @@
-extends Node3D
-class_name Item
+extends Item
+class_name ItemUsable
 
-@export var slot_texture: CompressedTexture2D = null
+# Usable Items
 @export var held_down_item: bool = false
 @export var hold_duration: float = 1.0
 @export var use_interval: float = 0.5
 @export var can_move_while_using: bool = true
-@onready var player = get_tree().get_first_node_in_group("player")
-var use_duration: float = 0.0
-var interval_duration: float = 0.0
-var thing_holding_me: Node = null
 var using_item: bool = false
+var interval_duration: float = 0.0
+var use_duration: float = 0.0
 
 func _process(delta) -> void:
 	if held_down_item and using_item:
@@ -22,13 +20,15 @@ func _process(delta) -> void:
 			interval_duration -= use_interval
 			update_interval()
 
+
+
 func stop_player_chargebar() -> void:
-	player.get_node("hud/TextureProgressBar").visible = false
+	player_holding_me.get_node("hud/TextureProgressBar").visible = false
 
 func start_player_chargebar() -> void:
-	player.get_node("hud/TextureProgressBar").visible = true
-	player.get_node("hud/TextureProgressBar").value = 0
-	player.increment_progress_bar = true
+	player_holding_me.get_node("hud/TextureProgressBar").visible = true
+	player_holding_me.get_node("hud/TextureProgressBar").value = 0
+	player_holding_me.increment_progress_bar = true
 
 func begin_using_item() -> void:
 	Debug.debug("Begin using item")
@@ -60,32 +60,6 @@ func finish_using_item() -> void:
 		stop_player_chargebar()
 		finish_being_used()
 		use_item()
-
-func get_picked_up() -> void:
-	get_node("Mesh").material_override.no_depth_test = true
-	var animation_player: AnimationPlayer = get_node_or_null("AnimationPlayer")
-	if animation_player != null:
-		animation_player.play("pickup")
-	for child in get_children():
-		if child is CollisionShape3D:
-			Debug.debug("disabling hitbox")
-			child.disabled = true
-
-func get_dropped() -> void:
-	var animation_player: AnimationPlayer = get_node_or_null("AnimationPlayer")
-	if animation_player != null:
-		animation_player.stop()
-	get_node("Mesh").material_override.no_depth_test = false
-	for child in get_children():
-		Debug.debug("child!")
-		if child is CollisionShape3D:
-			Debug.debug("enabling hitbox")
-			child.disabled = false
-	thing_holding_me = null
-
-func get_picked_up_by(new_owner: Node) -> void:
-	thing_holding_me = new_owner
-	get_picked_up()
 
 func reload_item() -> void:
 	pass

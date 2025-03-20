@@ -54,14 +54,14 @@ func pickup_item(item: Item) -> void:
 			if inventory[i] == null:
 				inventory[i] = item
 				var new_slot = hotbar.get_child(i)
-				new_slot.texture = item.slot_texture
+				new_slot.texture = item.hotbar_texture
 				new_slot.stretch_mode = TextureRect.StretchMode.STRETCH_SCALE
 				Debug.debug("Picking up item in inventory")
 				break
 	else:
 		inventory[inventory_index] = item
 		var new_slot = hotbar.get_child(inventory_index)
-		new_slot.texture = item.slot_texture
+		new_slot.texture = item.hotbar_texture
 		new_slot.stretch_mode = TextureRect.StretchMode.STRETCH_SCALE
 		Debug.debug("Picking up item in hand")
 	update_held_item()

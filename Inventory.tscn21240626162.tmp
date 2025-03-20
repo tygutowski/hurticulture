@@ -88,10 +88,10 @@ layout_mode = 2
 [node name="TextureRect3" parent="MarginContainer/MarginContainer/MarginContainer/HBoxContainer/VBoxContainer2" instance=ExtResource("3_jqulp")]
 layout_mode = 2
 
-[node name="HeldItem" type="TextureRect" parent="."]
+[node name="Cursor" type="TextureRect" parent="."]
 layout_mode = 0
 offset_right = 40.0
 offset_bottom = 40.0
 mouse_filter = 2
-
-[editable path="MarginContainer/MarginContainer/MarginContainer/HBoxContainer/VBoxContainer/TextureRect"]
+expand_mode = 1
+stretch_mode = 2

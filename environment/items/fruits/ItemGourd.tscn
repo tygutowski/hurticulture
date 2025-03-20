@@ -1,10 +1,9 @@
-[gd_scene load_steps=8 format=4 uid="uid://bwu8dfp2qp3kc"]
+[gd_scene load_steps=7 format=4 uid="uid://bwu8dfp2qp3kc"]
 
-[ext_resource type="Script" uid="uid://cp0mu4ypahxao" path="res://environment/fruits/fruit.gd" id="1_i6dha"]
+[ext_resource type="Script" uid="uid://cp0mu4ypahxao" path="res://environment/items/fruits/ItemFruit.gd" id="1_i6dha"]
 
-[sub_resource type="CylinderShape3D" id="CylinderShape3D_1xqey"]
-height = 0.375
-radius = 0.375
+[sub_resource type="SphereShape3D" id="SphereShape3D_240l6"]
+radius = 0.156889
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_4g4ru"]
 resource_name = "Material.003"
@@ -78,25 +77,18 @@ _surfaces = [{
 blend_shape_mode = 0
 shadow_mesh = SubResource("ArrayMesh_tabdh")
 
-[sub_resource type="SphereShape3D" id="SphereShape3D_v4gyn"]
-radius = 0.375
+[node name="Gourd" type="Node3D"]
+script = ExtResource("1_i6dha")
 
-[node name="RigidBody3D" type="RigidBody3D"]
+[node name="Area3D" type="Area3D" parent="."]
 collision_layer = 2
 collision_mask = 3
-continuous_cd = true
-script = ExtResource("1_i6dha")
-fuel_amount = 50000.0
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.124311, 0)
-shape = SubResource("CylinderShape3D_1xqey")
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Area3D"]
+transform = Transform3D(4.53579e-07, 2.5366, -1.10878e-07, -2.5366, 4.53579e-07, -9.0118e-15, 9.0118e-15, 1.10878e-07, 2.5366, 0, 0, 0)
+shape = SubResource("SphereShape3D_240l6")
 
-[node name="Fruit" type="MeshInstance3D" parent="."]
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
 transform = Transform3D(100, 0, 0, 0, -4.37114e-06, 100, 0, -100, -4.37114e-06, 0, 0, 0)
 mesh = SubResource("ArrayMesh_qjh5c")
 skeleton = NodePath("")
-
-[node name="CollisionShape3D2" type="CollisionShape3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.0626885, 0)
-shape = SubResource("SphereShape3D_v4gyn")

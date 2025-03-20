@@ -1,10 +1,10 @@
 [gd_scene load_steps=15 format=3 uid="uid://bnf8skrh5pjuk"]
 
 [ext_resource type="Material" uid="uid://c8olfqsah5dxj" path="res://TestMaterial.tres" id="2_f2mx5"]
-[ext_resource type="PackedScene" uid="uid://cv15t3tmcetnu" path="res://environment/items/tools/ItemFlashlight.tscn" id="2_y41ub"]
-[ext_resource type="PackedScene" uid="uid://bwu8dfp2qp3kc" path="res://environment/items/fruits/ItemGourd.tscn" id="3_ep13c"]
+[ext_resource type="PackedScene" uid="uid://cv15t3tmcetnu" path="res://environment/items/ItemFlashlight.tscn" id="2_y41ub"]
+[ext_resource type="PackedScene" uid="uid://bwu8dfp2qp3kc" path="res://environment/fruits/gourd.tscn" id="3_ep13c"]
 [ext_resource type="PackedScene" uid="uid://b5xjtp4qjtafs" path="res://player/player.tscn" id="4_1vgli"]
-[ext_resource type="PackedScene" uid="uid://8h1lgp0f7ekv" path="res://environment/items/tools/ItemShovel.tscn" id="5_e4vjf"]
+[ext_resource type="PackedScene" uid="uid://8h1lgp0f7ekv" path="res://environment/items/shovel.tscn" id="5_e4vjf"]
 [ext_resource type="PackedScene" uid="uid://bfs70m7rkn6ic" path="res://electrical/cctv_camera.tscn" id="6_ypj6x"]
 
 [sub_resource type="PlaneMesh" id="PlaneMesh_hipxm"]
@@ -109,9 +109,11 @@ shape = SubResource("BoxShape3D_k85kl")
 
 [node name="RigidBody3D" parent="." instance=ExtResource("3_ep13c")]
 transform = Transform3D(-0.0585398, 0, -0.998285, 0, 1, 0, 0.998285, 0, -0.0585398, 0.205522, 0.273275, 2.6917)
+is_on_tree = null
 
 [node name="RigidBody3D2" parent="." instance=ExtResource("3_ep13c")]
 transform = Transform3D(-0.97942, 0, -0.20183, 0, 1, 0, 0.20183, 0, -0.97942, 7.22468, 0.273275, -0.437016)
+is_on_tree = null
 
 [node name="player" parent="." instance=ExtResource("4_1vgli")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.806516, 1, -0.852248)

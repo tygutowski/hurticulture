@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://d3eu54ab3b72j"
-path="res://.godot/imported/InventorySingleShape.png-630fa9151f64122622dca0f74c377f09.ctex"
+uid="uid://cb6d72a4i6pk7"
+path="res://.godot/imported/Brain.png-87c6a15a61f05e5943ad51a4ddc163b7.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://InventorySingleShape.png"
-dest_files=["res://.godot/imported/InventorySingleShape.png-630fa9151f64122622dca0f74c377f09.ctex"]
+source_file="res://Brain.png"
+dest_files=["res://.godot/imported/Brain.png-87c6a15a61f05e5943ad51a4ddc163b7.ctex"]
 
 [params]
 

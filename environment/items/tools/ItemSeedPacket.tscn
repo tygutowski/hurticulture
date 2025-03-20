@@ -1,6 +1,7 @@
-[gd_scene load_steps=4 format=3 uid="uid://cb8f1calsvae5"]
+[gd_scene load_steps=5 format=3 uid="uid://cb8f1calsvae5"]
 
-[ext_resource type="Script" uid="uid://bwrdtderbu66j" path="res://seed.gd" id="1_q21fr"]
+[ext_resource type="Script" uid="uid://bwrdtderbu66j" path="res://environment/items/tools/ItemSeedPacket.gd" id="1_q21fr"]
+[ext_resource type="PackedScene" uid="uid://by0kduglale5e" path="res://InventoryItemSeedPacket.tscn" id="2_rrpfw"]
 
 [sub_resource type="SphereShape3D" id="SphereShape3D_8p7lw"]
 radius = 0.05
@@ -13,6 +14,8 @@ height = 0.1
 collision_layer = 3
 collision_mask = 2
 script = ExtResource("1_q21fr")
+inventory_texture_scene = ExtResource("2_rrpfw")
+inventory_texture = "<null>"
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
 transform = Transform3D(4.53579e-07, 2.5366, -1.10878e-07, -2.5366, 4.53579e-07, -9.0118e-15, 9.0118e-15, 1.10878e-07, 2.5366, 0, 0, 0)

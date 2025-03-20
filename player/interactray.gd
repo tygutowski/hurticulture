@@ -15,10 +15,11 @@ func _physics_process(_delta: float) -> void:
 				prompt.text = 'Interact [E]'
 				if Input.is_action_just_pressed("interact"):
 					detected.interact()
-			if detected is Holdable:
-				prompt.text = 'Pickup [E]'
-				if Input.is_action_just_pressed("interact"):
-					player.hold_item(detected)
+			#got rid of physics items for resident evil style inventory
+			#if detected is Holdable:
+			#	prompt.text = 'Pickup [E]'
+			#	if Input.is_action_just_pressed("interact"):
+			#		player.hold_item(detected)
 			if detected is Item:
 				prompt.text = 'Pickup [E]'
 				if Input.is_action_just_pressed("interact"):

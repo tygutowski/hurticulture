@@ -20,6 +20,7 @@ PowerManager="*res://environment/powermanager.gd"
 Settings="*res://settings.gd"
 MultiplayerManager="*res://multiplayer_manager.gd"
 Debug="*res://debug.gd"
+Global="*res://Global.gd"
 
 [display]
 

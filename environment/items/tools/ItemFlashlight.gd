@@ -1,8 +1,10 @@
-extends Item
+extends ItemUsable
 
 var energy: int
 
 func _ready():
+	super._ready()
+	print("flashlight")
 	set_power(0)
 
 func use_item() -> void:
