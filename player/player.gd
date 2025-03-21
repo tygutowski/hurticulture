@@ -197,8 +197,7 @@ func _physics_process(delta: float) -> void:
 		$Head/Camera3D.fov = lerp($Head/Camera3D.fov, float(Settings.fov + 10), 0.2)
 	else:
 		$Head/Camera3D.fov = lerp($Head/Camera3D.fov, float(Settings.fov), 0.2)
-	
-	get_node("AnimationTree")["parameters/WalkSpeed/blend_position"] = Vector2(velocity.x, velocity.z).length()
+	get_node("RootMotion3D/RobotAnimated/AnimationTree")["parameters/WalkSpeed/blend_position"] = Vector2(velocity.x, velocity.z).length()
 
 	if input_dir != Vector2.ZERO:
 		$Head/Camera3D.v_offset = lerp($Head/Camera3D.v_offset, sin(Time.get_unix_time_from_system()*3 * movement_speed)/48 * movement_speed, 0.2)
@@ -231,10 +230,7 @@ func _input(event):
 			head.rotate_x(-event.relative.y * deg_to_rad(mouse_sensitivity))
 			# clamp the rotation so you can only look so far up/down
 			head.rotation.x = clampf(head.rotation.x, -deg_to_rad(85), deg_to_rad(85))
-			
-			var skeleton : Skeleton3D = get_node("HazmatMesh/Skeleton3D")
-			get_node("AnimationTree")["parameters/LookAngle/blend_position"] = rad_to_deg(head.rotation.x)
-			
+
 func _on_timer_timeout() -> void:
 	Debug.debug("you can interact now")
 	can_interact = true

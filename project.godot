@@ -31,6 +31,10 @@ window/size/resizable=false
 window/stretch/mode="viewport"
 window/stretch/scale_mode="integer"
 
+[editor_plugins]
+
+enabled=PackedStringArray("res://addons/root_motion/plugin.cfg")
+
 [global_group]
 
 player=""
