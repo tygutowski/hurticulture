@@ -4,13 +4,14 @@ extends CharacterBody3D
 var mouse_sensitivity = 0.3
 const JUMP_VELOCITY = 4.5
 var is_holding : bool = false
-
+var inventory_open: bool = false
 const ACCELERATION : float = 10
 const FRICTION : float = 12
 
 var head_rotation : Vector3 = Vector3.ZERO
 var increment_progress_bar: bool = false
 var item_preventing_movement: bool = false
+@onready var inventory: Control = $hud/Inventory
 @onready var dropray: RayCast3D = $Head/RayCast3D
 @onready var downray: RayCast3D = $Head/RayCast3D/DownRay
 
@@ -27,12 +28,12 @@ var max_pullback_time : float = 2.0
 
 var can_interact : bool = true
 
-@onready var inventory: Array[Item] = [null, null, null, null]
-var inventory_index: int = 0
-@onready var hotbar: Node = %hud.get_node("MarginContainer/HBoxContainer")
+var hotbar_index: int = 0
+@onready var hotbar: Node = %hud.get_node("Hotbar/HBoxContainer")
 
 func _ready() -> void:
-	set_inventory_index(0)
+	set_inventory_visible(false)
+	set_hotbar_index(0)
 	head.get_node("Camera3D").fov = Settings.fov
 	Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
 
@@ -49,22 +50,6 @@ func pickup_item(item: Item) -> void:
 	item.get_picked_up_by(self)
 	Debug.debug("Attempting to pick up item")
 	# if the player has an item, fill in next slot
-	if held_item != null:
-		for i in range(len(inventory)):
-			if inventory[i] == null:
-				inventory[i] = item
-				var new_slot = hotbar.get_child(i)
-				new_slot.texture = item.hotbar_texture
-				new_slot.stretch_mode = TextureRect.StretchMode.STRETCH_SCALE
-				Debug.debug("Picking up item in inventory")
-				break
-	else:
-		inventory[inventory_index] = item
-		var new_slot = hotbar.get_child(inventory_index)
-		new_slot.texture = item.hotbar_texture
-		new_slot.stretch_mode = TextureRect.StretchMode.STRETCH_SCALE
-		Debug.debug("Picking up item in hand")
-	update_held_item()
 
 func get_looking_at_ray():
 	dropray.force_raycast_update()
@@ -78,8 +63,7 @@ func drop_it() -> void:
 	if held_item != null:
 		held_item.get_dropped()
 		# make sure its not yours anymore
-		inventory[inventory_index] = null
-		hotbar.get_child(inventory_index).texture = null
+
 		held_item.get_parent().remove_child(held_item)
 		# fix hitboxes and positions
 		dropray.force_raycast_update()
@@ -100,15 +84,6 @@ func drop_it() -> void:
 			var world = get_tree().get_first_node_in_group("world")
 			world.get_node("Items").add_child(held_item)
 			held_item.rotation = Vector3(0, rotation.y, 0)
-		update_held_item()
-
-func update_held_item() -> void:
-	var item: Item = inventory[inventory_index]
-	held_item = item
-	for child in get_node("Head/ItemHand").get_children():
-		get_node("Head/ItemHand").remove_child(child)
-	if item != null:
-		get_node("Head/ItemHand").add_child(held_item)
 
 func hold_item(item : Node3D) -> void:
 	Debug.debug("holding item")
@@ -125,12 +100,18 @@ func drop_item() -> void:
 		held_item.is_being_held = false
 		is_holding = false
 
-func set_inventory_index(index: int) -> void:
-	inventory_index = index
+func set_inventory_visible(value: bool) -> void:
+	inventory.visible = value
+	inventory_open = value
+
+func toggle_inventory_visibility() -> void:
+	set_inventory_visible(not inventory_open)
+
+func set_hotbar_index(index: int) -> void:
+	hotbar_index = index
 	for slot in hotbar.get_children():
 		slot.get_node("SelectionTexture").visible = false
 	hotbar.get_child(index).get_node("SelectionTexture").visible = true
-	update_held_item()
 
 func _physics_process(delta: float) -> void:
 	if held_item != null and increment_progress_bar:
@@ -165,17 +146,17 @@ func _physics_process(delta: float) -> void:
 			held_item.reload_item()
 	
 	if Input.is_action_just_pressed("scroll_down"):
-		set_inventory_index((inventory_index + 1) % 4)
+		set_hotbar_index((hotbar_index + 1) % 4)
 	elif Input.is_action_just_pressed("scroll_up"):
-		set_inventory_index((inventory_index - 1) % 4)
+		set_hotbar_index((hotbar_index - 1) % 4)
 	elif Input.is_action_just_pressed("hotbar_one"):
-		set_inventory_index(0)
+		set_hotbar_index(0)
 	elif Input.is_action_just_pressed("hotbar_two"):
-		set_inventory_index(1)
+		set_hotbar_index(1)
 	elif Input.is_action_just_pressed("hotbar_three"):
-		set_inventory_index(2)
+		set_hotbar_index(2)
 	elif Input.is_action_just_pressed("hotbar_four"):
-		set_inventory_index(3)
+		set_hotbar_index(3)
 	if Input.is_action_just_pressed("ui_accept") and is_on_floor():
 		velocity.y = JUMP_VELOCITY
 	
@@ -197,7 +178,8 @@ func _physics_process(delta: float) -> void:
 		$Head/Camera3D.fov = lerp($Head/Camera3D.fov, float(Settings.fov + 10), 0.2)
 	else:
 		$Head/Camera3D.fov = lerp($Head/Camera3D.fov, float(Settings.fov), 0.2)
-	get_node("RootMotion3D/RobotAnimated/AnimationTree")["parameters/WalkSpeed/blend_position"] = Vector2(velocity.x, velocity.z).length()
+	get_node("MeshAndAnimation/AnimationTree")["parameters/WalkSpeed/blend_position"] = Vector2(velocity.x, velocity.z).length()
+	#get_node("MeshAndAnimation/RobotAnimated/AnimationTree")["parameters/WalkDirection/blend_position"] = Vector2(velocity.x, velocity.z)
 
 	if input_dir != Vector2.ZERO:
 		$Head/Camera3D.v_offset = lerp($Head/Camera3D.v_offset, sin(Time.get_unix_time_from_system()*3 * movement_speed)/48 * movement_speed, 0.2)

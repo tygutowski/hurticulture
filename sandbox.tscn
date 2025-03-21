@@ -35,6 +35,7 @@ viewport_path = NodePath("CCTV1_Viewport")
 [node name="Node3D" type="Node3D"]
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+visible = false
 mesh = SubResource("PlaneMesh_hipxm")
 
 [node name="StaticBody3D" type="StaticBody3D" parent="MeshInstance3D"]

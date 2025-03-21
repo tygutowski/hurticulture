@@ -16,4 +16,4 @@ var seed_types: Dictionary = {
 }
 
 const INVENTORY_SLOT_SIZE: int = 64
-const OFFLINE_MODE: bool = true
+const OFFLINE_MODE: bool = false
