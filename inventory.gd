@@ -8,7 +8,7 @@ var inventory_height: int = 3
 var mouse_offset = Vector2(32,32)
 var separation: int = 0
 
-@onready var selected_shader = preload("res://OutlineShader.tres")
+@onready var selected_shader = preload("res://HoveredOutlineShader.tres")
 @onready var default_slot_texture: Texture = preload("res://InventorySlot.png")
 @onready var selected_slot_texture: Texture = preload("res://InventorySlotDark.png")
 
