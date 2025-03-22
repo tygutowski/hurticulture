@@ -35,7 +35,6 @@ viewport_path = NodePath("CCTV1_Viewport")
 [node name="Node3D" type="Node3D"]
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="."]
-visible = false
 mesh = SubResource("PlaneMesh_hipxm")
 
 [node name="StaticBody3D" type="StaticBody3D" parent="MeshInstance3D"]
@@ -142,3 +141,6 @@ script = SubResource("GDScript_igx0j")
 [node name="Sprite3D" type="Sprite3D" parent="TV1"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -0.126011)
 texture = SubResource("ViewportTexture_tctsc")
+
+[node name="OmniLight3D" type="OmniLight3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 8.44127, 1.44565, -1.05124)

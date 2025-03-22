@@ -114,6 +114,7 @@ func set_hotbar_index(index: int) -> void:
 	hotbar.get_child(index).get_node("SelectionTexture").visible = true
 
 func _physics_process(delta: float) -> void:
+	get_node("MeshAndAnimation/AnimationTree")["parameters/LookAngle/blend_position"] = rad_to_deg(head.rotation.x)
 	if held_item != null and increment_progress_bar:
 		var diff = 100.0/held_item.hold_duration * delta
 		$hud/TextureProgressBar.value += diff
@@ -178,7 +179,8 @@ func _physics_process(delta: float) -> void:
 		$Head/Camera3D.fov = lerp($Head/Camera3D.fov, float(Settings.fov + 10), 0.2)
 	else:
 		$Head/Camera3D.fov = lerp($Head/Camera3D.fov, float(Settings.fov), 0.2)
-	get_node("MeshAndAnimation/AnimationTree")["parameters/WalkSpeed/blend_position"] = Vector2(velocity.x, velocity.z).length()
+	var local_velocity = basis.inverse() * velocity
+	get_node("MeshAndAnimation/AnimationTree")["parameters/WalkVector/blend_position"] = Vector2(local_velocity.x, local_velocity.z)
 	#get_node("MeshAndAnimation/RobotAnimated/AnimationTree")["parameters/WalkDirection/blend_position"] = Vector2(velocity.x, velocity.z)
 
 	if input_dir != Vector2.ZERO:
