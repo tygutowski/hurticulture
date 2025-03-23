@@ -5,19 +5,20 @@ var mouse_sensitivity = 0.3
 const JUMP_VELOCITY = 4.5
 var is_holding : bool = false
 var inventory_open: bool = false
-const ACCELERATION : float = 10
-const FRICTION : float = 12
+const ACCELERATION : float = 13
+const FRICTION : float = 14
 
-var head_rotation : Vector3 = Vector3.ZERO
 var increment_progress_bar: bool = false
 var item_preventing_movement: bool = false
 @onready var inventory: Control = $hud/Inventory
-@onready var dropray: RayCast3D = $Head/RayCast3D
-@onready var downray: RayCast3D = $Head/RayCast3D/DownRay
-
+@onready var head = get_node("Head")
+@onready var animation_head = head.get_node("BoneAttachment3D/HeadAnimation")
+@onready var gameplay_head = head.get_node("HeadGameplay")
+@onready var dropray: RayCast3D = gameplay_head.get_node("RayCast3D")
+@onready var downray: RayCast3D = dropray.get_node("DownRay")
 var held_item: Item = null
 
-@onready var head = get_node("Head")
+@onready var camera = gameplay_head.get_node("Camera3D")
 @onready var pause_menu = get_node("pausemenu")
 @onready var timer = get_node("Timer")
 
@@ -34,7 +35,7 @@ var hotbar_index: int = 0
 func _ready() -> void:
 	set_inventory_visible(false)
 	set_hotbar_index(0)
-	head.get_node("Camera3D").fov = Settings.fov
+	camera.fov = Settings.fov
 	Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
 
 func interact() -> void:
@@ -72,7 +73,7 @@ func drop_it() -> void:
 			droppoint = dropray.get_collision_point()
 		else:
 			downray.target_position = Vector3(0, -200, 0)
-			downray.rotation.x = -head.rotation.x
+			downray.rotation.x = -gameplay_head.rotation.x
 			downray.force_raycast_update()
 			if downray.is_colliding():
 				droppoint = downray.get_collision_point()
@@ -114,7 +115,6 @@ func set_hotbar_index(index: int) -> void:
 	hotbar.get_child(index).get_node("SelectionTexture").visible = true
 
 func _physics_process(delta: float) -> void:
-	get_node("MeshAndAnimation/AnimationTree")["parameters/LookAngle/blend_position"] = rad_to_deg(head.rotation.x)
 	if held_item != null and increment_progress_bar:
 		var diff = 100.0/held_item.hold_duration * delta
 		$hud/TextureProgressBar.value += diff
@@ -169,24 +169,24 @@ func _physics_process(delta: float) -> void:
 	var direction := (transform.basis * Vector3(input_dir.x, 0, input_dir.y)).normalized()
 	if input_dir.x != 0:
 		# Interpolate rotation to the target angle
-		$Head/Camera3D.rotation.z = lerp($Head/Camera3D.rotation.z, round(input_dir.x) * deg_to_rad(-1.5), .2)
+		camera.rotation.z = lerp(camera.rotation.z, round(input_dir.x) * deg_to_rad(-1.5), .2)
 	else:
 		# Interpolate back to the neutral position (0 rotation)
-		$Head/Camera3D.rotation.z = lerp($Head/Camera3D.rotation.z, 0.0, 0.2)
+		camera.rotation.z = lerp(camera.rotation.z, 0.0, 0.2)
 	var movement_speed = WALK_SPEED
 	if Input.is_action_pressed("run") and input_dir.y < 0:
 		movement_speed = RUN_SPEED
-		$Head/Camera3D.fov = lerp($Head/Camera3D.fov, float(Settings.fov + 10), 0.2)
+		camera.fov = lerp(camera.fov, float(Settings.fov + 10), 0.2)
 	else:
-		$Head/Camera3D.fov = lerp($Head/Camera3D.fov, float(Settings.fov), 0.2)
+		camera.fov = lerp(camera.fov, float(Settings.fov), 0.2)
 	var local_velocity = basis.inverse() * velocity
 	get_node("MeshAndAnimation/AnimationTree")["parameters/WalkVector/blend_position"] = Vector2(local_velocity.x, local_velocity.z)
-	#get_node("MeshAndAnimation/RobotAnimated/AnimationTree")["parameters/WalkDirection/blend_position"] = Vector2(velocity.x, velocity.z)
+	get_node("MeshAndAnimation/AnimationTree")["parameters/LookAngle/blend_position"] = rad_to_deg(gameplay_head.rotation.x)
 
 	if input_dir != Vector2.ZERO:
-		$Head/Camera3D.v_offset = lerp($Head/Camera3D.v_offset, sin(Time.get_unix_time_from_system()*3 * movement_speed)/48 * movement_speed, 0.2)
+		camera.v_offset = lerp(camera.v_offset, sin(Time.get_unix_time_from_system()*3 * movement_speed)/48 * movement_speed, 0.2)
 	else:
-		$Head/Camera3D.v_offset = lerp($Head/Camera3D.v_offset, 0.0, 0.2)
+		camera.v_offset = lerp(camera.v_offset, 0.0, 0.2)
 	Debug.debug(direction)
 	if direction:
 		velocity.x = move_toward(velocity.x, direction.x * movement_speed, ACCELERATION * delta)
@@ -211,9 +211,9 @@ func _input(event):
 			# rotate player body left/right
 			rotate_y(-event.relative.x * deg_to_rad(mouse_sensitivity))
 			# rotate head up and down
-			head.rotate_x(-event.relative.y * deg_to_rad(mouse_sensitivity))
+			gameplay_head.rotate_x(-event.relative.y * deg_to_rad(mouse_sensitivity))
 			# clamp the rotation so you can only look so far up/down
-			head.rotation.x = clampf(head.rotation.x, -deg_to_rad(85), deg_to_rad(85))
+			gameplay_head.rotation.x = clampf(gameplay_head.rotation.x, -deg_to_rad(85), deg_to_rad(85))
 
 func _on_timer_timeout() -> void:
 	Debug.debug("you can interact now")

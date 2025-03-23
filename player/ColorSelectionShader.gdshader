@@ -23,7 +23,7 @@ uniform int detail_strength : hint_range(1, 3);
 
 void fragment() {
     vec4 base_tex;
-    
+
     if (detail_strength == 1) {
         base_tex = texture(primary_texture_1, UV);
     } else if (detail_strength == 2) {
