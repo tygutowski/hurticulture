@@ -2,21 +2,23 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://fobgt8xbb8ml"
-path.s3tc="res://.godot/imported/Ground037_2K-PNG_Roughness.png-42c0c6c19b05e97f482db50fbf86597c.s3tc.ctex"
+uid="uid://fib4aqr67336"
+path="res://.godot/imported/HeadStarwars_Robot_ColorMap.png-2ecf301ccfaf9b401253b64f82cdf937.ctex"
 metadata={
-"imported_formats": ["s3tc_bptc"],
-"vram_texture": true
+"vram_texture": false
+}
+generator_parameters={
+"md5": "592241dc5a555a162d65b9ecaa8ac23a"
 }
 
 [deps]
 
-source_file="res://textures/grassyground1/Ground037_2K-PNG_Roughness.png"
-dest_files=["res://.godot/imported/Ground037_2K-PNG_Roughness.png-42c0c6c19b05e97f482db50fbf86597c.s3tc.ctex"]
+source_file="res://Robot/BlendFile/HeadStarwars_Robot_ColorMap.png"
+dest_files=["res://.godot/imported/HeadStarwars_Robot_ColorMap.png-2ecf301ccfaf9b401253b64f82cdf937.ctex"]
 
 [params]
 
-compress/mode=2
+compress/mode=0
 compress/high_quality=false
 compress/lossy_quality=0.7
 compress/hdr_compression=1
