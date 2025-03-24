@@ -14,11 +14,11 @@ var item_preventing_movement: bool = false
 @onready var head = get_node("Head")
 @onready var animation_head = head.get_node("BoneAttachment3D/HeadAnimation")
 @onready var gameplay_head = head.get_node("HeadGameplay")
-@onready var dropray: RayCast3D = gameplay_head.get_node("RayCast3D")
+@onready var dropray: RayCast3D = gameplay_head.get_node("HeadPivot/RayCast3D")
 @onready var downray: RayCast3D = dropray.get_node("DownRay")
 var held_item: Item = null
-
-@onready var camera = gameplay_head.get_node("Camera3D")
+var feet_stance_angle: float = 0
+@onready var camera = gameplay_head.get_node("HeadPivot/Camera3D")
 @onready var pause_menu = get_node("pausemenu")
 @onready var timer = get_node("Timer")
 
@@ -73,7 +73,7 @@ func drop_it() -> void:
 			droppoint = dropray.get_collision_point()
 		else:
 			downray.target_position = Vector3(0, -200, 0)
-			downray.rotation.x = -gameplay_head.rotation.x
+			downray.rotation.x = -gameplay_head.get_node("HeadPivot").rotation.x
 			downray.force_raycast_update()
 			if downray.is_colliding():
 				droppoint = downray.get_collision_point()
@@ -166,7 +166,7 @@ func _physics_process(delta: float) -> void:
 	var input_dir := Input.get_vector("left", "right", "forward", "backwards")
 	if held_item != null and not held_item.can_move_while_using and held_item.using_item:
 		input_dir = Vector2.ZERO
-	var direction := (transform.basis * Vector3(input_dir.x, 0, input_dir.y)).normalized()
+	var direction: Vector3 = (gameplay_head.transform.basis * Vector3(input_dir.x, 0, input_dir.y)).normalized()
 	if input_dir.x != 0:
 		# Interpolate rotation to the target angle
 		camera.rotation.z = lerp(camera.rotation.z, round(input_dir.x) * deg_to_rad(-1.5), .2)
@@ -179,9 +179,9 @@ func _physics_process(delta: float) -> void:
 		camera.fov = lerp(camera.fov, float(Settings.fov + 10), 0.2)
 	else:
 		camera.fov = lerp(camera.fov, float(Settings.fov), 0.2)
-	var local_velocity = basis.inverse() * velocity
+	var local_velocity = get_node("MeshAndAnimation").basis * velocity
 	get_node("MeshAndAnimation/AnimationTree")["parameters/WalkVector/blend_position"] = Vector2(local_velocity.x, local_velocity.z)
-	get_node("MeshAndAnimation/AnimationTree")["parameters/LookAngle/blend_position"] = rad_to_deg(gameplay_head.rotation.x)
+	#get_node("MeshAndAnimation/AnimationTree")["parameters/LookAngle/blend_position"] = Vector2(gameplay_head.rotation.y, gameplay_head.get_node("HeadPivot").rotation.x)
 
 	if input_dir != Vector2.ZERO:
 		camera.v_offset = lerp(camera.v_offset, sin(Time.get_unix_time_from_system()*3 * movement_speed)/48 * movement_speed, 0.2)
@@ -208,12 +208,29 @@ func debug_biome_weights() -> void:
 func _input(event):
 	if not (held_item != null and not held_item.can_move_while_using and held_item.using_item):
 		if event is InputEventMouseMotion and Input.mouse_mode == Input.MOUSE_MODE_CAPTURED:
-			# rotate player body left/right
-			rotate_y(-event.relative.x * deg_to_rad(mouse_sensitivity))
-			# rotate head up and down
-			gameplay_head.rotate_x(-event.relative.y * deg_to_rad(mouse_sensitivity))
-			# clamp the rotation so you can only look so far up/down
-			gameplay_head.rotation.x = clampf(gameplay_head.rotation.x, -deg_to_rad(85), deg_to_rad(85))
+			var yaw_delta = -event.relative.x * deg_to_rad(mouse_sensitivity)
+			var pitch_delta = -event.relative.y * deg_to_rad(mouse_sensitivity)
+
+			# head rotation
+			gameplay_head.rotate_y(yaw_delta)  
+			gameplay_head.get_node("HeadPivot").rotate_x(pitch_delta)  
+			gameplay_head.get_node("HeadPivot").rotation.x = clampf(gameplay_head.get_node("HeadPivot").rotation.x, deg_to_rad(-90), deg_to_rad(90))
+
+			# this is the angle relative to the player mesh
+			var local_head_y_rotation = -rad_to_deg(gameplay_head.rotation.y - get_node("MeshAndAnimation").rotation.y)
+			local_head_y_rotation = fmod(local_head_y_rotation, 360.0)
+			Debug.debug(local_head_y_rotation)
+			if local_head_y_rotation >= 50 or local_head_y_rotation <= -50:
+				get_node("MeshAndAnimation/AnimationTree")["parameters/FeetStanceAngle/blend_position"] = feet_stance_angle
+				get_node("MeshAndAnimation").rotation.y = gameplay_head.rotation.y
+				feet_stance_angle -= deg_to_rad(local_head_y_rotation)
+
+			# Update the AnimationTree blend position
+			get_node("MeshAndAnimation/AnimationTree")["parameters/LookAngle/blend_position"] = Vector2(
+				clampf(local_head_y_rotation, -25, 25),  
+				rad_to_deg(gameplay_head.get_node("HeadPivot").rotation.x)
+			)
+			
 
 func _on_timer_timeout() -> void:
 	Debug.debug("you can interact now")

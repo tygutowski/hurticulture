@@ -1,4 +1,4 @@
-[gd_scene load_steps=58 format=4 uid="uid://b5xjtp4qjtafs"]
+[gd_scene load_steps=72 format=4 uid="uid://b5xjtp4qjtafs"]
 
 [ext_resource type="Script" uid="uid://b312u7am18rvv" path="res://player/player.gd" id="1_gksjs"]
 [ext_resource type="PackedScene" uid="uid://1krap1lcosn6" path="res://player/pause_menu.tscn" id="2_7lsas"]
@@ -13,7 +13,10 @@
 [ext_resource type="Material" uid="uid://pi8vprhf5o45" path="res://player/HeadGlass.tres" id="7_wodsf"]
 [ext_resource type="PackedScene" uid="uid://djoa37wb4vig1" path="res://Robot/BlendFile/HeadScifi.glb" id="8_32hag"]
 [ext_resource type="PackedScene" uid="uid://cs4f0hd3snldr" path="res://Robot/BlendFile/HeadSteampunk.glb" id="9_tqiix"]
+[ext_resource type="Animation" uid="uid://dkx5m2itbpbur" path="res://TurnLeft.res" id="15_32hag"]
+[ext_resource type="Script" uid="uid://bkorki0tfu666" path="res://player/animation_extra_track_removal.gd" id="15_tqiix"]
 [ext_resource type="PackedScene" uid="uid://ca88bcny88bnh" path="res://Inventory.tscn" id="15_wodsf"]
+[ext_resource type="Animation" uid="uid://dg02oboyjura0" path="res://TurnRight.res" id="16_tqiix"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_pvv27"]
 
@@ -21,36 +24,61 @@
 animation = &"Idle"
 
 [sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_e7oew"]
-animation = &"LookDown"
-
-[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_c35mf"]
 animation = &"LookUp"
 
-[sub_resource type="AnimationNodeBlendSpace1D" id="AnimationNodeBlendSpace1D_x7c3f"]
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_c35mf"]
+animation = &"LookDown"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_65viv"]
+animation = &"LookLeft"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_x7c3f"]
+animation = &"LookRight"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_bjvpn"]
+animation = &"LookUpLeft"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_s7qer"]
+animation = &"LookUpRight"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_g4c7l"]
+animation = &"LookDownRight"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_knn7v"]
+animation = &"LookDownLeft"
+
+[sub_resource type="AnimationNodeBlendSpace2D" id="AnimationNodeBlendSpace2D_65viv"]
 blend_point_0/node = SubResource("AnimationNodeAnimation_e7oew")
-blend_point_0/pos = -40.0
+blend_point_0/pos = Vector2(0, 40)
 blend_point_1/node = SubResource("AnimationNodeAnimation_c35mf")
-blend_point_1/pos = 40.0
-min_space = -40.0
-max_space = 40.0
-snap = 1.0
+blend_point_1/pos = Vector2(0, -40)
+blend_point_2/node = SubResource("AnimationNodeAnimation_65viv")
+blend_point_2/pos = Vector2(-30, 0)
+blend_point_3/node = SubResource("AnimationNodeAnimation_x7c3f")
+blend_point_3/pos = Vector2(30, 0)
+blend_point_4/node = SubResource("AnimationNodeAnimation_bjvpn")
+blend_point_4/pos = Vector2(-30, 40)
+blend_point_5/node = SubResource("AnimationNodeAnimation_s7qer")
+blend_point_5/pos = Vector2(30, 40)
+blend_point_6/node = SubResource("AnimationNodeAnimation_g4c7l")
+blend_point_6/pos = Vector2(30, -40)
+blend_point_7/node = SubResource("AnimationNodeAnimation_knn7v")
+blend_point_7/pos = Vector2(-30, -40)
+min_space = Vector2(-30, -40)
+max_space = Vector2(30, 40)
+snap = Vector2(10, 10)
+sync = true
 
 [sub_resource type="AnimationNodeBlend2" id="AnimationNodeBlend2_x7c3f"]
 filter_enabled = true
-filters = ["../../Head", "../../Head/BoneAttachment3D/HeadAnimation", "Robot_Armature/Skeleton3D:mixamorig_Head"]
+filters = ["../../Head", "../../Head/BoneAttachment3D/HeadAnimation", "Robot_Armature/Skeleton3D:mixamorig_Head", "Robot_Armature/Skeleton3D:mixamorig_RightHandThumb3_end"]
 
 [sub_resource type="AnimationNodeBlend2" id="AnimationNodeBlend2_c35mf"]
 filter_enabled = true
-filters = ["Robot_Armature/Skeleton3D:mixamorig_Head", "Robot_Armature/Skeleton3D:mixamorig_Hips", "Robot_Armature/Skeleton3D:mixamorig_LeftArm", "Robot_Armature/Skeleton3D:mixamorig_LeftFoot", "Robot_Armature/Skeleton3D:mixamorig_LeftForeArm", "Robot_Armature/Skeleton3D:mixamorig_LeftHand", "Robot_Armature/Skeleton3D:mixamorig_LeftHandIndex1", "Robot_Armature/Skeleton3D:mixamorig_LeftHandIndex2", "Robot_Armature/Skeleton3D:mixamorig_LeftHandIndex3", "Robot_Armature/Skeleton3D:mixamorig_LeftHandMiddle1", "Robot_Armature/Skeleton3D:mixamorig_LeftHandMiddle2", "Robot_Armature/Skeleton3D:mixamorig_LeftHandMiddle3", "Robot_Armature/Skeleton3D:mixamorig_LeftHandPinky1", "Robot_Armature/Skeleton3D:mixamorig_LeftHandPinky2", "Robot_Armature/Skeleton3D:mixamorig_LeftHandPinky3", "Robot_Armature/Skeleton3D:mixamorig_LeftHandThumb1", "Robot_Armature/Skeleton3D:mixamorig_LeftHandThumb2", "Robot_Armature/Skeleton3D:mixamorig_LeftHandThumb3", "Robot_Armature/Skeleton3D:mixamorig_LeftLeg", "Robot_Armature/Skeleton3D:mixamorig_LeftShoulder", "Robot_Armature/Skeleton3D:mixamorig_LeftToeBase", "Robot_Armature/Skeleton3D:mixamorig_LeftUpLeg", "Robot_Armature/Skeleton3D:mixamorig_RightArm", "Robot_Armature/Skeleton3D:mixamorig_RightFoot", "Robot_Armature/Skeleton3D:mixamorig_RightForeArm", "Robot_Armature/Skeleton3D:mixamorig_RightHand", "Robot_Armature/Skeleton3D:mixamorig_RightHandIndex1", "Robot_Armature/Skeleton3D:mixamorig_RightHandIndex2", "Robot_Armature/Skeleton3D:mixamorig_RightHandIndex3", "Robot_Armature/Skeleton3D:mixamorig_RightHandMiddle1", "Robot_Armature/Skeleton3D:mixamorig_RightHandMiddle2", "Robot_Armature/Skeleton3D:mixamorig_RightHandMiddle3", "Robot_Armature/Skeleton3D:mixamorig_RightHandPinky1", "Robot_Armature/Skeleton3D:mixamorig_RightHandPinky2", "Robot_Armature/Skeleton3D:mixamorig_RightHandPinky3", "Robot_Armature/Skeleton3D:mixamorig_RightHandThumb1", "Robot_Armature/Skeleton3D:mixamorig_RightHandThumb2", "Robot_Armature/Skeleton3D:mixamorig_RightHandThumb3", "Robot_Armature/Skeleton3D:mixamorig_RightLeg", "Robot_Armature/Skeleton3D:mixamorig_RightShoulder", "Robot_Armature/Skeleton3D:mixamorig_RightToeBase", "Robot_Armature/Skeleton3D:mixamorig_RightUpLeg", "Robot_Armature/Skeleton3D:mixamorig_Spine", "Robot_Armature/Skeleton3D:mixamorig_Spine1"]
-
-[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_rgyib"]
-animation = &"Jog Strafe Left"
+filters = ["Robot_Armature/Skeleton3D:mixamorig_Hips", "Robot_Armature/Skeleton3D:mixamorig_LeftArm", "Robot_Armature/Skeleton3D:mixamorig_LeftFoot", "Robot_Armature/Skeleton3D:mixamorig_LeftForeArm", "Robot_Armature/Skeleton3D:mixamorig_LeftHand", "Robot_Armature/Skeleton3D:mixamorig_LeftHandIndex1", "Robot_Armature/Skeleton3D:mixamorig_LeftHandIndex2", "Robot_Armature/Skeleton3D:mixamorig_LeftHandIndex3", "Robot_Armature/Skeleton3D:mixamorig_LeftHandMiddle1", "Robot_Armature/Skeleton3D:mixamorig_LeftHandMiddle2", "Robot_Armature/Skeleton3D:mixamorig_LeftHandMiddle3", "Robot_Armature/Skeleton3D:mixamorig_LeftHandPinky1", "Robot_Armature/Skeleton3D:mixamorig_LeftHandPinky2", "Robot_Armature/Skeleton3D:mixamorig_LeftHandPinky3", "Robot_Armature/Skeleton3D:mixamorig_LeftHandThumb1", "Robot_Armature/Skeleton3D:mixamorig_LeftHandThumb2", "Robot_Armature/Skeleton3D:mixamorig_LeftHandThumb3", "Robot_Armature/Skeleton3D:mixamorig_LeftLeg", "Robot_Armature/Skeleton3D:mixamorig_LeftShoulder", "Robot_Armature/Skeleton3D:mixamorig_LeftToeBase", "Robot_Armature/Skeleton3D:mixamorig_LeftUpLeg", "Robot_Armature/Skeleton3D:mixamorig_RightArm", "Robot_Armature/Skeleton3D:mixamorig_RightFoot", "Robot_Armature/Skeleton3D:mixamorig_RightForeArm", "Robot_Armature/Skeleton3D:mixamorig_RightHand", "Robot_Armature/Skeleton3D:mixamorig_RightHandIndex1", "Robot_Armature/Skeleton3D:mixamorig_RightHandIndex2", "Robot_Armature/Skeleton3D:mixamorig_RightHandIndex3", "Robot_Armature/Skeleton3D:mixamorig_RightHandMiddle1", "Robot_Armature/Skeleton3D:mixamorig_RightHandMiddle2", "Robot_Armature/Skeleton3D:mixamorig_RightHandMiddle3", "Robot_Armature/Skeleton3D:mixamorig_RightHandPinky1", "Robot_Armature/Skeleton3D:mixamorig_RightHandPinky2", "Robot_Armature/Skeleton3D:mixamorig_RightHandPinky3", "Robot_Armature/Skeleton3D:mixamorig_RightHandThumb1", "Robot_Armature/Skeleton3D:mixamorig_RightHandThumb2", "Robot_Armature/Skeleton3D:mixamorig_RightHandThumb3", "Robot_Armature/Skeleton3D:mixamorig_RightLeg", "Robot_Armature/Skeleton3D:mixamorig_RightShoulder", "Robot_Armature/Skeleton3D:mixamorig_RightToeBase", "Robot_Armature/Skeleton3D:mixamorig_RightUpLeg", "Robot_Armature/Skeleton3D:mixamorig_Spine", "Robot_Armature/Skeleton3D:mixamorig_Spine1"]
 
 [sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_hg6s5"]
 animation = &"Left Strafe Walking"
-
-[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_8t03j"]
-animation = &"Jog Strafe Right"
 
 [sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_2ieo8"]
 animation = &"Right Strafe Walking"
@@ -70,43 +98,46 @@ animation = &"Walking Backwards"
 [sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_32hag"]
 animation = &"Idle"
 
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_r7pn3"]
+animation = &"Walking Backwards"
+
 [sub_resource type="AnimationNodeBlendSpace2D" id="AnimationNodeBlendSpace2D_32hag"]
-blend_point_0/node = SubResource("AnimationNodeAnimation_rgyib")
-blend_point_0/pos = Vector2(-5, 0)
-blend_point_1/node = SubResource("AnimationNodeAnimation_hg6s5")
-blend_point_1/pos = Vector2(-4, 0)
-blend_point_2/node = SubResource("AnimationNodeAnimation_8t03j")
-blend_point_2/pos = Vector2(5, 0)
-blend_point_3/node = SubResource("AnimationNodeAnimation_2ieo8")
-blend_point_3/pos = Vector2(4, 0)
-blend_point_4/node = SubResource("AnimationNodeAnimation_ebec5")
-blend_point_4/pos = Vector2(0, -5)
-blend_point_5/node = SubResource("AnimationNodeAnimation_yllr7")
-blend_point_5/pos = Vector2(0, 5)
-blend_point_6/node = SubResource("AnimationNodeAnimation_kb6p2")
-blend_point_6/pos = Vector2(0, 4)
-blend_point_7/node = SubResource("AnimationNodeAnimation_wodsf")
-blend_point_7/pos = Vector2(0, -4)
-blend_point_8/node = SubResource("AnimationNodeAnimation_32hag")
-blend_point_8/pos = Vector2(0, 0)
+auto_triangles = false
+blend_point_0/node = SubResource("AnimationNodeAnimation_hg6s5")
+blend_point_0/pos = Vector2(5, 0)
+blend_point_1/node = SubResource("AnimationNodeAnimation_2ieo8")
+blend_point_1/pos = Vector2(-5, 0)
+blend_point_2/node = SubResource("AnimationNodeAnimation_ebec5")
+blend_point_2/pos = Vector2(0, -5)
+blend_point_3/node = SubResource("AnimationNodeAnimation_yllr7")
+blend_point_3/pos = Vector2(0, 5)
+blend_point_4/node = SubResource("AnimationNodeAnimation_kb6p2")
+blend_point_4/pos = Vector2(0, 4)
+blend_point_5/node = SubResource("AnimationNodeAnimation_wodsf")
+blend_point_5/pos = Vector2(4, -5)
+blend_point_6/node = SubResource("AnimationNodeAnimation_32hag")
+blend_point_6/pos = Vector2(0, 0)
+blend_point_7/node = SubResource("AnimationNodeAnimation_r7pn3")
+blend_point_7/pos = Vector2(-4, -5)
+triangles = PackedInt32Array(1, 3, 4, 1, 2, 5, 1, 5, 6, 0, 5, 6, 1, 4, 6, 0, 4, 6, 0, 3, 4, 0, 2, 5, 2, 5, 6, 2, 6, 7, 1, 6, 7)
 min_space = Vector2(-5, -5)
 max_space = Vector2(5, 5)
 snap = Vector2(1, 1)
 sync = true
 
 [sub_resource type="AnimationNodeBlendTree" id="AnimationNodeBlendTree_wodsf"]
-graph_offset = Vector2(-11.0949, -161.271)
+graph_offset = Vector2(-62.5677, -149.216)
 nodes/Animation/node = SubResource("AnimationNodeAnimation_tqiix")
 nodes/Animation/position = Vector2(420, -160)
-nodes/LookAngle/node = SubResource("AnimationNodeBlendSpace1D_x7c3f")
-nodes/LookAngle/position = Vector2(620, 120)
+nodes/LookAngle/node = SubResource("AnimationNodeBlendSpace2D_65viv")
+nodes/LookAngle/position = Vector2(680, 120)
 nodes/LookBlend/node = SubResource("AnimationNodeBlend2_x7c3f")
-nodes/LookBlend/position = Vector2(820, 40)
+nodes/LookBlend/position = Vector2(1080, -40)
 nodes/WalkBlend/node = SubResource("AnimationNodeBlend2_c35mf")
 nodes/WalkBlend/position = Vector2(640, -160)
 nodes/WalkVector/node = SubResource("AnimationNodeBlendSpace2D_32hag")
 nodes/WalkVector/position = Vector2(400, 20)
-nodes/output/position = Vector2(1020, 120)
+nodes/output/position = Vector2(1280, 20)
 node_connections = [&"LookBlend", 0, &"WalkBlend", &"LookBlend", 1, &"LookAngle", &"WalkBlend", 0, &"Animation", &"WalkBlend", 1, &"WalkVector", &"output", 0, &"LookBlend"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_k15l1"]
@@ -8113,6 +8144,56 @@ tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = PackedFloat32Array(0, 1, 0, 0, -0.342, 0.94)
 
+[sub_resource type="Animation" id="Animation_s7qer"]
+resource_name = "LookDownLeft"
+length = 0.0416708
+loop_mode = 1
+step = 0.0416667
+tracks/0/type = "rotation_3d"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("../../Head/BoneAttachment3D/HeadAnimation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = PackedFloat32Array(0, 1, -0.089, 0.242, -0.33, 0.908)
+
+[sub_resource type="Animation" id="Animation_bjvpn"]
+resource_name = "LookDownRight"
+length = 0.0416708
+loop_mode = 1
+step = 0.0416667
+tracks/0/type = "rotation_3d"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("../../Head/BoneAttachment3D/HeadAnimation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = PackedFloat32Array(0, 1, 0.088, -0.243, -0.331, 0.908)
+
+[sub_resource type="Animation" id="Animation_e7oew"]
+resource_name = "LookLeft"
+length = 0.0416709
+step = 0.0416667
+tracks/0/type = "rotation_3d"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("../../Head/BoneAttachment3D/HeadAnimation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = PackedFloat32Array(0, 1, 0, 0.423, 0, 0.906)
+
+[sub_resource type="Animation" id="Animation_c35mf"]
+resource_name = "LookRight"
+length = 0.0416709
+step = 0.0416667
+tracks/0/type = "rotation_3d"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("../../Head/BoneAttachment3D/HeadAnimation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = PackedFloat32Array(0, 1, 0, -0.423, 0, 0.906)
+
 [sub_resource type="Animation" id="Animation_32hag"]
 resource_name = "LookUp"
 length = 0.0416708
@@ -8125,6 +8206,32 @@ tracks/0/path = NodePath("../../Head/BoneAttachment3D/HeadAnimation")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = PackedFloat32Array(0, 1, 0, 0, 0.342, 0.94)
+
+[sub_resource type="Animation" id="Animation_65viv"]
+resource_name = "LookUpLeft"
+length = 0.0416708
+loop_mode = 1
+step = 0.0416667
+tracks/0/type = "rotation_3d"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("../../Head/BoneAttachment3D/HeadAnimation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = PackedFloat32Array(0, 1, 0.089, 0.243, 0.33, 0.908)
+
+[sub_resource type="Animation" id="Animation_x7c3f"]
+resource_name = "LookUpRight"
+length = 0.0416708
+loop_mode = 1
+step = 0.0416667
+tracks/0/type = "rotation_3d"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("../../Head/BoneAttachment3D/HeadAnimation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = PackedFloat32Array(0, 1, -0.089, -0.243, 0.33, 0.908)
 
 [sub_resource type="Animation" id="Animation_tqiix"]
 resource_name = "OrientHead"
@@ -8809,6 +8916,13 @@ tracks/1/keys = {
 "update": 1,
 "values": [null]
 }
+tracks/2/type = "rotation_3d"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("../../Head/BoneAttachment3D/HeadAnimation")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = PackedFloat32Array(0, 1, 0, 0, 0, 1)
 
 [sub_resource type="Animation" id="Animation_er7wa"]
 resource_name = "Right Strafe Walking"
@@ -11424,12 +11538,20 @@ _data = {
 &"Jog Strafe Right": SubResource("Animation_8k4dl"),
 &"Left Strafe Walking": SubResource("Animation_0mvbk"),
 &"LookDown": SubResource("Animation_kb6p2"),
+&"LookDownLeft": SubResource("Animation_s7qer"),
+&"LookDownRight": SubResource("Animation_bjvpn"),
+&"LookLeft": SubResource("Animation_e7oew"),
+&"LookRight": SubResource("Animation_c35mf"),
 &"LookUp": SubResource("Animation_32hag"),
+&"LookUpLeft": SubResource("Animation_65viv"),
+&"LookUpRight": SubResource("Animation_x7c3f"),
 &"OrientHead": SubResource("Animation_tqiix"),
 &"Picking Up": SubResource("Animation_lcwo4"),
 &"RESET": SubResource("Animation_wodsf"),
 &"Right Strafe Walking": SubResource("Animation_er7wa"),
 &"Standing To Crouched": SubResource("Animation_2mrn7"),
+&"TurnLeft": ExtResource("15_32hag"),
+&"TurnRight": ExtResource("16_tqiix"),
 &"Walking": SubResource("Animation_g1ggp"),
 &"Walking Backwards": SubResource("Animation_irka2")
 }
@@ -11439,8 +11561,9 @@ collision_layer = 4
 script = ExtResource("1_gksjs")
 
 [node name="OmniLight3D" type="OmniLight3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.78921, 0)
 light_energy = 0.2
-omni_range = 2.0
+omni_range = 3.0
 
 [node name="pausemenu" parent="." instance=ExtResource("2_7lsas")]
 visible = false
@@ -11449,27 +11572,27 @@ visible = false
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.8, 0)
 
 [node name="HeadGameplay" type="Node3D" parent="Head"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0)
 
-[node name="Camera3D" type="Camera3D" parent="Head/HeadGameplay"]
-transform = Transform3D(0.999998, 0.00194185, -0.000135415, -0.00194158, 0.999996, 0.00193203, 0.000139169, -0.00193175, 0.999998, 0.00228475, -0.0339352, -0.0279273)
+[node name="HeadPivot" type="Node3D" parent="Head/HeadGameplay"]
+
+[node name="Camera3D" type="Camera3D" parent="Head/HeadGameplay/HeadPivot"]
 cull_mask = 1048571
 fov = 37.8493
 
-[node name="ItemHand" type="Node3D" parent="Head/HeadGameplay"]
+[node name="ItemHand" type="Node3D" parent="Head/HeadGameplay/HeadPivot"]
 transform = Transform3D(1, 1.86265e-09, -3.72529e-09, 3.70797e-17, 1, 4.97675e-09, 7.45058e-09, 5.00586e-09, 1, -2.79397e-09, 0, 0)
 
-[node name="Hand" type="Node3D" parent="Head/HeadGameplay"]
+[node name="Hand" type="Node3D" parent="Head/HeadGameplay/HeadPivot"]
 transform = Transform3D(1, 1.86265e-09, -3.72529e-09, 3.70797e-17, 1, 4.97675e-09, 7.45058e-09, 5.00586e-09, 1, 4.65661e-09, 0, -2)
 
-[node name="RayCast3D" type="RayCast3D" parent="Head/HeadGameplay"]
+[node name="RayCast3D" type="RayCast3D" parent="Head/HeadGameplay/HeadPivot"]
 transform = Transform3D(1, 1.86265e-09, -3.72529e-09, 3.70797e-17, 1, 4.97675e-09, 7.45058e-09, 5.00586e-09, 1, -2.79397e-09, 0, 0)
 visible = false
 target_position = Vector3(0, 0, -2.5)
 collision_mask = 3
 script = ExtResource("2_a7d5u")
 
-[node name="PromptLabel" type="Label" parent="Head/HeadGameplay/RayCast3D"]
+[node name="PromptLabel" type="Label" parent="Head/HeadGameplay/HeadPivot/RayCast3D"]
 anchors_preset = 8
 anchor_left = 0.5
 anchor_top = 0.5
@@ -11487,19 +11610,19 @@ theme_override_font_sizes/font_size = 8
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="DownRay" type="RayCast3D" parent="Head/HeadGameplay/RayCast3D"]
+[node name="DownRay" type="RayCast3D" parent="Head/HeadGameplay/HeadPivot/RayCast3D"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -2.5)
 target_position = Vector3(0, -100, 0)
 
 [node name="BoneAttachment3D" type="BoneAttachment3D" parent="Head"]
-transform = Transform3D(0.000137224, -0.000235845, 0.00999628, -0.00458962, 0.00888038, 0.000272522, -0.00888349, -0.00459165, 1.36149e-05, -0.0945472, -1.12605, -0.53393)
+transform = Transform3D(0.000137224, -0.000235845, 0.00999628, -0.00458962, 0.00888038, 0.000272522, -0.00888349, -0.00459165, 1.36155e-05, -0.0945472, -1.12605, -0.53393)
 bone_name = "mixamorig_Head"
 bone_idx = 3
 use_external_skeleton = true
 external_skeleton = NodePath("../../MeshAndAnimation/RobotAnimated/Robot_Armature/Skeleton3D")
 
 [node name="HeadAnimation" type="Node3D" parent="Head/BoneAttachment3D"]
-transform = Transform3D(99.9033, -4.39602, 0, 4.39602, 99.9033, 0, 0, 0, 100, 0, 0, 0)
+transform = Transform3D(100, 0, 0, 0, 100, 0, 0, 0, 100, -0.586694, -0.0175934, -2.11409)
 
 [node name="HeadStarwars" parent="Head/BoneAttachment3D/HeadAnimation" instance=ExtResource("3_8t03j")]
 transform = Transform3D(1, -1.11759e-08, 0, 1.86265e-08, 1, 9.73232e-08, -7.45058e-09, -7.45058e-08, 1, -3.72529e-09, 0, 0)
@@ -11521,7 +11644,7 @@ surface_material_override/1 = ExtResource("7_wodsf")
 surface_material_override/2 = ExtResource("5_kb6p2")
 
 [node name="HeadScifi" parent="Head/BoneAttachment3D/HeadAnimation" instance=ExtResource("8_32hag")]
-transform = Transform3D(0.01, -1.74623e-10, 0, 2.03727e-10, 0.01, 6.22094e-10, 1.16415e-10, -7.0213e-10, 0.01, -3.72529e-09, 0, 0)
+transform = Transform3D(0.01, 0, 0, 0, 0.01, 0, 0, 0, 0.01, -7.45058e-09, 0, 3.72529e-09)
 visible = false
 
 [node name="Head_02" parent="Head/BoneAttachment3D/HeadAnimation/HeadScifi" index="0"]
@@ -11620,19 +11743,18 @@ texture_progress = ExtResource("7_krbu7")
 [node name="Inventory" parent="hud" instance=ExtResource("15_wodsf")]
 
 [node name="MeshAndAnimation" type="Node3D" parent="."]
-transform = Transform3D(-1, 0, -1.50996e-07, 0, 1, 0, 1.50996e-07, 0, -1, 0, -1, 0)
 
 [node name="AnimationTree" type="AnimationTree" parent="MeshAndAnimation"]
 root_node = NodePath("../RobotAnimated")
 tree_root = SubResource("AnimationNodeBlendTree_wodsf")
 anim_player = NodePath("../RobotAnimated/AnimationPlayer")
-parameters/LookAngle/blend_position = 2.52033
+parameters/LookAngle/blend_position = Vector2(0, 0)
 parameters/LookBlend/blend_amount = 1.0
 parameters/WalkBlend/blend_amount = 1.0
-parameters/WalkVector/blend_position = Vector2(0, 3)
+parameters/WalkVector/blend_position = Vector2(-0.00899267, -0.059289)
 
 [node name="RobotAnimated" type="Node3D" parent="MeshAndAnimation"]
-transform = Transform3D(0.01, 0, 0, 0, 0.01, 0, 0, 0, 0.01, 0, 0, 0)
+transform = Transform3D(-0.01, 0, -8.74228e-10, 0, 0.01, 0, 8.74228e-10, 0, -0.01, 0, -1, 0)
 
 [node name="Robot_Armature" type="Node3D" parent="MeshAndAnimation/RobotAnimated"]
 
@@ -11945,6 +12067,7 @@ bones/43/enabled = true
 bones/43/position = Vector3(8.12033e-07, 10.0961, -8.72655e-07)
 bones/43/rotation = Quaternion(0.554153, -0.00769805, 0.016096, 0.832224)
 bones/43/scale = Vector3(1, 1, 1)
+script = ExtResource("15_tqiix")
 
 [node name="Cube_001" type="MeshInstance3D" parent="MeshAndAnimation/RobotAnimated/Robot_Armature/Skeleton3D"]
 layers = 4
