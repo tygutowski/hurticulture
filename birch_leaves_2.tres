@@ -1,9 +1,6 @@
-[gd_resource type="StandardMaterial3D" load_steps=2 format=3 uid="uid://dlyvh6r8kk7wt"]
-
-[ext_resource type="Texture2D" uid="uid://bqmbncpf3q8a8" path="res://Retro Foliage Pixel Art Nature Kit/Textures/Tree_Birch_Autumn.png" id="1_e6luy"]
+[gd_resource type="StandardMaterial3D" format=3 uid="uid://dlyvh6r8kk7wt"]
 
 [resource]
 transparency = 2
 alpha_scissor_threshold = 0.5
 alpha_antialiasing_mode = 0
-albedo_texture = ExtResource("1_e6luy")

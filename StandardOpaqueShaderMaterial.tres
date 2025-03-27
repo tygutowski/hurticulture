@@ -1,20 +1,3 @@
-[gd_resource type="ShaderMaterial" load_steps=3 format=3 uid="uid://yrle6sq7hffb"]
-
-[ext_resource type="Shader" path="res://ursc_1.3.0/addons/ursc/spatial/standard_opaque.gdshader" id="1_6q40h"]
-
-[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_frgsx"]
-load_path = "res://.godot/imported/texture_08.png-124c8e89f038a10a508472dcdc376c8c.s3tc.ctex"
+[gd_resource type="ShaderMaterial" format=3 uid="uid://yrle6sq7hffb"]
 
 [resource]
-render_priority = 0
-shader = ExtResource("1_6q40h")
-shader_parameter/albedo_color = Color(1, 1, 1, 1)
-shader_parameter/albedo_texture_as_primary_color = true
-shader_parameter/mix_factor = 1.0
-shader_parameter/texture_lod_halve_distance_override = 6.0
-shader_parameter/uv_offset = Vector2(0, 0)
-shader_parameter/uv_scale = Vector2(1, 1)
-shader_parameter/uv_scroll_speed = Vector2(0, 0)
-shader_parameter/cull_distance_override = 0.0
-shader_parameter/convert_vertex_colors = false
-shader_parameter/albedo_texture = SubResource("CompressedTexture2D_frgsx")

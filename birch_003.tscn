@@ -1,6 +1,6 @@
 [gd_scene load_steps=3 format=3 uid="uid://dv1orfsam5ts1"]
 
-[ext_resource type="PackedScene" uid="uid://pn1w684poole" path="res://Retro Foliage Pixel Art Nature Kit/3D Models/Birch_003.fbx" id="1_t83sb"]
+[ext_resource type="PackedScene" uid="uid://doyom03ccuc6t" path="res://Birch_003.fbx" id="1_t83sb"]
 [ext_resource type="Material" uid="uid://dlyvh6r8kk7wt" path="res://birch_leaves_2.tres" id="2_6rauc"]
 
 [node name="Birch_003" instance=ExtResource("1_t83sb")]

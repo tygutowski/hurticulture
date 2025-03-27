@@ -1,11 +1,17 @@
-[gd_scene load_steps=15 format=3 uid="uid://bnf8skrh5pjuk"]
+[gd_scene load_steps=19 format=3 uid="uid://bnf8skrh5pjuk"]
 
+[ext_resource type="Texture2D" uid="uid://ru1egda7c3j2" path="res://textures/WorldTextures_Rock.png" id="1_0fpt2"]
 [ext_resource type="Material" uid="uid://c8olfqsah5dxj" path="res://TestMaterial.tres" id="2_f2mx5"]
 [ext_resource type="PackedScene" uid="uid://cv15t3tmcetnu" path="res://environment/items/tools/ItemFlashlight.tscn" id="2_y41ub"]
 [ext_resource type="PackedScene" uid="uid://bwu8dfp2qp3kc" path="res://environment/items/fruits/ItemGourd.tscn" id="3_ep13c"]
 [ext_resource type="PackedScene" uid="uid://b5xjtp4qjtafs" path="res://player/player.tscn" id="4_1vgli"]
+[ext_resource type="Texture2D" uid="uid://by2pnm6xl10km" path="res://textures/Stone/Stone_05-128x128.png" id="4_igx0j"]
 [ext_resource type="PackedScene" uid="uid://8h1lgp0f7ekv" path="res://environment/items/tools/ItemShovel.tscn" id="5_e4vjf"]
 [ext_resource type="PackedScene" uid="uid://bfs70m7rkn6ic" path="res://electrical/cctv_camera.tscn" id="6_ypj6x"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_tctsc"]
+albedo_texture = ExtResource("1_0fpt2")
+uv1_scale = Vector3(6.6, 6.6, 6.6)
 
 [sub_resource type="PlaneMesh" id="PlaneMesh_hipxm"]
 material = ExtResource("2_f2mx5")
@@ -13,6 +19,13 @@ size = Vector2(50, 50)
 
 [sub_resource type="ConcavePolygonShape3D" id="ConcavePolygonShape3D_et2sf"]
 data = PackedVector3Array(500, 0, 500, -500, 0, 500, 500, 0, -500, -500, 0, 500, -500, 0, -500, 500, 0, -500)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_ai2o8"]
+albedo_texture = ExtResource("4_igx0j")
+uv1_scale = Vector3(0.46, 0.46, 0.46)
+uv1_offset = Vector3(2.605, 0.66, 0)
+uv1_triplanar = true
+uv1_triplanar_sharpness = 0.246356
 
 [sub_resource type="BoxMesh" id="BoxMesh_4thw1"]
 material = ExtResource("2_f2mx5")
@@ -35,6 +48,7 @@ viewport_path = NodePath("CCTV1_Viewport")
 [node name="Node3D" type="Node3D"]
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+material_override = SubResource("StandardMaterial3D_tctsc")
 mesh = SubResource("PlaneMesh_hipxm")
 
 [node name="StaticBody3D" type="StaticBody3D" parent="MeshInstance3D"]
@@ -46,6 +60,7 @@ shape = SubResource("ConcavePolygonShape3D_et2sf")
 
 [node name="MeshInstance3D2" type="MeshInstance3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -9, 2, -6.59239)
+material_override = SubResource("StandardMaterial3D_ai2o8")
 mesh = SubResource("BoxMesh_4thw1")
 
 [node name="StaticBody3D" type="StaticBody3D" parent="MeshInstance3D2"]
@@ -55,6 +70,7 @@ shape = SubResource("BoxShape3D_k85kl")
 
 [node name="MeshInstance3D6" type="MeshInstance3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5, 2, -11.5924)
+material_override = SubResource("StandardMaterial3D_ai2o8")
 mesh = SubResource("BoxMesh_4thw1")
 
 [node name="StaticBody3D" type="StaticBody3D" parent="MeshInstance3D6"]
@@ -64,6 +80,7 @@ shape = SubResource("BoxShape3D_k85kl")
 
 [node name="MeshInstance3D3" type="MeshInstance3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 10.7797, 2, -1.14453)
+material_override = SubResource("StandardMaterial3D_ai2o8")
 mesh = SubResource("BoxMesh_4thw1")
 
 [node name="StaticBody3D" type="StaticBody3D" parent="MeshInstance3D3"]
@@ -73,6 +90,7 @@ shape = SubResource("BoxShape3D_k85kl")
 
 [node name="MeshInstance3D5" type="MeshInstance3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -9.38559, 0, -1.14453)
+material_override = SubResource("StandardMaterial3D_ai2o8")
 mesh = SubResource("BoxMesh_4thw1")
 
 [node name="StaticBody3D" type="StaticBody3D" parent="MeshInstance3D5"]
@@ -82,6 +100,7 @@ shape = SubResource("BoxShape3D_k85kl")
 
 [node name="MeshInstance3D7" type="MeshInstance3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -5.38559, 0, 2.85547)
+material_override = SubResource("StandardMaterial3D_ai2o8")
 mesh = SubResource("BoxMesh_4thw1")
 
 [node name="StaticBody3D" type="StaticBody3D" parent="MeshInstance3D7"]
@@ -91,6 +110,7 @@ shape = SubResource("BoxShape3D_k85kl")
 
 [node name="MeshInstance3D8" type="MeshInstance3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -9.38559, 2, 2.85547)
+material_override = SubResource("StandardMaterial3D_ai2o8")
 mesh = SubResource("BoxMesh_4thw1")
 
 [node name="StaticBody3D" type="StaticBody3D" parent="MeshInstance3D8"]
@@ -100,6 +120,7 @@ shape = SubResource("BoxShape3D_k85kl")
 
 [node name="MeshInstance3D4" type="MeshInstance3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 10.7797, 6, -1.14453)
+material_override = SubResource("StandardMaterial3D_ai2o8")
 mesh = SubResource("BoxMesh_4thw1")
 
 [node name="StaticBody3D" type="StaticBody3D" parent="MeshInstance3D4"]
@@ -111,10 +132,10 @@ shape = SubResource("BoxShape3D_k85kl")
 transform = Transform3D(-0.0585398, 0, -0.998285, 0, 1, 0, 0.998285, 0, -0.0585398, 0.205522, 0.273275, 2.6917)
 
 [node name="RigidBody3D2" parent="." instance=ExtResource("3_ep13c")]
-transform = Transform3D(-0.97942, 0, -0.20183, 0, 1, 0, 0.20183, 0, -0.97942, 7.22468, 0.273275, -0.437016)
+transform = Transform3D(-0.97942, 0, -0.20183, 0, 1, 0, 0.20183, 0, -0.97942, 7.22468, 0.273275, 6.4671)
 
 [node name="player" parent="." instance=ExtResource("4_1vgli")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.806516, 1, -0.852248)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.806516, 0, -0.852248)
 
 [node name="Flashlight2" parent="." instance=ExtResource("5_e4vjf")]
 
@@ -123,7 +144,7 @@ gui_disable_input = true
 size = Vector2i(287, 187)
 
 [node name="Camera3D" type="Camera3D" parent="CCTV1_Viewport"]
-transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 7.89084, 1.25255, -1.01945)
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 8.63879, 1.25255, -1.01945)
 current = true
 
 [node name="CCTV1" parent="." node_paths=PackedStringArray("camera") instance=ExtResource("6_ypj6x")]
@@ -132,7 +153,7 @@ visible = false
 camera = NodePath("../CCTV1_Viewport/Camera3D")
 
 [node name="TV1" type="MeshInstance3D" parent="."]
-transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 8.84062, 1.37569, -1.04753)
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 8.75687, 1.38379, -1.11011)
 mesh = SubResource("BoxMesh_44b12")
 skeleton = NodePath("")
 surface_material_override/0 = SubResource("StandardMaterial3D_0fpt2")
