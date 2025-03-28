@@ -15,14 +15,17 @@ var rotational_offset: float = 0
 @onready var head = get_node("Head")
 @onready var animation_head = head.get_node("BoneAttachment3D/HeadAnimation")
 @onready var gameplay_head = head.get_node("HeadGameplay")
-@onready var dropray: RayCast3D = gameplay_head.get_node("HeadPivot/RayCast3D")
+@onready var head_pivot: Node3D = gameplay_head.get_node("HeadPivot")
+@onready var dropray: RayCast3D = head_pivot.get_node("Dropray")
+@onready var interactray: RayCast3D = head_pivot.get_node("InteractRay")
+
 @onready var downray: RayCast3D = dropray.get_node("DownRay")
 var held_item: Item = null
 var feet_stance_angle: float = 0
 @onready var camera = gameplay_head.get_node("HeadPivot/Camera3D")
 @onready var pause_menu = get_node("pausemenu")
 @onready var timer = get_node("Timer")
-
+@export var screen_list: Dictionary[MeshInstance3D, SubViewport]
 const WALK_SPEED : float = 3
 const RUN_SPEED : float = 5
 var pullback_time : float = 0.0
@@ -221,7 +224,38 @@ func normalize_angle(degrees: float) -> float:
 	else:
 		return 0
 
+func handle_screens(event: InputEvent) -> void:
+	interactray.force_raycast_update()
+	for screen in screen_list:
+		if interactray.is_colliding():
+			var viewport = screen_list[screen]
+			var global_mouse_position = interactray.get_collision_point()
+			var local_pos = screen.to_local(global_mouse_position)
+
+			# convert local position to UV coordinates
+			var uv_x = (local_pos.x / screen.mesh.width) + .5
+			var uv_y = (local_pos.y / screen.mesh.height) + .5
+
+			uv_x = clamp(uv_x, 0.0, 1.0)
+			uv_y = clamp(uv_y, 0.0, 1.0)
+
+			# convert UV coordinates to viewport coordinates
+			var viewport_size = viewport.get_visible_rect().size
+			var local_mouse_position = Vector2(uv_x * viewport_size.x, uv_y * viewport_size.y)
+
+			viewport.warp_mouse(local_mouse_position)
+			if event is InputEventMouseButton:
+				# Create a new mouse event for the viewport
+				var viewport_event = InputEventMouseButton.new()
+				viewport_event.button_index = event.button_index
+				viewport_event.pressed = event.pressed
+				viewport_event.position = local_mouse_position
+
+				viewport.push_input(viewport_event)
+
 func _input(event):
+	handle_screens(event) # this is for handling viewports
+	#push_input(event, true)
 	if held_item and not held_item.can_move_while_using and held_item.using_item:
 		return  # Prevent movement if conditions are met
 

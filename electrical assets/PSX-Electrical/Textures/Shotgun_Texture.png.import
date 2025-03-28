@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://yv71y8q40ygq"
-path="res://.godot/imported/Stones_Variant_1_Base_color.png-e60298c20f22e5477853a05cd48d9e61.ctex"
+uid="uid://1k77njht7140"
+path="res://.godot/imported/Shotgun_Texture.png-dd0e6f3a9b4f4292c1a8a3a55dfa0a7f.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://farm assets/PSX-Farm Assets/Stones_Variant_1/Stones_Variant_1_Base_color.png"
-dest_files=["res://.godot/imported/Stones_Variant_1_Base_color.png-e60298c20f22e5477853a05cd48d9e61.ctex"]
+source_file="res://electrical assets/PSX-Electrical/Textures/Shotgun_Texture.png"
+dest_files=["res://.godot/imported/Shotgun_Texture.png-dd0e6f3a9b4f4292c1a8a3a55dfa0a7f.ctex"]
 
 [params]
 

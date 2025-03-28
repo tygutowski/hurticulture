@@ -33,7 +33,7 @@ window/stretch/scale_mode="integer"
 
 [editor_plugins]
 
-enabled=PackedStringArray("res://addons/root_motion/plugin.cfg")
+enabled=PackedStringArray()
 
 [global_group]
 
