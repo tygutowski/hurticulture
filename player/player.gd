@@ -121,95 +121,96 @@ func set_hotbar_index(index: int) -> void:
 func _physics_process(delta: float) -> void:
 	if Input.is_action_just_pressed("inventory"):
 		toggle_inventory_visibility()
-	if not inventory_open:
-		if held_item != null and increment_progress_bar:
-			var diff = 100.0/held_item.hold_duration * delta
-			$hud/TextureProgressBar.value += diff
+	
+	if held_item != null and increment_progress_bar:
+		var diff = 100.0/held_item.hold_duration * delta
+		$hud/TextureProgressBar.value += diff
+	if Input.is_action_just_pressed("interact"):
 		if is_holding and can_interact:
-			if Input.is_action_just_pressed("interact"):
+			drop_item()
+	if Input.is_action_pressed("lmb"):
+		if is_holding and can_interact:
+			pullback_time = clamp(0, pullback_time + delta, max_pullback_time)
+		else:
+			if pullback_time != 0:
+				held_item.throw(pullback_time)
 				drop_item()
-			if Input.is_action_pressed("lmb"):
-				pullback_time = clamp(0, pullback_time + delta, max_pullback_time)
-			else:
-				if pullback_time != 0:
-					held_item.throw(pullback_time)
-					drop_item()
-				pullback_time = 0
+			pullback_time = 0
+		
+	if not is_on_floor():
+		velocity += get_gravity() * delta
+
+	if held_item != null:
+		if held_item.held_down_item: # if its an item you must hold down to use
+			if Input.is_action_just_released("lmb"):
+				held_item.stop_using_item()
+			if Input.is_action_just_pressed("lmb"):
+				held_item.begin_using_item()
+		else: # if its an item you click to use
+			if Input.is_action_just_pressed("lmb"):
+				held_item.use_item()
+		if Input.is_action_just_pressed("drop"):
+			drop_it()
+		elif Input.is_action_just_pressed("reload"):
+			held_item.reload_item()
+	
+	if Input.is_action_just_pressed("scroll_down"):
+		set_hotbar_index((hotbar_index + 1) % 4)
+	elif Input.is_action_just_pressed("scroll_up"):
+		set_hotbar_index((hotbar_index - 1) % 4)
+	elif Input.is_action_just_pressed("hotbar_one"):
+		set_hotbar_index(0)
+	elif Input.is_action_just_pressed("hotbar_two"):
+		set_hotbar_index(1)
+	elif Input.is_action_just_pressed("hotbar_three"):
+		set_hotbar_index(2)
+	elif Input.is_action_just_pressed("hotbar_four"):
+		set_hotbar_index(3)
+	if Input.is_action_just_pressed("ui_accept") and is_on_floor():
+		velocity.y = JUMP_VELOCITY
+	
+	if Input.is_action_just_pressed("pause"):
+		pause_menu.toggle_pause_menu()
+	var input_dir := Input.get_vector("left", "right", "forward", "backwards")
+	if held_item != null and not held_item.can_move_while_using and held_item.using_item:
+		input_dir = Vector2.ZERO
+	var direction: Vector3 = (gameplay_head.transform.basis * Vector3(input_dir.x, 0, input_dir.y)).normalized()
+	if input_dir.x != 0:
+		# Interpolate rotation to the target angle
+		camera.rotation.z = lerp(camera.rotation.z, round(input_dir.x) * deg_to_rad(-1.5), .2)
+	else:
+		# Interpolate back to the neutral position (0 rotation)
+		camera.rotation.z = lerp(camera.rotation.z, 0.0, 0.2)
+	var movement_speed = WALK_SPEED
+	if Input.is_action_pressed("run") and input_dir.y < 0:
+		movement_speed = RUN_SPEED
+		camera.fov = lerp(camera.fov, float(Settings.fov + 10), 0.2)
+	else:
+		camera.fov = lerp(camera.fov, float(Settings.fov), 0.2)
+	var local_velocity = get_node("MeshAndAnimation").basis.inverse() * velocity
+	get_node("MeshAndAnimation/AnimationTree")["parameters/WalkVector/blend_position"] = -Vector2(local_velocity.x, local_velocity.z)
+	#get_node("MeshAndAnimation/AnimationTree")["parameters/LookAngle/blend_position"] = Vector2(gameplay_head.rotation.y, gameplay_head.get_node("HeadPivot").rotation.x)
+
+	if input_dir != Vector2.ZERO:
+		camera.v_offset = lerp(camera.v_offset, sin(Time.get_unix_time_from_system()*3 * movement_speed)/48 * movement_speed, 0.2)
+	else:
+		camera.v_offset = lerp(camera.v_offset, 0.0, 0.2)
+	if direction:
+		velocity.x = move_toward(velocity.x, direction.x * movement_speed, ACCELERATION * delta)
+		velocity.z = move_toward(velocity.z, direction.z * movement_speed, ACCELERATION * delta)
+		# if walking forward
+		if local_velocity.z < 0:
+			var target_rotation = gameplay_head.global_transform.basis.get_euler().y  # Get head's global Y rotation
+			var current_rotation = $MeshAndAnimation.global_transform.basis.get_euler().y  # Get body's global Y rotation
+
+			# Smoothly interpolate the body's rotation toward the head's direction
+			var new_body_rotation = lerp_angle(current_rotation, target_rotation, .02)
+			$MeshAndAnimation.rotation.y = new_body_rotation
 			
-		if not is_on_floor():
-			velocity += get_gravity() * delta
-
-		if held_item != null:
-			if held_item.held_down_item: # if its an item you must hold down to use
-				if Input.is_action_just_released("lmb"):
-					held_item.stop_using_item()
-				if Input.is_action_just_pressed("lmb"):
-					held_item.begin_using_item()
-			else: # if its an item you click to use
-				if Input.is_action_just_pressed("lmb"):
-					held_item.use_item()
-			if Input.is_action_just_pressed("drop"):
-				drop_it()
-			elif Input.is_action_just_pressed("reload"):
-				held_item.reload_item()
-		
-		if Input.is_action_just_pressed("scroll_down"):
-			set_hotbar_index((hotbar_index + 1) % 4)
-		elif Input.is_action_just_pressed("scroll_up"):
-			set_hotbar_index((hotbar_index - 1) % 4)
-		elif Input.is_action_just_pressed("hotbar_one"):
-			set_hotbar_index(0)
-		elif Input.is_action_just_pressed("hotbar_two"):
-			set_hotbar_index(1)
-		elif Input.is_action_just_pressed("hotbar_three"):
-			set_hotbar_index(2)
-		elif Input.is_action_just_pressed("hotbar_four"):
-			set_hotbar_index(3)
-		if Input.is_action_just_pressed("ui_accept") and is_on_floor():
-			velocity.y = JUMP_VELOCITY
-		
-		if Input.is_action_just_pressed("pause"):
-			pause_menu.toggle_pause_menu()
-		var input_dir := Input.get_vector("left", "right", "forward", "backwards")
-		if held_item != null and not held_item.can_move_while_using and held_item.using_item:
-			input_dir = Vector2.ZERO
-		var direction: Vector3 = (gameplay_head.transform.basis * Vector3(input_dir.x, 0, input_dir.y)).normalized()
-		if input_dir.x != 0:
-			# Interpolate rotation to the target angle
-			camera.rotation.z = lerp(camera.rotation.z, round(input_dir.x) * deg_to_rad(-1.5), .2)
-		else:
-			# Interpolate back to the neutral position (0 rotation)
-			camera.rotation.z = lerp(camera.rotation.z, 0.0, 0.2)
-		var movement_speed = WALK_SPEED
-		if Input.is_action_pressed("run") and input_dir.y < 0:
-			movement_speed = RUN_SPEED
-			camera.fov = lerp(camera.fov, float(Settings.fov + 10), 0.2)
-		else:
-			camera.fov = lerp(camera.fov, float(Settings.fov), 0.2)
-		var local_velocity = get_node("MeshAndAnimation").basis.inverse() * velocity
-		get_node("MeshAndAnimation/AnimationTree")["parameters/WalkVector/blend_position"] = -Vector2(local_velocity.x, local_velocity.z)
-		#get_node("MeshAndAnimation/AnimationTree")["parameters/LookAngle/blend_position"] = Vector2(gameplay_head.rotation.y, gameplay_head.get_node("HeadPivot").rotation.x)
-
-		if input_dir != Vector2.ZERO:
-			camera.v_offset = lerp(camera.v_offset, sin(Time.get_unix_time_from_system()*3 * movement_speed)/48 * movement_speed, 0.2)
-		else:
-			camera.v_offset = lerp(camera.v_offset, 0.0, 0.2)
-		if direction:
-			velocity.x = move_toward(velocity.x, direction.x * movement_speed, ACCELERATION * delta)
-			velocity.z = move_toward(velocity.z, direction.z * movement_speed, ACCELERATION * delta)
-			# if walking forward
-			if local_velocity.z < 0:
-				var target_rotation = gameplay_head.global_transform.basis.get_euler().y  # Get head's global Y rotation
-				var current_rotation = $MeshAndAnimation.global_transform.basis.get_euler().y  # Get body's global Y rotation
-
-				# Smoothly interpolate the body's rotation toward the head's direction
-				var new_body_rotation = lerp_angle(current_rotation, target_rotation, .02)
-				$MeshAndAnimation.rotation.y = new_body_rotation
-				
-		else:
-			velocity.x = move_toward(velocity.x, 0, FRICTION * delta)
-			velocity.z = move_toward(velocity.z, 0, FRICTION * delta)
-			rotational_offset = 0
+	else:
+		velocity.x = move_toward(velocity.x, 0, FRICTION * delta)
+		velocity.z = move_toward(velocity.z, 0, FRICTION * delta)
+		rotational_offset = 0
 	move_and_slide()
 
 func normalize_angle(degrees: float) -> float:

@@ -1,4 +1,4 @@
-[gd_resource type="StandardMaterial3D" load_steps=0 format=3 uid="uid://bbn3s20dv6fvo"]
+[gd_resource type="StandardMaterial3D" format=3 uid="uid://bbn3s20dv6fvo"]
 
 [resource]
 emission_enabled = true
