@@ -122,6 +122,7 @@ func set_hotbar_index(index: int) -> void:
 
 
 func _physics_process(delta: float) -> void:
+	
 	if Input.is_action_just_pressed("inventory"):
 		toggle_inventory_visibility()
 	
@@ -229,29 +230,7 @@ func handle_screens(event: InputEvent) -> void:
 	for screen in screen_list:
 		if interactray.is_colliding():
 			var viewport = screen_list[screen]
-			var global_mouse_position = interactray.get_collision_point()
-			var local_pos = screen.to_local(global_mouse_position)
-
-			# convert local position to UV coordinates
-			var uv_x = (local_pos.x / screen.mesh.width) + .5
-			var uv_y = (local_pos.y / screen.mesh.height) + .5
-
-			uv_x = clamp(uv_x, 0.0, 1.0)
-			uv_y = clamp(uv_y, 0.0, 1.0)
-
-			# convert UV coordinates to viewport coordinates
-			var viewport_size = viewport.get_visible_rect().size
-			var local_mouse_position = Vector2(uv_x * viewport_size.x, uv_y * viewport_size.y)
-
-			viewport.warp_mouse(local_mouse_position)
-			if event is InputEventMouseButton:
-				# Create a new mouse event for the viewport
-				var viewport_event = InputEventMouseButton.new()
-				viewport_event.button_index = event.button_index
-				viewport_event.pressed = event.pressed
-				viewport_event.position = local_mouse_position
-
-				viewport.push_input(viewport_event)
+			viewport.push_input(event)
 
 func _input(event):
 	handle_screens(event) # this is for handling viewports

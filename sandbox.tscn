@@ -8,7 +8,7 @@
 [ext_resource type="Texture2D" uid="uid://by2pnm6xl10km" path="res://textures/Stone/Stone_05-128x128.png" id="4_igx0j"]
 [ext_resource type="PackedScene" uid="uid://8h1lgp0f7ekv" path="res://environment/items/tools/ItemShovel.tscn" id="5_e4vjf"]
 [ext_resource type="PackedScene" uid="uid://bfs70m7rkn6ic" path="res://electrical/cctv_camera.tscn" id="6_ypj6x"]
-[ext_resource type="PackedScene" uid="uid://cx58iidrmxi36" path="res://SkinPicker.tscn" id="9_igx0j"]
+[ext_resource type="PackedScene" uid="uid://pvey81x1t0xw" path="res://SkinPicker.tscn" id="9_igx0j"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_tctsc"]
 albedo_texture = ExtResource("1_0fpt2")
@@ -47,7 +47,7 @@ albedo_color = Color(0, 0, 0, 1)
 viewport_path = NodePath("CCTV1_Viewport")
 
 [sub_resource type="BoxMesh" id="BoxMesh_igx0j"]
-size = Vector3(3, 3, 0.25)
+size = Vector3(3, 1.7, 0.25)
 
 [sub_resource type="ViewportTexture" id="ViewportTexture_igx0j"]
 viewport_path = NodePath("SubViewport")
@@ -179,19 +179,20 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5.00127, 1.89992, -7.53445)
 [node name="SubViewport" type="SubViewport" parent="."]
 transparent_bg = true
 physics_object_picking = true
-size = Vector2i(360, 360)
+size = Vector2i(625, 360)
 render_target_update_mode = 4
 
 [node name="MarginContainer" parent="SubViewport" instance=ExtResource("9_igx0j")]
+color_picker_offset = null
 
 [node name="TV2" type="MeshInstance3D" parent="."]
-transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 4.99051, 1.84936, -9.64837)
+transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 4.99051, 1.55089, -9.64837)
 mesh = SubResource("BoxMesh_igx0j")
 skeleton = NodePath("")
 surface_material_override/0 = SubResource("StandardMaterial3D_0fpt2")
 script = SubResource("GDScript_igx0j")
 
 [node name="Sprite3D" type="Sprite3D" parent="TV2"]
-transform = Transform3D(0.765672, 0, 0, 0, 0.744554, 0, 0, 0, 1, 0, 0, -0.126)
+transform = Transform3D(0.436, 0, 0, 0, 0.424, 0, 0, 0, 0.569, 0, 0.0107093, -0.126)
 flip_h = true
 texture = SubResource("ViewportTexture_igx0j")
