@@ -43,6 +43,7 @@ electrical=""
 electrical_manager=""
 world=""
 map_generator=""
+computers=""
 
 [importer_defaults]
 
@@ -164,6 +165,7 @@ inventory={
 3d_render/layer_3="Only self cannot see"
 3d_physics/layer_1="World"
 3d_physics/layer_2="Items"
+3d_physics/layer_4="Only Raycast"
 
 [rendering]
 

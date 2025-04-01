@@ -18,25 +18,27 @@ var rotational_offset: float = 0
 @onready var head_pivot: Node3D = gameplay_head.get_node("HeadPivot")
 @onready var dropray: RayCast3D = head_pivot.get_node("Dropray")
 @onready var interactray: RayCast3D = head_pivot.get_node("InteractRay")
-
+@onready var computerray: RayCast3D = head_pivot.get_node("ComputerRay")
 @onready var downray: RayCast3D = dropray.get_node("DownRay")
 var held_item: Item = null
 var feet_stance_angle: float = 0
 @onready var camera = gameplay_head.get_node("HeadPivot/Camera3D")
 @onready var pause_menu = get_node("pausemenu")
 @onready var timer = get_node("Timer")
-@export var screen_list: Dictionary[MeshInstance3D, SubViewport]
+@onready var computer_list: Array = get_tree().get_nodes_in_group("computers")
+
 const WALK_SPEED : float = 3
 const RUN_SPEED : float = 5
 var pullback_time : float = 0.0
 var max_pullback_time : float = 2.0
 
 var can_interact : bool = true
-
+var gamestate: PeerGameState
 var hotbar_index: int = 0
 @onready var hotbar: Node = %hud.get_node("Hotbar/HBoxContainer")
 
 func _ready() -> void:
+	gamestate = PeerGameState.new()
 	set_inventory_visible(false)
 	set_hotbar_index(0)
 	camera.fov = Settings.fov
@@ -225,16 +227,37 @@ func normalize_angle(degrees: float) -> float:
 	else:
 		return 0
 
-func handle_screens(event: InputEvent) -> void:
-	interactray.force_raycast_update()
-	for screen in screen_list:
-		if interactray.is_colliding():
-			var viewport = screen_list[screen]
-			viewport.push_input(event)
+
+func handle_computers(event: InputEvent) -> void:
+	computerray.force_raycast_update()
+	if computerray.is_colliding():
+		for computer: Node3D in computer_list:
+			var viewport = computer.get_node("SubViewport")
+			var raycast_result = computerray.get_collision_point()
+			var mesh_instance = computer.get_node("MeshInstance3D")
+			
+			var quad_size = mesh_instance.mesh.size
+			var viewport_size = viewport.size
+			
+			var local_point = computer.to_local(raycast_result)
+			var uv_x = (local_point.x / quad_size.x) + 0.5
+			var uv_y = 1 - ((local_point.y / quad_size.y) + 0.5)
+			
+			var actual_coords = Vector2(uv_x * viewport_size.x, uv_y * viewport_size.y)
+
+			# Forward the event to the computer node
+			if event is InputEventMouseMotion or event is InputEventMouseButton or event is InputEventKey:
+				computer.input(event, actual_coords)
+
+func _process(delta: float) -> void:
+	var event = InputEventMouseMotion.new()
+	handle_computers(event)
+
 
 func _input(event):
-	handle_screens(event) # this is for handling viewports
-	#push_input(event, true)
+	if event is InputEvent:
+		handle_computers(event) # this is for handling viewports
+
 	if held_item and not held_item.can_move_while_using and held_item.using_item:
 		return  # Prevent movement if conditions are met
 
@@ -258,7 +281,6 @@ func _input(event):
 
 	# Clamp head turn angle
 	y_head_rotation = clamp(y_head_rotation, -MAX_HEAD_TURN_ANGLE, MAX_HEAD_TURN_ANGLE)
-	Debug.debug(y_head_rotation)
 	# Update animation blend position
 	animation_tree["parameters/LookAngle/blend_position"] = Vector2(
 		-y_head_rotation,  

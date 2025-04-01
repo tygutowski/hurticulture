@@ -1,7 +1,6 @@
-[gd_scene load_steps=32 format=4 uid="uid://pvey81x1t0xw"]
+[gd_scene load_steps=31 format=4 uid="uid://pvey81x1t0xw"]
 
 [ext_resource type="Shader" path="res://hsv_box.gdshader" id="2_4c0co"]
-[ext_resource type="Script" uid="uid://3vmoccslro4g" path="res://skin_picker.gd" id="2_n0on6"]
 [ext_resource type="Texture2D" uid="uid://cnvd72h4up7fs" path="res://cyberpunk-head-icon.png" id="2_qilxi"]
 [ext_resource type="Shader" path="res://hue_slider.gdshader" id="3_4c0co"]
 [ext_resource type="Texture2D" uid="uid://bs522ymvt8bs8" path="res://scifi-head-icon.png" id="3_hq562"]
@@ -13,7 +12,7 @@
 [ext_resource type="Material" uid="uid://bbn3s20dv6fvo" path="res://player/EyeGlowMaterial.tres" id="11_2s1go"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_n0on6"]
-bg_color = Color(0.0613851, 0.119638, 0.120014, 1)
+bg_color = Color(0.22, 0.22, 0.22, 1)
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_tfk11"]
 shader = ExtResource("2_4c0co")
@@ -430,7 +429,7 @@ _surfaces = [{
 }]
 blend_shape_mode = 0
 
-[node name="Panel" type="Panel" node_paths=PackedStringArray("final_color_color_rect", "hsv_box_color_rect", "hue_bar_color_rect", "viewport")]
+[node name="Panel" type="Panel"]
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
@@ -439,12 +438,6 @@ grow_vertical = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
 theme_override_styles/panel = SubResource("StyleBoxFlat_n0on6")
-script = ExtResource("2_n0on6")
-final_color_color_rect = NodePath("MarginContainer/HBoxContainer/MarginContainer/VBoxContainer/HBoxContainer/FinalColorRect")
-hsv_box_color_rect = NodePath("MarginContainer/HBoxContainer/MarginContainer/VBoxContainer/HBoxContainer/HSVColorRect")
-hue_bar_color_rect = NodePath("MarginContainer/HBoxContainer/MarginContainer/VBoxContainer/ColorRect")
-viewport = NodePath("MarginContainer/HBoxContainer/MarginContainer2/SubViewportContainer/SubViewport")
-color_picker_offset = Vector2(-5, -5)
 
 [node name="MarginContainer" type="MarginContainer" parent="."]
 layout_mode = 1
@@ -508,13 +501,8 @@ stretch_mode = 4
 layout_mode = 2
 size_flags_vertical = 3
 
-[node name="FinalColorRect" type="ColorRect" parent="MarginContainer/HBoxContainer/MarginContainer/VBoxContainer/HBoxContainer"]
-visible = false
-layout_mode = 2
-size_flags_horizontal = 3
-size_flags_vertical = 3
-
 [node name="HSVColorRect" type="ColorRect" parent="MarginContainer/HBoxContainer/MarginContainer/VBoxContainer/HBoxContainer"]
+unique_name_in_owner = true
 material = SubResource("ShaderMaterial_tfk11")
 clip_contents = true
 layout_mode = 2
@@ -530,13 +518,14 @@ offset_right = 19.945
 offset_bottom = 10.0
 texture = ExtResource("3_tfk11")
 
-[node name="ColorRect" type="ColorRect" parent="MarginContainer/HBoxContainer/MarginContainer/VBoxContainer"]
+[node name="HueBar" type="ColorRect" parent="MarginContainer/HBoxContainer/MarginContainer/VBoxContainer"]
+unique_name_in_owner = true
 material = SubResource("ShaderMaterial_4c0co")
 clip_contents = true
 custom_minimum_size = Vector2(0, 10)
 layout_mode = 2
 
-[node name="TextureRect" type="TextureRect" parent="MarginContainer/HBoxContainer/MarginContainer/VBoxContainer/ColorRect"]
+[node name="TextureRect" type="TextureRect" parent="MarginContainer/HBoxContainer/MarginContainer/VBoxContainer/HueBar"]
 clip_contents = true
 custom_minimum_size = Vector2(10, 10)
 layout_mode = 0
@@ -552,14 +541,15 @@ theme_override_constants/margin_bottom = 30
 [node name="SubViewportContainer" type="SubViewportContainer" parent="MarginContainer/HBoxContainer/MarginContainer2"]
 layout_mode = 2
 
-[node name="SubViewport" type="SubViewport" parent="MarginContainer/HBoxContainer/MarginContainer2/SubViewportContainer"]
+[node name="SubSubViewport" type="SubViewport" parent="MarginContainer/HBoxContainer/MarginContainer2/SubViewportContainer"]
+unique_name_in_owner = true
 own_world_3d = true
 transparent_bg = true
 handle_input_locally = false
 size = Vector2i(181, 285)
 render_target_update_mode = 4
 
-[node name="RobotMesh" type="MeshInstance3D" parent="MarginContainer/HBoxContainer/MarginContainer2/SubViewportContainer/SubViewport"]
+[node name="RobotMesh" type="MeshInstance3D" parent="MarginContainer/HBoxContainer/MarginContainer2/SubViewportContainer/SubSubViewport"]
 transform = Transform3D(1, 0, 0, 0, -1.19209e-07, 1, 0, -1, -1.19209e-07, 0, 0, 0)
 gi_mode = 2
 mesh = SubResource("ArrayMesh_48nif")
@@ -567,7 +557,7 @@ skin = SubResource("Skin_325xh")
 skeleton = NodePath("")
 surface_material_override/0 = ExtResource("3_n0on6")
 
-[node name="Head_04" type="MeshInstance3D" parent="MarginContainer/HBoxContainer/MarginContainer2/SubViewportContainer/SubViewport/RobotMesh"]
+[node name="Head_04" type="MeshInstance3D" parent="MarginContainer/HBoxContainer/MarginContainer2/SubViewportContainer/SubSubViewport/RobotMesh"]
 transform = Transform3D(1, 0, 0, 0, 1, 2.98428e-13, 0, -2.98428e-13, 1, 0, -2.18784e-07, 1.8353)
 visible = false
 gi_mode = 2
@@ -577,7 +567,7 @@ surface_material_override/0 = ExtResource("3_n0on6")
 surface_material_override/1 = ExtResource("10_2fr5c")
 surface_material_override/2 = ExtResource("11_2s1go")
 
-[node name="Head_02" type="MeshInstance3D" parent="MarginContainer/HBoxContainer/MarginContainer2/SubViewportContainer/SubViewport/RobotMesh"]
+[node name="Head_02" type="MeshInstance3D" parent="MarginContainer/HBoxContainer/MarginContainer2/SubViewportContainer/SubSubViewport/RobotMesh"]
 transform = Transform3D(1, 0, 0, 0, 1, 2.98428e-13, 0, -2.98428e-13, 1, 0, -2.18784e-07, 1.8353)
 visible = false
 gi_mode = 2
@@ -586,7 +576,7 @@ skeleton = NodePath("")
 surface_material_override/0 = ExtResource("3_n0on6")
 surface_material_override/1 = ExtResource("11_2s1go")
 
-[node name="Head_03" type="MeshInstance3D" parent="MarginContainer/HBoxContainer/MarginContainer2/SubViewportContainer/SubViewport/RobotMesh"]
+[node name="Head_03" type="MeshInstance3D" parent="MarginContainer/HBoxContainer/MarginContainer2/SubViewportContainer/SubSubViewport/RobotMesh"]
 transform = Transform3D(1, 0, 0, 0, 1, 2.98428e-13, 0, -2.98428e-13, 1, 0, -2.18784e-07, 1.8353)
 visible = false
 gi_mode = 2
@@ -595,7 +585,7 @@ skeleton = NodePath("")
 surface_material_override/0 = ExtResource("3_n0on6")
 surface_material_override/1 = ExtResource("11_2s1go")
 
-[node name="Head_01" type="MeshInstance3D" parent="MarginContainer/HBoxContainer/MarginContainer2/SubViewportContainer/SubViewport/RobotMesh"]
+[node name="Head_01" type="MeshInstance3D" parent="MarginContainer/HBoxContainer/MarginContainer2/SubViewportContainer/SubSubViewport/RobotMesh"]
 transform = Transform3D(1, 0, 0, 0, 1, 2.98428e-13, 0, -2.98428e-13, 1, 0, -2.18784e-07, 1.8353)
 visible = false
 gi_mode = 2
@@ -605,16 +595,16 @@ surface_material_override/0 = ExtResource("3_n0on6")
 surface_material_override/1 = ExtResource("11_2s1go")
 surface_material_override/2 = ExtResource("10_2fr5c")
 
-[node name="CameraPivot" type="Node3D" parent="MarginContainer/HBoxContainer/MarginContainer2/SubViewportContainer/SubViewport/RobotMesh"]
+[node name="CameraPivot" type="Node3D" parent="MarginContainer/HBoxContainer/MarginContainer2/SubViewportContainer/SubSubViewport/RobotMesh"]
 transform = Transform3D(0.956682, 3.47061e-08, -0.291136, -3.47061e-08, 1, 5.16394e-09, 0.291136, 5.16395e-09, 0.956682, 0, 0, 0)
 
-[node name="Camera3D" type="Camera3D" parent="MarginContainer/HBoxContainer/MarginContainer2/SubViewportContainer/SubViewport/RobotMesh/CameraPivot"]
+[node name="Camera3D" type="Camera3D" parent="MarginContainer/HBoxContainer/MarginContainer2/SubViewportContainer/SubSubViewport/RobotMesh/CameraPivot"]
 transform = Transform3D(2.66454e-15, -2.38419e-07, 1, 1, -1.6292e-07, -3.60008e-14, 1.6292e-07, 1, 2.38419e-07, 1.86367, -1.22561e-07, 1.02812)
 
-[node name="DirectionalLight3D" type="DirectionalLight3D" parent="MarginContainer/HBoxContainer/MarginContainer2/SubViewportContainer/SubViewport/RobotMesh/CameraPivot/Camera3D"]
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="MarginContainer/HBoxContainer/MarginContainer2/SubViewportContainer/SubSubViewport/RobotMesh/CameraPivot/Camera3D"]
 transform = Transform3D(-4.37114e-08, 1, 7.54979e-08, -1, -4.37114e-08, -1.62921e-07, -1.62921e-07, -7.54979e-08, 1, -4.37114e-08, -1.19209e-07, 1)
 
-[node name="RayCast3D" type="RayCast3D" parent="MarginContainer/HBoxContainer/MarginContainer2/SubViewportContainer/SubViewport"]
+[node name="RayCast3D" type="RayCast3D" parent="MarginContainer/HBoxContainer/MarginContainer2/SubViewportContainer/SubSubViewport"]
 target_position = Vector3(0, -10, 0)
 
 [node name="MarginContainer3" type="MarginContainer" parent="MarginContainer/HBoxContainer"]

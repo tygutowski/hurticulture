@@ -120,13 +120,13 @@ func instance_world() -> Node:
 		if peer_is_me(peer):
 			continue
 		var peer_instance = preload("res://peer.tscn").instantiate()
-		peer_instance.name = str(peer.id)
+		peer_instance.name = str(peer.uid)
 		peer_instance.get_node("Label3D").text = peer.username
 		peer_container.add_child(peer_instance)
 	return world
 
-func peer_is_me(peer: Peer) -> bool:
-	return int(peer.id) == steam_id
+func peer_is_me(peer: PeerGameState) -> bool:
+	return int(peer.uid) == steam_id
 
 # when you join a lobby
 func _on_lobby_joined(this_lobby_id: int, _permissions: int, _locked: bool, response: int) -> void:
@@ -172,8 +172,8 @@ func get_lobby_members() -> void:
 			var peer = populate_peer(member_steam_id)
 			peer_list[member_steam_id] = peer
 
-func populate_peer(peer_id: int) -> Peer:
-	var peer = Peer.new()
+func populate_peer(peer_id: int) -> PeerGameState:
+	var peer = PeerGameState.new()
 	
 	return peer
 
@@ -211,7 +211,7 @@ func send_p2p_packet(this_target: int, packet_data: Dictionary, type: MessageTyp
 		for peer_id in peer_list:
 			var peer = peer_list[peer_id]
 			if not peer_is_me(peer):
-				Steam.sendP2PPacket(peer.id, this_data, send_type, channel)
+				Steam.sendP2PPacket(peer.uid, this_data, send_type, channel)
 	else:
 		Steam.sendP2PPacket(this_target, this_data, send_type, channel)
 
@@ -271,7 +271,7 @@ func leave_lobby() -> void:
 			# Make sure this isn't your Steam ID
 			if not peer_is_me(peer):
 				# Close the P2P session
-				Steam.closeP2PSessionWithUser(peer.id)
+				Steam.closeP2PSessionWithUser(peer.uid)
 		# Clear the local lobby list
 		peer_list.clear()
 
