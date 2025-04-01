@@ -1,8 +1,7 @@
-[gd_scene load_steps=70 format=3 uid="uid://bcfemkf41qw1s"]
+[gd_scene load_steps=67 format=3 uid="uid://bcfemkf41qw1s"]
 
 [ext_resource type="Material" uid="uid://c3v741g5b1csm" path="res://environment/materials/concrete_material.tres" id="1_bapng"]
 [ext_resource type="PackedScene" uid="uid://bxq1mnjbcjkj1" path="res://environment/structures/florescentlight.tscn" id="2_fwg1e"]
-[ext_resource type="PackedScene" uid="uid://bfs70m7rkn6ic" path="res://electrical/cctv_camera.tscn" id="2_p3xoi"]
 [ext_resource type="PackedScene" uid="uid://ck6nwgao2uvq6" path="res://electrical/terminal.tscn" id="2_redmf"]
 [ext_resource type="PackedScene" uid="uid://dsyc6dijis1a1" path="res://electrical/lightswitch.tscn" id="3_fxjy0"]
 [ext_resource type="PackedScene" uid="uid://cgbaw7yp8q8j4" path="res://electrical/door.tscn" id="4_s5px5"]
@@ -13,6 +12,7 @@
 [ext_resource type="Script" uid="uid://de34gck4uknth" path="res://environment/game_starter.gd" id="11_n0l0v"]
 [ext_resource type="PackedScene" uid="uid://cv15t3tmcetnu" path="res://environment/items/tools/ItemFlashlight.tscn" id="12_wdngk"]
 [ext_resource type="PackedScene" uid="uid://cb8f1calsvae5" path="res://environment/items/tools/ItemSeedPacket.tscn" id="13_oij87"]
+[ext_resource type="PackedScene" uid="uid://c5g70al4ueyt3" path="res://CameraComputer.tscn" id="14_ckd3g"]
 [ext_resource type="PackedScene" uid="uid://w042e6wfvpt" path="res://SkinPickerComputer.tscn" id="14_twnom"]
 
 [sub_resource type="BoxMesh" id="BoxMesh_nksia"]
@@ -20,14 +20,6 @@ size = Vector3(3, 2, 0.25)
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_eu234"]
 albedo_color = Color(0, 0, 0, 1)
-
-[sub_resource type="GDScript" id="GDScript_13xle"]
-
-[sub_resource type="ViewportTexture" id="ViewportTexture_84oix"]
-viewport_path = NodePath("CCTV1_Viewport")
-
-[sub_resource type="ViewportTexture" id="ViewportTexture_jvf40"]
-viewport_path = NodePath("CCTV2_Viewport")
 
 [sub_resource type="ViewportTexture" id="ViewportTexture_i76td"]
 viewport_path = NodePath("Power_Viewport")
@@ -197,50 +189,6 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -8, -1, -6)
 
 [node name="Node3D4" type="Node3D" parent="GroundedAreas"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -8, -1, 6)
-
-[node name="CCTV1" parent="." node_paths=PackedStringArray("camera") instance=ExtResource("2_p3xoi")]
-transform = Transform3D(0.353553, 0.353553, -0.866025, -0.707107, 0.707107, 0, 0.612372, 0.612372, 0.5, 7.90417, 5.19007, -1.48539)
-camera = NodePath("../CCTV1_Viewport/Camera3D")
-
-[node name="TV1" type="MeshInstance3D" parent="."]
-transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 4.97579, 6.50512, 0)
-mesh = SubResource("BoxMesh_nksia")
-skeleton = NodePath("")
-surface_material_override/0 = SubResource("StandardMaterial3D_eu234")
-script = SubResource("GDScript_13xle")
-
-[node name="Sprite3D" type="Sprite3D" parent="TV1"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -0.126011)
-texture = SubResource("ViewportTexture_84oix")
-
-[node name="CCTV2" parent="." node_paths=PackedStringArray("camera") instance=ExtResource("2_p3xoi")]
-transform = Transform3D(-0.5, -0.5, -0.707107, -0.707107, 0.707107, 0, 0.5, 0.5, -0.707107, -7.92942, 5.24966, -1.54496)
-camera = NodePath("../CCTV2_Viewport/Camera3D")
-
-[node name="TV2" type="MeshInstance3D" parent="."]
-transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, -4.97968, 6.50512, 0)
-mesh = SubResource("BoxMesh_nksia")
-skeleton = NodePath("")
-surface_material_override/0 = SubResource("StandardMaterial3D_eu234")
-
-[node name="TVDisplay" type="Sprite3D" parent="TV2"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -0.126011)
-texture = SubResource("ViewportTexture_jvf40")
-
-[node name="CCTV1_Viewport" type="SubViewport" parent="."]
-gui_disable_input = true
-size = Vector2i(287, 187)
-
-[node name="Camera3D" type="Camera3D" parent="CCTV1_Viewport"]
-visible = false
-
-[node name="CCTV2_Viewport" type="SubViewport" parent="."]
-snap_2d_vertices_to_pixel = true
-gui_disable_input = true
-size = Vector2i(287, 187)
-
-[node name="Camera3D" type="Camera3D" parent="CCTV2_Viewport"]
-visible = false
 
 [node name="Power_Viewport" type="SubViewport" parent="."]
 gui_disable_input = true
@@ -741,3 +689,12 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3.40575, 1.57924, -0.819326)
 
 [node name="SkinPickerTV" parent="." instance=ExtResource("14_twnom")]
 transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 1.05564, 3.64222, 5.74908)
+
+[node name="SubViewport" type="SubViewport" parent="."]
+
+[node name="Camera3D" type="Camera3D" parent="SubViewport"]
+transform = Transform3D(-4.37114e-08, -0.832622, 0.553842, 0, 0.553842, 0.832622, -1, 3.63951e-08, -2.42092e-08, -7.81622, 5.36987, 3.41658e-07)
+
+[node name="CameraTV1" parent="." node_paths=PackedStringArray("viewport") instance=ExtResource("14_ckd3g")]
+transform = Transform3D(-4.37114e-08, 0.5, 0.866025, 0, 0.866025, -0.5, -1, -2.18557e-08, -3.78552e-08, -4.63472, 5.78992, -0.088638)
+viewport = NodePath("../SubViewport")

@@ -26,6 +26,7 @@ var feet_stance_angle: float = 0
 @onready var pause_menu = get_node("pausemenu")
 @onready var timer = get_node("Timer")
 @onready var computer_list: Array = get_tree().get_nodes_in_group("computers")
+@onready var robotmesh = get_node("MeshAndAnimation/RobotAnimated/Robot_Armature/Skeleton3D/RobotMesh")
 
 const WALK_SPEED : float = 3
 const RUN_SPEED : float = 5
@@ -43,6 +44,16 @@ func _ready() -> void:
 	set_hotbar_index(0)
 	camera.fov = Settings.fov
 	Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
+
+	load_skin()
+
+func load_skin() -> void:
+	for computer in computer_list:
+		if computer is SkinPicker:
+			computer.set_player_head(self, gamestate.head_type)
+			for body_part in gamestate.colors:
+				var color = gamestate.colors[body_part]
+				set_bodypart_color(color, body_part)
 
 func interact() -> void:
 	Debug.debug("you can not interact now")
@@ -122,6 +133,9 @@ func set_hotbar_index(index: int) -> void:
 		slot.get_node("SelectionTexture").visible = false
 	hotbar.get_child(index).get_node("SelectionTexture").visible = true
 
+func set_bodypart_color(color, body_part_selected) -> void:
+	var material: ShaderMaterial = robotmesh.get_surface_override_material(0)
+	material.set_shader_parameter("color_" + str(body_part_selected), color)
 
 func _physics_process(delta: float) -> void:
 	
@@ -230,8 +244,8 @@ func normalize_angle(degrees: float) -> float:
 
 func handle_computers(event: InputEvent) -> void:
 	computerray.force_raycast_update()
-	if computerray.is_colliding():
-		for computer: Node3D in computer_list:
+	for computer: Node3D in computer_list:
+		if computerray.is_colliding():
 			var viewport = computer.get_node("SubViewport")
 			var raycast_result = computerray.get_collision_point()
 			var mesh_instance = computer.get_node("MeshInstance3D")
@@ -248,7 +262,8 @@ func handle_computers(event: InputEvent) -> void:
 			# Forward the event to the computer node
 			if event is InputEventMouseMotion or event is InputEventMouseButton or event is InputEventKey:
 				computer.input(event, actual_coords)
-
+		else:
+			computer.mouse_outside_area()
 func _process(delta: float) -> void:
 	var event = InputEventMouseMotion.new()
 	handle_computers(event)

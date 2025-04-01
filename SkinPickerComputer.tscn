@@ -702,7 +702,6 @@ offset_bottom = 40.0
 texture = ExtResource("12_chje6")
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0)
 mesh = SubResource("QuadMesh_ufgpq")
 skeleton = NodePath("")
 surface_material_override/0 = SubResource("StandardMaterial3D_i14om")

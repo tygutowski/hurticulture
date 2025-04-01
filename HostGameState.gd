@@ -13,9 +13,11 @@ var dropped_items: Array[Item]
 var plants: Array[Plant]
 var time_elapsed: float = 0
 
-func get_peer_gamestates() -> Array[PeerGameState]:
-	var peer_gamestates: Array[PeerGameState] = []
+func _ready() -> void:
+	update_peer_gamestates()
+
+func update_peer_gamestates() -> void:
+	player_gamestates = []
 	for peer in MultiplayerManager.peer_list:
 		var peer_gamestate = peer.gamestate
-		peer_gamestates.append(peer_gamestate)
-	return peer_gamestates
+		player_gamestates.append(peer_gamestate)

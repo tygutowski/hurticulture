@@ -24,7 +24,7 @@ var held_item: Node3D = null
 var inventory: Array[Array] = []
 
 # player cosmetic data
-var head_selected = Global.PlayerHeads.CYBERPUNK
+var head_type = Global.PlayerHeads.CYBERPUNK
 var eye_color: Color = Color(1.0, 1.0, 1.0)
 var colors: Dictionary[int, Color] = {
 	Global.PlayerBodyPart.HYDRAULICS:  Color(1.0,1.0,1.0),

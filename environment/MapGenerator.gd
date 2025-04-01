@@ -216,63 +216,77 @@ func generate_world(sandbox: bool = false) -> void:
 	await randomize_environment()
 	
 	if not Engine.is_editor_hint():
-		if not sandbox:
-			generate_vegetation()
-			set_text("Spawning player and warehouse")
-			spawn_object("res://environment/items/flashlight.tscn", Vector3(10, 0, 0))
-		if sandbox:
-			force_spawn_object("res://sandbox.tscn", Vector3.ZERO)
-		else:
-			var warehouse_position = spawn_warehouse(0.2)
-			if warehouse_position != null:
-				warehouse_position.y += 10
-				force_spawn_object("res://player/player.tscn", warehouse_position)
+		generate_vegetation()
+		set_text("Spawning player and warehouse")
+		spawn_object("res://environment/items/tools/ItemFlashlight.tscn", Vector3(10, 0, 0))
+		#spawn_object("res://environment/warehouse.tscn", Vector3.ZERO)
+		var warehouse = spawn_warehouse(1.5)
+		force_spawn_object("res://player/player.tscn", warehouse.global_position + Vector3(0, 1.5, 0))
 	reset_generation_values()
-	print("FINISH(ING GENERATION!!!!)")
 	generation_finished.emit()
 
-func spawn_warehouse(slope_threshold: float):
+func spawn_warehouse(height_threshold: float):
 	var warehouse_scene: PackedScene = load("res://environment/warehouse.tscn")
 	var warehouse: Node3D = warehouse_scene.instantiate()
 	get_node("GeneratedItems").add_child(warehouse)
 	var edges: Array[Node] = warehouse.get_node("GroundedAreas").get_children()
-	var has_found_valid_terrain: bool = false
 	var attempts: int = 0
-	var max_attempts: int = 10000  # Avoid infinite loops
+	var max_attempts: int = 5000
 
-	while not has_found_valid_terrain and attempts < max_attempts:
+	while attempts < max_attempts:
 		attempts += 1
-		# Randomize a position within the map bounds
-		var x_pos = randf_range(-map_size / 2, map_size / 2)
-		var z_pos = randf_range(-map_size / 2, map_size / 2)
-		ray.position = Vector3(x_pos, 100, z_pos)
-		ray.target_position = Vector3(x_pos, -100, z_pos)
-		ray.force_raycast_update()
-	
-		if ray.is_colliding():
-			var collision_point = ray.get_collision_point()
-			warehouse.position = collision_point
+		var x_pos = randf_range(-map_size / 2 + 5, map_size / 2 - 5)
+		var z_pos = randf_range(-map_size / 2 + 5, map_size / 2 - 5)
+		var base_position = Vector3(x_pos, 100, z_pos)
+		var base_hit = cast_ray(base_position)
 
-			# Check slope for all edges
-			has_found_valid_terrain = true
-			for edge in edges:
-				var edge_x = clamp(collision_point.x + edge.global_position.x + map_size / 2, 0, map_size - 1)
-				var edge_z = clamp(collision_point.z + edge.global_position.z + map_size / 2, 0, map_size - 1)
+		if base_hit == null:
+			continue  # No ground detected, retry
 
-				# Use slopemap to check slope at the edge's position
-				var edge_slope = slopemap[edge_z][edge_x]
-				print("found " + str(edge_slope)) 
-				if edge_slope > slope_threshold:
-					has_found_valid_terrain = false
-					break  # Invalid slope for this edge
+		warehouse.position = base_hit
+		
 
-	if has_found_valid_terrain:
-		print("Successfully placed warehouse after " + str(attempts) + " attempts")
-		return warehouse.global_position
-	else:
-		print("Failed to place warehouse after maximum attempts.")
-		return null
+		var height_samples: Array = []
+		var valid_terrain: bool = true
 
+		# Check height consistency over a 5x5 grid around edges
+		for edge in edges:
+			var edge_pos = warehouse.to_global(edge.position)
+			for i in range(5):
+				for j in range(5):
+					var offset = Vector3((i - 2) * 2, 0, (j - 2) * 2)  # Grid sampling
+					var sample_pos = edge_pos + offset + Vector3(0, 100, 0)
+					var sample_hit = cast_ray(sample_pos)
+					if sample_hit == Vector3.INF:
+						valid_terrain = false
+						break
+					height_samples.append(sample_hit.y)
+					print(abs(sample_hit.y - base_hit.y))
+					if abs(sample_hit.y - base_hit.y) > height_threshold:
+						valid_terrain = false
+						break
+				if not valid_terrain:
+					break
+			if not valid_terrain:
+				break
+
+		# Ensure no edge is too far apart
+		if valid_terrain:
+			var min_height = height_samples.min()
+			var max_height = height_samples.max()
+			if (max_height - min_height) <= height_threshold:
+				return warehouse
+
+	warehouse.queue_free()  # Failed to place warehouse
+
+func cast_ray(position: Vector3) -> Vector3:
+	ray.position = position
+	ray.target_position = Vector3(0, -200, 0)
+	ray.force_raycast_update()
+
+	if ray.is_colliding():
+		return ray.get_collision_point()
+	return Vector3.INF
 
 func set_seeds() -> void:
 	set_text("Setting seed")
@@ -288,22 +302,22 @@ func reset_generation_values() -> void:
 	generate = false
 	generation_override = false
 
-func spawn_object(packed_scene: String, position: Vector3, height_offset: int = 0):
+func spawn_object(packed_scene: String, position: Vector3):
 	ray.position = Vector3(position.x, 100, position.y)
 	ray.target_position = Vector3(0, -300, 0)
 	ray.force_raycast_update()
 	if ray.is_colliding():
 		var object_scene: PackedScene = load(packed_scene)
 		var object = object_scene.instantiate()
-		object.position = ray.get_collision_point() + Vector3(0, height_offset, 0)
+		object.position = ray.get_collision_point()
 		get_node("GeneratedItems").add_child(object)
 		return object
 
-func force_spawn_object(packed_scene: String, position: Vector3):
+func force_spawn_object(packed_scene: String, position: Vector3, path: String = "GeneratedItems"):
 	var object_scene: PackedScene = load(packed_scene)
 	var object = object_scene.instantiate()
 	object.position = position
-	get_node("GeneratedItems").add_child(object)
+	get_node(path).add_child(object)
 
 func generate_trees(number_of_trees: int) -> void:
 	var half_map = float(map_size) / 2
