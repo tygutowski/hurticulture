@@ -1,6 +1,6 @@
 [gd_scene load_steps=3 format=3 uid="uid://bvonlhcpxwyr6"]
 
-[ext_resource type="PackedScene" uid="uid://cdynr0hh06qx1" path="res://Birch_002.fbx" id="1_xqum3"]
+[ext_resource type="PackedScene" uid="uid://cgrit14104klf" path="res://Birch_002.fbx" id="1_xqum3"]
 [ext_resource type="Material" uid="uid://bu0oeoef1pmaw" path="res://birch_leaves.tres" id="2_sxnli"]
 
 [node name="Birch_002" instance=ExtResource("1_xqum3")]

@@ -48,5 +48,5 @@ volume_db = -30.0
 
 [node name="BuzzingAudio" type="AudioStreamPlayer3D" parent="."]
 stream = ExtResource("6_dy7ul")
-volume_db = -10.0
-max_distance = 20.0
+volume_db = -30.0
+unit_size = 40.0

@@ -211,7 +211,7 @@ func _physics_process(delta: float) -> void:
 	get_node("MeshAndAnimation/AnimationTree")["parameters/WalkVector/blend_position"] = -Vector2(local_velocity.x, local_velocity.z)
 	#get_node("MeshAndAnimation/AnimationTree")["parameters/LookAngle/blend_position"] = Vector2(gameplay_head.rotation.y, gameplay_head.get_node("HeadPivot").rotation.x)
 
-	if input_dir != Vector2.ZERO:
+	if input_dir != Vector2.ZERO and is_on_floor():
 		camera.v_offset = lerp(camera.v_offset, sin(Time.get_unix_time_from_system()*3 * movement_speed)/48 * movement_speed, 0.2)
 	else:
 		camera.v_offset = lerp(camera.v_offset, 0.0, 0.2)
@@ -243,6 +243,8 @@ func normalize_angle(degrees: float) -> float:
 
 
 func handle_computers(event: InputEvent) -> void:
+	if pause_menu.pause_menu_opened:
+		return
 	computerray.force_raycast_update()
 	for computer: Node3D in computer_list:
 		if computerray.is_colliding():

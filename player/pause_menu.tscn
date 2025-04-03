@@ -20,6 +20,7 @@ offset_bottom = 33.0
 grow_horizontal = 2
 grow_vertical = 2
 size_flags_horizontal = 4
+mouse_filter = 0
 theme = ExtResource("2_oi342")
 
 [node name="ResumeButton" type="Button" parent="VBoxContainer"]

@@ -12,8 +12,6 @@ var occupying_slots: Array = []
 @export var hotbar_texture: Texture = null
 
 func _ready() -> void:
-	print("item")
-	print('2')
 	occupying_slots = Global.item_shape_slot_occupation[inventory_shape]
 	#assert(inventory_texture is Texture, "Item's inventory texture isn't a Texture")
 
