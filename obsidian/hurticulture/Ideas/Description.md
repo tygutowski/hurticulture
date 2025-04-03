@@ -1,0 +1,1 @@
+1. "a cooperative survival horror game set on a barren planet, where your party plays as robots and must farm, forage, and fight off monsters. by day, you'll plant and maintain crops, which can be sold, or converted into fuel to keep your base running. at night, you must defend yourself from hostile threats. teamwork and resource management are key for survival."
