@@ -1,0 +1,1 @@
+**gameplay description:** points towards the base

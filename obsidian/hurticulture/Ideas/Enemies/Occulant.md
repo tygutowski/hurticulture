@@ -3,7 +3,7 @@
 **rarity:** #rarity-uncommon
 **fear:** #fear-low
 **spawn prerequisite:** darkness
-**attributes:**
+**attributes:** 
 **visual description:** A small rounded humanoid monster with an enormous eyeball.
 
 **encounter:** Occulants will only spawn at dusk and wander in the dark.

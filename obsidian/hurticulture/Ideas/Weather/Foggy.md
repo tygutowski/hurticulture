@@ -1,1 +1,1 @@
-**description:** Extremely limited visibility.
+**weather description:**  Extremely limited visibility.
