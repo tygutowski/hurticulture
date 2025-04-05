@@ -1,14 +1,10 @@
-[gd_scene load_steps=10 format=4 uid="uid://cv15t3tmcetnu"]
+[gd_scene load_steps=11 format=4 uid="uid://cv15t3tmcetnu"]
 
 [ext_resource type="Script" uid="uid://bndnfp3qyajme" path="res://environment/items/tools/ItemFlashlight.gd" id="1_hp6w2"]
 [ext_resource type="Texture2D" uid="uid://bjev117e6gm3c" path="res://items/Flashlight/Flashlight.png" id="2_78h6x"]
-[ext_resource type="Texture2D" uid="uid://51n8kkae7ttj" path="res://InventoryItemFlashlight.png" id="2_4561b"]
-[ext_resource type="Texture2D" uid="uid://bv82mnr1h3get" path="res://GUI/flashlight_texture.png" id="3_imaom"]
-
-[sub_resource type="CylinderShape3D" id="CylinderShape3D_5exht"]
-margin = 1.0
-height = 0.58667
-radius = 0.0893555
+[ext_resource type="Texture2D" uid="uid://bv82mnr1h3get" path="res://GUI/flashlight_texture.png" id="2_n1cg6"]
+[ext_resource type="PackedScene" uid="uid://dv86qo0tus0n2" path="res://ItemUsableComponent.tscn" id="3_n1cg6"]
+[ext_resource type="PackedScene" uid="uid://3rf4so820epu" path="res://ItemSnappableComponent.tscn" id="4_hrm8v"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_vdkfi"]
 albedo_texture = ExtResource("2_78h6x")
@@ -55,27 +51,38 @@ _surfaces = [{
 blend_shape_mode = 0
 shadow_mesh = SubResource("ArrayMesh_vkqwq")
 
-[node name="Flashlight" type="StaticBody3D"]
+[sub_resource type="CylinderShape3D" id="CylinderShape3D_5exht"]
+margin = 1.0
+height = 0.58667
+radius = 0.0893555
+
+[node name="Flashlight" type="Node3D"]
 script = ExtResource("1_hp6w2")
-inventory_shape = 1
-inventory_texture = ExtResource("2_4561b")
-hotbar_texture = ExtResource("3_imaom")
+inventory_texture = ExtResource("2_n1cg6")
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 1.55274e-09, -6.91648e-09, 0.0355225)
-shape = SubResource("CylinderShape3D_5exht")
+[node name="ItemUsableComponent" parent="." instance=ExtResource("3_n1cg6")]
 
-[node name="Mesh" type="MeshInstance3D" parent="."]
+[node name="ItemSnappableComponent" parent="." instance=ExtResource("4_hrm8v")]
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
 transform = Transform3D(1.16824e-06, 6, -2.62268e-07, -6, 1.16824e-06, -2.55808e-14, 2.54846e-14, 2.62268e-07, 6, 0, 0, 0)
 material_override = SubResource("StandardMaterial3D_vdkfi")
 mesh = SubResource("ArrayMesh_ldxw6")
 skeleton = NodePath("")
 
 [node name="SpotLight3D" type="SpotLight3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -0.113311)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -0.262828)
 light_color = Color(0.83, 1, 0.9915, 1)
 light_energy = 2.0
 shadow_enabled = true
 spot_range = 20.0
 spot_angle = 30.0
 spot_angle_attenuation = 1.68179
+
+[node name="StaticBody3D" type="StaticBody3D" parent="." groups=["item_hitbox"]]
+collision_layer = 8
+collision_mask = 8
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="StaticBody3D"]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 1.55274e-09, -6.91648e-09, 0.0355225)
+shape = SubResource("CylinderShape3D_5exht")

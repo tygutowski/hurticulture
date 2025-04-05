@@ -1,0 +1,5 @@
+Generic class
+```
+pickup()
+drop()
+```

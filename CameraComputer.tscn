@@ -1,4 +1,4 @@
-[gd_scene load_steps=10 format=4 uid="uid://c5g70al4ueyt3"]
+[gd_scene load_steps=9 format=4 uid="uid://c5g70al4ueyt3"]
 
 [ext_resource type="Texture2D" uid="uid://8gawlimjmp03" path="res://PSX Tech/Models/GLB/screen_etx_1_partial_electronics_etx_part_1.png" id="1_rvd7s"]
 [ext_resource type="Script" uid="uid://cc1mwya8cg7ex" path="res://camera_computer.gd" id="1_xqrin"]
@@ -29,15 +29,18 @@ _surfaces = [{
 }]
 blend_shape_mode = 0
 
+[sub_resource type="ViewportTexture" id="ViewportTexture_xqrin"]
+viewport_path = NodePath("../SubViewport")
+
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_oswwj"]
+resource_local_to_scene = true
 resource_name = "electronics_etx_part_1_screen"
 cull_mode = 2
-albedo_texture = ExtResource("1_rvd7s")
-roughness = 0.3
-emission_enabled = true
+albedo_texture = SubResource("ViewportTexture_xqrin")
 emission_texture = ExtResource("2_xqrin")
 
 [sub_resource type="ArrayMesh" id="ArrayMesh_fiha6"]
+resource_local_to_scene = true
 resource_name = "screen_etx_1_partial_screen_etx_1_partial_round_screen_mesh"
 _surfaces = [{
 "aabb": AABB(-0.1368, -4.51864e-08, -0.099, 0.2736, 0.039, 0.198),
@@ -54,12 +57,6 @@ _surfaces = [{
 }]
 blend_shape_mode = 0
 
-[sub_resource type="ViewportTexture" id="ViewportTexture_rvd7s"]
-
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_xqrin"]
-resource_local_to_scene = true
-albedo_texture = SubResource("ViewportTexture_rvd7s")
-
 [node name="CameraTV" type="Node3D"]
 script = ExtResource("1_xqrin")
 
@@ -73,5 +70,3 @@ skeleton = NodePath("")
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.1008, 0)
 gi_mode = 2
 mesh = SubResource("ArrayMesh_fiha6")
-skeleton = NodePath("")
-surface_material_override/0 = SubResource("StandardMaterial3D_xqrin")

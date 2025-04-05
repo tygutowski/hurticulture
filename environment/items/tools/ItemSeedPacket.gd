@@ -5,7 +5,7 @@ class_name Seed
 
 # Seed is used to instance Plants
 func plant_seed() -> void:
-	var position_looking_at = player_holding_me.get_looking_at_ray()
+	var position_looking_at = thing_holding_me.get_looking_at_ray()
 	if position_looking_at != null:
 		var plant_scene: PackedScene = load("res://environment/plants/" + (Global.seed_types[seed_type]) + ".tscn")
 		var plant: Plant = plant_scene.instantiate()

@@ -2,9 +2,9 @@
 extends Node3D
 
 @export var viewport: SubViewport
-@onready var screen_mesh: MeshInstance3D = get_node("ComputerMesh/ScreenMesh")
-
 
 func _ready() -> void:
 	if viewport != null:
-		screen_mesh.get_surface_override_material(0).albedo_texture.viewport_path = get_path_to(viewport)
+		var mesh: Mesh = get_node("ComputerMesh/ScreenMesh").mesh
+		var surface = mesh.surface_get_material(0)
+		surface.albedo_texture.viewport_path = get_path_to(viewport)

@@ -2,8 +2,7 @@ class_name Player
 extends CharacterBody3D
 
 var mouse_sensitivity = 0.3
-const JUMP_VELOCITY = 4.5
-var is_holding : bool = false
+const JUMP_VELOCITY = 5
 const ACCELERATION : float = 13
 const FRICTION : float = 14
 const MAX_HEAD_TURN_ANGLE: float = 25
@@ -26,6 +25,8 @@ var feet_stance_angle: float = 0
 @onready var computer_list: Array = get_tree().get_nodes_in_group("computers")
 @onready var robotmesh = get_node("MeshAndAnimation/RobotAnimated/Robot_Armature/Skeleton3D/RobotMesh")
 
+@onready var item_hand = head_pivot.get_node("ItemHand")
+
 const WALK_SPEED : float = 3
 const RUN_SPEED : float = 5
 var pullback_time : float = 0.0
@@ -33,11 +34,15 @@ var max_pullback_time : float = 2.0
 
 var can_interact : bool = true
 var gamestate: PeerGameState
-var hotbar_index: int = 0
-@onready var hotbar: Node = %hud.get_node("Hotbar/HBoxContainer")
-@onready var max_hotbar_slots = hotbar.get_child_count()
+var inventory_index: int = 0
+@export var inventory_size: int = 6
+@onready var inventory: Array[Item]
+@onready var max_inventory_slots = inventory_size
+@onready var inventory_node: Node = %hud.get_node("Hotbar/HBoxContainer")
 
 func _ready() -> void:
+	for i in range(inventory_size):
+		inventory.append(null)
 	gamestate = PeerGameState.new()
 	set_hotbar_index(0)
 	camera.fov = Settings.fov
@@ -58,6 +63,7 @@ func interact() -> void:
 	can_interact = false
 	timer.start()
 
+
 func pickup_item(item: Item) -> void:
 	item.position = Vector3.ZERO
 	item.rotation = Vector3.ZERO
@@ -66,6 +72,30 @@ func pickup_item(item: Item) -> void:
 	item.get_parent().remove_child(item)
 	Debug.debug("Attempting to pick up item")
 	# if the player has an item, fill in next slot
+	if held_item != null:
+		for i in range(len(inventory)):
+			if inventory[i] == null:
+				inventory[i] = item
+				var new_slot = inventory_node.get_child(i)
+				new_slot.texture = item.hotbar_texture
+				new_slot.stretch_mode = TextureRect.StretchMode.STRETCH_SCALE
+				Debug.debug("Picking up item in inventory")
+				break
+	else:
+		inventory[inventory_index] = item
+		var new_slot = inventory_node.get_child(inventory_index)
+		new_slot.texture = item.hotbar_texture
+		new_slot.stretch_mode = TextureRect.StretchMode.STRETCH_SCALE
+		Debug.debug("Picking up item in hand")
+	update_held_item()
+
+func update_held_item() -> void:
+	var item: Item = inventory[inventory_index]
+	held_item = item
+	for child in item_hand.get_children():
+		item_hand.remove_child(child)
+	if item != null:
+		item_hand.add_child(held_item)
 
 func get_looking_at_ray():
 	dropray.force_raycast_update()
@@ -74,9 +104,19 @@ func get_looking_at_ray():
 	else:
 		return null
 
-func drop_it() -> void:
+
+func drop_item() -> void:
+	Debug.debug("dropping item")
+	# remove item from hotbar
+	# remove item from players hand
+	# remove item from inventory
+	# drop item on ground
 	# if youre holding an item
 	if held_item != null:
+		# set item to null
+		inventory[inventory_index] = null
+		# remove image from hotbar
+		inventory_node.get_child(inventory_index - 1).texture = null
 		held_item.thing_holding_me = null
 		held_item.get_dropped()
 		# make sure its not yours anymore
@@ -102,51 +142,26 @@ func drop_it() -> void:
 			world.get_node("Items").add_child(held_item)
 			held_item.rotation = Vector3(0, rotation.y, 0)
 
-func hold_item(item : Node3D) -> void:
-	Debug.debug("holding item")
-	if not is_holding and can_interact:
-		interact()
-		held_item = item
-		held_item.is_being_held = true
-		is_holding = true
-
-func drop_item() -> void:
-	Debug.debug("drop item")
-	if is_holding and can_interact:
-		interact()
-		held_item.is_being_held = false
-		is_holding = false
-
 func set_hotbar_index(index: int) -> void:
 	# 5 slots if 4 index
-	var max_hotbar_index = max_hotbar_slots - 1
-	if index > max_hotbar_index:
+	var max_inventory_index = max_inventory_slots - 1
+	if index > max_inventory_index:
 		return
-	hotbar_index = index
-	for slot in hotbar.get_children():
+	inventory_index = index
+	for slot in inventory_node.get_children():
 		slot.get_node("SelectionTexture").visible = false
-	hotbar.get_child(index).get_node("SelectionTexture").visible = true
+	inventory_node.get_child(index).get_node("SelectionTexture").visible = true
+	update_held_item()
 
 func set_bodypart_color(color, body_part_selected) -> void:
 	var material: ShaderMaterial = robotmesh.get_surface_override_material(0)
 	material.set_shader_parameter("color_" + str(body_part_selected), color)
 
-func _physics_process(delta: float) -> void:	
+func _physics_process(delta: float) -> void:
 	if held_item != null and increment_progress_bar:
 		var diff = 100.0/held_item.hold_duration * delta
 		$hud/TextureProgressBar.value += diff
-	if Input.is_action_just_pressed("interact"):
-		if is_holding and can_interact:
-			drop_item()
-	if Input.is_action_pressed("lmb"):
-		if is_holding and can_interact:
-			pullback_time = clamp(0, pullback_time + delta, max_pullback_time)
-		else:
-			if pullback_time != 0:
-				held_item.throw(pullback_time)
-				drop_item()
-			pullback_time = 0
-		
+
 	if not is_on_floor():
 		velocity += get_gravity() * delta
 
@@ -160,14 +175,14 @@ func _physics_process(delta: float) -> void:
 			if Input.is_action_just_pressed("lmb"):
 				held_item.use_item()
 		if Input.is_action_just_pressed("drop"):
-			drop_it()
+			drop_item()
 		elif Input.is_action_just_pressed("reload"):
 			held_item.reload_item()
 	
 	if Input.is_action_just_pressed("scroll_down"):
-		set_hotbar_index((hotbar_index + 1) % 4)
+		set_hotbar_index((inventory_index + 1) % max_inventory_slots)
 	elif Input.is_action_just_pressed("scroll_up"):
-		set_hotbar_index((hotbar_index - 1) % 4)
+		set_hotbar_index((inventory_index - 1) % max_inventory_slots)
 	elif Input.is_action_just_pressed("one"):
 		set_hotbar_index(0)
 	elif Input.is_action_just_pressed("two"):
@@ -268,7 +283,10 @@ func handle_computers(event: InputEvent) -> void:
 				computer.input(event, actual_coords)
 		else:
 			computer.mouse_outside_area()
+
 func _process(delta: float) -> void:
+	# check to see if youre hovering over an interactable using the interactray
+	interactray.check_interactions(self)
 	var event = InputEventMouseMotion.new()
 	handle_computers(event)
 

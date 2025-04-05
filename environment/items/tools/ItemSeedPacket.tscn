@@ -1,27 +1,30 @@
 [gd_scene load_steps=5 format=3 uid="uid://cb8f1calsvae5"]
 
 [ext_resource type="Script" uid="uid://bwrdtderbu66j" path="res://environment/items/tools/ItemSeedPacket.gd" id="1_q21fr"]
-[ext_resource type="PackedScene" uid="uid://by0kduglale5e" path="res://InventoryItemSeedPacket.tscn" id="2_rrpfw"]
-
-[sub_resource type="SphereShape3D" id="SphereShape3D_8p7lw"]
-radius = 0.05
+[ext_resource type="PackedScene" uid="uid://dv86qo0tus0n2" path="res://ItemUsableComponent.tscn" id="2_rrpfw"]
 
 [sub_resource type="SphereMesh" id="SphereMesh_7lidg"]
 radius = 0.05
 height = 0.1
 
-[node name="Seed" type="StaticBody3D"]
-collision_layer = 3
-collision_mask = 2
+[sub_resource type="SphereShape3D" id="SphereShape3D_8p7lw"]
+radius = 0.05
+
+[node name="SeedPacket" type="Node3D"]
 script = ExtResource("1_q21fr")
-inventory_texture_scene = ExtResource("2_rrpfw")
-inventory_texture = "<null>"
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
-transform = Transform3D(4.53579e-07, 2.5366, -1.10878e-07, -2.5366, 4.53579e-07, -9.0118e-15, 9.0118e-15, 1.10878e-07, 2.5366, 0, 0, 0)
-shape = SubResource("SphereShape3D_8p7lw")
+[node name="ItemUsableComponent" parent="." instance=ExtResource("2_rrpfw")]
 
-[node name="Mesh" type="MeshInstance3D" parent="."]
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
 transform = Transform3D(4.53579e-07, 2.5366, -1.10878e-07, -2.5366, 4.53579e-07, -9.0118e-15, 9.0118e-15, 1.10878e-07, 2.5366, 0, 0, 0)
 mesh = SubResource("SphereMesh_7lidg")
 skeleton = NodePath("")
+
+[node name="StaticBody3D" type="StaticBody3D" parent="." groups=["item_hitbox"]]
+collision_layer = 3
+collision_mask = 2
+script = ExtResource("1_q21fr")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="StaticBody3D"]
+transform = Transform3D(4.53579e-07, 2.5366, -1.10878e-07, -2.5366, 4.53579e-07, -9.0118e-15, 9.0118e-15, 1.10878e-07, 2.5366, 0, 0, 0)
+shape = SubResource("SphereShape3D_8p7lw")

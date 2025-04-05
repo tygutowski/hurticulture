@@ -1,26 +1,21 @@
 extends RayCast3D
 
 @onready var prompt = get_node('PromptLabel')
-@onready var player = get_tree().get_first_node_in_group("player")
 
 func _ready():
 	add_exception(owner)
 
-func _physics_process(_delta: float) -> void:
+func check_interactions(player: Player) -> void:
 	prompt.text = ''
-	if not player.is_holding:
-		if is_colliding():
-			var detected = get_collider()
-			if detected is Interactable:
-				prompt.text = 'Interact [E]'
-				if Input.is_action_just_pressed("interact"):
-					detected.interact()
-			#got rid of physics items for resident evil style inventory
-			#if detected is Holdable:
-			#	prompt.text = 'Pickup [E]'
-			#	if Input.is_action_just_pressed("interact"):
-			#		player.hold_item(detected)
-			if detected is Item:
-				prompt.text = 'Pickup [E]'
+	force_raycast_update()
+	if is_colliding():
+		var detected = get_collider()
+		if detected.is_in_group("item_hitbox"):
+			if detected.get_parent() is Item:
+				prompt.text = 'Pickup'
 				if Input.is_action_just_pressed("interact"):
 					player.pickup_item(detected)
+		if detected is Interactable:
+			prompt.text = 'Interact'
+			if Input.is_action_just_pressed("interact"):
+				detected.interact()

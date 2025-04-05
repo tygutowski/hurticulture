@@ -1,5 +1,4 @@
-class_name Fruit
-extends ItemGeneric
+extends Item
 
 @export var fuel_amount : float = 10000
 @export var is_on_tree: bool = false

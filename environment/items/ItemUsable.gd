@@ -1,5 +1,5 @@
 extends Item
-class_name ItemUsable
+class_name ItemUsableComponent
 
 # Usable Items
 @export var held_down_item: bool = false
@@ -9,6 +9,9 @@ class_name ItemUsable
 var using_item: bool = false
 var interval_duration: float = 0.0
 var use_duration: float = 0.0
+
+func _ready() -> void:
+	assert(get_parent() is Item)
 
 func _process(delta) -> void:
 	if held_down_item and using_item:
@@ -23,12 +26,12 @@ func _process(delta) -> void:
 
 
 func stop_player_chargebar() -> void:
-	player_holding_me.get_node("hud/TextureProgressBar").visible = false
+	thing_holding_me.get_node("hud/TextureProgressBar").visible = false
 
 func start_player_chargebar() -> void:
-	player_holding_me.get_node("hud/TextureProgressBar").visible = true
-	player_holding_me.get_node("hud/TextureProgressBar").value = 0
-	player_holding_me.increment_progress_bar = true
+	thing_holding_me.get_node("hud/TextureProgressBar").visible = true
+	thing_holding_me.get_node("hud/TextureProgressBar").value = 0
+	thing_holding_me.increment_progress_bar = true
 
 func begin_using_item() -> void:
 	Debug.debug("Begin using item")

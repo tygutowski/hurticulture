@@ -1,0 +1,8 @@
+{
+	"nodes":[
+		{"id":"5c9a07809301b08b","x":-829,"y":-555,"width":400,"height":400,"type":"file","file":"hurticulture/Software Design/Components/DealDamage.md"},
+		{"id":"222b46ea13cdcf23","x":-785,"y":-36,"width":400,"height":400,"type":"file","file":"hurticulture/Software Design/Components/TakeDamage.md"},
+		{"id":"9154db1c901879f8","x":-385,"y":-710,"width":400,"height":400,"type":"file","file":"hurticulture/Software Design/Components/Health.md"}
+	],
+	"edges":[]
+}

@@ -1,6 +1,6 @@
 [gd_scene load_steps=8 format=3 uid="uid://ddfxev1m3e0r3"]
 
-[ext_resource type="Script" uid="uid://ci64e0rd42jhg" path="res://electrical/siren_light.gd" id="1_gfrl7"]
+[ext_resource type="Script" uid="uid://ci64e0rd42jhg" path="res://electrical/SirenLight.gd" id="1_gfrl7"]
 [ext_resource type="Material" uid="uid://c4au2o6d00ylh" path="res://environment/materials/sirenlight_on.tres" id="2_pml5m"]
 [ext_resource type="Material" uid="uid://bsa0d2vibumou" path="res://environment/materials/metal_material.tres" id="3_wcpbq"]
 

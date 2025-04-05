@@ -1,0 +1,1 @@
+An item that can be thrown. Does different things upon impact.

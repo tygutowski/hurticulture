@@ -1,0 +1,1 @@
+Can be stabbed to damage at melee range, or thrown to damage at a distance.

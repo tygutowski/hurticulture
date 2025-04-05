@@ -216,10 +216,15 @@ func generate_world(sandbox: bool = false) -> void:
 	await randomize_environment()
 	
 	if not Engine.is_editor_hint():
-		generate_vegetation()
-		set_text("Spawning player and warehouse")
-		var warehouse = spawn_warehouse()
-		force_spawn_object("res://player/player.tscn", warehouse.global_position + Vector3(0, 1.5, 0))
+		if not sandbox:
+			generate_vegetation()
+			set_text("Spawning player and warehouse")
+			var warehouse = spawn_warehouse() 
+			force_spawn_object("res://player/player.tscn", warehouse.global_position + Vector3(0, 1.5, 0))
+		else:
+			force_spawn_object("res://sandbox.tscn", Vector3.ZERO)
+			force_spawn_object("res://player/player.tscn", Vector3(0, 1.5, 0))
+
 	reset_generation_values()
 	generation_finished.emit()
 
