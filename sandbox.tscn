@@ -1,11 +1,10 @@
-[gd_scene load_steps=37 format=4 uid="uid://bnf8skrh5pjuk"]
+[gd_scene load_steps=36 format=4 uid="uid://bnf8skrh5pjuk"]
 
 [ext_resource type="Texture2D" uid="uid://ru1egda7c3j2" path="res://textures/WorldTextures_Rock.png" id="1_0fpt2"]
 [ext_resource type="Material" uid="uid://c8olfqsah5dxj" path="res://TestMaterial.tres" id="2_f2mx5"]
 [ext_resource type="PackedScene" uid="uid://cv15t3tmcetnu" path="res://environment/items/tools/ItemFlashlight.tscn" id="2_y41ub"]
 [ext_resource type="PackedScene" uid="uid://bwu8dfp2qp3kc" path="res://environment/items/fruits/ItemGourd.tscn" id="3_ep13c"]
 [ext_resource type="Texture2D" uid="uid://by2pnm6xl10km" path="res://textures/Stone/Stone_05-128x128.png" id="4_igx0j"]
-[ext_resource type="PackedScene" uid="uid://8h1lgp0f7ekv" path="res://environment/items/tools/ItemShovel.tscn" id="5_e4vjf"]
 [ext_resource type="PackedScene" uid="uid://bfs70m7rkn6ic" path="res://electrical/cctv_camera.tscn" id="6_ypj6x"]
 [ext_resource type="PackedScene" uid="uid://w042e6wfvpt" path="res://SkinPickerComputer.tscn" id="9_igx0j"]
 [ext_resource type="Texture2D" uid="uid://b8anuuwc4ne10" path="res://PSX Tech/Models/GLB/control_panel_etx_1_electronics_etx_part_1.png" id="10_ai2o8"]
@@ -365,8 +364,6 @@ transform = Transform3D(-0.0585398, 0, -0.998285, 0, 1, 0, 0.998285, 0, -0.05853
 
 [node name="RigidBody3D2" parent="." instance=ExtResource("3_ep13c")]
 transform = Transform3D(-0.97942, 0, -0.20183, 0, 1, 0, 0.20183, 0, -0.97942, 7.22468, 0.273275, 6.4671)
-
-[node name="Flashlight2" parent="." instance=ExtResource("5_e4vjf")]
 
 [node name="CCTV1_Viewport" type="SubViewport" parent="."]
 gui_disable_input = true

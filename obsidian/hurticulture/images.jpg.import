@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://tftynms73iy2"
-path="res://.godot/imported/InventorySlotDark.png-033ed813b8ab0722e022038c65e58ff1.ctex"
+uid="uid://blr1738tvbudu"
+path="res://.godot/imported/images.jpg-282fc36c6fd7f429da3de7ea0df195f0.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://InventorySlotDark.png"
-dest_files=["res://.godot/imported/InventorySlotDark.png-033ed813b8ab0722e022038c65e58ff1.ctex"]
+source_file="res://obsidian/hurticulture/images.jpg"
+dest_files=["res://.godot/imported/images.jpg-282fc36c6fd7f429da3de7ea0df195f0.ctex"]
 
 [params]
 

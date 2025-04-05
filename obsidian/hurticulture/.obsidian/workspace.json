@@ -11,14 +11,17 @@
             "id": "1b1628e07ed1a1d7",
             "type": "leaf",
             "state": {
-              "type": "markdown",
+              "type": "canvas",
               "state": {
-                "file": "Ideas/Deployables/Chainlink Fence.md",
-                "mode": "source",
-                "source": false
+                "file": "Board.canvas",
+                "viewState": {
+                  "x": 0,
+                  "y": 0,
+                  "zoom": 0
+                }
               },
-              "icon": "lucide-file",
-              "title": "Chainlink Fence"
+              "icon": "lucide-layout-dashboard",
+              "title": "Board"
             }
           }
         ]
@@ -94,7 +97,6 @@
             "state": {
               "type": "backlink",
               "state": {
-                "file": "Ideas/Deployables/Chainlink Fence.md",
                 "collapseAll": false,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -104,7 +106,7 @@
                 "unlinkedCollapsed": true
               },
               "icon": "links-coming-in",
-              "title": "Backlinks for Chainlink Fence"
+              "title": "Backlinks"
             }
           },
           {
@@ -113,12 +115,11 @@
             "state": {
               "type": "outgoing-link",
               "state": {
-                "file": "Ideas/Deployables/Chainlink Fence.md",
                 "linksCollapsed": false,
                 "unlinkedCollapsed": true
               },
               "icon": "links-going-out",
-              "title": "Outgoing links from Chainlink Fence"
+              "title": "Outgoing links"
             }
           },
           {
@@ -142,13 +143,12 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "Ideas/Deployables/Chainlink Fence.md",
                 "followCursor": false,
                 "showSearch": false,
                 "searchQuery": ""
               },
               "icon": "lucide-list",
-              "title": "Outline of Chainlink Fence"
+              "title": "Outline"
             }
           }
         ]
@@ -168,53 +168,53 @@
       "command-palette:Open command palette": false
     }
   },
-  "active": "1b1628e07ed1a1d7",
+  "active": "6cd9ca5a3c40cad0",
   "lastOpenFiles": [
-    "9s0z70w4o9f11 1.webp.import",
-    "9s0z70w4o9f11.webp.import",
-    "images.jpg.import",
-    "images 1.jpg.import",
-    "Ideas/Deployables/Power Relay.md",
-    "Ideas/Deployables/Chainlink Fence.md",
-    "Ideas/Deployables/Floodlight.md",
-    "Ideas/Deployables/Lamp.md",
-    "Ideas/Deployables/Slot Machine.md",
-    "Ideas/Deployables/Scarecrow.md",
-    "Ideas/Plants/Sparkweed.md",
-    "Ideas/Enemies/Occulant.md",
-    "Ideas/Enemies/Angler.md",
-    "Ideas/Enemies/The Scarecrow.md",
-    "Ideas/Enemies/Tollman.md",
-    "Ideas/Weather/Untitled.md",
-    "Ideas/Weather/New Moon.md",
-    "Ideas/Weather/Full Moon.md",
-    "Ideas/Weather/Foggy.md",
-    "Ideas/Weather/Starstorm.md",
-    "Ideas/Weather/Sunny.md",
-    "Ideas/Weather/Day-Exclusive",
-    "Ideas/Weather/NIght-Exclusive",
-    "Ideas/Player Design.canvas",
-    "Ideas/Weather",
-    "Ideas/Plants/Shriekroot.md",
-    "Ideas/Plants/Blinkvine.md",
-    "9s0z70w4o9f11 1.webp",
-    "9s0z70w4o9f11.webp",
     "images 1.jpg",
     "images.jpg",
-    "Ideas/Deployables",
-    "Ideas/Plants/Moonbloom.md",
-    "Ideas/Enemies",
-    "Ideas/Untitled.md",
-    "Ideas/Plants/Lantern Pod.md",
+    "9s0z70w4o9f11 1.webp",
+    "9s0z70w4o9f11.webp",
+    "Board.canvas",
+    "Ideas/Plants/Flashfruit.md",
     "Ideas/Plants/Emberberry.md",
+    "Ideas/Plants/Fluxfruit.md",
+    "Ideas/Plants/Gravapple.md",
+    "Ideas/Plants/Grenadum.md",
+    "Ideas/Plants/Sparkweed.md",
+    "Ideas/Enemies/Tollman.md",
+    "Ideas/Plants/Featherfruit.md",
+    "Ideas/Enemies/Occulant.md",
+    "Ideas/Enemies/Scarecrow.md",
+    "Ideas/Enemies/Kwirls.md",
+    "Ideas/Enemies/Angler.md",
+    "Ideas/Deployables/Scarecrow.md",
+    "Ideas/Plants/Hush Husk.md",
+    "Ideas/Plants/Lantern Pod.md",
+    "Ideas/Plants/Moonbloom.md",
+    "Ideas/Plants/Shriekroot.md",
     "Ideas/Plants/Cryofern.md",
+    "Ideas/Plants/Blinkvine.md",
     "Ideas/Plants/Banana.md",
+    "Ideas/Deployables/Lamp.md",
+    "Images/Pasted image 20250403091157.png.import",
     "Images/Pasted image 20250403091157.png",
-    "Ideas/Plants.canvas",
-    "Ideas/Plants/Untitled",
-    "Ideas/Plants/Moderate",
-    "Pasted image 20250403092634.png",
+    "Images/Pasted image 20250403091149.png.import",
     "Images/Pasted image 20250403091149.png",
+    "Images",
+    "Ideas/Weather/Untitled.md",
+    "Ideas/Weather/Foggy.md",
+    "Ideas/Weather/Sunny.md",
+    "Ideas/Weather/New Moon.md",
+    "Ideas/Weather",
+    "Ideas/Player Design.canvas",
+    "Ideas/Plants",
+    "Ideas/Enemies",
+    "Ideas/Deployables",
+    "Ideas",
+    "9s0z70w4o9f11 1.webp.import",
+    "9s0z70w4o9f11.webp.import",
+    "Ideas/Plants.canvas",
+    "Pasted image 20250403092634.png",
     "Pasted image 20250403091129.png",
     "Pasted image 20250403091126.png",
     "Pasted image 20250403091121.png"

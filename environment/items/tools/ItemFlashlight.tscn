@@ -1,4 +1,4 @@
-[gd_scene load_steps=13 format=4 uid="uid://cv15t3tmcetnu"]
+[gd_scene load_steps=10 format=4 uid="uid://cv15t3tmcetnu"]
 
 [ext_resource type="Script" uid="uid://bndnfp3qyajme" path="res://environment/items/tools/ItemFlashlight.gd" id="1_hp6w2"]
 [ext_resource type="Texture2D" uid="uid://bjev117e6gm3c" path="res://items/Flashlight/Flashlight.png" id="2_78h6x"]
@@ -7,8 +7,8 @@
 
 [sub_resource type="CylinderShape3D" id="CylinderShape3D_5exht"]
 margin = 1.0
-height = 0.103817
-radius = 0.0148278
+height = 0.58667
+radius = 0.0893555
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_vdkfi"]
 albedo_texture = ExtResource("2_78h6x")
@@ -55,67 +55,6 @@ _surfaces = [{
 blend_shape_mode = 0
 shadow_mesh = SubResource("ArrayMesh_vkqwq")
 
-[sub_resource type="Animation" id="Animation_xq4fn"]
-length = 0.001
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath(".:position")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [Vector3(0, 0, 0)]
-}
-tracks/1/type = "value"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath(".:rotation")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [Vector3(0, 0, 0)]
-}
-
-[sub_resource type="Animation" id="Animation_tht03"]
-resource_name = "pickup"
-loop_mode = 1
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath(".:position")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [Vector3(0.345, -0.18, -0.43)]
-}
-tracks/1/type = "value"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath(".:rotation")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [Vector3(0, -0.113446, 0.228638)]
-}
-
-[sub_resource type="AnimationLibrary" id="AnimationLibrary_d7dp8"]
-_data = {
-&"RESET": SubResource("Animation_xq4fn"),
-&"pickup": SubResource("Animation_tht03")
-}
-
 [node name="Flashlight" type="StaticBody3D"]
 script = ExtResource("1_hp6w2")
 inventory_shape = 1
@@ -123,11 +62,11 @@ inventory_texture = ExtResource("2_4561b")
 hotbar_texture = ExtResource("3_imaom")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
-transform = Transform3D(-1.08148e-14, -3.12639e-13, 2.5366, -2.5366, 4.53579e-07, -9.0118e-15, -4.53579e-07, -2.5366, -3.12639e-13, 0, 0, 0.0125006)
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 1.55274e-09, -6.91648e-09, 0.0355225)
 shape = SubResource("CylinderShape3D_5exht")
 
 [node name="Mesh" type="MeshInstance3D" parent="."]
-transform = Transform3D(4.53579e-07, 2.5366, -1.10878e-07, -2.5366, 4.53579e-07, -9.0118e-15, 9.0118e-15, 1.10878e-07, 2.5366, 0, 0, 0)
+transform = Transform3D(1.16824e-06, 6, -2.62268e-07, -6, 1.16824e-06, -2.55808e-14, 2.54846e-14, 2.62268e-07, 6, 0, 0, 0)
 material_override = SubResource("StandardMaterial3D_vdkfi")
 mesh = SubResource("ArrayMesh_ldxw6")
 skeleton = NodePath("")
@@ -140,8 +79,3 @@ shadow_enabled = true
 spot_range = 20.0
 spot_angle = 30.0
 spot_angle_attenuation = 1.68179
-
-[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
-libraries = {
-&"": SubResource("AnimationLibrary_d7dp8")
-}

@@ -1,0 +1,10 @@
+{
+	"nodes":[
+		{"id":"d7100e798c2a80e6","x":-251,"y":-258,"width":250,"height":60,"type":"text","text":""},
+		{"id":"b03b3b53a25e142e","x":-80,"y":-140,"width":250,"height":200,"type":"text","text":""},
+		{"id":"ee28d3de6603bd42","x":-540,"y":-140,"width":390,"height":200,"type":"text","text":"TODO\nReset inventory to hotbar\nFix picking up items\nAdd Flashfruit"}
+	],
+	"edges":[
+		{"id":"d84cf43f4709713f","fromNode":"ee28d3de6603bd42","fromSide":"right","toNode":"b03b3b53a25e142e","toSide":"left"}
+	]
+}

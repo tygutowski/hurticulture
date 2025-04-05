@@ -2,7 +2,7 @@
 **danger:** #danger-medium
 **rarity:** #rarity-uncommon
 **fear:** #fear-low
-**spawn prerequisite:** darkness
+**spawn prerequisite:** Darkness
 **attributes:** 
 **visual description:** A small rounded humanoid monster with an enormous eyeball.
 

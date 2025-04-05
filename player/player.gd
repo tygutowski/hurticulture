@@ -4,14 +4,12 @@ extends CharacterBody3D
 var mouse_sensitivity = 0.3
 const JUMP_VELOCITY = 4.5
 var is_holding : bool = false
-var inventory_open: bool = false
 const ACCELERATION : float = 13
 const FRICTION : float = 14
 const MAX_HEAD_TURN_ANGLE: float = 25
 var increment_progress_bar: bool = false
 var item_preventing_movement: bool = false
 var rotational_offset: float = 0
-@onready var inventory: Control = $hud/Inventory
 @onready var head = get_node("Head")
 @onready var animation_head = head.get_node("BoneAttachment3D/HeadAnimation")
 @onready var gameplay_head = head.get_node("HeadGameplay")
@@ -37,10 +35,10 @@ var can_interact : bool = true
 var gamestate: PeerGameState
 var hotbar_index: int = 0
 @onready var hotbar: Node = %hud.get_node("Hotbar/HBoxContainer")
+@onready var max_hotbar_slots = hotbar.get_child_count()
 
 func _ready() -> void:
 	gamestate = PeerGameState.new()
-	set_inventory_visible(false)
 	set_hotbar_index(0)
 	camera.fov = Settings.fov
 	Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
@@ -63,9 +61,9 @@ func interact() -> void:
 func pickup_item(item: Item) -> void:
 	item.position = Vector3.ZERO
 	item.rotation = Vector3.ZERO
+	item.thing_holding_me = self
 	item.get_node("CollisionShape3D").disabled = true
 	item.get_parent().remove_child(item)
-	item.get_picked_up_by(self)
 	Debug.debug("Attempting to pick up item")
 	# if the player has an item, fill in next slot
 
@@ -79,6 +77,7 @@ func get_looking_at_ray():
 func drop_it() -> void:
 	# if youre holding an item
 	if held_item != null:
+		held_item.thing_holding_me = null
 		held_item.get_dropped()
 		# make sure its not yours anymore
 
@@ -118,16 +117,11 @@ func drop_item() -> void:
 		held_item.is_being_held = false
 		is_holding = false
 
-func set_inventory_visible(value: bool) -> void:
-	Debug.debug(value)
-	inventory.visible = value
-	inventory_open = value
-
-func toggle_inventory_visibility() -> void:
-	Debug.debug("Toggle")
-	set_inventory_visible(not inventory_open)
-
 func set_hotbar_index(index: int) -> void:
+	# 5 slots if 4 index
+	var max_hotbar_index = max_hotbar_slots - 1
+	if index > max_hotbar_index:
+		return
 	hotbar_index = index
 	for slot in hotbar.get_children():
 		slot.get_node("SelectionTexture").visible = false
@@ -137,11 +131,7 @@ func set_bodypart_color(color, body_part_selected) -> void:
 	var material: ShaderMaterial = robotmesh.get_surface_override_material(0)
 	material.set_shader_parameter("color_" + str(body_part_selected), color)
 
-func _physics_process(delta: float) -> void:
-	
-	if Input.is_action_just_pressed("inventory"):
-		toggle_inventory_visibility()
-	
+func _physics_process(delta: float) -> void:	
 	if held_item != null and increment_progress_bar:
 		var diff = 100.0/held_item.hold_duration * delta
 		$hud/TextureProgressBar.value += diff
@@ -178,14 +168,26 @@ func _physics_process(delta: float) -> void:
 		set_hotbar_index((hotbar_index + 1) % 4)
 	elif Input.is_action_just_pressed("scroll_up"):
 		set_hotbar_index((hotbar_index - 1) % 4)
-	elif Input.is_action_just_pressed("hotbar_one"):
+	elif Input.is_action_just_pressed("one"):
 		set_hotbar_index(0)
-	elif Input.is_action_just_pressed("hotbar_two"):
+	elif Input.is_action_just_pressed("two"):
 		set_hotbar_index(1)
-	elif Input.is_action_just_pressed("hotbar_three"):
+	elif Input.is_action_just_pressed("three"):
 		set_hotbar_index(2)
-	elif Input.is_action_just_pressed("hotbar_four"):
+	elif Input.is_action_just_pressed("four"):
 		set_hotbar_index(3)
+	elif Input.is_action_just_pressed("five"):
+		set_hotbar_index(4)
+	elif Input.is_action_just_pressed("six"):
+		set_hotbar_index(5)
+	elif Input.is_action_just_pressed("seven"):
+		set_hotbar_index(6)
+	elif Input.is_action_just_pressed("eight"):
+		set_hotbar_index(7)
+	elif Input.is_action_just_pressed("nine"):
+		set_hotbar_index(8)
+	elif Input.is_action_just_pressed("zero"):
+		set_hotbar_index(9)
 	if Input.is_action_just_pressed("ui_accept") and is_on_floor():
 		velocity.y = JUMP_VELOCITY
 	

@@ -2,7 +2,7 @@
 **danger:** #danger-high
 **rarity:** #rarity-uncommon
 **fear:** #fear-medium
-**spawn prerequisite:** a scarecrow must be placed on the map
+**spawn prerequisite:** A scarecrow must be placed on the map
 **attributes:** #mimic
 **visual description:** A mimic that looks nearly identical to the scarecrow deployable. The only noticeable difference is the lack of a hat.
 
