@@ -19,7 +19,8 @@ enum PlayerBodyPart {
 	FEET        = 4,
 	ARMS        = 5,
 	HEAD        = 6,
-	HEAD_ACCENT = 7
+	HEAD_ACCENT = 7,
+	EYES        = 8
 }
 
 enum PlayerHeads {

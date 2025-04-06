@@ -200,7 +200,7 @@ func play_hovering_noise() -> void:
 func play_clicking_noise() -> void:
 	audio_stream_player_beep.play()
 
-func play_clicking_noise2(_input) -> void:
+func play_clicking_noise2() -> void:
 	audio_stream_player_beep.play()
 
 func _close_miniscreen() -> void:

@@ -1,4 +1,4 @@
-extends Item
+extends Node3D
 class_name ItemUsableComponent
 
 # Usable Items
@@ -26,12 +26,12 @@ func _process(delta) -> void:
 
 
 func stop_player_chargebar() -> void:
-	thing_holding_me.get_node("hud/TextureProgressBar").visible = false
+	get_parent().thing_holding_me.get_node("hud/TextureProgressBar").visible = false
 
 func start_player_chargebar() -> void:
-	thing_holding_me.get_node("hud/TextureProgressBar").visible = true
-	thing_holding_me.get_node("hud/TextureProgressBar").value = 0
-	thing_holding_me.increment_progress_bar = true
+	get_parent().thing_holding_me.get_node("hud/TextureProgressBar").visible = true
+	get_parent().thing_holding_me.get_node("hud/TextureProgressBar").value = 0
+	get_parent().thing_holding_me.increment_progress_bar = true
 
 func begin_using_item() -> void:
 	Debug.debug("Begin using item")

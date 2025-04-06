@@ -42,6 +42,7 @@ mesh = SubResource("BoxMesh_vxbnt")
 
 [node name="SpotLight3D" type="SpotLight3D" parent="Pivot"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.25, -0.25)
+layers = 9
 light_color = Color(1, 0.269902, 0.247604, 1)
 shadow_enabled = true
 spot_range = 30.0
@@ -51,6 +52,7 @@ spot_angle_attenuation = 1.91901
 
 [node name="SpotLight3D2" type="SpotLight3D" parent="Pivot"]
 transform = Transform3D(-1, 0, -8.9407e-08, 0, 1, 0, 8.9407e-08, 0, -1, 0, -0.25, 0.25)
+layers = 9
 light_color = Color(1, 0.269902, 0.247604, 1)
 light_energy = 20.0
 shadow_enabled = true

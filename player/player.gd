@@ -1,6 +1,8 @@
 class_name Player
 extends CharacterBody3D
 
+
+
 var mouse_sensitivity = 0.3
 const JUMP_VELOCITY = 5
 const ACCELERATION : float = 13
@@ -9,6 +11,10 @@ const MAX_HEAD_TURN_ANGLE: float = 25
 var increment_progress_bar: bool = false
 var item_preventing_movement: bool = false
 var rotational_offset: float = 0
+
+@export var robot_eye_material: ShaderMaterial = null
+@export var robot_armor_shader: ShaderMaterial = null
+
 @onready var head = get_node("Head")
 @onready var animation_head = head.get_node("BoneAttachment3D/HeadAnimation")
 @onready var gameplay_head = head.get_node("HeadGameplay")
@@ -21,11 +27,11 @@ var held_item: Item = null
 var feet_stance_angle: float = 0
 @onready var camera = gameplay_head.get_node("HeadPivot/Camera3D")
 @onready var pause_menu = get_node("pausemenu")
-@onready var timer = get_node("Timer")
+
 @onready var computer_list: Array = get_tree().get_nodes_in_group("computers")
 @onready var robotmesh = get_node("MeshAndAnimation/RobotAnimated/Robot_Armature/Skeleton3D/RobotMesh")
 
-@onready var item_hand = head_pivot.get_node("ItemHand")
+@onready var item_hand = get_node("CanvasLayer/SubViewportContainer/SubViewport/Camera3D/PrimaryHand")
 
 const WALK_SPEED : float = 3
 const RUN_SPEED : float = 5
@@ -61,15 +67,18 @@ func load_skin() -> void:
 func interact() -> void:
 	Debug.debug("you can not interact now")
 	can_interact = false
-	timer.start()
+	var timer = Timer.new()
+	timer.connect("timeout", _on_interact_timeout.bind(timer))
+	timer.start(0.25)
 
 
 func pickup_item(item: Item) -> void:
 	item.position = Vector3.ZERO
 	item.rotation = Vector3.ZERO
 	item.thing_holding_me = self
-	item.get_node("CollisionShape3D").disabled = true
+	#item.get_node("CollisionShape3D").disabled = true
 	item.get_parent().remove_child(item)
+	item.get_picked_up()
 	Debug.debug("Attempting to pick up item")
 	# if the player has an item, fill in next slot
 	if held_item != null:
@@ -77,14 +86,14 @@ func pickup_item(item: Item) -> void:
 			if inventory[i] == null:
 				inventory[i] = item
 				var new_slot = inventory_node.get_child(i)
-				new_slot.texture = item.hotbar_texture
+				new_slot.texture = item.inventory_texture
 				new_slot.stretch_mode = TextureRect.StretchMode.STRETCH_SCALE
 				Debug.debug("Picking up item in inventory")
 				break
 	else:
 		inventory[inventory_index] = item
 		var new_slot = inventory_node.get_child(inventory_index)
-		new_slot.texture = item.hotbar_texture
+		new_slot.texture = item.inventory_texture
 		new_slot.stretch_mode = TextureRect.StretchMode.STRETCH_SCALE
 		Debug.debug("Picking up item in hand")
 	update_held_item()
@@ -137,7 +146,6 @@ func drop_item() -> void:
 				held_item.queue_free()
 		if held_item:
 			held_item.position = droppoint
-			held_item.get_node("CollisionShape3D").disabled = false
 			var world = get_tree().get_first_node_in_group("world")
 			world.get_node("Items").add_child(held_item)
 			held_item.rotation = Vector3(0, rotation.y, 0)
@@ -154,8 +162,12 @@ func set_hotbar_index(index: int) -> void:
 	update_held_item()
 
 func set_bodypart_color(color, body_part_selected) -> void:
-	var material: ShaderMaterial = robotmesh.get_surface_override_material(0)
-	material.set_shader_parameter("color_" + str(body_part_selected), color)
+	Debug.debug(body_part_selected)
+	if body_part_selected == Global.PlayerBodyPart.EYES:
+		Debug.debug("Chanigng eyue color")
+		robot_eye_material.set_shader_parameter("emission_color", color)
+	else:
+		robot_armor_shader.set_shader_parameter("color_" + str(body_part_selected), color)
 
 func _physics_process(delta: float) -> void:
 	if held_item != null and increment_progress_bar:
@@ -164,20 +176,23 @@ func _physics_process(delta: float) -> void:
 
 	if not is_on_floor():
 		velocity += get_gravity() * delta
-
+	 
 	if held_item != null:
-		if held_item.held_down_item: # if its an item you must hold down to use
-			if Input.is_action_just_released("lmb"):
-				held_item.stop_using_item()
-			if Input.is_action_just_pressed("lmb"):
-				held_item.begin_using_item()
-		else: # if its an item you click to use
-			if Input.is_action_just_pressed("lmb"):
-				held_item.use_item()
+		if ItemUsableComponent in held_item.item_components:
+			if held_item.held_down_item: # if its an item you must hold down to use
+				if Input.is_action_just_released("lmb"):
+					held_item.stop_using_item()
+				if Input.is_action_just_pressed("lmb"):
+					held_item.begin_using_item()
+			else: # if its an item you click to use
+				if Input.is_action_just_pressed("lmb"):
+					held_item.use_item()
+			if Input.is_action_just_pressed("reload"):
+				held_item.reload_item()
 		if Input.is_action_just_pressed("drop"):
 			drop_item()
-		elif Input.is_action_just_pressed("reload"):
-			held_item.reload_item()
+		if ItemSnappableComponent in held_item.item_components:
+			pass
 	
 	if Input.is_action_just_pressed("scroll_down"):
 		set_hotbar_index((inventory_index + 1) % max_inventory_slots)
@@ -209,8 +224,11 @@ func _physics_process(delta: float) -> void:
 	if Input.is_action_just_pressed("pause"):
 		pause_menu.toggle_pause_menu()
 	var input_dir := Input.get_vector("left", "right", "forward", "backwards")
-	if held_item != null and not held_item.can_move_while_using and held_item.using_item:
-		input_dir = Vector2.ZERO
+	if held_item != null:
+		if ItemUsableComponent in held_item.item_components:
+			var item_usable_component: ItemUsableComponent = held_item.get_node("ItemUsableComponent")
+			if item_usable_component.can_move_while_using and item_usable_component.using_item:
+				input_dir = Vector2.ZERO
 	var direction: Vector3 = (gameplay_head.transform.basis * Vector3(input_dir.x, 0, input_dir.y)).normalized()
 	if input_dir.x != 0:
 		# Interpolate rotation to the target angle
@@ -284,7 +302,7 @@ func handle_computers(event: InputEvent) -> void:
 		else:
 			computer.mouse_outside_area()
 
-func _process(delta: float) -> void:
+func _process(_delta: float) -> void:
 	# check to see if youre hovering over an interactable using the interactray
 	interactray.check_interactions(self)
 	var event = InputEventMouseMotion.new()
@@ -294,12 +312,13 @@ func _process(delta: float) -> void:
 func _input(event):
 	if event is InputEvent:
 		handle_computers(event) # this is for handling viewports
-
-	if held_item and not held_item.can_move_while_using and held_item.using_item:
-		return  # Prevent movement if conditions are met
+	if held_item != null:
+		if ItemUsableComponent in held_item.item_components:
+			var item_usable_component: ItemUsableComponent = held_item.get_node("ItemUsableComponent")
+			if not item_usable_component.can_move_while_using and item_usable_component.using_item:
+				return  # Prevent movement if conditions are met
 
 	var mesh_node = get_node("MeshAndAnimation")
-	var head_pivot = gameplay_head.get_node("HeadPivot")
 	var animation_tree = mesh_node.get_node("AnimationTree")
 
 	var body_rotation = rad_to_deg(mesh_node.rotation.y)
@@ -327,6 +346,7 @@ func _input(event):
 	# Smoothly update body rotation
 	mesh_node.rotation.y = deg_to_rad(local_head_y_rotation - y_head_rotation) - rotational_offset
 		
-func _on_timer_timeout() -> void:
+func _on_interact_timeout(timer) -> void:
 	Debug.debug("you can interact now")
 	can_interact = true
+	timer.queue_free()

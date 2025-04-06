@@ -26,7 +26,7 @@ var dragging_hue: bool = false
 var dragging_hsv: bool = false
 var dragging_camera: bool = false
 var last_mouse_pos: Vector2
-var body_part_selected: int = Global.PlayerBodyPart.HYDRAULICS
+var body_part_selected: int = Global.PlayerBodyPart.EYES
 
 func _ready() -> void:
 	camera_pivot.rotate_z(deg_to_rad(15))
@@ -115,8 +115,8 @@ func set_hsv_box_color() -> void:
 	var shader_material: ShaderMaterial = hsv_box_color_rect.material
 	shader_material.set_shader_parameter("hue", hue)
 
-func _on_body_part_value_changed(value: float) -> void:
-	body_part_selected = value
+func _on_body_part_value_changed(bodypart_index: int) -> void:
+	body_part_selected = bodypart_index
 
 func _on_steampunk_button_pressed() -> void:
 	set_player_head(get_tree().get_first_node_in_group("player"), Global.PlayerHeads.STEAMPUNK)

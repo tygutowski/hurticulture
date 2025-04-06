@@ -2,5 +2,5 @@
 
 [ext_resource type="Script" uid="uid://degwcef6pfilm" path="res://environment/items/tools/ItemSnappable.gd" id="1_2ic3r"]
 
-[node name="ItemSnappableComponent" type="Node"]
+[node name="ItemSnappableComponent" type="Node3D"]
 script = ExtResource("1_2ic3r")

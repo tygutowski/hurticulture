@@ -194,9 +194,12 @@ zero={
 3d_render/layer_1="Normal"
 3d_render/layer_2="Only self can see"
 3d_render/layer_3="Only self cannot see"
+3d_render/layer_4="Held Items"
 3d_physics/layer_1="World"
 3d_physics/layer_2="Items"
+3d_physics/layer_3="Interactable"
 3d_physics/layer_4="Only Raycast"
+3d_physics/layer_5="Player"
 
 [rendering]
 

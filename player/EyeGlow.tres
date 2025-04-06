@@ -1,0 +1,8 @@
+[gd_resource type="ShaderMaterial" load_steps=2 format=3 uid="uid://h4i41kx1n0ir"]
+
+[ext_resource type="Shader" uid="uid://2mdspphv7bl2" path="res://player/Unshaded.gdshader" id="1_yu4lt"]
+
+[resource]
+render_priority = 0
+shader = ExtResource("1_yu4lt")
+shader_parameter/emission_color = Color(3.65794e-06, 0.819409, 0.883682, 1)

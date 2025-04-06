@@ -1,4 +1,4 @@
-[gd_scene load_steps=38 format=4 uid="uid://w042e6wfvpt"]
+[gd_scene load_steps=39 format=4 uid="uid://w042e6wfvpt"]
 
 [ext_resource type="Script" uid="uid://3vmoccslro4g" path="res://skin_picker.gd" id="1_ufgpq"]
 [ext_resource type="Texture2D" uid="uid://cnvd72h4up7fs" path="res://cyberpunk-head-icon.png" id="2_75x12"]
@@ -13,6 +13,7 @@
 [ext_resource type="Material" uid="uid://pi8vprhf5o45" path="res://player/HeadGlass.tres" id="10_eytxp"]
 [ext_resource type="Material" uid="uid://bbn3s20dv6fvo" path="res://player/EyeGlowMaterial.tres" id="11_687pd"]
 [ext_resource type="Texture2D" uid="uid://x0038e63vleu" path="res://cursor.png" id="12_chje6"]
+[ext_resource type="Material" uid="uid://h4i41kx1n0ir" path="res://player/EyeGlow.tres" id="12_g6kv3"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_n0on6"]
 bg_color = Color(0.22, 0.22, 0.22, 1)
@@ -595,7 +596,7 @@ mesh = SubResource("ArrayMesh_epjke")
 skeleton = NodePath("")
 surface_material_override/0 = ExtResource("9_n7ajs")
 surface_material_override/1 = ExtResource("10_eytxp")
-surface_material_override/2 = ExtResource("11_687pd")
+surface_material_override/2 = ExtResource("12_g6kv3")
 
 [node name="Head_02" type="MeshInstance3D" parent="SubViewport/MarginContainer/MarginContainer/HBoxContainer/MarginContainer2/SubViewportContainer/SubSubViewport/RobotMesh"]
 transform = Transform3D(1, 0, 0, 0, 1, 2.98428e-13, 0, -2.98428e-13, 1, 0, -2.18784e-07, 1.8353)
@@ -604,7 +605,7 @@ gi_mode = 2
 mesh = SubResource("ArrayMesh_uhwai")
 skeleton = NodePath("")
 surface_material_override/0 = ExtResource("9_n7ajs")
-surface_material_override/1 = ExtResource("11_687pd")
+surface_material_override/1 = ExtResource("12_g6kv3")
 
 [node name="Head_03" type="MeshInstance3D" parent="SubViewport/MarginContainer/MarginContainer/HBoxContainer/MarginContainer2/SubViewportContainer/SubSubViewport/RobotMesh"]
 transform = Transform3D(1, 0, 0, 0, 1, 2.98428e-13, 0, -2.98428e-13, 1, 0, -2.18784e-07, 1.8353)
@@ -613,7 +614,7 @@ gi_mode = 2
 mesh = SubResource("ArrayMesh_p7svt")
 skeleton = NodePath("")
 surface_material_override/0 = ExtResource("9_n7ajs")
-surface_material_override/1 = ExtResource("11_687pd")
+surface_material_override/1 = ExtResource("12_g6kv3")
 
 [node name="Head_01" type="MeshInstance3D" parent="SubViewport/MarginContainer/MarginContainer/HBoxContainer/MarginContainer2/SubViewportContainer/SubSubViewport/RobotMesh"]
 transform = Transform3D(1, 0, 0, 0, 1, 2.98428e-13, 0, -2.98428e-13, 1, 0, -2.18784e-07, 1.8353)
@@ -623,7 +624,7 @@ mesh = SubResource("ArrayMesh_0xycy")
 skeleton = NodePath("")
 surface_material_override/0 = ExtResource("9_n7ajs")
 surface_material_override/1 = ExtResource("11_687pd")
-surface_material_override/2 = ExtResource("10_eytxp")
+surface_material_override/2 = ExtResource("12_g6kv3")
 
 [node name="CameraPivot" type="Node3D" parent="SubViewport/MarginContainer/MarginContainer/HBoxContainer/MarginContainer2/SubViewportContainer/SubSubViewport/RobotMesh"]
 transform = Transform3D(0.956682, 3.47061e-08, -0.291136, -3.47061e-08, 1, 5.16394e-09, 0.291136, 5.16395e-09, 0.956682, 0, 0, 0)
@@ -691,9 +692,9 @@ text = "Pelvis"
 layout_mode = 2
 text = "Chest"
 
-[node name="Label" type="Label" parent="SubViewport/MarginContainer/MarginContainer/HBoxContainer/MarginContainer3/HBoxContainer/MarginContainer2/VBoxContainer"]
+[node name="Label9" type="Label" parent="SubViewport/MarginContainer/MarginContainer/HBoxContainer/MarginContainer3/HBoxContainer/MarginContainer2/VBoxContainer"]
 layout_mode = 2
-text = "Hydraulics"
+text = "Eyes"
 
 [node name="Cursor" type="TextureRect" parent="SubViewport"]
 texture_filter = 1

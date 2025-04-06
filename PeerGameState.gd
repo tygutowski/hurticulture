@@ -25,7 +25,6 @@ var inventory: Array[Array] = []
 
 # player cosmetic data
 var head_type = Global.PlayerHeads.CYBERPUNK
-var eye_color: Color = Color(1.0, 1.0, 1.0)
 var colors: Dictionary[int, Color] = {
 	Global.PlayerBodyPart.HYDRAULICS:  Color(1.0,1.0,1.0),
 	Global.PlayerBodyPart.CHEST:       Color(1.0,1.0,1.0),
@@ -35,6 +34,7 @@ var colors: Dictionary[int, Color] = {
 	Global.PlayerBodyPart.ARMS:        Color(1.0,1.0,1.0),
 	Global.PlayerBodyPart.HEAD:        Color(1.0,1.0,1.0),
 	Global.PlayerBodyPart.HEAD_ACCENT: Color(1.0,1.0,1.0),
+	Global.PlayerBodyPart.EYES:        Color(1.0,1.0,1.0)
 }
 
 func send_packet() -> void:

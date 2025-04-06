@@ -25,6 +25,7 @@ mesh = ExtResource("3_s2hnc")
 
 [node name="OmniLight3D" type="OmniLight3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, -8.52651e-15, 0, 8.52651e-15, 1, 0, 2.18557e-07, 5)
+layers = 9
 light_color = Color(0.957556, 0.714504, 0.500296, 1)
 light_energy = 3.0
 shadow_enabled = true

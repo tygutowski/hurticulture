@@ -202,7 +202,7 @@ func clear_objects() -> void:
 func randomize_environment() -> void:
 	var color: Color = Color.from_hsv(randf_range(0.0, 1.0), randf_range(0.2, 0.4), randf_range(0.1, 0.3), 1.0)
 	var environment: Environment = get_node("../WorldEnvironment").environment
-	#environment.fog_light_color = color
+	environment.fog_light_color = color
 
 func generate_world(sandbox: bool = false) -> void:
 	set_seeds()
@@ -213,7 +213,7 @@ func generate_world(sandbox: bool = false) -> void:
 		await get_tree().physics_frame
 		await get_tree().physics_frame
 	
-	await randomize_environment()
+	randomize_environment()
 	
 	if not Engine.is_editor_hint():
 		if not sandbox:
@@ -242,8 +242,8 @@ func spawn_warehouse():
 	while found_area == false:
 		while attempts < max_attempts:
 			attempts += 1
-			var x_pos = randf_range(-map_size / 2 + 5, map_size / 2 - 5)
-			var z_pos = randf_range(-map_size / 2 + 5, map_size / 2 - 5)
+			var x_pos = randf_range(-(map_size / 2.0) + 5, (map_size / 2.0) - 5)
+			var z_pos = randf_range(-(map_size / 2.0) + 5, (map_size / 2.0) - 5)
 			var base_position = Vector3(x_pos, 100, z_pos)
 			var base_hit = cast_ray(base_position)
 
@@ -612,7 +612,7 @@ func generate_heightmap() -> Array:
 
 func generate_slopemap(map: Array) -> Array:
 	set_text("Generating slope map")
-	var slopemap: Array = []
+	var new_slopemap: Array = []
 	var size = map.size()
 
 	for y in range(size):
@@ -631,8 +631,8 @@ func generate_slopemap(map: Array) -> Array:
 			var slope = sqrt(dx * dx + dy * dy)
 
 			row.append(slope)
-		slopemap.append(row)
-	return slopemap
+		new_slopemap.append(row)
+	return new_slopemap
 
 
 func create_terrain_mesh() -> void:
