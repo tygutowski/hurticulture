@@ -31,7 +31,10 @@ var feet_stance_angle: float = 0
 @onready var computer_list: Array = get_tree().get_nodes_in_group("computers")
 @onready var robotmesh = get_node("MeshAndAnimation/RobotAnimated/Robot_Armature/Skeleton3D/RobotMesh")
 
-@onready var item_hand = get_node("CanvasLayer/SubViewportContainer/SubViewport/Camera3D/PrimaryHand")
+@onready var item_hand = $BoneAttachment3D/ItemHand
+@onready var subviewport = $CanvasLayer
+@onready var external_item_hand = subviewport.item_hand
+@export var holding_bones: Array[LookAtModifier3D] = []
 
 const WALK_SPEED : float = 3
 const RUN_SPEED : float = 5
@@ -50,7 +53,7 @@ func _ready() -> void:
 	for i in range(inventory_size):
 		inventory.append(null)
 	gamestate = PeerGameState.new()
-	set_hotbar_index(0)
+	set_inventory_index(0)
 	camera.fov = Settings.fov
 	Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
 
@@ -73,6 +76,7 @@ func interact() -> void:
 
 
 func pickup_item(item: Item) -> void:
+	external_item_hand.get_node("MeshInstance3D").mesh = item.get_node("MeshInstance3D").mesh
 	item.position = Vector3.ZERO
 	item.rotation = Vector3.ZERO
 	item.thing_holding_me = self
@@ -101,10 +105,14 @@ func pickup_item(item: Item) -> void:
 func update_held_item() -> void:
 	var item: Item = inventory[inventory_index]
 	held_item = item
-	for child in item_hand.get_children():
-		item_hand.remove_child(child)
 	if item != null:
-		item_hand.add_child(held_item)
+		item_hand.get_node("MeshInstance3D").mesh = held_item.get_node("MeshInstance3D").mesh
+		for bone in holding_bones:
+			bone.active = true
+	else:
+		item_hand.get_node("MeshInstance3D").mesh = null
+		for bone in holding_bones:
+			bone.active = false
 
 func get_looking_at_ray():
 	dropray.force_raycast_update()
@@ -112,7 +120,6 @@ func get_looking_at_ray():
 		return (dropray.get_collision_point())
 	else:
 		return null
-
 
 func drop_item() -> void:
 	Debug.debug("dropping item")
@@ -122,15 +129,16 @@ func drop_item() -> void:
 	# drop item on ground
 	# if youre holding an item
 	if held_item != null:
+		external_item_hand.get_node("MeshInstance3D").mesh = null
 		# set item to null
 		inventory[inventory_index] = null
 		# remove image from hotbar
-		inventory_node.get_child(inventory_index - 1).texture = null
+		inventory_node.get_child(inventory_index).texture = null
 		held_item.thing_holding_me = null
 		held_item.get_dropped()
 		# make sure its not yours anymore
 
-		held_item.get_parent().remove_child(held_item)
+		#held_item.get_parent().remove_child(held_item)
 		# fix hitboxes and positions
 		dropray.force_raycast_update()
 		var droppoint = Vector3.ZERO
@@ -144,13 +152,13 @@ func drop_item() -> void:
 				droppoint = downray.get_collision_point()
 			else:
 				held_item.queue_free()
-		if held_item:
-			held_item.position = droppoint
-			var world = get_tree().get_first_node_in_group("world")
-			world.get_node("Items").add_child(held_item)
-			held_item.rotation = Vector3(0, rotation.y, 0)
+		held_item.position = droppoint
+		var world = get_tree().get_first_node_in_group("world")
+		world.get_node("Items").add_child(held_item)
+		held_item.rotation = Vector3(0, rotation.y, 0)
+		update_held_item()
 
-func set_hotbar_index(index: int) -> void:
+func set_inventory_index(index: int) -> void:
 	# 5 slots if 4 index
 	var max_inventory_index = max_inventory_slots - 1
 	if index > max_inventory_index:
@@ -189,35 +197,41 @@ func _physics_process(delta: float) -> void:
 					held_item.use_item()
 			if Input.is_action_just_pressed("reload"):
 				held_item.reload_item()
-		if Input.is_action_just_pressed("drop"):
-			drop_item()
 		if ItemSnappableComponent in held_item.item_components:
 			pass
-	
+		
+		
+		if Input.is_action_just_pressed("drop"):
+			drop_item()
+		if Input.is_action_pressed("rmb"):
+			subviewport.enable_ads()
+		else:
+			subviewport.disable_ads()
+		
 	if Input.is_action_just_pressed("scroll_down"):
-		set_hotbar_index((inventory_index + 1) % max_inventory_slots)
+		set_inventory_index((inventory_index + 1) % max_inventory_slots)
 	elif Input.is_action_just_pressed("scroll_up"):
-		set_hotbar_index((inventory_index - 1) % max_inventory_slots)
+		set_inventory_index((inventory_index - 1) % max_inventory_slots)
 	elif Input.is_action_just_pressed("one"):
-		set_hotbar_index(0)
+		set_inventory_index(0)
 	elif Input.is_action_just_pressed("two"):
-		set_hotbar_index(1)
+		set_inventory_index(1)
 	elif Input.is_action_just_pressed("three"):
-		set_hotbar_index(2)
+		set_inventory_index(2)
 	elif Input.is_action_just_pressed("four"):
-		set_hotbar_index(3)
+		set_inventory_index(3)
 	elif Input.is_action_just_pressed("five"):
-		set_hotbar_index(4)
+		set_inventory_index(4)
 	elif Input.is_action_just_pressed("six"):
-		set_hotbar_index(5)
+		set_inventory_index(5)
 	elif Input.is_action_just_pressed("seven"):
-		set_hotbar_index(6)
+		set_inventory_index(6)
 	elif Input.is_action_just_pressed("eight"):
-		set_hotbar_index(7)
+		set_inventory_index(7)
 	elif Input.is_action_just_pressed("nine"):
-		set_hotbar_index(8)
+		set_inventory_index(8)
 	elif Input.is_action_just_pressed("zero"):
-		set_hotbar_index(9)
+		set_inventory_index(9)
 	if Input.is_action_just_pressed("ui_accept") and is_on_floor():
 		velocity.y = JUMP_VELOCITY
 	
@@ -317,7 +331,7 @@ func _input(event):
 			var item_usable_component: ItemUsableComponent = held_item.get_node("ItemUsableComponent")
 			if not item_usable_component.can_move_while_using and item_usable_component.using_item:
 				return  # Prevent movement if conditions are met
-
+	
 	var mesh_node = get_node("MeshAndAnimation")
 	var animation_tree = mesh_node.get_node("AnimationTree")
 
@@ -327,7 +341,7 @@ func _input(event):
 
 	if event is InputEventMouseMotion and Input.mouse_mode == Input.MOUSE_MODE_CAPTURED:
 		var input = -event.relative * deg_to_rad(mouse_sensitivity)
-	
+		subviewport.offset_viewport_arm(event.relative)
 		# Head rotation
 		gameplay_head.rotate_y(input.x)
 		head_pivot.rotate_x(input.y)
