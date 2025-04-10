@@ -59,6 +59,34 @@ func _ready() -> void:
 
 	load_skin()
 
+# adds the visualization of the item the world
+func add_item_to_hand_world(item: Node3D) -> void:
+	var meshes: Array[Node] = item.find_children("*", "MeshInstance3D")
+	Debug.debug("adding child")
+	for mesh: MeshInstance3D in meshes:
+		var new_mesh = mesh.duplicate()
+		# Set it so only others can see your item
+		# You can already see it through the viewport (8)	
+		new_mesh.layers = 4
+		item_hand.add_child(new_mesh)
+
+# adds a the item to your viewport
+func add_item_to_hand_viewport(item: Node3D) -> void:
+	external_item_hand.add_child(item)
+	subviewport.add_item_to_hand(item)
+
+# removes the visualization of the item to the world
+func remove_item_from_hand_world() -> void:
+	Debug.debug("removing child")
+	for mesh in item_hand.get_children():
+		item_hand.remove_child(mesh)
+
+# removes a the item itself to your viewpor
+func remove_item_from_hand_viewport() -> void:
+	for child in external_item_hand.get_children():
+		external_item_hand.remove_child(child)
+	subviewport.remove_item_from_hand()
+
 func load_skin() -> void:
 	for computer in computer_list:
 		if computer is SkinPicker:
@@ -74,9 +102,7 @@ func interact() -> void:
 	timer.connect("timeout", _on_interact_timeout.bind(timer))
 	timer.start(0.25)
 
-
 func pickup_item(item: Item) -> void:
-	external_item_hand.get_node("MeshInstance3D").mesh = item.get_node("MeshInstance3D").mesh
 	item.position = Vector3.ZERO
 	item.rotation = Vector3.ZERO
 	item.thing_holding_me = self
@@ -105,12 +131,15 @@ func pickup_item(item: Item) -> void:
 func update_held_item() -> void:
 	var item: Item = inventory[inventory_index]
 	held_item = item
+	remove_item_from_hand_world()
+	remove_item_from_hand_viewport()
+	subviewport.holding_item = (item != null)
 	if item != null:
-		item_hand.get_node("MeshInstance3D").mesh = held_item.get_node("MeshInstance3D").mesh
+		add_item_to_hand_world(item)
+		add_item_to_hand_viewport(item)
 		for bone in holding_bones:
 			bone.active = true
 	else:
-		item_hand.get_node("MeshInstance3D").mesh = null
 		for bone in holding_bones:
 			bone.active = false
 
@@ -123,13 +152,8 @@ func get_looking_at_ray():
 
 func drop_item() -> void:
 	Debug.debug("dropping item")
-	# remove item from hotbar
-	# remove item from players hand
-	# remove item from inventory
-	# drop item on ground
-	# if youre holding an item
 	if held_item != null:
-		external_item_hand.get_node("MeshInstance3D").mesh = null
+			
 		# set item to null
 		inventory[inventory_index] = null
 		# remove image from hotbar
@@ -150,12 +174,11 @@ func drop_item() -> void:
 			downray.force_raycast_update()
 			if downray.is_colliding():
 				droppoint = downray.get_collision_point()
-			else:
-				held_item.queue_free()
 		held_item.position = droppoint
 		var world = get_tree().get_first_node_in_group("world")
 		world.get_node("Items").add_child(held_item)
 		held_item.rotation = Vector3(0, rotation.y, 0)
+		
 		update_held_item()
 
 func set_inventory_index(index: int) -> void:

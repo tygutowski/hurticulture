@@ -1,4 +1,4 @@
-shader_type spatial;
+	shader_type spatial;
 
 uniform sampler2D primary_texture_1; // Low detail
 uniform sampler2D primary_texture_2; // Medium detail

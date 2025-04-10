@@ -5,7 +5,7 @@
 		{"id":"830eb32f95dcbde3","type":"file","file":"hurticulture/Software Design/Components/Throwing Knife.md","x":-1760,"y":-406,"width":400,"height":156},
 		{"id":"56029b90286f7dc0","type":"file","file":"hurticulture/Software Design/Components/Key.md","x":-2300,"y":-720,"width":560,"height":150},
 		{"id":"ab196b5800c03ea1","type":"file","file":"hurticulture/Software Design/Components/ItemSnappable.md","x":-2260,"y":80,"width":320,"height":200},
-		{"id":"503718c8a337d291","x":-1900,"y":80,"width":340,"height":180,"type":"file","file":"hurticulture/Software Design/Components/ItemThrowable.md"},
+		{"id":"503718c8a337d291","type":"file","file":"hurticulture/Software Design/Components/ItemThrowable.md","x":-1900,"y":80,"width":340,"height":180},
 		{"id":"78c2e3d7fd0f4ac3","type":"file","file":"hurticulture/Software Design/Components/Flashlight.md","x":-1520,"y":-600,"width":400,"height":140},
 		{"id":"886dcda9e7984e29","type":"file","file":"hurticulture/Software Design/Components/Gun.md","x":-1280,"y":-380,"width":400,"height":180},
 		{"id":"dbed631ec2aab4cf","type":"file","file":"hurticulture/Software Design/Components/Rock.md","x":-920,"y":-100,"width":140,"height":50},

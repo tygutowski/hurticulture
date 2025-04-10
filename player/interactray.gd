@@ -9,8 +9,10 @@ func check_interactions(player: Player) -> void:
 	prompt.text = ''
 	force_raycast_update()
 	if is_colliding():
+		prompt.text = 'Colliding'
 		var detected = get_collider()
 		if detected.is_in_group("item_hitbox"):
+			prompt.text = 'Hitbox'
 			var item = detected.get_parent()
 			if item is Item:
 				prompt.text = 'Pickup'

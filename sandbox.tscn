@@ -1,4 +1,4 @@
-[gd_scene load_steps=35 format=4 uid="uid://bnf8skrh5pjuk"]
+[gd_scene load_steps=36 format=4 uid="uid://bnf8skrh5pjuk"]
 
 [ext_resource type="Texture2D" uid="uid://ru1egda7c3j2" path="res://textures/WorldTextures_Rock.png" id="1_0fpt2"]
 [ext_resource type="Material" uid="uid://c8olfqsah5dxj" path="res://TestMaterial.tres" id="2_f2mx5"]
@@ -6,6 +6,7 @@
 [ext_resource type="Texture2D" uid="uid://by2pnm6xl10km" path="res://textures/Stone/Stone_05-128x128.png" id="4_igx0j"]
 [ext_resource type="PackedScene" uid="uid://bfs70m7rkn6ic" path="res://electrical/cctv_camera.tscn" id="6_ypj6x"]
 [ext_resource type="PackedScene" uid="uid://w042e6wfvpt" path="res://SkinPickerComputer.tscn" id="9_igx0j"]
+[ext_resource type="PackedScene" uid="uid://kyq05jxp3yn4" path="res://ItemShotgun.tscn" id="9_tctsc"]
 [ext_resource type="Texture2D" uid="uid://b8anuuwc4ne10" path="res://PSX Tech/Models/GLB/control_panel_etx_1_electronics_etx_part_1.png" id="10_ai2o8"]
 [ext_resource type="Texture2D" uid="uid://66o4ubxqcuh8" path="res://PSX Tech/Models/GLB/control_panel_etx_1_electronics_etx_part_1_emission.png" id="11_luwg1"]
 
@@ -297,6 +298,7 @@ mesh = SubResource("PlaneMesh_hipxm")
 shape = SubResource("ConcavePolygonShape3D_et2sf")
 
 [node name="Flashlight" parent="." instance=ExtResource("2_y41ub")]
+transform = Transform3D(0.0777457, 0, 0.996973, 0, 1, 0, -0.996973, 0, 0.0777457, 0, 0.554112, -1.63092)
 
 [node name="MeshInstance3D2" type="MeshInstance3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -9, 2, -6.59239)
@@ -491,3 +493,51 @@ transform = Transform3D(1, 0, 0, 0, 0, -1, 0, 1, 0, 0, 0, 0)
 [node name="CollisionShape3D" type="CollisionShape3D" parent="control_panel_etx_12/StaticBody3D"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.0195303, -0.596257)
 shape = SubResource("BoxShape3D_ai2o8")
+
+[node name="Shotgun" parent="." instance=ExtResource("9_tctsc")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.30541, 0.988041, -1.65336)
+
+[node name="Shotgun2" parent="." instance=ExtResource("9_tctsc")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.30541, 0.988041, -2.22333)
+
+[node name="Shotgun3" parent="." instance=ExtResource("9_tctsc")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.30541, 0.988041, -2.61955)
+
+[node name="Shotgun4" parent="." instance=ExtResource("9_tctsc")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.30541, 0.988041, -3.18952)
+
+[node name="Shotgun5" parent="." instance=ExtResource("9_tctsc")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.30541, 0.988041, -3.72015)
+
+[node name="Shotgun6" parent="." instance=ExtResource("9_tctsc")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.30541, 0.988041, -4.29011)
+
+[node name="Shotgun7" parent="." instance=ExtResource("9_tctsc")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.30541, 0.988041, -4.68634)
+
+[node name="Shotgun8" parent="." instance=ExtResource("9_tctsc")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.30541, 0.988041, -5.2563)
+
+[node name="Shotgun9" parent="." instance=ExtResource("9_tctsc")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.944408, 0.988041, -1.65336)
+
+[node name="Shotgun10" parent="." instance=ExtResource("9_tctsc")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.944408, 0.988041, -2.22333)
+
+[node name="Shotgun11" parent="." instance=ExtResource("9_tctsc")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.944408, 0.988041, -2.61955)
+
+[node name="Shotgun12" parent="." instance=ExtResource("9_tctsc")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.944408, 0.988041, -3.18952)
+
+[node name="Shotgun13" parent="." instance=ExtResource("9_tctsc")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.944408, 0.988041, -3.72015)
+
+[node name="Shotgun14" parent="." instance=ExtResource("9_tctsc")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.944408, 0.988041, -4.29011)
+
+[node name="Shotgun15" parent="." instance=ExtResource("9_tctsc")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.944408, 0.988041, -4.68634)
+
+[node name="Shotgun16" parent="." instance=ExtResource("9_tctsc")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.944408, 0.988041, -5.2563)
