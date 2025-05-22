@@ -1,6 +1,7 @@
-[gd_scene load_steps=6 format=4 uid="uid://dcekyuthskbg0"]
+[gd_scene load_steps=7 format=4 uid="uid://dcekyuthskbg0"]
 
 [ext_resource type="Script" uid="uid://dkga5okiv1r8e" path="res://player/HeldItemCamera.gd" id="1_yhbne"]
+[ext_resource type="PackedScene" uid="uid://kyq05jxp3yn4" path="res://ItemShotgun.tscn" id="2_8w454"]
 [ext_resource type="Material" uid="uid://d35kgiq3loavy" path="res://player/ArmorSelectionShader.tres" id="2_yhbne"]
 
 [sub_resource type="SphereMesh" id="SphereMesh_yhbne"]
@@ -125,7 +126,7 @@ layers = 524288
 mesh = SubResource("SphereMesh_yhbne")
 
 [node name="LHandTarget" type="Node3D" parent="SubViewportContainer/SubViewport/Camera3D/Pivot/RHandTarget"]
-transform = Transform3D(0.999998, 0, -2.84217e-14, 0, 0.999999, 0, 0, 0, 1, 76.3604, 0, 3.8147e-06)
+transform = Transform3D(0.999998, 0, -2.84217e-14, 0, 0.999999, 0, -3.55271e-15, 0, 1, 76.3604, 0, -12.0891)
 
 [node name="MeshInstance3D3" type="MeshInstance3D" parent="SubViewportContainer/SubViewport/Camera3D/Pivot/RHandTarget/LHandTarget"]
 transform = Transform3D(1, 4.47035e-08, 0, 0, 1, 2.98023e-08, 0, 0, 1, 0, 0, 0)
@@ -134,7 +135,7 @@ mesh = SubResource("SphereMesh_yhbne")
 skeleton = NodePath("../../RForeArmTarget/RArmTarget")
 
 [node name="LForeArmTarget" type="Node3D" parent="SubViewportContainer/SubViewport/Camera3D/Pivot"]
-transform = Transform3D(0.194758, -0.735312, -0.649143, 0.966665, 0.256036, 2.35508e-07, 0.166203, -0.627504, 0.760666, 52.6496, -28.0464, 18.6337)
+transform = Transform3D(0.194758, -0.735312, -0.649143, 0.966665, 0.256036, 2.35508e-07, 0.166203, -0.627504, 0.760666, 77.719, -15.4445, 31.6646)
 
 [node name="MeshInstance3D3" type="MeshInstance3D" parent="SubViewportContainer/SubViewport/Camera3D/Pivot/LForeArmTarget"]
 layers = 524288
@@ -142,7 +143,7 @@ mesh = SubResource("SphereMesh_yhbne")
 skeleton = NodePath("../../RHandTarget/RForeArmTarget/RArmTarget")
 
 [node name="LArmTarget" type="Node3D" parent="SubViewportContainer/SubViewport/Camera3D/Pivot/LForeArmTarget"]
-transform = Transform3D(1, 4.47035e-07, -1.01328e-06, 1.19209e-07, 1, -4.05312e-06, 1.66893e-06, -2.98023e-08, 0.999999, 4.35398, 7.93691, -8.9448)
+transform = Transform3D(0.999999, 3.12924e-07, -1.02818e-06, 8.9407e-08, 0.999999, -4.50015e-06, 1.87755e-06, -5.96046e-08, 0.999999, -21.683, 46.4225, -33.1842)
 
 [node name="MeshInstance3D3" type="MeshInstance3D" parent="SubViewportContainer/SubViewport/Camera3D/Pivot/LForeArmTarget/LArmTarget"]
 layers = 524288
@@ -287,12 +288,14 @@ origin_bone_name = "mixamorig_RightForeArm"
 origin_bone = 1
 
 [node name="BoneAttachment3D" type="BoneAttachment3D" parent="SubViewportContainer/SubViewport/Camera3D/RSkeletonArm"]
-transform = Transform3D(-0.0576055, 0.998339, -0.00121101, -0.887569, -0.0506585, 0.457881, 0.457059, 0.0274514, 0.889013, 53.7101, -15.7748, 9.97528)
+transform = Transform3D(-0.0576061, 0.998339, -0.00121098, -0.887569, -0.050659, 0.457881, 0.457059, 0.0274515, 0.889013, 53.7101, -15.7748, 9.97527)
 bone_name = "mixamorig_RightHand"
 bone_idx = 2
 
 [node name="Hand" type="Node3D" parent="SubViewportContainer/SubViewport/Camera3D/RSkeletonArm/BoneAttachment3D"]
 transform = Transform3D(-0.995698, -68.7727, 29.9053, 74.95, -1.92935, -1.94143, 2.54953, 29.8596, 68.7525, -6.03747, 7.77411, -2.6436)
+
+[node name="Shotgun" parent="SubViewportContainer/SubViewport/Camera3D/RSkeletonArm/BoneAttachment3D/Hand" instance=ExtResource("2_8w454")]
 
 [node name="ArmMesh" type="MeshInstance3D" parent="SubViewportContainer/SubViewport/Camera3D/RSkeletonArm"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, -1.42109e-14, 0, 1, 0, 1.43628, -1.0177)
@@ -302,7 +305,7 @@ mesh = SubResource("ArrayMesh_3jwn4")
 skin = SubResource("Skin_nwddf")
 
 [node name="LSkeletonArm" type="Skeleton3D" parent="SubViewportContainer/SubViewport/Camera3D"]
-transform = Transform3D(-4.37114e-10, -3.82137e-17, -0.015, -8.74228e-10, 0.01, 0, -0.01, -8.74228e-10, 6.55671e-10, -0.376636, -0.239644, -0.250468)
+transform = Transform3D(-4.37114e-10, -3.82137e-17, -0.015, -8.74228e-10, 0.01, 0, -0.01, -8.74228e-10, 6.55671e-10, -0.364505, -0.231054, -0.458477)
 bones/0/name = "mixamorig_RightArm"
 bones/0/parent = -1
 bones/0/rest = Transform3D(-0.975407, -0.156062, 0.155646, 0.216732, -0.807593, 0.548472, 0.040103, 0.568717, 0.821555, -0.474873, -2.258, 1.6889)
@@ -323,7 +326,7 @@ bones/2/rest = Transform3D(0.966154, -0.242124, 0.0890023, 0.228082, 0.962968, 0
 bones/2/enabled = true
 bones/2/position = Vector3(0, 30.3586, -2.14577e-06)
 bones/2/rotation = Quaternion(-0.0663056, 0.0529473, 0.118825, 0.989283)
-bones/2/scale = Vector3(1, 1, 1)
+bones/2/scale = Vector3(0.999999, 1, 1)
 bones/3/name = "mixamorig_RightHandIndex1"
 bones/3/parent = 2
 bones/3/rest = Transform3D(0.989071, -0.0947253, -0.112988, 0.0909128, 0.995117, -0.0384421, 0.116077, 0.0277499, 0.992852, -2.67424, 10.3216, 0.160928)
@@ -439,14 +442,6 @@ primary_rotation_axis = 0
 origin_from = 1
 origin_bone_name = "mixamorig_RightForeArm"
 origin_bone = 1
-
-[node name="BoneAttachment3D" type="BoneAttachment3D" parent="SubViewportContainer/SubViewport/Camera3D/LSkeletonArm"]
-transform = Transform3D(0.165377, 0.958673, 0.231508, -0.983742, 0.143685, 0.107731, 0.0700149, -0.24556, 0.96685, 25.9236, 3.64381, -48.0088)
-bone_name = "mixamorig_RightHand"
-bone_idx = 2
-
-[node name="Hand" type="Node3D" parent="SubViewportContainer/SubViewport/Camera3D/LSkeletonArm/BoneAttachment3D"]
-transform = Transform3D(-0.995698, -68.7727, 29.9053, 74.95, -1.92935, -1.94143, 2.54953, 29.8596, 68.7525, -6.03747, 7.77411, -2.6436)
 
 [node name="ArmMesh" type="MeshInstance3D" parent="SubViewportContainer/SubViewport/Camera3D/LSkeletonArm"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, -1.42109e-14, 0, 1, 0, 1.43628, -1.0177)

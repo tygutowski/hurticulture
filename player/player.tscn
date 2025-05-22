@@ -8643,7 +8643,7 @@ target_position = Vector3(0, 0, -3)
 collision_mask = 8
 
 [node name="BoneAttachment3D" type="BoneAttachment3D" parent="Head"]
-transform = Transform3D(0.00135182, 0.000144017, 0.00990716, -0.000613318, 0.00998098, -6.14033e-05, -0.00988921, -0.000599323, 0.00135809, 0.0205631, 1.01871, -0.0106695)
+transform = Transform3D(0.00135182, 0.000144016, 0.00990716, -0.000613317, 0.00998098, -6.14028e-05, -0.00988921, -0.000599322, 0.00135809, 0.0205631, 1.01871, -0.0106694)
 bone_name = "mixamorig_Head"
 bone_idx = 3
 use_external_skeleton = true

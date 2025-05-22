@@ -28,17 +28,14 @@
             "id": "f8a3786f2f81e74d",
             "type": "leaf",
             "state": {
-              "type": "canvas",
+              "type": "markdown",
               "state": {
-                "file": "hurticulture/Software Design/Items.canvas",
-                "viewState": {
-                  "x": -699.4478508276491,
-                  "y": 1021.9804155095311,
-                  "zoom": -0.3919686508585584
-                }
+                "file": "hurticulture/Ideas/Plants/Grenadum.md",
+                "mode": "source",
+                "source": false
               },
-              "icon": "lucide-layout-dashboard",
-              "title": "Items"
+              "icon": "lucide-file",
+              "title": "Grenadum"
             }
           }
         ],
@@ -191,6 +188,16 @@
   },
   "active": "f8a3786f2f81e74d",
   "lastOpenFiles": [
+    "hurticulture/Ideas/Plants/Gravapple.md",
+    "hurticulture/Ideas/Plants/Sparkweed.md",
+    "hurticulture/Ideas/Plants/Shriekroot.md",
+    "hurticulture/Ideas/Plants/Moonbloom.md",
+    "hurticulture/Images/shriekroot.png",
+    "hurticulture/Ideas/Plants/Flashfruit.md",
+    "hurticulture/Ideas/Plants/Emberberry.md",
+    "hurticulture/Ideas/Plants/Cryofern.md",
+    "hurticulture/Ideas/Plants/Blinkvine.md",
+    "hurticulture/Ideas/Plants/Banana.md",
     "hurticulture/Software Design/Items.canvas",
     "hurticulture/Software Design/Components/Battery.md",
     "hurticulture/Software Design/Components/Throwing Knife.md",
@@ -217,19 +224,11 @@
     "hurticulture/Software Design",
     "hurticulture/Ideas/Untitled.md",
     "hurticulture/Ideas/Player Design.canvas",
-    "hurticulture/Ideas/Plants/Banana.md",
     "hurticulture/Images/Pasted image 20250403091157.png.import24945534.tmp",
-    "hurticulture/Ideas/Plants/Gravapple.md",
-    "hurticulture/Ideas/Plants/Fluxfruit.md",
-    "hurticulture/Ideas/Plants/Flashfruit.md",
-    "hurticulture/Ideas/Plants/Cryofern.md",
-    "hurticulture/Ideas/Plants/Shriekroot.md",
     "hurticulture/images.jpg.import",
     "hurticulture/images 1.jpg.import",
-    "hurticulture/Ideas/Enemies/Kwirls.md",
     "hurticulture/9s0z70w4o9f11.webp.import",
     "hurticulture/9s0z70w4o9f11 1.webp.import",
-    "hurticulture/Ideas/Plants/Moonbloom.md",
     "hurticulture/Ideas/Upgrades"
   ]
 }

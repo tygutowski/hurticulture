@@ -205,4 +205,4 @@ libraries = {
 }
 
 [node name="SecondaryHandPoint" type="Marker3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.472123, 0.0232846, 0.0481258)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.359295, 0.00699432, 0.00195923)
