@@ -38,6 +38,7 @@ func update_interval() -> void:
 	Debug.debug("Continued using item")
 
 func reload_item() -> void:
+	Debug.debug("reloading")
 	if parent.has_method("reload_item"):
 		parent.reload_item()
 
@@ -46,6 +47,7 @@ func alt_use_item() -> void:
 		parent.alt_use_item()
 
 func use_item() -> void:
+	Debug.debug("use")
 	if parent.has_method("use_item"):
 		parent.use_item()
 

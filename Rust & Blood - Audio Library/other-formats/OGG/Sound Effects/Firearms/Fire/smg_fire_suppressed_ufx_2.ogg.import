@@ -1,0 +1,19 @@
+[remap]
+
+importer="oggvorbisstr"
+type="AudioStreamOggVorbis"
+uid="uid://cdqibkg7nc0a"
+path="res://.godot/imported/smg_fire_suppressed_ufx_2.ogg-3f01f151d57dff08a8299def60d6df9d.oggvorbisstr"
+
+[deps]
+
+source_file="res://Rust & Blood - Audio Library/other-formats/OGG/Sound Effects/Firearms/Fire/smg_fire_suppressed_ufx_2.ogg"
+dest_files=["res://.godot/imported/smg_fire_suppressed_ufx_2.ogg-3f01f151d57dff08a8299def60d6df9d.oggvorbisstr"]
+
+[params]
+
+loop=false
+loop_offset=0
+bpm=0
+beat_count=0
+bar_beats=4

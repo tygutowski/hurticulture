@@ -11,6 +11,8 @@ const MAX_HEAD_TURN_ANGLE: float = 25
 var increment_progress_bar: bool = false
 var item_preventing_movement: bool = false
 var rotational_offset: float = 0
+var charging_drop: bool = false
+var drop_charge_time: float = 0
 
 @export var robot_eye_material: ShaderMaterial = null
 @export var robot_armor_shader: ShaderMaterial = null
@@ -22,18 +24,13 @@ var rotational_offset: float = 0
 @onready var dropray: RayCast3D = head_pivot.get_node("Dropray")
 @onready var interactray: RayCast3D = head_pivot.get_node("InteractRay")
 @onready var computerray: RayCast3D = head_pivot.get_node("ComputerRay")
-@onready var downray: RayCast3D = dropray.get_node("DownRay")
 var held_item: Item = null
 var feet_stance_angle: float = 0
 @onready var camera = gameplay_head.get_node("HeadPivot/Camera3D")
-@onready var pause_menu = get_node("pausemenu")
+@onready var pause_menu = get_node("PauseMenu")
 
 @onready var computer_list: Array = get_tree().get_nodes_in_group("computers")
 @onready var robotmesh = get_node("MeshAndAnimation/RobotAnimated/Robot_Armature/Skeleton3D/RobotMesh")
-
-@onready var item_hand = $BoneAttachment3D/ItemHand
-@onready var subviewport = $CanvasLayer
-@onready var external_item_hand = subviewport.item_hand
 @export var holding_bones: Array[LookAtModifier3D] = []
 
 const WALK_SPEED : float = 3
@@ -48,6 +45,8 @@ var inventory_index: int = 0
 @onready var inventory: Array[Item]
 @onready var max_inventory_slots = inventory_size
 @onready var inventory_node: Node = %hud.get_node("Hotbar/HBoxContainer")
+@onready var fps_hand = get_node("CanvasLayer/SubViewportContainer/SubViewport/Camera3D/Hand")
+@onready var world_hand: Node3D = get_node("BoneAttachment3D/ItemHand")
 
 func _ready() -> void:
 	for i in range(inventory_size):
@@ -59,33 +58,49 @@ func _ready() -> void:
 
 	load_skin()
 
-# adds the visualization of the item the world
-func add_item_to_hand_world(item: Node3D) -> void:
-	var meshes: Array[Node] = item.find_children("*", "MeshInstance3D")
-	Debug.debug("adding child")
+# adds the item to your first person hand
+func add_item_to_fps_hand(item: Node3D) -> void:
+	Debug.debug("adding to fps")
+	var fps_hand_item = item.duplicate()
+	fps_hand_item.viewport_type = fps_hand_item.viewportType.FIRSTPERSON
+	var meshes: Array = fps_hand_item.find_children("*", "MeshInstance3D", true, true)
 	for mesh: MeshInstance3D in meshes:
-		var new_mesh = mesh.duplicate()
-		# Set it so only others can see your item
-		# You can already see it through the viewport (8)	
-		new_mesh.layers = 4
-		item_hand.add_child(new_mesh)
+		# make it only visible to the fps hand camera
+		mesh.set_layer_mask_value(1, false)
+		mesh.set_layer_mask_value(3, false)
+		mesh.set_layer_mask_value(4, true)
+	fps_hand_item.orient_item()
+	fps_hand.add_child(fps_hand_item)
 
-# adds a the item to your viewport
-func add_item_to_hand_viewport(item: Node3D) -> void:
-	external_item_hand.add_child(item)
-	subviewport.add_item_to_hand(item)
+# adds the item to your real world hand
+func add_item_to_world_hand(item: Node3D) -> void:
+	Debug.debug("adding to world")
+	var meshes: Array = item.find_children("*", "MeshInstance3D", true, true)
+	for mesh: MeshInstance3D in meshes:
+		# make it only visible to the fps hand camera
+		mesh.set_layer_mask_value(1, false)
+		mesh.set_layer_mask_value(3, true)
+		mesh.set_layer_mask_value(4, false)
+	item.orient_item()
+	world_hand.add_child(item)
 
-# removes the visualization of the item to the world
-func remove_item_from_hand_world() -> void:
-	Debug.debug("removing child")
-	for mesh in item_hand.get_children():
-		item_hand.remove_child(mesh)
+# removes the item from your first person hand
+func remove_item_from_fps_hand() -> void:
+	Debug.debug("removing from fps")
+	for child in fps_hand.get_children():
+		child.queue_free()
 
-# removes a the item itself to your viewpor
-func remove_item_from_hand_viewport() -> void:
-	for child in external_item_hand.get_children():
-		external_item_hand.remove_child(child)
-	subviewport.remove_item_from_hand()
+# removes the item from the real world hand
+func remove_item_from_world_hand() -> void:
+	Debug.debug("removing from world")
+	for child in world_hand.get_children():
+		var meshes: Array = child.find_children("*", "MeshInstance3D", true, true)
+		for mesh: MeshInstance3D in meshes:
+			# make it only visible to the fps hand camera
+			mesh.set_layer_mask_value(1, true)
+			mesh.set_layer_mask_value(3, true)
+			mesh.set_layer_mask_value(4, false)
+		world_hand.remove_child(child)
 
 func load_skin() -> void:
 	for computer in computer_list:
@@ -95,6 +110,7 @@ func load_skin() -> void:
 				var color = gamestate.colors[body_part]
 				set_bodypart_color(color, body_part)
 
+# interact with something
 func interact() -> void:
 	Debug.debug("you can not interact now")
 	can_interact = false
@@ -102,14 +118,12 @@ func interact() -> void:
 	timer.connect("timeout", _on_interact_timeout.bind(timer))
 	timer.start(0.25)
 
+# pick up and item and put it in your inventory
 func pickup_item(item: Item) -> void:
-	item.position = Vector3.ZERO
-	item.rotation = Vector3.ZERO
-	item.thing_holding_me = self
-	#item.get_node("CollisionShape3D").disabled = true
+	item.set_item_components()
 	item.get_parent().remove_child(item)
-	item.get_picked_up()
-	Debug.debug("Attempting to pick up item")
+	item.get_picked_up_by(self)
+
 	# if the player has an item, fill in next slot
 	if held_item != null:
 		for i in range(len(inventory)):
@@ -128,15 +142,15 @@ func pickup_item(item: Item) -> void:
 		Debug.debug("Picking up item in hand")
 	update_held_item()
 
+# update the item, this is called whenever your inventory is updated
+# (changing hotbar slot, picking up items, dropping items)
 func update_held_item() -> void:
-	var item: Item = inventory[inventory_index]
-	held_item = item
-	remove_item_from_hand_world()
-	remove_item_from_hand_viewport()
-	subviewport.holding_item = (item != null)
-	if item != null:
-		add_item_to_hand_world(item)
-		add_item_to_hand_viewport(item)
+	held_item = inventory[inventory_index]
+	remove_item_from_world_hand()
+	remove_item_from_fps_hand()
+	if held_item != null:
+		add_item_to_fps_hand(held_item)
+		add_item_to_world_hand(held_item)
 		for bone in holding_bones:
 			bone.active = true
 	else:
@@ -150,36 +164,47 @@ func get_looking_at_ray():
 	else:
 		return null
 
-func drop_item() -> void:
+# removes the item from your inventory
+# updates held_item
+# update your hand to show that its free
+func drop_item(drop_charge: float = 0) -> void:
+	drop_charge = clamp(drop_charge, 0.0, 5.0)
 	Debug.debug("dropping item")
 	if held_item != null:
-			
-		# set item to null
-		inventory[inventory_index] = null
-		# remove image from hotbar
-		inventory_node.get_child(inventory_index).texture = null
-		held_item.thing_holding_me = null
+		remove_item_from_world_hand()
 		held_item.get_dropped()
-		# make sure its not yours anymore
+		inventory[inventory_index] = null
+		inventory_node.get_child(inventory_index).texture = null
 
-		#held_item.get_parent().remove_child(held_item)
-		# fix hitboxes and positions
-		dropray.force_raycast_update()
-		var droppoint = Vector3.ZERO
-		if dropray.is_colliding():
-			droppoint = dropray.get_collision_point()
-		else:
-			downray.target_position = Vector3(0, -200, 0)
-			downray.rotation.x = -gameplay_head.get_node("HeadPivot").rotation.x
-			downray.force_raycast_update()
-			if downray.is_colliding():
-				droppoint = downray.get_collision_point()
-		held_item.position = droppoint
+		# Drop position: right at the gameplay head (e.g., eyes)
+		held_item.position = gameplay_head.global_transform.origin
+		held_item.rotation = Vector3(0, gameplay_head.rotation.y, 0)
+
+		# Add to world before applying physics
 		var world = get_tree().get_first_node_in_group("world")
 		world.get_node("Items").add_child(held_item)
-		held_item.rotation = Vector3(0, rotation.y, 0)
+
+		await get_tree().physics_frame  # Ensure physics system knows about it
+
+		held_item.sleeping = false
+
+		# Use forward vector from gameplay head (supports up/down)
+		var forward = -head_pivot.global_transform.basis.z.normalized()
+		var impulse_strength = clamp(5.0 * drop_charge, 1.5, 8.0)
+		var impulse = forward.normalized() * impulse_strength
 		
+		var inherited_velocity = velocity
+		held_item.linear_velocity = inherited_velocity
+		# This puts a little spin on the item in the air
+		held_item.apply_impulse(
+			Vector3(0, 0, randf_range(-0.5, 0.5)),
+			Vector3(randf_range(-1.0, 1.0), 0, randf_range(-1.0, 1.0))
+			)
+		held_item.apply_central_impulse(impulse)
 		update_held_item()
+
+
+
 
 func set_inventory_index(index: int) -> void:
 	# 5 slots if 4 index
@@ -200,36 +225,39 @@ func set_bodypart_color(color, body_part_selected) -> void:
 	else:
 		robot_armor_shader.set_shader_parameter("color_" + str(body_part_selected), color)
 
+func begin_charging_drop() -> void:
+	charging_drop = true
+	drop_charge_time = 0
+
 func _physics_process(delta: float) -> void:
 	if held_item != null and increment_progress_bar:
 		var diff = 100.0/held_item.hold_duration * delta
 		$hud/TextureProgressBar.value += diff
-
+	drop_charge_time += delta
 	if not is_on_floor():
 		velocity += get_gravity() * delta
 	 
 	if held_item != null:
-		if ItemUsableComponent in held_item.item_components:
-			if held_item.held_down_item: # if its an item you must hold down to use
-				if Input.is_action_just_released("lmb"):
-					held_item.stop_using_item()
-				if Input.is_action_just_pressed("lmb"):
-					held_item.begin_using_item()
-			else: # if its an item you click to use
-				if Input.is_action_just_pressed("lmb"):
-					held_item.use_item()
-			if Input.is_action_just_pressed("reload"):
-				held_item.reload_item()
-		if ItemSnappableComponent in held_item.item_components:
-			pass
+		for component in held_item.item_components:
+			if component is ItemUsableComponent:
+				if component.held_down_item: # if its an item you must hold down to use
+					if Input.is_action_just_released("lmb"):
+						held_item.stop_using_item()
+					if Input.is_action_just_pressed("lmb"):
+						held_item.begin_using_item()
+				else: # if its an item you click to use
+					if Input.is_action_just_pressed("lmb"):
+						held_item.use_item()
+				if Input.is_action_just_pressed("reload"):
+					held_item.reload_item()
+			if component is ItemSnappableComponent:
+				pass
 		
 		
 		if Input.is_action_just_pressed("drop"):
-			drop_item()
-		if Input.is_action_pressed("rmb"):
-			subviewport.enable_ads()
-		else:
-			subviewport.disable_ads()
+			begin_charging_drop()
+		if Input.is_action_just_released("drop"):
+			drop_item(drop_charge_time)
 		
 	if Input.is_action_just_pressed("scroll_down"):
 		set_inventory_index((inventory_index + 1) % max_inventory_slots)
@@ -342,13 +370,18 @@ func handle_computers(event: InputEvent) -> void:
 func _process(_delta: float) -> void:
 	# check to see if youre hovering over an interactable using the interactray
 	interactray.check_interactions(self)
+	handle_computer_cursor_movement()
+
+func handle_computer_cursor_movement():
 	var event = InputEventMouseMotion.new()
 	handle_computers(event)
 
-
-func _input(event):
+func handle_computer_cursor_input(event):
 	if event is InputEvent:
 		handle_computers(event) # this is for handling viewports
+
+func _input(event):
+	handle_computer_cursor_input(event)
 	if held_item != null:
 		if ItemUsableComponent in held_item.item_components:
 			var item_usable_component: ItemUsableComponent = held_item.get_node("ItemUsableComponent")
@@ -364,7 +397,6 @@ func _input(event):
 
 	if event is InputEventMouseMotion and Input.mouse_mode == Input.MOUSE_MODE_CAPTURED:
 		var input = -event.relative * deg_to_rad(mouse_sensitivity)
-		subviewport.offset_viewport_arm(event.relative)
 		# Head rotation
 		gameplay_head.rotate_y(input.x)
 		head_pivot.rotate_x(input.y)

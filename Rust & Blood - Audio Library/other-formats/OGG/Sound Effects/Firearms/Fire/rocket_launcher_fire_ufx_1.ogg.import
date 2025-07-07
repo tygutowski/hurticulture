@@ -1,0 +1,19 @@
+[remap]
+
+importer="oggvorbisstr"
+type="AudioStreamOggVorbis"
+uid="uid://c6jaxsqp5e3ou"
+path="res://.godot/imported/rocket_launcher_fire_ufx_1.ogg-15ef4310c3bbb7ce36123f708939800f.oggvorbisstr"
+
+[deps]
+
+source_file="res://Rust & Blood - Audio Library/other-formats/OGG/Sound Effects/Firearms/Fire/rocket_launcher_fire_ufx_1.ogg"
+dest_files=["res://.godot/imported/rocket_launcher_fire_ufx_1.ogg-15ef4310c3bbb7ce36123f708939800f.oggvorbisstr"]
+
+[params]
+
+loop=false
+loop_offset=0
+bpm=0
+beat_count=0
+bar_beats=4

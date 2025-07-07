@@ -1,0 +1,19 @@
+[remap]
+
+importer="oggvorbisstr"
+type="AudioStreamOggVorbis"
+uid="uid://emac2y7xea76"
+path="res://.godot/imported/assault_rifle_fire_suppressed_ufx_1.ogg-1f150382de59e8bab5cb4bbb51ca5cb4.oggvorbisstr"
+
+[deps]
+
+source_file="res://Rust & Blood - Audio Library/other-formats/OGG/Sound Effects/Firearms/Fire/assault_rifle_fire_suppressed_ufx_1.ogg"
+dest_files=["res://.godot/imported/assault_rifle_fire_suppressed_ufx_1.ogg-1f150382de59e8bab5cb4bbb51ca5cb4.oggvorbisstr"]
+
+[params]
+
+loop=false
+loop_offset=0
+bpm=0
+beat_count=0
+bar_beats=4

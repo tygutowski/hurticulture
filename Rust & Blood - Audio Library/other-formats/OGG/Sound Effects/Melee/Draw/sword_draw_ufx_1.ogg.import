@@ -1,0 +1,19 @@
+[remap]
+
+importer="oggvorbisstr"
+type="AudioStreamOggVorbis"
+uid="uid://bs6g38tsmi54l"
+path="res://.godot/imported/sword_draw_ufx_1.ogg-0b637b0f07b5eafe516c8c9f995796dd.oggvorbisstr"
+
+[deps]
+
+source_file="res://Rust & Blood - Audio Library/other-formats/OGG/Sound Effects/Melee/Draw/sword_draw_ufx_1.ogg"
+dest_files=["res://.godot/imported/sword_draw_ufx_1.ogg-0b637b0f07b5eafe516c8c9f995796dd.oggvorbisstr"]
+
+[params]
+
+loop=false
+loop_offset=0
+bpm=0
+beat_count=0
+bar_beats=4

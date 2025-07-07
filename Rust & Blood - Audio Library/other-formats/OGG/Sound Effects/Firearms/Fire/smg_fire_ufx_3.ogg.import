@@ -1,0 +1,19 @@
+[remap]
+
+importer="oggvorbisstr"
+type="AudioStreamOggVorbis"
+uid="uid://chpcgc287yj3w"
+path="res://.godot/imported/smg_fire_ufx_3.ogg-c5caacb4b9503241be9f90419d4cd4c9.oggvorbisstr"
+
+[deps]
+
+source_file="res://Rust & Blood - Audio Library/other-formats/OGG/Sound Effects/Firearms/Fire/smg_fire_ufx_3.ogg"
+dest_files=["res://.godot/imported/smg_fire_ufx_3.ogg-c5caacb4b9503241be9f90419d4cd4c9.oggvorbisstr"]
+
+[params]
+
+loop=false
+loop_offset=0
+bpm=0
+beat_count=0
+bar_beats=4

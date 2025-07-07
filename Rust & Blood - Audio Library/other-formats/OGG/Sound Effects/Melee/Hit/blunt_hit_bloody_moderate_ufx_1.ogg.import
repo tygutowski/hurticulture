@@ -1,0 +1,19 @@
+[remap]
+
+importer="oggvorbisstr"
+type="AudioStreamOggVorbis"
+uid="uid://bvirmat0tkim"
+path="res://.godot/imported/blunt_hit_bloody_moderate_ufx_1.ogg-1b3d9a7a3e8ff7651453a5327159b9fe.oggvorbisstr"
+
+[deps]
+
+source_file="res://Rust & Blood - Audio Library/other-formats/OGG/Sound Effects/Melee/Hit/blunt_hit_bloody_moderate_ufx_1.ogg"
+dest_files=["res://.godot/imported/blunt_hit_bloody_moderate_ufx_1.ogg-1b3d9a7a3e8ff7651453a5327159b9fe.oggvorbisstr"]
+
+[params]
+
+loop=false
+loop_offset=0
+bpm=0
+beat_count=0
+bar_beats=4

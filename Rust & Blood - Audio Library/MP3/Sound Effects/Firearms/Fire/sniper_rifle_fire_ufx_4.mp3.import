@@ -1,0 +1,19 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+uid="uid://duwuv5jineedq"
+path="res://.godot/imported/sniper_rifle_fire_ufx_4.mp3-1a5a60b35b5839018198d20fdc924471.mp3str"
+
+[deps]
+
+source_file="res://Rust & Blood - Audio Library/MP3/Sound Effects/Firearms/Fire/sniper_rifle_fire_ufx_4.mp3"
+dest_files=["res://.godot/imported/sniper_rifle_fire_ufx_4.mp3-1a5a60b35b5839018198d20fdc924471.mp3str"]
+
+[params]
+
+loop=false
+loop_offset=0
+bpm=0
+beat_count=0
+bar_beats=4

@@ -1,0 +1,24 @@
+[remap]
+
+importer="wav"
+type="AudioStreamWAV"
+uid="uid://237ktk5rm1f"
+path="res://.godot/imported/old_pistol_fire_ufx_1.wav-50644b75e8c561ce6d6ccaa6a5943957.sample"
+
+[deps]
+
+source_file="res://Rust & Blood - Audio Library/other-formats/WAV/Sound Effects/Firearms/Fire/old_pistol_fire_ufx_1.wav"
+dest_files=["res://.godot/imported/old_pistol_fire_ufx_1.wav-50644b75e8c561ce6d6ccaa6a5943957.sample"]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=false
+edit/normalize=false
+edit/loop_mode=0
+edit/loop_begin=0
+edit/loop_end=-1
+compress/mode=2

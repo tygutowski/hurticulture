@@ -1,15 +1,39 @@
-[gd_scene load_steps=19 format=4 uid="uid://kyq05jxp3yn4"]
+[gd_scene load_steps=26 format=4 uid="uid://kyq05jxp3yn4"]
 
 [ext_resource type="Script" uid="uid://dtbnrgwp3vldv" path="res://ItemShotgun.gd" id="1_p6k6k"]
 [ext_resource type="Texture2D" uid="uid://c4biah6dkg5pv" path="res://oneBarrelShotGun/Textures/OneBarrelShotGunText.jpg" id="2_crxyp"]
+[ext_resource type="Texture2D" uid="uid://cedh64outhfae" path="res://shotgun-sprite.png" id="2_ctc4g"]
 [ext_resource type="PackedScene" uid="uid://dv86qo0tus0n2" path="res://ItemUsableComponent.tscn" id="2_dmitx"]
-[ext_resource type="Texture2D" uid="uid://c3n2hnvehlspv" path="res://shotgun assets/PSX-Shotgun/Shotgun_Textures/Shotgun_Texture_2.png" id="2_hubcj"]
+[ext_resource type="AudioStream" uid="uid://bmst4xf72c5bb" path="res://Rust & Blood - Audio Library/MP3/Sound Effects/Firearms/Reloading/shotgun_reloading_slug_in_ufx_2.mp3" id="5_ctc4g"]
+[ext_resource type="AudioStream" uid="uid://chu14ujvs8yr1" path="res://Rust & Blood - Audio Library/MP3/Sound Effects/Firearms/Fire/old_shotgun_fire_ufx_1.mp3" id="6_qgl1a"]
+[ext_resource type="AudioStream" uid="uid://dhds7qg7hpxc5" path="res://Rust & Blood - Audio Library/MP3/Sound Effects/Firearms/Racking/shotgun_racking_ufx_3.mp3" id="7_2gxfw"]
+[ext_resource type="AudioStream" uid="uid://5erpxj1ofa7k" path="res://Rust & Blood - Audio Library/other-formats/OGG/Sound Effects/Firearms/Misc/rifle_universal_empty_barrel_ufx_1.ogg" id="8_v6dek"]
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_0djsc"]
+radius = 0.01
+
+[sub_resource type="SphereMesh" id="SphereMesh_0djsc"]
+radius = 0.01
+height = 0.02
+
+[sub_resource type="PackedScene" id="PackedScene_ctc4g"]
+_bundled = {
+"conn_count": 0,
+"conns": PackedInt32Array(),
+"editable_instances": [],
+"names": PackedStringArray("RigidBody3D", "RigidBody3D", "continuous_cd", "CollisionShape3D", "CollisionShape3D", "shape", "MeshInstance3D", "MeshInstance3D", "mesh"),
+"node_count": 3,
+"node_paths": [NodePath("."), NodePath(".")],
+"nodes": PackedInt32Array(-1, -1, 1, 0, -1, 1, 2, 0, 0, 1073741824, 0, 4, 3, -1, 1, 5, 1, 0, 1073741825, 0, 7, 6, -1, 1, 8, 2, 0),
+"variants": [true, SubResource("SphereShape3D_0djsc"), SubResource("SphereMesh_0djsc")],
+"version": 3
+}
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_hubcj"]
-size = Vector3(1.13965, 0.0764008, 0.0429688)
+size = Vector3(1.18921, 0.111328, 0.0869141)
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_3mgqo"]
-size = Vector3(0.742576, 0.187988, 0.0761719)
+size = Vector3(0.71582, 0.187988, 0.126953)
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_mvv3f"]
 resource_name = "Material.117"
@@ -98,10 +122,11 @@ albedo_texture = ExtResource("2_crxyp")
 
 [sub_resource type="Animation" id="Animation_rtt17"]
 length = 0.001
+step = 0.1
 tracks/0/type = "bezier"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath("BarrelPivot:rotation:z")
+tracks/0/path = NodePath("../BarrelPivot:rotation:z")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
@@ -112,18 +137,18 @@ tracks/0/keys = {
 
 [sub_resource type="Animation" id="Animation_p3w2e"]
 resource_name = "reload"
-length = 5.0
+length = 3.0
 step = 0.1
 tracks/0/type = "bezier"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath("BarrelPivot:rotation:z")
+tracks/0/path = NodePath("../BarrelPivot:rotation:z")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
-"handle_modes": PackedInt32Array(0, 0),
-"points": PackedFloat32Array(0, 0, 0, 0, 0, -0.24, -0.221, 0, 0, 0),
-"times": PackedFloat32Array(0.2, 0.4)
+"handle_modes": PackedInt32Array(0, 0, 0, 0),
+"points": PackedFloat32Array(0, 0, 0, 0, 0, -0.24, -0.221, 0, 0, 0, -0.24, -0.221, 0, 0, 0, 0, 0, 0, 0, 0),
+"times": PackedFloat32Array(0.2, 0.4, 2.7, 2.9)
 }
 tracks/1/type = "method"
 tracks/1/imported = false
@@ -132,11 +157,20 @@ tracks/1/path = NodePath(".")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/keys = {
-"times": PackedFloat32Array(0.4),
-"transitions": PackedFloat32Array(1),
+"times": PackedFloat32Array(0, 0.4, 2.5, 3),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
 "values": [{
 "args": [],
+"method": &"start_reloading"
+}, {
+"args": [],
 "method": &"eject_shell"
+}, {
+"args": [],
+"method": &"add_shell_to_chamber"
+}, {
+"args": [],
+"method": &"finish_reloading"
 }]
 }
 
@@ -146,24 +180,23 @@ _data = {
 &"reload": SubResource("Animation_p3w2e")
 }
 
-[node name="Shotgun" type="Node3D"]
-script = ExtResource("1_p6k6k")
-inventory_texture = ExtResource("2_hubcj")
-two_handed = true
-
-[node name="ItemUsableComponent" parent="." instance=ExtResource("2_dmitx")]
-
-[node name="StaticBody3D" type="StaticBody3D" parent="." groups=["item_hitbox"]]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.175397, 0.0823952, 0)
+[node name="Shotgun" type="RigidBody3D" groups=["item_hitbox"]]
 collision_layer = 2
+script = ExtResource("1_p6k6k")
+ammo_scene = SubResource("PackedScene_ctc4g")
+fps_hand_offset = Vector3(0.496539, -0.337664, -0.430651)
+fps_hand_rotation = Vector3(0, 1.5708, 0)
+inventory_texture = ExtResource("2_ctc4g")
 
-[node name="CollisionShape3D4" type="CollisionShape3D" parent="StaticBody3D"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.400009, -0.0391464, 0)
+[node name="BarrelCollisionShape" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.575406, 0.0432488, 0)
 shape = SubResource("BoxShape3D_hubcj")
 
-[node name="CollisionShape3D5" type="CollisionShape3D" parent="StaticBody3D"]
-transform = Transform3D(0.981423, -0.191854, 0, 0.191854, 0.981423, 0, 0, 0, 1, -0.428944, -0.173879, 0)
+[node name="StockCollisionShape" type="CollisionShape3D" parent="."]
+transform = Transform3D(0.981423, -0.191854, 0, 0.191854, 0.981423, 0, 0, 0, 1, -0.24588, -0.0899849, 0)
 shape = SubResource("BoxShape3D_3mgqo")
+
+[node name="ItemUsableComponent" parent="." instance=ExtResource("2_dmitx")]
 
 [node name="BarrelPivot" type="Node3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.235347, 0.0306359, 0)
@@ -206,3 +239,24 @@ libraries = {
 
 [node name="SecondaryHandPoint" type="Marker3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.359295, 0.00699432, 0.00195923)
+
+[node name="Audio" type="Node3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.359295, 0.00699432, 0.00195923)
+
+[node name="Reloading" type="AudioStreamPlayer3D" parent="Audio"]
+stream = ExtResource("5_ctc4g")
+
+[node name="Shooting" type="AudioStreamPlayer3D" parent="Audio"]
+stream = ExtResource("6_qgl1a")
+
+[node name="Racking" type="AudioStreamPlayer3D" parent="Audio"]
+stream = ExtResource("7_2gxfw")
+
+[node name="Empty" type="AudioStreamPlayer3D" parent="Audio"]
+stream = ExtResource("8_v6dek")
+
+[node name="Muzzle" type="Node3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.20456, 0.0606132, 0)
+
+[node name="RayCast3D" type="RayCast3D" parent="Muzzle"]
+target_position = Vector3(50, 0, 0)

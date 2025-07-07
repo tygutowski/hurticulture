@@ -1,0 +1,19 @@
+[remap]
+
+importer="oggvorbisstr"
+type="AudioStreamOggVorbis"
+uid="uid://dfgjjv1t7gym0"
+path="res://.godot/imported/pistol_fire_ufx_3.ogg-7aeb80eddac533019364494e091b7951.oggvorbisstr"
+
+[deps]
+
+source_file="res://Rust & Blood - Audio Library/other-formats/OGG/Sound Effects/Firearms/Fire/pistol_fire_ufx_3.ogg"
+dest_files=["res://.godot/imported/pistol_fire_ufx_3.ogg-7aeb80eddac533019364494e091b7951.oggvorbisstr"]
+
+[params]
+
+loop=false
+loop_offset=0
+bpm=0
+beat_count=0
+bar_beats=4

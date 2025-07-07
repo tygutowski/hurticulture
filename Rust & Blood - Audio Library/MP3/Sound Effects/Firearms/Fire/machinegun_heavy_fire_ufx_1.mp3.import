@@ -1,0 +1,19 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+uid="uid://ddnjp1mfe2jve"
+path="res://.godot/imported/machinegun_heavy_fire_ufx_1.mp3-4e95c446fa54ec8bbe0cff13f38f3afa.mp3str"
+
+[deps]
+
+source_file="res://Rust & Blood - Audio Library/MP3/Sound Effects/Firearms/Fire/machinegun_heavy_fire_ufx_1.mp3"
+dest_files=["res://.godot/imported/machinegun_heavy_fire_ufx_1.mp3-4e95c446fa54ec8bbe0cff13f38f3afa.mp3str"]
+
+[params]
+
+loop=false
+loop_offset=0
+bpm=0
+beat_count=0
+bar_beats=4

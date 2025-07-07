@@ -1,0 +1,24 @@
+[remap]
+
+importer="wav"
+type="AudioStreamWAV"
+uid="uid://nadchsd1pf4p"
+path="res://.godot/imported/sharp_critical_hit_body_ufx_1.wav-ecfb223b51c0dae703ecd06597c4e4f6.sample"
+
+[deps]
+
+source_file="res://Rust & Blood - Audio Library/other-formats/WAV/Sound Effects/Melee/Hit/sharp_critical_hit_body_ufx_1.wav"
+dest_files=["res://.godot/imported/sharp_critical_hit_body_ufx_1.wav-ecfb223b51c0dae703ecd06597c4e4f6.sample"]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=false
+edit/normalize=false
+edit/loop_mode=0
+edit/loop_begin=0
+edit/loop_end=-1
+compress/mode=2

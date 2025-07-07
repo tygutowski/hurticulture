@@ -1,0 +1,24 @@
+[remap]
+
+importer="wav"
+type="AudioStreamWAV"
+uid="uid://rhnk77ov2q12"
+path="res://.godot/imported/shotgun_reloading_slug_in_ufx_3.wav-ae4ec3f81dd168be33b221c7d5cd1faf.sample"
+
+[deps]
+
+source_file="res://Rust & Blood - Audio Library/other-formats/WAV/Sound Effects/Firearms/Reloading/shotgun_reloading_slug_in_ufx_3.wav"
+dest_files=["res://.godot/imported/shotgun_reloading_slug_in_ufx_3.wav-ae4ec3f81dd168be33b221c7d5cd1faf.sample"]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=false
+edit/normalize=false
+edit/loop_mode=0
+edit/loop_begin=0
+edit/loop_end=-1
+compress/mode=2

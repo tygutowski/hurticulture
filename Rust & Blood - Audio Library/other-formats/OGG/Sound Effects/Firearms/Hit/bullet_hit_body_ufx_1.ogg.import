@@ -1,0 +1,19 @@
+[remap]
+
+importer="oggvorbisstr"
+type="AudioStreamOggVorbis"
+uid="uid://cosn4oa5vxyxa"
+path="res://.godot/imported/bullet_hit_body_ufx_1.ogg-893ce0877bef190038f0c846e8493038.oggvorbisstr"
+
+[deps]
+
+source_file="res://Rust & Blood - Audio Library/other-formats/OGG/Sound Effects/Firearms/Hit/bullet_hit_body_ufx_1.ogg"
+dest_files=["res://.godot/imported/bullet_hit_body_ufx_1.ogg-893ce0877bef190038f0c846e8493038.oggvorbisstr"]
+
+[params]
+
+loop=false
+loop_offset=0
+bpm=0
+beat_count=0
+bar_beats=4

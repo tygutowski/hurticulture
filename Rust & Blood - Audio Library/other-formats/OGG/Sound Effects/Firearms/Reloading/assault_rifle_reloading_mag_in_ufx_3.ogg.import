@@ -1,0 +1,19 @@
+[remap]
+
+importer="oggvorbisstr"
+type="AudioStreamOggVorbis"
+uid="uid://bumkw0rpav0ad"
+path="res://.godot/imported/assault_rifle_reloading_mag_in_ufx_3.ogg-7b63ea6d7ecf03d7eef76742c581ad65.oggvorbisstr"
+
+[deps]
+
+source_file="res://Rust & Blood - Audio Library/other-formats/OGG/Sound Effects/Firearms/Reloading/assault_rifle_reloading_mag_in_ufx_3.ogg"
+dest_files=["res://.godot/imported/assault_rifle_reloading_mag_in_ufx_3.ogg-7b63ea6d7ecf03d7eef76742c581ad65.oggvorbisstr"]
+
+[params]
+
+loop=false
+loop_offset=0
+bpm=0
+beat_count=0
+bar_beats=4

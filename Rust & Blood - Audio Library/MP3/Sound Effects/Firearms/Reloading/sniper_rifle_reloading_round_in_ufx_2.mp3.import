@@ -1,0 +1,19 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+uid="uid://cxfxwwm8xwvpq"
+path="res://.godot/imported/sniper_rifle_reloading_round_in_ufx_2.mp3-bed2568332d34cd2531a738d790ccbdf.mp3str"
+
+[deps]
+
+source_file="res://Rust & Blood - Audio Library/MP3/Sound Effects/Firearms/Reloading/sniper_rifle_reloading_round_in_ufx_2.mp3"
+dest_files=["res://.godot/imported/sniper_rifle_reloading_round_in_ufx_2.mp3-bed2568332d34cd2531a738d790ccbdf.mp3str"]
+
+[params]
+
+loop=false
+loop_offset=0
+bpm=0
+beat_count=0
+bar_beats=4

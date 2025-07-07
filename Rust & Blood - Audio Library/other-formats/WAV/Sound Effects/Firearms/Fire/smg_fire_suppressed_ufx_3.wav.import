@@ -1,0 +1,24 @@
+[remap]
+
+importer="wav"
+type="AudioStreamWAV"
+uid="uid://dshdejayty4b4"
+path="res://.godot/imported/smg_fire_suppressed_ufx_3.wav-f71945dc9fed1e62b86e520bfa2deb33.sample"
+
+[deps]
+
+source_file="res://Rust & Blood - Audio Library/other-formats/WAV/Sound Effects/Firearms/Fire/smg_fire_suppressed_ufx_3.wav"
+dest_files=["res://.godot/imported/smg_fire_suppressed_ufx_3.wav-f71945dc9fed1e62b86e520bfa2deb33.sample"]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=false
+edit/normalize=false
+edit/loop_mode=0
+edit/loop_begin=0
+edit/loop_end=-1
+compress/mode=2

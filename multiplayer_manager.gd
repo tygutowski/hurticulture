@@ -164,15 +164,15 @@ func get_lobby_members() -> void:
 	for this_member in range(0, number_of_members):
 		var member_steam_id: int = Steam.getLobbyMemberByIndex(lobby_id, this_member)
 		
-		var member_steam_name: String = Steam.getFriendPersonaName(member_steam_id)
-		var node: Node3D = null
+		var _member_steam_name: String = Steam.getFriendPersonaName(member_steam_id)
+		#var node: Node3D = null
 		
 		# check if the peer youre parsing doesnt exist yet
 		if not peer_list.has(member_steam_id):
 			var peer = populate_peer(member_steam_id)
 			peer_list[member_steam_id] = peer
 
-func populate_peer(peer_id: int) -> PeerGameState:
+func populate_peer(_peer_id: int) -> PeerGameState:
 	var peer = PeerGameState.new()
 	
 	return peer

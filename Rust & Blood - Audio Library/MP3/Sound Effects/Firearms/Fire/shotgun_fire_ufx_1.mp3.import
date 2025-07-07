@@ -1,0 +1,19 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+uid="uid://dc7wwk4cbmgfv"
+path="res://.godot/imported/shotgun_fire_ufx_1.mp3-f6ea21e6b9c1a5d6a0bba990e3aa54e0.mp3str"
+
+[deps]
+
+source_file="res://Rust & Blood - Audio Library/MP3/Sound Effects/Firearms/Fire/shotgun_fire_ufx_1.mp3"
+dest_files=["res://.godot/imported/shotgun_fire_ufx_1.mp3-f6ea21e6b9c1a5d6a0bba990e3aa54e0.mp3str"]
+
+[params]
+
+loop=false
+loop_offset=0
+bpm=0
+beat_count=0
+bar_beats=4

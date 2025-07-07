@@ -1,0 +1,24 @@
+[remap]
+
+importer="wav"
+type="AudioStreamWAV"
+uid="uid://bs0hv4e3dl0ds"
+path="res://.godot/imported/pistol_racking_ufx_4.wav-0eb4ba245b3984dd39c7d6b3909df0c9.sample"
+
+[deps]
+
+source_file="res://Rust & Blood - Audio Library/other-formats/WAV/Sound Effects/Firearms/Racking/pistol_racking_ufx_4.wav"
+dest_files=["res://.godot/imported/pistol_racking_ufx_4.wav-0eb4ba245b3984dd39c7d6b3909df0c9.sample"]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=false
+edit/normalize=false
+edit/loop_mode=0
+edit/loop_begin=0
+edit/loop_end=-1
+compress/mode=2

@@ -1,0 +1,7 @@
+[gd_scene load_steps=2 format=3 uid="uid://c1nmqysmgmyng"]
+
+[ext_resource type="Texture2D" uid="uid://bpvtclh4avl4" path="res://shotgun_hole_decal.png" id="1_guucp"]
+
+[node name="Decal" type="Decal"]
+size = Vector3(0.25, 0.25, 0.25)
+texture_albedo = ExtResource("1_guucp")

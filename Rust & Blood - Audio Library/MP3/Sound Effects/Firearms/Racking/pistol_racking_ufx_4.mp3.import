@@ -1,0 +1,19 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+uid="uid://cgonsgcoadxrs"
+path="res://.godot/imported/pistol_racking_ufx_4.mp3-ade9eb501bd7745e96824c254855ca51.mp3str"
+
+[deps]
+
+source_file="res://Rust & Blood - Audio Library/MP3/Sound Effects/Firearms/Racking/pistol_racking_ufx_4.mp3"
+dest_files=["res://.godot/imported/pistol_racking_ufx_4.mp3-ade9eb501bd7745e96824c254855ca51.mp3str"]
+
+[params]
+
+loop=false
+loop_offset=0
+bpm=0
+beat_count=0
+bar_beats=4

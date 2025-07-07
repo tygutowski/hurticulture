@@ -1,0 +1,19 @@
+[remap]
+
+importer="oggvorbisstr"
+type="AudioStreamOggVorbis"
+uid="uid://dwdxpkptgc0fe"
+path="res://.godot/imported/old_shotgun_fire_ufx_1.ogg-e3c71d3dcd08f4c619be6835acec5c2b.oggvorbisstr"
+
+[deps]
+
+source_file="res://Rust & Blood - Audio Library/other-formats/OGG/Sound Effects/Firearms/Fire/old_shotgun_fire_ufx_1.ogg"
+dest_files=["res://.godot/imported/old_shotgun_fire_ufx_1.ogg-e3c71d3dcd08f4c619be6835acec5c2b.oggvorbisstr"]
+
+[params]
+
+loop=false
+loop_offset=0
+bpm=0
+beat_count=0
+bar_beats=4

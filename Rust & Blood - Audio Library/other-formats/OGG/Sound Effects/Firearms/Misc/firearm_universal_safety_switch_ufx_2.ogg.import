@@ -1,0 +1,19 @@
+[remap]
+
+importer="oggvorbisstr"
+type="AudioStreamOggVorbis"
+uid="uid://b745idvcv5ryt"
+path="res://.godot/imported/firearm_universal_safety_switch_ufx_2.ogg-92432f24ba9a38a559ab75205c44cbda.oggvorbisstr"
+
+[deps]
+
+source_file="res://Rust & Blood - Audio Library/other-formats/OGG/Sound Effects/Firearms/Misc/firearm_universal_safety_switch_ufx_2.ogg"
+dest_files=["res://.godot/imported/firearm_universal_safety_switch_ufx_2.ogg-92432f24ba9a38a559ab75205c44cbda.oggvorbisstr"]
+
+[params]
+
+loop=false
+loop_offset=0
+bpm=0
+beat_count=0
+bar_beats=4

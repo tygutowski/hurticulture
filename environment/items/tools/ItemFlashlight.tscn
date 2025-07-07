@@ -6,10 +6,8 @@
 [ext_resource type="PackedScene" uid="uid://dv86qo0tus0n2" path="res://ItemUsableComponent.tscn" id="3_n1cg6"]
 [ext_resource type="ArrayMesh" uid="uid://bb3onyl2pdv3q" path="res://environment/items/tools/FlashlightMesh.tres" id="5_n1cg6"]
 
-[sub_resource type="CylinderShape3D" id="CylinderShape3D_5exht"]
-margin = 1.0
-height = 0.296631
-radius = 0.0444336
+[sub_resource type="BoxShape3D" id="BoxShape3D_n1cg6"]
+size = Vector3(0.0739746, 0.292953, 0.0716553)
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_vdkfi"]
 albedo_texture = ExtResource("2_78h6x")
@@ -26,8 +24,8 @@ transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 0.0916
 collision_layer = 2
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="StaticBody3D"]
-transform = Transform3D(1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 1.55274e-09, -6.97517e-09, 0)
-shape = SubResource("CylinderShape3D_5exht")
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 0.000854494, 0.000221058, 0.0167618)
+shape = SubResource("BoxShape3D_n1cg6")
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="."]
 transform = Transform3D(-3.82752e-14, -2.62268e-07, -3, -3, 5.84122e-07, -1.27904e-14, 5.84122e-07, 3, -2.62268e-07, 0.0916203, 0, 0)

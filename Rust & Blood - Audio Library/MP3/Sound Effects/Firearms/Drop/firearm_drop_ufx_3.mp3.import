@@ -1,0 +1,19 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+uid="uid://xdy73mm71t8i"
+path="res://.godot/imported/firearm_drop_ufx_3.mp3-9c85ab1b8dc2159a4101126ff1c86dba.mp3str"
+
+[deps]
+
+source_file="res://Rust & Blood - Audio Library/MP3/Sound Effects/Firearms/Drop/firearm_drop_ufx_3.mp3"
+dest_files=["res://.godot/imported/firearm_drop_ufx_3.mp3-9c85ab1b8dc2159a4101126ff1c86dba.mp3str"]
+
+[params]
+
+loop=false
+loop_offset=0
+bpm=0
+beat_count=0
+bar_beats=4

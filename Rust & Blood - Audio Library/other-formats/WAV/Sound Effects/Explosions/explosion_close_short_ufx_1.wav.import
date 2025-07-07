@@ -1,0 +1,24 @@
+[remap]
+
+importer="wav"
+type="AudioStreamWAV"
+uid="uid://cfxb31vu6id4f"
+path="res://.godot/imported/explosion_close_short_ufx_1.wav-e577d7ceaa6bf42e97fdea21cba008fb.sample"
+
+[deps]
+
+source_file="res://Rust & Blood - Audio Library/other-formats/WAV/Sound Effects/Explosions/explosion_close_short_ufx_1.wav"
+dest_files=["res://.godot/imported/explosion_close_short_ufx_1.wav-e577d7ceaa6bf42e97fdea21cba008fb.sample"]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=false
+edit/normalize=false
+edit/loop_mode=0
+edit/loop_begin=0
+edit/loop_end=-1
+compress/mode=2

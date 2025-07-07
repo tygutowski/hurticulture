@@ -1,0 +1,24 @@
+[remap]
+
+importer="wav"
+type="AudioStreamWAV"
+uid="uid://bpn2qxjk83yl7"
+path="res://.godot/imported/glass_break_ufx_1.wav-e0e5e3311a9905957b1ccb4e66d55aeb.sample"
+
+[deps]
+
+source_file="res://Rust & Blood - Audio Library/other-formats/WAV/Sound Effects/Break/glass_break_ufx_1.wav"
+dest_files=["res://.godot/imported/glass_break_ufx_1.wav-e0e5e3311a9905957b1ccb4e66d55aeb.sample"]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=false
+edit/normalize=false
+edit/loop_mode=0
+edit/loop_begin=0
+edit/loop_end=-1
+compress/mode=2

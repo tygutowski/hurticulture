@@ -1,0 +1,24 @@
+[remap]
+
+importer="wav"
+type="AudioStreamWAV"
+uid="uid://fx5ubjjy6ymw"
+path="res://.godot/imported/rocket_launcher_fire_ufx_1.wav-48162e6db5a488b89591b1686e84f6c6.sample"
+
+[deps]
+
+source_file="res://Rust & Blood - Audio Library/other-formats/WAV/Sound Effects/Firearms/Fire/rocket_launcher_fire_ufx_1.wav"
+dest_files=["res://.godot/imported/rocket_launcher_fire_ufx_1.wav-48162e6db5a488b89591b1686e84f6c6.sample"]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=false
+edit/normalize=false
+edit/loop_mode=0
+edit/loop_begin=0
+edit/loop_end=-1
+compress/mode=2

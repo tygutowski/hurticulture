@@ -1,0 +1,19 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+uid="uid://d2g5ydtnss57l"
+path="res://.godot/imported/old_rifle_fire_ufx_1.mp3-7c1b543ef5955b1a73a8eb09f96d7631.mp3str"
+
+[deps]
+
+source_file="res://Rust & Blood - Audio Library/MP3/Sound Effects/Firearms/Fire/old_rifle_fire_ufx_1.mp3"
+dest_files=["res://.godot/imported/old_rifle_fire_ufx_1.mp3-7c1b543ef5955b1a73a8eb09f96d7631.mp3str"]
+
+[params]
+
+loop=false
+loop_offset=0
+bpm=0
+beat_count=0
+bar_beats=4

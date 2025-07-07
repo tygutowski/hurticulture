@@ -13,11 +13,10 @@ func check_interactions(player: Player) -> void:
 		var detected = get_collider()
 		if detected.is_in_group("item_hitbox"):
 			prompt.text = 'Hitbox'
-			var item = detected.get_parent()
-			if item is Item:
+			if detected is Item:
 				prompt.text = 'Pickup'
 				if Input.is_action_just_pressed("interact"):
-					player.pickup_item(item)
+					player.pickup_item(detected)
 		if detected is Interactable:
 			prompt.text = 'Interact'
 			if Input.is_action_just_pressed("interact"):

@@ -1,0 +1,19 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+uid="uid://dxddp8uw56cpj"
+path="res://.godot/imported/container_open_small_ufx_1.mp3-4e8ef05901ddb99d2822a42c3c116931.mp3str"
+
+[deps]
+
+source_file="res://Rust & Blood - Audio Library/MP3/Sound Effects/Misc/container_open_small_ufx_1.mp3"
+dest_files=["res://.godot/imported/container_open_small_ufx_1.mp3-4e8ef05901ddb99d2822a42c3c116931.mp3str"]
+
+[params]
+
+loop=false
+loop_offset=0
+bpm=0
+beat_count=0
+bar_beats=4

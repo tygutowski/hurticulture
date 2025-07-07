@@ -1,0 +1,19 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+uid="uid://b8lepaqbs7nyi"
+path="res://.godot/imported/blunt_hit_metal_ufx_1.mp3-be309ca9d0d60109023a84a3619aa796.mp3str"
+
+[deps]
+
+source_file="res://Rust & Blood - Audio Library/MP3/Sound Effects/Melee/Hit/blunt_hit_metal_ufx_1.mp3"
+dest_files=["res://.godot/imported/blunt_hit_metal_ufx_1.mp3-be309ca9d0d60109023a84a3619aa796.mp3str"]
+
+[params]
+
+loop=false
+loop_offset=0
+bpm=0
+beat_count=0
+bar_beats=4

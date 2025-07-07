@@ -1,0 +1,19 @@
+[remap]
+
+importer="oggvorbisstr"
+type="AudioStreamOggVorbis"
+uid="uid://c1p73mbnskyfr"
+path="res://.godot/imported/machinegun_heavy_fire_ufx_1.ogg-03abb6fee209cc3f3e1916e4ccc294ee.oggvorbisstr"
+
+[deps]
+
+source_file="res://Rust & Blood - Audio Library/other-formats/OGG/Sound Effects/Firearms/Fire/machinegun_heavy_fire_ufx_1.ogg"
+dest_files=["res://.godot/imported/machinegun_heavy_fire_ufx_1.ogg-03abb6fee209cc3f3e1916e4ccc294ee.oggvorbisstr"]
+
+[params]
+
+loop=false
+loop_offset=0
+bpm=0
+beat_count=0
+bar_beats=4
