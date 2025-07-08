@@ -3,8 +3,10 @@ class_name ItemUsableComponent
 
 # Usable Items
 @export var held_down_item: bool = false
-@export var hold_duration: float = 1.0
-@export var use_interval: float = 0.5
+
+@export var hold_duration: float = 1.0 # How long the item can be held down before doing nothing
+
+@export var use_interval: float = 0.5 # How frequently the item calls use_item()
 @export var can_move_while_using: bool = true
 @onready var parent: Node3D = get_parent()
 var using_item: bool = false
@@ -18,23 +20,27 @@ func _process(delta) -> void:
 	if held_down_item and using_item:
 		use_duration += delta
 		interval_duration += delta
-		if use_duration > hold_duration:
-			finish_using_item()
-		elif interval_duration / use_interval > 1.0:
+		if interval_duration / use_interval > 1.0:
 			interval_duration -= use_interval
 			update_interval()
+		if hold_duration > 0:
+			if use_duration > hold_duration:
+				finish_using_item()
 
 func stop_player_chargebar() -> void:
 	get_parent().thing_holding_me.get_node("hud/TextureProgressBar").visible = false
 
 func start_player_chargebar() -> void:
-	get_parent().thing_holding_me.get_node("hud/TextureProgressBar").visible = true
-	get_parent().thing_holding_me.get_node("hud/TextureProgressBar").value = 0
-	get_parent().thing_holding_me.increment_progress_bar = true
+	if hold_duration > 0:
+		get_parent().thing_holding_me.get_node("hud/TextureProgressBar").visible = true
+		get_parent().thing_holding_me.get_node("hud/TextureProgressBar").value = 0
+		get_parent().thing_holding_me.increment_progress_bar = true
 
 # Things that occur on an interval.
 # e.g. while drilling a wall, particles will fly out every 0.5 seconds
 func update_interval() -> void:
+	if parent.has_method("update_interval"):
+		parent.update_interval()
 	Debug.debug("Continued using item")
 
 func reload_item() -> void:
@@ -76,3 +82,5 @@ func begin_using_item() -> void:
 	start_player_chargebar()
 	if parent.has_method("begin_using_item"):
 		parent.begin_using_item()
+	if parent.has_method("update_interval"):
+		parent.update_interval()

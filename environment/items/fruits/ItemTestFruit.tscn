@@ -13,7 +13,7 @@ script = ExtResource("1_8ue80")
 mesh = SubResource("BoxMesh_1ebx8")
 skeleton = NodePath("")
 
-[node name="StaticBody3D" type="StaticBody3D" parent="." groups=["item_hitbox"]]
+[node name="StaticBody3D" type="StaticBody3D" parent="." groups=["item"]]
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="StaticBody3D"]
 shape = SubResource("BoxShape3D_ijs0t")

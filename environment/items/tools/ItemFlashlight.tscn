@@ -19,7 +19,7 @@ inventory_texture = ExtResource("2_n1cg6")
 [node name="ItemUsableComponent" parent="." instance=ExtResource("3_n1cg6")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -0.0772085)
 
-[node name="StaticBody3D" type="StaticBody3D" parent="." groups=["item_hitbox"]]
+[node name="StaticBody3D" type="StaticBody3D" parent="." groups=["item"]]
 transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 0.0916203, 0, 0)
 collision_layer = 2
 

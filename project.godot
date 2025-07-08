@@ -45,8 +45,8 @@ electrical_manager=""
 world=""
 map_generator=""
 computers=""
-item_hitbox=""
 item_component=""
+item=""
 
 [importer_defaults]
 

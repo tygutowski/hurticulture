@@ -61,16 +61,17 @@ func _ready() -> void:
 # adds the item to your first person hand
 func add_item_to_fps_hand(item: Node3D) -> void:
 	Debug.debug("adding to fps")
-	var fps_hand_item = item.duplicate()
-	fps_hand_item.viewport_type = fps_hand_item.viewportType.FIRSTPERSON
+	var fps_hand_item = item.duplicate(15)
 	var meshes: Array = fps_hand_item.find_children("*", "MeshInstance3D", true, true)
+	item.set_counterpart(fps_hand_item)
 	for mesh: MeshInstance3D in meshes:
 		# make it only visible to the fps hand camera
 		mesh.set_layer_mask_value(1, false)
 		mesh.set_layer_mask_value(3, false)
 		mesh.set_layer_mask_value(4, true)
-	fps_hand_item.orient_item()
 	fps_hand.add_child(fps_hand_item)
+	fps_hand_item.viewport_type = fps_hand_item.viewportType.FIRSTPERSON
+	fps_hand_item.orient_item()
 
 # adds the item to your real world hand
 func add_item_to_world_hand(item: Node3D) -> void:
@@ -81,8 +82,9 @@ func add_item_to_world_hand(item: Node3D) -> void:
 		mesh.set_layer_mask_value(1, false)
 		mesh.set_layer_mask_value(3, true)
 		mesh.set_layer_mask_value(4, false)
-	item.orient_item()
 	world_hand.add_child(item)
+	item.viewport_type = item.viewportType.REALWORLD
+	item.orient_item()
 
 # removes the item from your first person hand
 func remove_item_from_fps_hand() -> void:
@@ -168,6 +170,7 @@ func get_looking_at_ray():
 # updates held_item
 # update your hand to show that its free
 func drop_item(drop_charge: float = 0) -> void:
+	charging_drop = false
 	drop_charge = clamp(drop_charge, 0.0, 5.0)
 	Debug.debug("dropping item")
 	if held_item != null:
@@ -197,7 +200,7 @@ func drop_item(drop_charge: float = 0) -> void:
 		held_item.linear_velocity = inherited_velocity
 		# This puts a little spin on the item in the air
 		held_item.apply_impulse(
-			Vector3(0, 0, randf_range(-0.5, 0.5)),
+			Vector3(0, 0, randf_range(-0.01, 0.01)),
 			Vector3(randf_range(-1.0, 1.0), 0, randf_range(-1.0, 1.0))
 			)
 		held_item.apply_central_impulse(impulse)
@@ -230,10 +233,12 @@ func begin_charging_drop() -> void:
 	drop_charge_time = 0
 
 func _physics_process(delta: float) -> void:
-	if held_item != null and increment_progress_bar:
-		var diff = 100.0/held_item.hold_duration * delta
-		$hud/TextureProgressBar.value += diff
-	drop_charge_time += delta
+	if charging_drop:
+		drop_charge_time = min(drop_charge_time + delta, 3.0)
+	else:
+		drop_charge_time = 0
+	camera.fov = lerp(camera.fov, Settings.base_fov + drop_charge_time * 3, .75)
+	
 	if not is_on_floor():
 		velocity += get_gravity() * delta
 	 
@@ -242,9 +247,9 @@ func _physics_process(delta: float) -> void:
 			if component is ItemUsableComponent:
 				if component.held_down_item: # if its an item you must hold down to use
 					if Input.is_action_just_released("lmb"):
-						held_item.stop_using_item()
+						held_item.get_node("ItemUsableComponent").stop_using_item()
 					if Input.is_action_just_pressed("lmb"):
-						held_item.begin_using_item()
+						held_item.get_node("ItemUsableComponent").begin_using_item()
 				else: # if its an item you click to use
 					if Input.is_action_just_pressed("lmb"):
 						held_item.use_item()

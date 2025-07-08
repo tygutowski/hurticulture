@@ -14,7 +14,8 @@ var window_modes = [
 var window_mode
 
 var gamma : int = -1
-var fov : int = -1
+var base_fov : int = -1 # without any manipulations from charging items or running
+var fov : float = base_fov # with manipulations
 var game_volume : int = -1
 var voice_volume : int = -1
 var microphone_volume : int = -1
@@ -42,8 +43,8 @@ func _ready():
 func set_gamma(_gamma):
 	gamma = _gamma
 
-func set_fov(_fov):
-	fov = _fov
+func set_fov(_base_fov):
+	base_fov = _base_fov
 
 func set_game_volume(_volume):
 	game_volume = _volume
@@ -70,7 +71,7 @@ func set_windowmode(_window_mode):
 	DisplayServer.window_set_mode(window_modes[window_mode])
 
 func fov_slider_value_changed(value : int):
-	fov = value
+	base_fov = value
 
 func gamevolume_value_changed(value : int):
 	game_volume = value

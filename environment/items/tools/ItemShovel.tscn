@@ -185,7 +185,7 @@ material_override = SubResource("StandardMaterial3D_ald0j")
 mesh = SubResource("ArrayMesh_bpymx")
 skeleton = NodePath("")
 
-[node name="StaticBody3D" type="StaticBody3D" parent="." groups=["item_hitbox"]]
+[node name="StaticBody3D" type="StaticBody3D" parent="." groups=["item"]]
 script = ExtResource("1_rmqyr")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="StaticBody3D"]

@@ -3,18 +3,25 @@ class_name Item
 # An abstract class that all Items (ItemGeneric, ItemUsable) inherit
 
 var thing_holding_me: Node3D = null
+
 enum viewportType {
 	REALWORLD = 0,
 	FIRSTPERSON = 1
 }
 
+var viewport_counterpart: Item = null
 var viewport_type = viewportType.REALWORLD
+
+@export var item_name: String = "Default Item Name"
+@export var inventory_texture: Texture = null
 @export var fps_hand_offset: Vector3
 @export var fps_hand_rotation: Vector3
-@export var inventory_texture: Texture = null
 @onready var animation_player: AnimationPlayer = get_node_or_null("AnimationPlayer")
 
 var item_components: Array = []
+
+func set_counterpart(item: Item) -> void:
+	viewport_counterpart = item
 
 # Update the list of item components
 func set_item_components() -> void:

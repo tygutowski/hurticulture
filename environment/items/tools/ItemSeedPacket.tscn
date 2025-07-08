@@ -21,7 +21,7 @@ layers = 9
 mesh = SubResource("SphereMesh_7lidg")
 skeleton = NodePath("")
 
-[node name="StaticBody3D" type="StaticBody3D" parent="." groups=["item_hitbox"]]
+[node name="StaticBody3D" type="StaticBody3D" parent="." groups=["item"]]
 collision_layer = 3
 collision_mask = 2
 script = ExtResource("1_q21fr")
