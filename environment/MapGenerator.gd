@@ -199,11 +199,6 @@ func clear_objects() -> void:
 		for object in spawned_object_categories.get_children():
 			object.queue_free()
 
-func randomize_environment() -> void:
-	var color: Color = Color.from_hsv(randf_range(0.0, 1.0), randf_range(0.2, 0.4), randf_range(0.1, 0.3), 1.0)
-	var environment: Environment = get_node("../WorldEnvironment").environment
-	environment.fog_light_color = color
-
 func generate_world(sandbox: bool = false) -> void:
 	set_seeds()
 	
@@ -212,9 +207,7 @@ func generate_world(sandbox: bool = false) -> void:
 		await generate_terrain()
 		await get_tree().physics_frame
 		await get_tree().physics_frame
-	
-	randomize_environment()
-	
+		
 	if not Engine.is_editor_hint():
 		if not sandbox:
 			generate_vegetation()

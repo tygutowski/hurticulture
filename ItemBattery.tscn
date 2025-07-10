@@ -1,7 +1,8 @@
-[gd_scene load_steps=7 format=4 uid="uid://di2hyd5dw6fsg"]
+[gd_scene load_steps=8 format=4 uid="uid://di2hyd5dw6fsg"]
 
 [ext_resource type="Script" uid="uid://dndflnyudese7" path="res://ItemBattery.gd" id="1_e0k2i"]
 [ext_resource type="Texture2D" uid="uid://bsyivxr8jwrl0" path="res://CarBattery/CarBattery01_d.tga" id="1_neag5"]
+[ext_resource type="AudioStream" uid="uid://ccqv5ryi2jpia" path="res://Rust & Blood - Audio Library/MP3/Sound Effects/Firearms/Reloading/shotgun_reloading_slug_in_ufx_3.mp3" id="3_84ohk"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_f7vux"]
 resource_name = "car_battery"
@@ -31,7 +32,7 @@ albedo_texture = ExtResource("1_neag5")
 [sub_resource type="BoxShape3D" id="BoxShape3D_e0k2i"]
 size = Vector3(0.325928, 0.192383, 0.175781)
 
-[node name="RigidBody3D" type="RigidBody3D" groups=["item"]]
+[node name="Battery" type="RigidBody3D" groups=["item"]]
 collision_layer = 2
 collision_mask = 3
 script = ExtResource("1_e0k2i")
@@ -48,3 +49,6 @@ surface_material_override/0 = SubResource("StandardMaterial3D_e0k2i")
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.00146484, 0)
 shape = SubResource("BoxShape3D_e0k2i")
+
+[node name="ContactSound" type="AudioStreamPlayer3D" parent="."]
+stream = ExtResource("3_84ohk")

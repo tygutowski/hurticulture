@@ -232,6 +232,12 @@ func begin_charging_drop() -> void:
 	charging_drop = true
 	drop_charge_time = 0
 
+func update_head_rotation() -> void:
+	# prevent the head from rotating too far up or down
+	head_pivot.rotation.x = clampf(head_pivot.rotation.x, deg_to_rad(-90), deg_to_rad(90))
+
+
+
 func _physics_process(delta: float) -> void:
 	if charging_drop:
 		drop_charge_time = min(drop_charge_time + delta, 3.0)
@@ -405,9 +411,8 @@ func _input(event):
 		# Head rotation
 		gameplay_head.rotate_y(input.x)
 		head_pivot.rotate_x(input.y)
-
-		# Clamp vertical head rotation
-		head_pivot.rotation.x = clampf(head_pivot.rotation.x, deg_to_rad(-90), deg_to_rad(90))
+	
+		update_head_rotation()
 
 	# Clamp head turn angle
 	y_head_rotation = clamp(y_head_rotation, -MAX_HEAD_TURN_ANGLE, MAX_HEAD_TURN_ANGLE)

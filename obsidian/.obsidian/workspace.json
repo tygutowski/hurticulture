@@ -30,12 +30,12 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "hurticulture/Ideas/Plants/Grenadum.md",
+                "file": "hurticulture/Ideas/Plants/Banana.md",
                 "mode": "source",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "Grenadum"
+              "title": "Banana"
             }
           }
         ],
@@ -71,7 +71,7 @@
             "state": {
               "type": "search",
               "state": {
-                "query": "",
+                "query": "tag:#rarity-uncommon",
                 "matchingCase": false,
                 "explainSearch": false,
                 "collapseAll": false,
@@ -92,7 +92,8 @@
               "title": "Bookmarks"
             }
           }
-        ]
+        ],
+        "currentTab": 1
       }
     ],
     "direction": "horizontal",
@@ -186,8 +187,9 @@
       "command-palette:Open command palette": false
     }
   },
-  "active": "f8a3786f2f81e74d",
+  "active": "2a3ec3dc21c796dd",
   "lastOpenFiles": [
+    "hurticulture/Ideas/Plants/Grenadum.md",
     "hurticulture/Ideas/Plants/Gravapple.md",
     "hurticulture/Ideas/Plants/Sparkweed.md",
     "hurticulture/Ideas/Plants/Shriekroot.md",
@@ -222,7 +224,6 @@
     "hurticulture/Software Design/Components",
     "hurticulture/Board.canvas",
     "hurticulture/Software Design",
-    "hurticulture/Ideas/Untitled.md",
     "hurticulture/Ideas/Player Design.canvas",
     "hurticulture/Images/Pasted image 20250403091157.png.import24945534.tmp",
     "hurticulture/images.jpg.import",

@@ -1,15 +1,16 @@
-[gd_scene load_steps=20 format=4 uid="uid://d3m15aoueok6r"]
+[gd_scene load_steps=22 format=4 uid="uid://d3m15aoueok6r"]
 
 [ext_resource type="Script" uid="uid://bqeu323hgecsc" path="res://ItemSubMachineGun.gd" id="1_phfri"]
 [ext_resource type="PackedScene" uid="uid://bq4yia4segl7" path="res://ShotgunShell.tscn" id="2_5gnm8"]
-[ext_resource type="Texture2D" uid="uid://cedh64outhfae" path="res://shotgun-sprite.png" id="3_1ek8q"]
 [ext_resource type="Texture2D" uid="uid://b7lh2u5wjsn3t" path="res://textures/Metal/Metal_06-128x128.png" id="3_5gnm8"]
+[ext_resource type="Texture2D" uid="uid://b7tfrc8mxq4s0" path="res://smg_inventory_icon.png" id="3_dd4ia"]
 [ext_resource type="PackedScene" uid="uid://dv86qo0tus0n2" path="res://ItemUsableComponent.tscn" id="3_hc1ia"]
 [ext_resource type="AudioStream" uid="uid://dooxldv25ljrm" path="res://Rust & Blood - Audio Library/other-formats/WAV/Sound Effects/Firearms/Reloading/smg_reloading_mag_in_ufx_1.wav" id="6_hc1ia"]
 [ext_resource type="AudioStream" uid="uid://dqfw6u1x21op4" path="res://Rust & Blood - Audio Library/other-formats/WAV/Sound Effects/Firearms/Fire/smg_fire_ufx_2.wav" id="7_dd4ia"]
 [ext_resource type="AudioStream" uid="uid://cfrnoq3fg8eqk" path="res://Rust & Blood - Audio Library/other-formats/WAV/Sound Effects/Firearms/Racking/smg_racking_ufx_1.wav" id="8_hc1ia"]
 [ext_resource type="AudioStream" uid="uid://yqropcyhmnqa" path="res://Rust & Blood - Audio Library/other-formats/WAV/Sound Effects/Firearms/Misc/smg_universal_empty_barrel_ufx_1.wav" id="9_dd4ia"]
 [ext_resource type="Texture2D" uid="uid://b2n3ygl0p686e" path="res://muzzleflash_small.png" id="10_hc1ia"]
+[ext_resource type="AudioStream" uid="uid://ccqv5ryi2jpia" path="res://Rust & Blood - Audio Library/MP3/Sound Effects/Firearms/Reloading/shotgun_reloading_slug_in_ufx_3.mp3" id="11_dd4ia"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_1ek8q"]
 albedo_texture = ExtResource("3_5gnm8")
@@ -49,6 +50,40 @@ size = Vector3(0.0588589, 0.126379, 0.0766602)
 [sub_resource type="Animation" id="Animation_rtt17"]
 length = 0.001
 step = 0.1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Animatables:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(0, 0, 0)]
+}
+tracks/1/type = "bezier"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Animatables:rotation:z")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"handle_modes": PackedInt32Array(0),
+"points": PackedFloat32Array(0, -0.0375, 0, 0.0375, 0),
+"times": PackedFloat32Array(0)
+}
+tracks/2/type = "bezier"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Animatables:position:y")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"handle_modes": PackedInt32Array(0),
+"points": PackedFloat32Array(0, -0.25, 0, 0.25, 0),
+"times": PackedFloat32Array(0)
+}
 
 [sub_resource type="Animation" id="Animation_p3w2e"]
 resource_name = "reload"
@@ -61,40 +96,86 @@ tracks/0/path = NodePath(".")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
-"times": PackedFloat32Array(0, 0.4, 2.5, 3),
-"transitions": PackedFloat32Array(1, 1, 1, 1),
+"times": PackedFloat32Array(0, 3),
+"transitions": PackedFloat32Array(1, 1),
 "values": [{
 "args": [],
 "method": &"start_reloading"
 }, {
 "args": [],
-"method": &"eject_shell"
-}, {
-"args": [],
-"method": &"add_shell_to_chamber"
-}, {
-"args": [],
 "method": &"finish_reloading"
 }]
+}
+tracks/1/type = "bezier"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Animatables:position:y")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"handle_modes": PackedInt32Array(0, 0, 0, 0, 0),
+"points": PackedFloat32Array(0, -0.25, 0, 0.25, 0, -0.065, -0.25, 0, 0.25, 0, -0.065, -0.25, 0, 0.25, 0, 0, -0.25, 0, 0.25, 0, 0, -0.25, 0, 0.25, 0),
+"times": PackedFloat32Array(0, 1.1, 1.9, 2.2, 2.7)
+}
+tracks/2/type = "bezier"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Animatables:rotation:z")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"handle_modes": PackedInt32Array(0, 0, 0, 0, 0),
+"points": PackedFloat32Array(0, -0.25, 0, 0.25, 0, -0.27, -0.25, 0, 0.25, 0, -0.27, -0.25, 0, 0.25, 0, 0.105, -0.25, 0, 0.25, 0, 0, -0.25, 0, 0.25, 0),
+"times": PackedFloat32Array(0, 0.9, 1.7, 2.7, 3)
+}
+
+[sub_resource type="Animation" id="Animation_hc1ia"]
+resource_name = "shoot"
+length = 0.075
+step = 0.005
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Animatables:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.045, 0.05),
+"transitions": PackedFloat32Array(1, 0.050766, 1),
+"update": 0,
+"values": [Vector3(0, 0, 0), Vector3(-0.04, 0.025, 0), Vector3(0, 0, 0)]
+}
+tracks/1/type = "bezier"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Animatables:rotation:z")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"handle_modes": PackedInt32Array(0, 0, 0),
+"points": PackedFloat32Array(0, -0.0375, 0, 0.0375, 0, 0.2, -0.0375, 0, 0.0375, 0, 0, -0.0375, 0, 0.0375, 0),
+"times": PackedFloat32Array(0, 0.045, 0.05)
 }
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_bwgpe"]
 _data = {
 &"RESET": SubResource("Animation_rtt17"),
-&"reload": SubResource("Animation_p3w2e")
+&"reload": SubResource("Animation_p3w2e"),
+&"shoot": SubResource("Animation_hc1ia")
 }
 
 [node name="SubMachineGun" type="RigidBody3D" node_paths=PackedStringArray("casing_spawner") groups=["item"]]
 collision_layer = 2
 collision_mask = 3
+contact_monitor = true
 script = ExtResource("1_phfri")
 is_automatic = true
-recoil_strength = 2.0
+recoil_strength = 1.0
 spent_casing_scene = ExtResource("2_5gnm8")
-casing_spawner = NodePath("CasingSpawner")
+casing_spawner = NodePath("Animatables/CasingSpawner")
 max_ammo = 30
 item_name = "SMG"
-inventory_texture = ExtResource("3_1ek8q")
+inventory_texture = ExtResource("3_dd4ia")
 fps_hand_offset = Vector3(0.366839, -0.337219, -0.447201)
 fps_hand_rotation = Vector3(0, 1.5708, 0)
 
@@ -103,7 +184,39 @@ held_down_item = true
 hold_duration = 0.0
 use_interval = 0.075
 
-[node name="Uzi" type="MeshInstance3D" parent="."]
+[node name="Animatables" type="Node3D" parent="."]
+
+[node name="CasingSpawner" type="Node3D" parent="Animatables"]
+transform = Transform3D(0.999967, 0, 0.00813315, 0, 1, 0, -0.00813315, 0, 0.999967, 0.0432049, 0.118965, 0.0423579)
+
+[node name="MuzzleFlashGlobal" type="Sprite3D" parent="Animatables"]
+transform = Transform3D(-4.37114e-09, 0, 0.1, 0, 0.1, 0, -0.1, 0, -4.37114e-09, 0.47008, 0.112943, 0.00700678)
+layers = 4
+billboard = 1
+texture = ExtResource("10_hc1ia")
+
+[node name="MuzzleFlashLocal" type="Sprite3D" parent="Animatables"]
+transform = Transform3D(-4.37114e-09, 0, 0.1, 0, 0.1, 0, -0.1, 0, -4.37114e-09, 0.47008, 0.112943, 0.00700678)
+layers = 8
+texture = ExtResource("10_hc1ia")
+
+[node name="MuzzleLightLocal" type="OmniLight3D" parent="Animatables"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.467374, 0.110792, 0)
+layers = 8
+light_color = Color(1, 0.930917, 0.838582, 1)
+light_size = 1.0
+light_cull_mask = 4293918721
+omni_range = 1.2
+
+[node name="MuzzleLightGlobal" type="OmniLight3D" parent="Animatables"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.467374, 0.110792, 0)
+layers = 5
+light_color = Color(1, 0.930917, 0.838582, 1)
+light_size = 1.0
+light_cull_mask = 4293918725
+omni_range = 1.2
+
+[node name="Uzi" type="MeshInstance3D" parent="Animatables"]
 transform = Transform3D(-1.74846e-07, 4, 1.74846e-07, 0, -1.74846e-07, 4, 4, 1.74846e-07, 7.64274e-15, 0.121874, 0.0592435, 0.01)
 material_override = SubResource("StandardMaterial3D_1ek8q")
 gi_mode = 2
@@ -151,35 +264,11 @@ max_polyphony = 5
 [node name="Muzzle" type="Node3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.447158, 0.100836, 0)
 
-[node name="MuzzleFlashGlobal" type="Sprite3D" parent="Muzzle"]
-transform = Transform3D(-4.37114e-09, 0, 0.1, 0, 0.1, 0, -0.1, 0, -4.37114e-09, 0.0229219, 0.0121068, 0.00700678)
-layers = 4
-billboard = 1
-texture = ExtResource("10_hc1ia")
-
-[node name="MuzzleFlashLocal" type="Sprite3D" parent="Muzzle"]
-transform = Transform3D(-4.37114e-09, 0, 0.1, 0, 0.1, 0, -0.1, 0, -4.37114e-09, 0.0229219, 0.0121068, 0.00700678)
-layers = 8
-texture = ExtResource("10_hc1ia")
-
-[node name="MuzzleLightLocal" type="OmniLight3D" parent="Muzzle"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.0514029, 0, 0)
-layers = 8
-light_color = Color(1, 0.930917, 0.838582, 1)
-light_size = 0.1
-light_cull_mask = 4293918721
-omni_range = 1.2
-
-[node name="MuzzleLightGlobal" type="OmniLight3D" parent="Muzzle"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.0514029, 0, 0)
-layers = 5
-light_color = Color(1, 0.930917, 0.838582, 1)
-light_size = 0.1
-light_cull_mask = 4293918725
-omni_range = 1.2
-
 [node name="RayCast3D" type="RayCast3D" parent="Muzzle"]
 target_position = Vector3(50, 0, 0)
 
-[node name="CasingSpawner" type="Node3D" parent="."]
-transform = Transform3D(0.999967, 0, 0.00813315, 0, 1, 0, -0.00813315, 0, 0.999967, 0.0432049, 0.118965, 0.0423579)
+[node name="ContactSound" type="AudioStreamPlayer3D" parent="."]
+stream = ExtResource("11_dd4ia")
+max_polyphony = 5
+
+[node name="Deletables" type="Node3D" parent="."]

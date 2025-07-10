@@ -61,7 +61,7 @@ func set_microphone_threshold(_threshold):
 func set_resolution(_resolution):
 	resolution = _resolution
 	DisplayServer.window_set_size(resolutions[resolution])
-	DisplayServer.window_set_position(get_viewport().size/2)
+	#DisplayServer.window_set_position(get_viewport().size/2)
 
 func window_type_changed(index : int) -> void:
 	set_windowmode(index)

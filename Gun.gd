@@ -27,13 +27,14 @@ func fire_projectile() -> void:
 	push_error("You must override fire_projectile() in a subclass of Gun.")
 
 func _ready() -> void:
+	super._ready()
 	hide_muzzle_flashes()
 	ammo = max_ammo
 
 func reload_item() -> void:
 	if ammo != max_ammo:
-		animation_player.play("reload")
-		get_node("Audio/Reloading").play()
+		viewport_counterpart.animation_player.play("reload")
+		viewport_counterpart.get_node("Audio/Reloading").play()
 		ammo = max_ammo
 
 func finish_reloading() -> void:
@@ -45,11 +46,11 @@ func start_reloading() -> void:
 func enable_muzzle_flash() -> void:
 	var flash: Sprite3D = null
 	if viewport_type == viewportType.FIRSTPERSON:
-		flash = get_node_or_null("Muzzle/MuzzleFlashLocal")
-		get_node("Muzzle/MuzzleLightLocal").light_energy = muzzle_flash_energy
+		flash = get_node_or_null("Animatables/MuzzleFlashLocal")
+		get_node("Animatables/MuzzleLightLocal").light_energy = muzzle_flash_energy
 	if viewport_type == viewportType.REALWORLD:
-		flash = get_node_or_null("Muzzle/MuzzleFlashGlobal")
-		get_node("Muzzle/MuzzleLightGlobal").light_energy = muzzle_flash_energy
+		flash = get_node_or_null("Animatables/MuzzleFlashGlobal")
+		get_node("Animatables/MuzzleLightGlobal").light_energy = muzzle_flash_energy
 		viewport_counterpart.enable_muzzle_flash()
 	flash.offset = Vector2(randf_range(-15, 15), randf_range(-15, 15))
 	var random_flash_scaling = randf_range(default_flash_size + flash_bound, default_flash_size - flash_bound)
@@ -62,12 +63,12 @@ func enable_muzzle_flash() -> void:
 
 func hide_muzzle_flashes() -> void:
 	var flash: Sprite3D = null
-	get_node("Muzzle/MuzzleLightLocal").light_energy = 0
-	get_node("Muzzle/MuzzleLightGlobal").light_energy = 0
-	flash = get_node_or_null("Muzzle/MuzzleFlashGlobal")
+	get_node("Animatables/MuzzleLightLocal").light_energy = 0
+	get_node("Animatables/MuzzleLightGlobal").light_energy = 0
+	flash = get_node_or_null("Animatables/MuzzleFlashGlobal")
 	if flash != null:
 		flash.visible = false
-	flash = get_node_or_null("Muzzle/MuzzleFlashLocal")
+	flash = get_node_or_null("Animatables/MuzzleFlashLocal")
 	if flash != null:
 		flash.visible = false
 
@@ -108,8 +109,13 @@ func shoot() -> void:
 		else:
 			get_node("Audio/Empty").play()
 
+func recoil_viewport() -> void:
+	get_node("AnimationPlayer").play("shoot")
+	get_node("AnimationPlayer").seek(0)
+
 func recoil() -> void:
-	var player: CharacterBody3D = get_tree().get_first_node_in_group("player")
+	viewport_counterpart.recoil_viewport()
+	var player: CharacterBody3D = thing_holding_me
 	var head: Node3D = player.get_node("Head")
 	var head_y_pivot = head.get_node("HeadGameplay")
 	head_y_pivot.rotate_y(
@@ -119,3 +125,4 @@ func recoil() -> void:
 		))
 	var head_x_pivot = head_y_pivot.get_node("HeadPivot")
 	head_x_pivot.rotate_x(deg_to_rad(recoil_strength))
+	player.update_head_rotation()

@@ -1,7 +1,9 @@
-[gd_scene load_steps=7 format=4 uid="uid://b3bro3nus3giu"]
+[gd_scene load_steps=10 format=4 uid="uid://b3bro3nus3giu"]
 
 [ext_resource type="Script" uid="uid://dt6ncj5lkdh52" path="res://ItemLargeBattery.gd" id="1_7crry"]
 [ext_resource type="Texture2D" uid="uid://bsyivxr8jwrl0" path="res://CarBattery/CarBattery01_d.tga" id="1_j10n7"]
+[ext_resource type="AudioStream" uid="uid://ccqv5ryi2jpia" path="res://Rust & Blood - Audio Library/MP3/Sound Effects/Firearms/Reloading/shotgun_reloading_slug_in_ufx_3.mp3" id="3_frwxd"]
+[ext_resource type="Shader" uid="uid://dh8e7s6u2k7qe" path="res://OutlineShader.gdshader" id="3_hkcia"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_f7vux"]
 resource_name = "car_battery"
@@ -25,13 +27,20 @@ _surfaces = [{
 }]
 blend_shape_mode = 0
 
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_rso1f"]
+render_priority = 0
+shader = ExtResource("3_hkcia")
+shader_parameter/color = Color(0, 0, 0, 1)
+
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_e0k2i"]
+next_pass = SubResource("ShaderMaterial_rso1f")
 albedo_texture = ExtResource("1_j10n7")
+billboard_keep_scale = true
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_7crry"]
 size = Vector3(0.323242, 0.190308, 0.175781)
 
-[node name="RigidBody3D" type="RigidBody3D" groups=["item"]]
+[node name="LargeBattery" type="RigidBody3D" groups=["item"]]
 collision_layer = 2
 collision_mask = 3
 script = ExtResource("1_7crry")
@@ -50,3 +59,6 @@ surface_material_override/0 = SubResource("StandardMaterial3D_e0k2i")
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
 transform = Transform3D(1.5, 0, 0, 0, 1.5, 0, 0, 0, 1.5, 0, -6.10352e-05, 0)
 shape = SubResource("BoxShape3D_7crry")
+
+[node name="ContactSound" type="AudioStreamPlayer3D" parent="."]
+stream = ExtResource("3_frwxd")
