@@ -1,25 +1,6 @@
-[gd_resource type="ArrayMesh" load_steps=5 format=4 uid="uid://c21iu2tbxhc00"]
+[gd_resource type="ArrayMesh" load_steps=2 format=4 uid="uid://c21iu2tbxhc00"]
 
-[ext_resource type="Shader" uid="uid://cstr8yfscybfl" path="res://grass.gdshader" id="1_0ifrx"]
-
-[sub_resource type="FastNoiseLite" id="FastNoiseLite_0ifrx"]
-
-[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_6ek8i"]
-width = 500
-height = 500
-seamless = true
-noise = SubResource("FastNoiseLite_0ifrx")
-
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_6ek8i"]
-render_priority = 0
-shader = ExtResource("1_0ifrx")
-shader_parameter/color = Color(0.154983, 0.282302, 0.123675, 1)
-shader_parameter/color2 = Color(0.141513, 0.567382, 0.193451, 1)
-shader_parameter/noise = SubResource("NoiseTexture2D_6ek8i")
-shader_parameter/noiseScale = 45.52
-shader_parameter/sway_strength = 0.1
-shader_parameter/sway_speed = 1.0
-shader_parameter/sway_scale = 1.0
+[ext_resource type="Material" uid="uid://drvw034qd5pwj" path="res://GrassMaterial.tres" id="1_0ifrx"]
 
 [resource]
 resource_name = "grass_Plane_010"
@@ -29,7 +10,7 @@ _surfaces = [{
 "format": 34896613399,
 "index_count": 390,
 "index_data": PackedByteArray("AAABAAIAAgABAAMAAgADAAQABAADAAUABAAFAAYABgAFAAcABgAHAAgACAAHAAkACAAJAAoACgAJAAsACgALAAwADAALAA0ADAANAA4ADwAQABEAEQAQABIAEQASABMAEwASABQAEwAUABUAFQAUABYAFQAWABcAFwAWABgAFwAYABkAGQAYABoAGQAaABsAGwAaABwAGwAcAB0AHgAfACAAIAAfACEAIAAhACIAIgAhACMAIgAjACQAJAAjACUAJAAlACYAJgAlACcAJgAnACgAKAAnACkAKAApACoAKgApACsAKgArACwALQAuAC8ALwAuADAALwAwADEAMQAwADIAMQAyADMAMwAyADQAMwA0ADUANQA0ADYANQA2ADcANwA2ADgANwA4ADkAOQA4ADoAOQA6ADsAPAA9AD4APgA9AD8APgA/AEAAQAA/AEEAQABBAEIAQgBBAEMAQgBDAEQARABDAEUARABFAEYARgBFAEcARgBHAEgASABHAEkASABJAEoASwBMAE0ATQBMAE4ATQBOAE8ATwBOAFAATwBQAFEAUQBQAFIAUQBSAFMAUwBSAFQAUwBUAFUAVQBUAFYAVQBWAFcAVwBWAFgAVwBYAFkAWgBbAFwAXABbAF0AXABdAF4AXgBdAF8AXgBfAGAAYABfAGEAYABhAGIAYgBhAGMAYgBjAGQAZABjAGUAZABlAGYAZgBlAGcAZgBnAGgAaQBqAGsAawBqAGwAawBsAG0AbQBsAG4AbQBuAG8AbwBuAHAAbwBwAHEAcQBwAHIAcQByAHMAcwByAHQAcwB0AHUAdQB0AHYAdQB2AHcAeAB5AHoAegB5AHsAegB7AHwAfAB7AH0AfAB9AH4AfgB9AH8AfgB/AIAAgAB/AIEAgACBAIIAggCBAIMAggCDAIQAhACDAIUAhACFAIYAhwCIAIkAiQCIAIoAiQCKAIsAiwCKAIwAiwCMAI0AjQCMAI4AjQCOAI8AjwCOAJAAjwCQAJEAkQCQAJIAkQCSAJMAkwCSAJQAkwCUAJUA"),
-"material": SubResource("ShaderMaterial_6ek8i"),
+"material": ExtResource("1_0ifrx"),
 "name": "Material.001",
 "primitive": 3,
 "uv_scale": Vector4(0, 0, 0, 0),

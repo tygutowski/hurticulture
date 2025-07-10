@@ -1,8 +1,11 @@
-[gd_scene load_steps=28 format=3 uid="uid://bnf8skrh5pjuk"]
+[gd_scene load_steps=31 format=3 uid="uid://bnf8skrh5pjuk"]
 
+[ext_resource type="Script" uid="uid://des37je3o4mxs" path="res://LODManager.gd" id="1_ai2o8"]
 [ext_resource type="Material" uid="uid://c8olfqsah5dxj" path="res://TestMaterial.tres" id="2_f2mx5"]
-[ext_resource type="Texture2D" uid="uid://dikysn15yw875" path="res://textures/sponge_hell_1.png" id="2_nmhe3"]
+[ext_resource type="ArrayMesh" uid="uid://c21iu2tbxhc00" path="res://grass.tres" id="2_nmhe3"]
+[ext_resource type="ArrayMesh" uid="uid://lnly8qmyb03b" path="res://grass_lod2.tres" id="3_e4g4f"]
 [ext_resource type="Texture2D" uid="uid://by2pnm6xl10km" path="res://textures/Stone/Stone_05-128x128.png" id="4_igx0j"]
+[ext_resource type="Texture2D" uid="uid://dxfrr2em2al1o" path="res://textures/dirt_alien_1.png" id="5_tctsc"]
 [ext_resource type="PackedScene" uid="uid://bfs70m7rkn6ic" path="res://electrical/cctv_camera.tscn" id="6_ypj6x"]
 [ext_resource type="PackedScene" uid="uid://w042e6wfvpt" path="res://SkinPickerComputer.tscn" id="9_igx0j"]
 [ext_resource type="PackedScene" uid="uid://kyq05jxp3yn4" path="res://ItemShotgun.tscn" id="9_tctsc"]
@@ -42,12 +45,12 @@ adjustment_brightness = 0.69
 adjustment_contrast = 5.4
 adjustment_saturation = 8.0
 
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_e4g4f"]
-albedo_texture = ExtResource("2_nmhe3")
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_luwg1"]
+albedo_texture = ExtResource("5_tctsc")
 
 [sub_resource type="PlaneMesh" id="PlaneMesh_hipxm"]
 material = ExtResource("2_f2mx5")
-size = Vector2(30, 30)
+size = Vector2(40, 40)
 
 [sub_resource type="ConcavePolygonShape3D" id="ConcavePolygonShape3D_et2sf"]
 data = PackedVector3Array(500, 0, 500, -500, 0, 500, 500, 0, -500, -500, 0, 500, -500, 0, -500, 500, 0, -500)
@@ -92,7 +95,12 @@ height = 10.0
 height = 10.0
 radius = 1.0
 
-[node name="Node3D" type="Node3D"]
+[node name="Map" type="Node3D" groups=["map"]]
+script = ExtResource("1_ai2o8")
+chunk_size = Vector2(5, 5)
+map_size = Vector2(20, 20)
+grass_mesh_high = ExtResource("2_nmhe3")
+grass_mesh_low = ExtResource("3_e4g4f")
 
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
 transform = Transform3D(0.899611, 0.0463454, 0.434227, -0.425191, -0.133756, 0.895166, 0.0995672, -0.98993, -0.100622, 0.999083, 17.5771, 0)
@@ -128,17 +136,19 @@ transform = Transform3D(1, 0, 0, 0, 0.196494, 0.980505, 0, -0.980505, 0.196494, 
 [node name="Map" type="Node3D" parent="."]
 
 [node name="Plain" type="MeshInstance3D" parent="Map"]
-material_override = SubResource("StandardMaterial3D_e4g4f")
+material_override = SubResource("StandardMaterial3D_luwg1")
 mesh = SubResource("PlaneMesh_hipxm")
 skeleton = NodePath("../..")
 
 [node name="StaticBody3D" type="StaticBody3D" parent="Map/Plain"]
+collision_layer = 257
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Map/Plain/StaticBody3D"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.001, 0)
 shape = SubResource("ConcavePolygonShape3D_et2sf")
 
 [node name="GrassPatch" parent="Map/Plain" instance=ExtResource("13_nmhe3")]
+visible = false
 
 [node name="SkinPickerRock" type="MeshInstance3D" parent="Map"]
 transform = Transform3D(0.889711, 0, -0.456523, 0, 1, 0, 0.456523, 0, 0.889711, 7.84783, 1.43978, -5.2708)
@@ -230,3 +240,7 @@ skeleton = NodePath("../..")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Map/Pillar1/StaticBody3D"]
 shape = SubResource("CylinderShape3D_b8cfi")
+
+[node name="GrassRay" type="RayCast3D" parent="."]
+target_position = Vector3(0, -100, 0)
+collision_mask = 256

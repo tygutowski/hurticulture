@@ -47,6 +47,7 @@ map_generator=""
 computers=""
 item_component=""
 item=""
+map=""
 
 [importer_defaults]
 
@@ -205,6 +206,7 @@ zero={
 3d_physics/layer_4="Only Raycast"
 3d_physics/layer_5="Player"
 3d_physics/layer_6="Projectiles"
+3d_physics/layer_9="Grass"
 
 [physics]
 
