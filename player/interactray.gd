@@ -33,6 +33,9 @@ func generate_outline_for(item: Item) -> void:
 		var new_mesh: MeshInstance3D = MeshInstance3D.new()
 		new_mesh.mesh = mesh_outline
 		new_mesh.add_to_group("outlines")
+		new_mesh.set_layer_mask_value(3, true)
+		new_mesh.set_layer_mask_value(1, false)
+		new_mesh.transform = mesh_instance.transform
 		item.get_node("Deletables").add_child(new_mesh)
 		new_mesh.set_surface_override_material(0, outline_material)
 		item.has_outline = true

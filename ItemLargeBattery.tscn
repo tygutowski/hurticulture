@@ -62,3 +62,5 @@ shape = SubResource("BoxShape3D_7crry")
 
 [node name="ContactSound" type="AudioStreamPlayer3D" parent="."]
 stream = ExtResource("3_frwxd")
+
+[node name="Deletables" type="Node3D" parent="."]

@@ -2,10 +2,9 @@ extends Node3D
 
 @export var chunk_size: Vector2
 @export var map_size: Vector2
-@export var grass_mesh_high: Mesh
-@export var grass_mesh_low: Mesh
+@export var grass_mesh: Mesh
 
-const LOD_RADIUS := 1
+const LOD_RADIUS := 3
 const LOD_UPDATE_INTERVAL := 0.5
 
 var chunk_count_x: int
@@ -22,16 +21,16 @@ func _process(delta):
 	if lod_timer < LOD_UPDATE_INTERVAL:
 		return
 	lod_timer = 0.0
-
+	
 	var player = get_tree().get_first_node_in_group("player")
 	if player == null:
 		return
 
 	var player_chunk = check_player_chunk(player.global_position)
-	print(player_chunk)
 	# Skip if still in the same chunk
 	if player_chunk == previous_player_chunk:
-		return
+		pass
+		#return
 	previous_player_chunk = player_chunk
 
 	# Update LODs based on distance from player
@@ -39,16 +38,13 @@ func _process(delta):
 
 	for y in chunk_count_y:
 		for x in chunk_count_x:
-			var node_name = "MeshInstance%d:%d" % [x, y]
+			var node_name = "MultiMesh%d_%d" % [x, y]
 			var mesh_node = map_node.get_node_or_null(node_name)
 			if mesh_node == null:
 				continue
-
+	
 			var dist = abs(x - player_chunk.x) + abs(y - player_chunk.y)
-			var target_mesh = grass_mesh_high if (dist <= LOD_RADIUS) else grass_mesh_low
-
-			if mesh_node.multimesh.mesh != target_mesh:
-				mesh_node.multimesh.mesh = target_mesh
+			mesh_node.visible = dist <= LOD_RADIUS
 
 func check_player_chunk(world_pos: Vector3) -> Vector2i:
 	var local_pos = Vector2(world_pos.x, world_pos.z) + (map_size / 2.0)

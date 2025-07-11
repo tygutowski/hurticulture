@@ -217,7 +217,7 @@ func generate_world(sandbox: bool = false) -> void:
 		else:
 			force_spawn_object("res://sandbox.tscn", Vector3.ZERO)
 			force_spawn_object("res://player/player.tscn", Vector3(0, 1.5, 0))
-			generate_grass(10, Vector2(5, 5), Vector2(20, 20))
+			generate_grass(5000, Vector2(5, 5), Vector2(80, 80))
 
 	reset_generation_values()
 	generation_finished.emit()
@@ -231,7 +231,7 @@ func generate_grass(mesh_per_chunk: int, chunk_size: Vector2, map_size: Vector2)
 	for chunk in total_chunks:
 		var multimesh_instance := MultiMeshInstance3D.new()
 		var multimesh := MultiMesh.new()
-		multimesh.mesh = load("res://grass.tres")
+		multimesh.mesh = load("res://grass_lod2.tres")
 		multimesh.transform_format = MultiMesh.TRANSFORM_3D
 		multimesh.instance_count = mesh_per_chunk
 		multimesh.visible_instance_count = mesh_per_chunk

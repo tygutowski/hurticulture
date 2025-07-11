@@ -343,3 +343,5 @@ target_position = Vector3(50, 0, 0)
 
 [node name="ContactSound" type="AudioStreamPlayer3D" parent="."]
 stream = ExtResource("10_2gxfw")
+
+[node name="Deletables" type="Node3D" parent="."]

@@ -5,7 +5,7 @@ uniform vec3 color : source_color;
 uniform vec3 color2 : source_color;
 uniform sampler2D noise;
 uniform float noiseScale = 20.0;
-
+uniform float heightScale = 0.3;
 uniform float sway_strength = 0.1;
 uniform float sway_speed = 1.0;
 uniform float sway_scale = 1.0;
@@ -17,13 +17,12 @@ void vertex() {
 	vec2 noiseUV = world_vertex.xz / noiseScale;
 	float noiseVal = texture(noise, noiseUV).r;
 
-	// Height modification from noise
-	float height = (1.0 - noiseVal);
-	VERTEX.y += height;
+	float height_offset = max(0.0, (1.0 - noiseVal));
+	float height = 1.0 + height_offset * heightScale;
+	VERTEX.y *= height;
 
-	// Wind sway effect (applied mostly at top of grass)
 	float sway = sin(TIME * sway_speed + world_vertex.x * sway_scale) * sway_strength;
-	VERTEX.x += sway * VERTEX.y; // Only sway top (VERTEX.y ~ height)
+	VERTEX.x += sway * VERTEX.y;
 
 	worldPos = (MODEL_MATRIX * vec4(VERTEX, 1.0)).xyz;
 }
