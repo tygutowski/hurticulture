@@ -13,12 +13,12 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "Ideas/Plants/Lantern Pod.md",
+                "file": "Ideas/Biomes/Desert.md",
                 "mode": "source",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "Lantern Pod"
+              "title": "Desert"
             }
           }
         ]
@@ -167,6 +167,13 @@
   },
   "active": "1b1628e07ed1a1d7",
   "lastOpenFiles": [
+    "Ideas/Biomes/Jungle.md",
+    "Ideas/Biomes/Velvet Forest.md",
+    "Ideas/Biomes/Desert.md",
+    "Ideas/Biomes/Lavender Plains.md",
+    "Untitled.canvas",
+    "Ideas/Plants/Lantern Pod.md",
+    "Ideas/Biomes",
     "Ideas/Plants/Grenadum.md",
     "Ideas/Plants/Emberberry.md",
     "Ideas/Plants/Flashfruit.md",
@@ -196,22 +203,16 @@
     "Ideas/Enemies/Occulant.md",
     "Ideas/Deployables/Scarecrow.md",
     "Ideas/Plants/Hush Husk.md",
-    "Ideas/Plants/Lantern Pod.md",
     "Ideas/Plants/Shriekroot.md",
     "Ideas/Plants/Blinkvine.md",
-    "Ideas/Plants/Banana.md",
     "Images/Pasted image 20250403091157.png.import",
     "Images/Pasted image 20250403091149.png.import",
     "Images/Pasted image 20250403091149.png",
     "Images",
-    "Ideas/Weather/Untitled.md",
-    "Ideas/Weather/Foggy.md",
-    "Ideas/Weather/Sunny.md",
     "Ideas/Weather",
     "Ideas/Player Design.canvas",
     "Ideas/Plants",
     "Ideas/Enemies",
-    "Ideas/Deployables",
     "Ideas/Plants.canvas",
     "Pasted image 20250403092634.png",
     "Pasted image 20250403091129.png",

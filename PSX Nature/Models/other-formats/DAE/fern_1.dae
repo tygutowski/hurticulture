@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="utf-8"?>
+<COLLADA xmlns="http://www.collada.org/2005/11/COLLADASchema" version="1.4.1" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <asset>
+    <contributor>
+      <author>Blender User</author>
+      <authoring_tool>Blender 3.4.0 commit date:2022-12-06, commit time:18:46, hash:a95bf1ac01be</authoring_tool>
+    </contributor>
+    <created>2025-05-21T17:06:20</created>
+    <modified>2025-05-21T17:06:20</modified>
+    <unit name="meter" meter="1"/>
+    <up_axis>Z_UP</up_axis>
+  </asset>
+  <library_effects>
+    <effect id="fern_1-effect">
+      <profile_COMMON>
+        <newparam sid="fern_1_png-surface">
+          <surface type="2D">
+            <init_from>fern_1_png</init_from>
+          </surface>
+        </newparam>
+        <newparam sid="fern_1_png-sampler">
+          <sampler2D>
+            <source>fern_1_png-surface</source>
+          </sampler2D>
+        </newparam>
+        <technique sid="common">
+          <lambert>
+            <emission>
+              <color sid="emission">0 0 0 1</color>
+            </emission>
+            <diffuse>
+              <texture texture="fern_1_png-sampler" texcoord="UVMap"/>
+            </diffuse>
+            <index_of_refraction>
+              <float sid="ior">1.45</float>
+            </index_of_refraction>
+          </lambert>
+        </technique>
+      </profile_COMMON>
+    </effect>
+  </library_effects>
+  <library_images>
+    <image id="fern_1_png" name="fern_1_png">
+      <init_from>fern_1.png</init_from>
+    </image>
+  </library_images>
+  <library_materials>
+    <material id="fern_1-material" name="fern_1">
+      <instance_effect url="#fern_1-effect"/>
+    </material>
+  </library_materials>
+  <library_geometries>
+    <geometry id="fern_1-mesh" name="fern_1">
+      <mesh>
+        <source id="fern_1-mesh-positions">
+          <float_array id="fern_1-mesh-positions-array" count="54">0.3399786 -0.02961242 0.07135367 -0.4743116 -0.02961242 -0.09954702 0.3174018 0.8024186 0.1661221 -0.4968884 0.8024186 -0.004778504 -0.3414726 -0.04081064 0.3355602 0.4763957 -0.0408107 -0.4681474 -0.4188262 1.10586 0.2927535 0.399042 1.10586 -0.5109541 0.1448251 -0.03559052 0.3915925 -0.2020486 -0.03559058 -0.5463192 -0.001068651 0.9644095 0.4914905 -0.3479424 0.9644095 -0.4464212 0.3399787 0.386403 0.07135361 -0.4743115 0.3864031 -0.09954702 -0.3414725 0.5325249 0.3355602 0.4763957 0.5325249 -0.4681473 0.1448251 0.4644095 0.3915925 -0.2020485 0.4644095 -0.5463192</float_array>
+          <technique_common>
+            <accessor source="#fern_1-mesh-positions-array" count="18" stride="3">
+              <param name="X" type="float"/>
+              <param name="Y" type="float"/>
+              <param name="Z" type="float"/>
+            </accessor>
+          </technique_common>
+        </source>
+        <source id="fern_1-mesh-normals">
+          <float_array id="fern_1-mesh-normals-array" count="54">0.2040404 0.114946 -0.9721909 0.2054018 0 -0.9786778 0.2054018 0 -0.9786778 0.6990716 0.07228505 0.7113887 0.7009052 0 0.7132545 0.7009052 0 0.7132545 0.9258168 0.1600786 -0.3424006 0.9379119 0 -0.3468738 0.9379118 0 -0.3468738 0.1999952 0.2279285 -0.9529169 0.204051 0.1144964 -0.9722417 0.9244853 0.1685997 -0.3419082 0.8871818 0.3244242 -0.328112 0.8871818 0.3244242 -0.328112 0.6989672 0.07431107 0.7112825 0.6933708 0.1462296 0.7055876 0.6933709 0.1462296 0.7055875 0.1999952 0.2279285 -0.9529169</float_array>
+          <technique_common>
+            <accessor source="#fern_1-mesh-normals-array" count="18" stride="3">
+              <param name="X" type="float"/>
+              <param name="Y" type="float"/>
+              <param name="Z" type="float"/>
+            </accessor>
+          </technique_common>
+        </source>
+        <source id="fern_1-mesh-map-0">
+          <float_array id="fern_1-mesh-map-0-array" count="72">1 0.5 0 0 1 0 1 0.5 0 0 1 0 1 0.5 0 0 1 0 1 0.5 0 1 0 0.5 0 0.5 1 1 0 1 0 0.5 1 1 0 1 1 0.5 0 0.5 0 0 1 0.5 0 0.5 0 0 1 0.5 0 0.5 0 0 1 0.5 1 1 0 1 0 0.5 1 0.5 1 1 0 0.5 1 0.5 1 1</float_array>
+          <technique_common>
+            <accessor source="#fern_1-mesh-map-0-array" count="36" stride="2">
+              <param name="S" type="float"/>
+              <param name="T" type="float"/>
+            </accessor>
+          </technique_common>
+        </source>
+        <vertices id="fern_1-mesh-vertices">
+          <input semantic="POSITION" source="#fern_1-mesh-positions"/>
+        </vertices>
+        <triangles material="fern_1-material" count="12">
+          <input semantic="VERTEX" source="#fern_1-mesh-vertices" offset="0"/>
+          <input semantic="NORMAL" source="#fern_1-mesh-normals" offset="1"/>
+          <input semantic="TEXCOORD" source="#fern_1-mesh-map-0" offset="2" set="0"/>
+          <p>13 0 0 0 1 1 1 2 2 15 3 3 4 4 4 5 5 5 17 6 6 8 7 7 9 8 8 13 0 9 2 9 10 12 10 11 16 11 12 11 12 13 10 13 14 14 14 15 7 15 16 6 16 17 13 0 18 12 10 19 0 1 20 15 3 21 14 14 22 4 4 23 17 6 24 16 11 25 8 7 26 13 0 27 3 17 28 2 9 29 16 11 30 17 6 31 11 12 32 14 14 33 15 3 34 7 15 35</p>
+        </triangles>
+      </mesh>
+    </geometry>
+  </library_geometries>
+  <library_visual_scenes>
+    <visual_scene id="Scene" name="Scene">
+      <node id="fern_1" name="fern_1" type="NODE">
+        <matrix sid="transform">1 0 0 0 0 -4.37114e-8 -1 0 0 1 -4.37114e-8 0 0 0 0 1</matrix>
+        <instance_geometry url="#fern_1-mesh" name="fern_1">
+          <bind_material>
+            <technique_common>
+              <instance_material symbol="fern_1-material" target="#fern_1-material">
+                <bind_vertex_input semantic="UVMap" input_semantic="TEXCOORD" input_set="0"/>
+              </instance_material>
+            </technique_common>
+          </bind_material>
+        </instance_geometry>
+      </node>
+    </visual_scene>
+  </library_visual_scenes>
+  <scene>
+    <instance_visual_scene url="#Scene"/>
+  </scene>
+</COLLADA>

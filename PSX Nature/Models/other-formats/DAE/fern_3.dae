@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="utf-8"?>
+<COLLADA xmlns="http://www.collada.org/2005/11/COLLADASchema" version="1.4.1" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <asset>
+    <contributor>
+      <author>Blender User</author>
+      <authoring_tool>Blender 3.4.0 commit date:2022-12-06, commit time:18:46, hash:a95bf1ac01be</authoring_tool>
+    </contributor>
+    <created>2025-05-21T17:06:20</created>
+    <modified>2025-05-21T17:06:20</modified>
+    <unit name="meter" meter="1"/>
+    <up_axis>Z_UP</up_axis>
+  </asset>
+  <library_effects>
+    <effect id="fern_3-effect">
+      <profile_COMMON>
+        <newparam sid="fern_3_png-surface">
+          <surface type="2D">
+            <init_from>fern_3_png</init_from>
+          </surface>
+        </newparam>
+        <newparam sid="fern_3_png-sampler">
+          <sampler2D>
+            <source>fern_3_png-surface</source>
+          </sampler2D>
+        </newparam>
+        <technique sid="common">
+          <lambert>
+            <emission>
+              <color sid="emission">0 0 0 1</color>
+            </emission>
+            <diffuse>
+              <texture texture="fern_3_png-sampler" texcoord="UVMap"/>
+            </diffuse>
+            <index_of_refraction>
+              <float sid="ior">1.45</float>
+            </index_of_refraction>
+          </lambert>
+        </technique>
+      </profile_COMMON>
+    </effect>
+  </library_effects>
+  <library_images>
+    <image id="fern_3_png" name="fern_3_png">
+      <init_from>fern_3.png</init_from>
+    </image>
+  </library_images>
+  <library_materials>
+    <material id="fern_3-material" name="fern_3">
+      <instance_effect url="#fern_3-effect"/>
+    </material>
+  </library_materials>
+  <library_geometries>
+    <geometry id="fern_3-mesh" name="fern_3">
+      <mesh>
+        <source id="fern_3-mesh-positions">
+          <float_array id="fern_3-mesh-positions-array" count="36">-0.332935 -0.1756372 -1.274099 0.1167948 -0.1756371 0.5733074 -0.3329349 1.580734 -1.274099 0.116795 1.580734 0.5733073 1.118152 -0.1716077 0.6417885 -0.4930492 -0.1716078 -0.2829968 1.118152 1.54447 0.6417886 -0.4930493 1.54447 -0.2829968 0.8196996 0.2581101 -1.237824 -0.3774003 -0.4297415 0.4857914 0.310019 2.188988 -0.8212466 -0.8870809 1.501136 0.9023686</float_array>
+          <technique_common>
+            <accessor source="#fern_3-mesh-positions-array" count="12" stride="3">
+              <param name="X" type="float"/>
+              <param name="Y" type="float"/>
+              <param name="Z" type="float"/>
+            </accessor>
+          </technique_common>
+        </source>
+        <source id="fern_3-mesh-normals">
+          <float_array id="fern_3-mesh-normals-array" count="36">-0.971624 0 0.2365307 -0.9716241 0 0.2365307 -0.9716241 0 0.2365307 0.4978013 0 -0.8672911 0.4978014 0 -0.8672912 0.4978013 0 -0.8672911 -0.8023357 -0.08430564 -0.5908892 -0.8023357 -0.08430564 -0.5908893 -0.8023357 -0.08430564 -0.5908893 -0.971624 0 0.2365307 0.4978014 0 -0.8672911 -0.8023357 -0.08430564 -0.5908893</float_array>
+          <technique_common>
+            <accessor source="#fern_3-mesh-normals-array" count="12" stride="3">
+              <param name="X" type="float"/>
+              <param name="Y" type="float"/>
+              <param name="Z" type="float"/>
+            </accessor>
+          </technique_common>
+        </source>
+        <source id="fern_3-mesh-map-0">
+          <float_array id="fern_3-mesh-map-0-array" count="36">1 0 0 1 0 0 0 0 1 1 0 1 1 0 0 1 0 0 1 0 1 1 0 1 0 0 1 0 1 1 1 0 1 1 0 1</float_array>
+          <technique_common>
+            <accessor source="#fern_3-mesh-map-0-array" count="18" stride="2">
+              <param name="S" type="float"/>
+              <param name="T" type="float"/>
+            </accessor>
+          </technique_common>
+        </source>
+        <vertices id="fern_3-mesh-vertices">
+          <input semantic="POSITION" source="#fern_3-mesh-positions"/>
+        </vertices>
+        <triangles material="fern_3-material" count="6">
+          <input semantic="VERTEX" source="#fern_3-mesh-vertices" offset="0"/>
+          <input semantic="NORMAL" source="#fern_3-mesh-normals" offset="1"/>
+          <input semantic="TEXCOORD" source="#fern_3-mesh-map-0" offset="2" set="0"/>
+          <p>1 0 0 2 1 1 0 2 2 4 3 3 7 4 4 6 5 5 9 6 6 10 7 7 8 8 8 1 0 9 3 9 10 2 1 11 4 3 12 5 10 13 7 4 14 9 6 15 11 11 16 10 7 17</p>
+        </triangles>
+      </mesh>
+    </geometry>
+  </library_geometries>
+  <library_visual_scenes>
+    <visual_scene id="Scene" name="Scene">
+      <node id="fern_3" name="fern_3" type="NODE">
+        <matrix sid="transform">1 0 0 0 0 -4.37114e-8 -1 0 0 1 -4.37114e-8 0 0 0 0 1</matrix>
+        <instance_geometry url="#fern_3-mesh" name="fern_3">
+          <bind_material>
+            <technique_common>
+              <instance_material symbol="fern_3-material" target="#fern_3-material">
+                <bind_vertex_input semantic="UVMap" input_semantic="TEXCOORD" input_set="0"/>
+              </instance_material>
+            </technique_common>
+          </bind_material>
+        </instance_geometry>
+      </node>
+    </visual_scene>
+  </library_visual_scenes>
+  <scene>
+    <instance_visual_scene url="#Scene"/>
+  </scene>
+</COLLADA>

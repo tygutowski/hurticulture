@@ -1,0 +1,1 @@
+Large black dunes littered with large rock formations. Oddly shaped structures were left behind from a time long ago

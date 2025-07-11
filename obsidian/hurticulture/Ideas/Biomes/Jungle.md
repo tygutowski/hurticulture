@@ -1,0 +1,1 @@
+Tall, thin trees block the horizon, vines hanging between them. The occasional fruit hangs from the vines.

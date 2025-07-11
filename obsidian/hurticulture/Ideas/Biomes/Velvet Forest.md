@@ -1,0 +1,1 @@
+Flat fields of short red grass with calcified pillars poking upwards through the earth.

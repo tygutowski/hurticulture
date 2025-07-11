@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="utf-8"?>
+<COLLADA xmlns="http://www.collada.org/2005/11/COLLADASchema" version="1.4.1" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <asset>
+    <contributor>
+      <author>Blender User</author>
+      <authoring_tool>Blender 3.4.0 commit date:2022-12-06, commit time:18:46, hash:a95bf1ac01be</authoring_tool>
+    </contributor>
+    <created>2025-05-21T17:06:20</created>
+    <modified>2025-05-21T17:06:20</modified>
+    <unit name="meter" meter="1"/>
+    <up_axis>Z_UP</up_axis>
+  </asset>
+  <library_effects>
+    <effect id="grass_4-effect">
+      <profile_COMMON>
+        <newparam sid="grass_4_png-surface">
+          <surface type="2D">
+            <init_from>grass_4_png</init_from>
+          </surface>
+        </newparam>
+        <newparam sid="grass_4_png-sampler">
+          <sampler2D>
+            <source>grass_4_png-surface</source>
+          </sampler2D>
+        </newparam>
+        <technique sid="common">
+          <lambert>
+            <emission>
+              <color sid="emission">0 0 0 1</color>
+            </emission>
+            <diffuse>
+              <texture texture="grass_4_png-sampler" texcoord="UVMap"/>
+            </diffuse>
+            <index_of_refraction>
+              <float sid="ior">1.45</float>
+            </index_of_refraction>
+          </lambert>
+        </technique>
+      </profile_COMMON>
+    </effect>
+  </library_effects>
+  <library_images>
+    <image id="grass_4_png" name="grass_4_png">
+      <init_from>grass_4.png</init_from>
+    </image>
+  </library_images>
+  <library_materials>
+    <material id="grass_4-material" name="grass_4">
+      <instance_effect url="#grass_4-effect"/>
+    </material>
+  </library_materials>
+  <library_geometries>
+    <geometry id="grass_4-mesh" name="grass_4">
+      <mesh>
+        <source id="grass_4-mesh-positions">
+          <float_array id="grass_4-mesh-positions-array" count="54">-0.5592804 0.5033524 0.1071218 -0.5592804 0.2237122 0 -0.5592804 -0.05592799 0 0.5592804 -0.05592799 0 0.5592804 0.2237122 0 0.5592804 0.5033524 0.1071218 0.3347178 0.4500001 0.3840996 0.2499979 0.2 0.4330127 0.2499979 -0.04999995 0.4330127 -0.2500022 -0.05000001 -0.4330127 -0.2500022 0.1999999 -0.4330127 -0.1652823 0.45 -0.4819257 0.1585505 0.45 -0.4858099 0.2499978 0.1999999 -0.4330127 0.2499978 -0.05000001 -0.4330127 -0.2500021 -0.04999995 0.4330127 -0.2500021 0.2 0.4330127 -0.3414494 0.4500001 0.3802155</float_array>
+          <technique_common>
+            <accessor source="#grass_4-mesh-positions-array" count="18" stride="3">
+              <param name="X" type="float"/>
+              <param name="Y" type="float"/>
+              <param name="Z" type="float"/>
+            </accessor>
+          </technique_common>
+        </source>
+        <source id="grass_4-mesh-normals">
+          <float_array id="grass_4-mesh-normals-array" count="48">0 0 1 0 -0.1818953 0.983318 0 -0.1818953 0.983318 0 -0.3577218 0.9338282 0.8660253 0 -0.5000001 0.851009 -0.1854147 -0.4913302 0.8660254 0 -0.5000001 0.8510088 -0.1854147 -0.4913303 0.8064799 -0.3643993 -0.4656214 -0.8660255 0 -0.5 -0.848793 -0.1984964 -0.4900507 -0.7977812 -0.3890932 -0.4605993 -0.7977813 -0.3890933 -0.460599 0 -0.3577219 0.9338282 0.8064799 -0.3643994 -0.4656215 -0.8487929 -0.1984963 -0.4900508</float_array>
+          <technique_common>
+            <accessor source="#grass_4-mesh-normals-array" count="16" stride="3">
+              <param name="X" type="float"/>
+              <param name="Y" type="float"/>
+              <param name="Z" type="float"/>
+            </accessor>
+          </technique_common>
+        </source>
+        <source id="grass_4-mesh-map-0">
+          <float_array id="grass_4-mesh-map-0-array" count="72">1 0.25 0 0.5 0 0.25 1 0.5 0 0.75 0 0.5 1 0.25 0 0.5 0 0.25 1 0.5 0 0.75 0 0.5 1 0.25 0 0.5 0 0.25 0 0.5 1 0.75 0 0.75 1 0.25 1 0.5 0 0.5 1 0.5 1 0.75 0 0.75 1 0.25 1 0.5 0 0.5 1 0.5 1 0.75 0 0.75 1 0.25 1 0.5 0 0.5 0 0.5 1 0.5 1 0.75</float_array>
+          <technique_common>
+            <accessor source="#grass_4-mesh-map-0-array" count="36" stride="2">
+              <param name="S" type="float"/>
+              <param name="T" type="float"/>
+            </accessor>
+          </technique_common>
+        </source>
+        <vertices id="grass_4-mesh-vertices">
+          <input semantic="POSITION" source="#grass_4-mesh-positions"/>
+        </vertices>
+        <triangles material="grass_4-material" count="12">
+          <input semantic="VERTEX" source="#grass_4-mesh-vertices" offset="0"/>
+          <input semantic="NORMAL" source="#grass_4-mesh-normals" offset="1"/>
+          <input semantic="TEXCOORD" source="#grass_4-mesh-map-0" offset="2" set="0"/>
+          <p>3 0 0 1 1 1 2 0 2 4 2 3 0 3 4 1 1 5 9 4 6 7 5 7 8 6 8 10 7 9 6 8 10 7 5 11 15 9 12 13 10 13 14 9 14 13 10 15 17 11 16 12 12 17 3 0 18 4 2 19 1 1 20 4 2 21 5 13 22 0 3 23 9 4 24 10 7 25 7 5 26 10 7 27 11 14 28 6 8 29 15 9 30 16 15 31 13 10 32 13 10 33 16 15 34 17 11 35</p>
+        </triangles>
+      </mesh>
+    </geometry>
+  </library_geometries>
+  <library_visual_scenes>
+    <visual_scene id="Scene" name="Scene">
+      <node id="grass_4" name="grass_4" type="NODE">
+        <matrix sid="transform">1 0 0 0 0 -4.37114e-8 -1 0 0 1 -4.37114e-8 0 0 0 0 1</matrix>
+        <instance_geometry url="#grass_4-mesh" name="grass_4">
+          <bind_material>
+            <technique_common>
+              <instance_material symbol="grass_4-material" target="#grass_4-material">
+                <bind_vertex_input semantic="UVMap" input_semantic="TEXCOORD" input_set="0"/>
+              </instance_material>
+            </technique_common>
+          </bind_material>
+        </instance_geometry>
+      </node>
+    </visual_scene>
+  </library_visual_scenes>
+  <scene>
+    <instance_visual_scene url="#Scene"/>
+  </scene>
+</COLLADA>

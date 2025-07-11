@@ -1,0 +1,22 @@
+# Blender 3.4.0 MTL File: 'PSX Nature Mega Pack (source file).blend'
+# www.blender.org
+
+newmtl log_ends_1
+Ns 0.000000
+Ka 1.000000 1.000000 1.000000
+Ks 0.000000 0.000000 0.000000
+Ke 0.000000 0.000000 0.000000
+Ni 1.450000
+d 1.000000
+illum 1
+map_Kd C:/log_ends_1.png
+
+newmtl tree_bark_5
+Ns 0.000000
+Ka 1.000000 1.000000 1.000000
+Ks 0.000000 0.000000 0.000000
+Ke 0.000000 0.000000 0.000000
+Ni 1.450000
+d 1.000000
+illum 1
+map_Kd C:/tree_bark_5.png
