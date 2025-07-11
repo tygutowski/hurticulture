@@ -169,26 +169,20 @@ func _get_property_list():
 	preload("res://birch_003.tscn")
 ]
 
-@onready var bush_scenes = [
-	preload("res://grass_01.tscn"),
-	preload("res://grass_02.tscn"),
-	preload("res://grass_03.tscn"),
-	preload("res://grass_04.tscn"),
-	preload("res://grass_05.tscn"),
-	preload("res://grass_06.tscn"),
-	preload("res://grass_07.tscn"),
-	preload("res://grass_08.tscn"),
-	preload("res://grass_09.tscn")
-]
-
 func clear_world() -> void:
 	clear_mesh()
 	clear_collision_shape()
 	clear_objects()
+	clear_grass()
 	clear = false
 
 func clear_mesh() -> void:
 	$MeshInstance3D.mesh = null
+
+func clear_grass() -> void:
+	var grass_chunks = find_children("MultiMesh*", "MultiMeshInstance3D", false)
+	for grass_chunk in grass_chunks:
+		grass_chunk.queue_free()
 
 func clear_collision_shape() -> void:
 	for child in $StaticBody3D.get_children():
@@ -217,13 +211,13 @@ func generate_world(sandbox: bool = false) -> void:
 		else:
 			force_spawn_object("res://sandbox.tscn", Vector3.ZERO)
 			force_spawn_object("res://player/player.tscn", Vector3(0, 1.5, 0))
-			generate_grass(5000, Vector2(5, 5), Vector2(80, 80))
 
+	generate_grass(500, Vector2(10, 10), Vector2(map_size, map_size))
 	reset_generation_values()
 	generation_finished.emit()
 
 func generate_grass(mesh_per_chunk: int, chunk_size: Vector2, map_size: Vector2) -> void:
-	var grass_ray: RayCast3D = get_tree().get_first_node_in_group("map").get_node("GrassRay")
+	var grass_ray: RayCast3D = get_tree().get_first_node_in_group("world").get_node("WorldGenerator/RayCast3D2")
 	var chunks_x: int = int(map_size.x / chunk_size.x)
 	var chunks_y: int = int(map_size.y / chunk_size.y)
 	var total_chunks: int = chunks_x * chunks_y
@@ -245,7 +239,7 @@ func generate_grass(mesh_per_chunk: int, chunk_size: Vector2, map_size: Vector2)
 		for i in mesh_per_chunk:
 			var random_position: Vector3 = Vector3(
 				base_x_position + randf_range(0, chunk_size.x),
-				50,
+				500,
 				base_y_position + randf_range(0, chunk_size.y)
 			)
 
@@ -257,7 +251,7 @@ func generate_grass(mesh_per_chunk: int, chunk_size: Vector2, map_size: Vector2)
 				multimesh.set_instance_transform(i, Transform3D(Basis(), collision_point))
 
 		multimesh_instance.multimesh = multimesh
-		get_tree().get_first_node_in_group("map").add_child(multimesh_instance)
+		get_tree().get_first_node_in_group("world").add_child(multimesh_instance)
 
 
 func spawn_warehouse():
@@ -389,9 +383,6 @@ func spawn_tree(pos: Vector2, tree: Node) -> void:
 func generate_vegetation() -> void:
 	set_text("Planting trees")
 	generate_trees(750)
-	#generate_objects(tree_scenes, 750, 750, 0, 99999, "GeneratedItems/Bushes")
-	set_text("Planting seeds")
-	generate_objects(bush_scenes, 150, 150, 0, 99999, "GeneratedItems/Bushes")
 
 func generate_objects(object_scenes: Array, count: int, max_attempts: int, min_distance: float, max_distance: float, parent_path: String) -> void:
 	var attempts = 0
@@ -718,6 +709,7 @@ func create_terrain_mesh() -> void:
 func create_collision_shape() -> void:
 	set_text("Generating collision shape")
 	var collision_shape = ConcavePolygonShape3D.new()
+
 	var vertices: Array[Vector3] = []
 	var step = 1.0 / float(resolution_multiplier)
 	var total_map_size = map_size * resolution_multiplier
@@ -740,6 +732,7 @@ func create_collision_shape() -> void:
 	var collision_shape_instance = CollisionShape3D.new()
 	collision_shape_instance.shape = collision_shape
 	$StaticBody3D.add_child(collision_shape_instance)
+	
 
 func set_text(generation_text: String) -> void:
 	if not Engine.is_editor_hint():

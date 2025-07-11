@@ -52,7 +52,7 @@ func check_for_collisions() -> void:
 
 func make_contact_sound() -> void:
 	contact_sound_timer = contact_sound_time
-	get_node("ContactSound").play()
+	#get_node("ContactSound").play()
 
 func set_counterpart(item: Item) -> void:
 	viewport_counterpart = item

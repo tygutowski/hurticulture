@@ -25,8 +25,7 @@ func check_interactions(player: Player) -> void:
 				detected.interact()
 
 func generate_outline_for(item: Item) -> void:
-	if item.has_outline:
-		return
+	return
 	var meshes = item.find_children("*", "MeshInstance3D", true)
 	for mesh_instance: MeshInstance3D in meshes:
 		var mesh_outline: Mesh = mesh_instance.mesh.create_outline(0.01)
