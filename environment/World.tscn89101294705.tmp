@@ -1,0 +1,83 @@
+[gd_scene load_steps=10 format=3 uid="uid://xqixgx0mkgd5"]
+
+[ext_resource type="Resource" uid="uid://b6no0rq7hnb2h" path="res://world_generation/biomes/desert_biome.tres" id="4_6mupk"]
+[ext_resource type="Script" uid="uid://mxwd73rjsfgb" path="res://world_generation/Biome.gd" id="4_8kc4q"]
+[ext_resource type="Script" uid="uid://des37je3o4mxs" path="res://vfx/grass/LODManager.gd" id="6_na063"]
+[ext_resource type="Resource" uid="uid://by330qaqsxig3" path="res://world_generation/biomes/jungle_biome.tres" id="8_u8f1i"]
+[ext_resource type="Script" uid="uid://bdea6rp32xwh" path="res://environment/MapGenerator.gd" id="9_yuimj"]
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_i6f1l"]
+frequency = 0.001
+fractal_type = 0
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_yaee5"]
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_4qo37"]
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_yaee5"]
+size = Vector2(100, 100)
+
+[node name="world" type="Node" groups=["world"]]
+
+[node name="WorldGenerator" type="Node" parent="."]
+script = ExtResource("9_yuimj")
+random = false
+biome_list = Array[ExtResource("4_8kc4q")]([ExtResource("8_u8f1i"), ExtResource("4_6mupk")])
+base_height_map_noise = SubResource("FastNoiseLite_i6f1l")
+heat_map_noise = SubResource("FastNoiseLite_yaee5")
+moisture_map_noise = SubResource("FastNoiseLite_4qo37")
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="WorldGenerator"]
+transform = Transform3D(0.965926, 1.13133e-08, -0.258819, 0.258819, -4.2222e-08, 0.965926, 0, -1, -4.37114e-08, 0, 95.3634, 0)
+
+[node name="StaticBody3D" type="StaticBody3D" parent="WorldGenerator"]
+collision_layer = 257
+collision_mask = 257
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="WorldGenerator"]
+mesh = SubResource("PlaneMesh_yaee5")
+
+[node name="RayCast3D" type="RayCast3D" parent="WorldGenerator"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 69.1498, 100, -113.064)
+visible = false
+target_position = Vector3(0, -1000, 0)
+collision_mask = 257
+hit_from_inside = true
+debug_shape_custom_color = Color(0.89, 0, 0.771333, 1)
+debug_shape_thickness = 3
+
+[node name="RayCast3D2" type="RayCast3D" parent="WorldGenerator"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 41.8159, 500, 47.4729)
+visible = false
+target_position = Vector3(0, -1000, 0)
+collision_mask = 256
+hit_from_inside = true
+debug_shape_custom_color = Color(0.89, 0, 0.771333, 1)
+debug_shape_thickness = 3
+
+[node name="GeneratedItems" type="Node" parent="WorldGenerator"]
+
+[node name="Trees" type="Node" parent="WorldGenerator/GeneratedItems"]
+
+[node name="Bushes" type="Node" parent="WorldGenerator/GeneratedItems"]
+
+[node name="PeerContainer" type="Node" parent="WorldGenerator/GeneratedItems"]
+unique_name_in_owner = true
+
+[node name="Player" type="Node" parent="WorldGenerator/GeneratedItems"]
+
+[node name="Enemies" type="Node" parent="WorldGenerator/GeneratedItems"]
+
+[node name="Camera3D" type="Camera3D" parent="WorldGenerator"]
+transform = Transform3D(1, 0, 0, 0, 0.872351, 0.48888, 0, -0.48888, 0.872351, 0, 68.7742, 118.515)
+
+[node name="Items" type="Node" parent="."]
+
+[node name="Node" type="Node" parent="."]
+script = ExtResource("6_na063")
+chunk_size = Vector2(5, 5)
+map_size = Vector2(200, 200)
+
+[node name="DebugRay" type="RayCast3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 21.5255, 30.1229, -7.66156)
+target_position = Vector3(0, -100, 0)

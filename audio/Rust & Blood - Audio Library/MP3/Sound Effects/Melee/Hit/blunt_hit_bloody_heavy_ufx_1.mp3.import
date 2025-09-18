@@ -1,0 +1,19 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+uid="uid://hq6rspfuox5b"
+path="res://.godot/imported/blunt_hit_bloody_heavy_ufx_1.mp3-4a0fe1717c306e801095d7322c53cfe9.mp3str"
+
+[deps]
+
+source_file="res://audio/Rust & Blood - Audio Library/MP3/Sound Effects/Melee/Hit/blunt_hit_bloody_heavy_ufx_1.mp3"
+dest_files=["res://.godot/imported/blunt_hit_bloody_heavy_ufx_1.mp3-4a0fe1717c306e801095d7322c53cfe9.mp3str"]
+
+[params]
+
+loop=false
+loop_offset=0
+bpm=0
+beat_count=0
+bar_beats=4

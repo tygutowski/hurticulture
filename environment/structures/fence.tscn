@@ -1,5 +1,0 @@
-[gd_scene load_steps=2 format=3 uid="uid://c1747swbq0smg"]
-
-[ext_resource type="PackedScene" uid="uid://d0wxcjje0go20" path="res://psxpack/meshes/utilities/Fence03Long.blend" id="1_2544i"]
-
-[node name="Fence03Long" instance=ExtResource("1_2544i")]

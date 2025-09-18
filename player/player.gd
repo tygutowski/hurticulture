@@ -41,14 +41,19 @@ var max_pullback_time : float = 2.0
 var can_interact : bool = true
 var gamestate: PeerGameState
 var inventory_index: int = 0
-@export var inventory_size: int = 6
+@export_range(0,10,1) var inventory_size: int = 6
 @onready var inventory: Array[Item]
 @onready var max_inventory_slots = inventory_size
 @onready var inventory_node: Node = %hud.get_node("Hotbar/HBoxContainer")
 @onready var fps_hand = get_node("CanvasLayer/SubViewportContainer/SubViewport/Camera3D/Hand")
 @onready var world_hand: Node3D = get_node("BoneAttachment3D/ItemHand")
 
+@export_category("Debug")
+@export var noclip: bool = false
+@export var debug_info: bool = false
+
 func _ready() -> void:
+	get_node("hud/Debug").visible = debug_info
 	for i in range(inventory_size):
 		inventory.append(null)
 	gamestate = PeerGameState.new()
@@ -210,6 +215,8 @@ func drop_item(drop_charge: float = 0) -> void:
 
 
 func set_inventory_index(index: int) -> void:
+	if inventory_size == 0:
+		return
 	# 5 slots if 4 index
 	var max_inventory_index = max_inventory_slots - 1
 	if index > max_inventory_index:
@@ -246,7 +253,8 @@ func _physics_process(delta: float) -> void:
 	camera.fov = lerp(camera.fov, Settings.base_fov + drop_charge_time * 3, .75)
 	
 	if not is_on_floor():
-		velocity += get_gravity() * delta
+		if not noclip:
+			velocity += get_gravity() * delta
 	 
 	if held_item != null:
 		for component in held_item.item_components:
@@ -269,31 +277,35 @@ func _physics_process(delta: float) -> void:
 			begin_charging_drop()
 		if Input.is_action_just_released("drop"):
 			drop_item(drop_charge_time)
-		
-	if Input.is_action_just_pressed("scroll_down"):
-		set_inventory_index((inventory_index + 1) % max_inventory_slots)
-	elif Input.is_action_just_pressed("scroll_up"):
-		set_inventory_index((inventory_index - 1) % max_inventory_slots)
-	elif Input.is_action_just_pressed("one"):
-		set_inventory_index(0)
-	elif Input.is_action_just_pressed("two"):
-		set_inventory_index(1)
-	elif Input.is_action_just_pressed("three"):
-		set_inventory_index(2)
-	elif Input.is_action_just_pressed("four"):
-		set_inventory_index(3)
-	elif Input.is_action_just_pressed("five"):
-		set_inventory_index(4)
-	elif Input.is_action_just_pressed("six"):
-		set_inventory_index(5)
-	elif Input.is_action_just_pressed("seven"):
-		set_inventory_index(6)
-	elif Input.is_action_just_pressed("eight"):
-		set_inventory_index(7)
-	elif Input.is_action_just_pressed("nine"):
-		set_inventory_index(8)
-	elif Input.is_action_just_pressed("zero"):
-		set_inventory_index(9)
+	if max_inventory_slots > 0:
+		if Input.is_action_just_pressed("scroll_down"):
+			set_inventory_index((inventory_index + 1) % max_inventory_slots)
+		elif Input.is_action_just_pressed("scroll_up"):
+			set_inventory_index((inventory_index - 1) % max_inventory_slots)
+		elif Input.is_action_just_pressed("one"):
+			set_inventory_index(0)
+		elif Input.is_action_just_pressed("two"):
+			set_inventory_index(1)
+		elif Input.is_action_just_pressed("three"):
+			set_inventory_index(2)
+		elif Input.is_action_just_pressed("four"):
+			set_inventory_index(3)
+		elif Input.is_action_just_pressed("five"):
+			set_inventory_index(4)
+		elif Input.is_action_just_pressed("six"):
+			set_inventory_index(5)
+		elif Input.is_action_just_pressed("seven"):
+			set_inventory_index(6)
+		elif Input.is_action_just_pressed("eight"):
+			set_inventory_index(7)
+		elif Input.is_action_just_pressed("nine"):
+			set_inventory_index(8)
+		elif Input.is_action_just_pressed("zero"):
+			set_inventory_index(9)
+	
+	if Input.is_action_just_pressed("fly"):
+		noclip = not noclip
+	
 	if Input.is_action_just_pressed("ui_accept") and is_on_floor():
 		velocity.y = JUMP_VELOCITY
 	
@@ -314,7 +326,7 @@ func _physics_process(delta: float) -> void:
 		camera.rotation.z = lerp(camera.rotation.z, 0.0, 0.2)
 	var movement_speed = WALK_SPEED
 	if Input.is_action_pressed("run") and input_dir.y < 0:
-		movement_speed = RUN_SPEED
+		movement_speed = RUN_SPEED * 10
 		camera.fov = lerp(camera.fov, float(Settings.fov + 10), 0.2)
 	else:
 		camera.fov = lerp(camera.fov, float(Settings.fov), 0.2)
@@ -342,6 +354,17 @@ func _physics_process(delta: float) -> void:
 		velocity.x = move_toward(velocity.x, 0, FRICTION * delta)
 		velocity.z = move_toward(velocity.z, 0, FRICTION * delta)
 		rotational_offset = 0
+	
+	if noclip:
+		var combined_basis: Basis = gameplay_head.global_transform.basis * head_pivot.transform.basis
+		direction = (combined_basis.z * input_dir.y + combined_basis.x * input_dir.x).normalized()
+		velocity = direction * 20
+		if Input.is_action_pressed("run"):
+			velocity = direction * 150
+		if Input.is_action_pressed("crouch"):
+			velocity.y += -20
+		elif Input.is_action_pressed("jump"):
+			velocity.y += 20
 	move_and_slide()
 
 func normalize_angle(degrees: float) -> float:
@@ -379,6 +402,12 @@ func handle_computers(event: InputEvent) -> void:
 			computer.mouse_outside_area()
 
 func _process(_delta: float) -> void:
+	if debug_info:
+		var debug_text: String = ""
+		debug_text += "position: " + str(global_position) + "\n"
+		debug_text += "chunk: " + str(get_node("../WorldGenerator").get_chunk_coordinate()) + "\n"
+		
+		$hud/Debug.text = debug_text
 	# check to see if youre hovering over an interactable using the interactray
 	interactray.check_interactions(self)
 	handle_computer_cursor_movement()

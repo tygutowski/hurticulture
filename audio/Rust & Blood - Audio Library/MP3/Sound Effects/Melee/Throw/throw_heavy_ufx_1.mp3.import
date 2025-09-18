@@ -1,0 +1,19 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+uid="uid://by7u3x44jjy8n"
+path="res://.godot/imported/throw_heavy_ufx_1.mp3-0da1c18ec94ddb6f82bae0f5610ba5f3.mp3str"
+
+[deps]
+
+source_file="res://audio/Rust & Blood - Audio Library/MP3/Sound Effects/Melee/Throw/throw_heavy_ufx_1.mp3"
+dest_files=["res://.godot/imported/throw_heavy_ufx_1.mp3-0da1c18ec94ddb6f82bae0f5610ba5f3.mp3str"]
+
+[params]
+
+loop=false
+loop_offset=0
+bpm=0
+beat_count=0
+bar_beats=4

@@ -3,15 +3,15 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://b47vpysaguo2d"
-path="res://.godot/imported/tick.png-2de398dda686d5a3705d0288f7e8d947.ctex"
+path="res://.godot/imported/tick.png-ae45095dce29f671a854045eafe0d331.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://GUI/tick.png"
-dest_files=["res://.godot/imported/tick.png-2de398dda686d5a3705d0288f7e8d947.ctex"]
+source_file="res://gui/tick.png"
+dest_files=["res://.godot/imported/tick.png-ae45095dce29f671a854045eafe0d331.ctex"]
 
 [params]
 

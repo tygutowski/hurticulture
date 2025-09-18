@@ -3,12 +3,12 @@
 importer="font_data_dynamic"
 type="FontFile"
 uid="uid://gk6tya2k2sup"
-path="res://.godot/imported/SpaceMono-BoldItalic.ttf-a1e9a6ccbf81b3abef051ace828537d6.fontdata"
+path="res://.godot/imported/SpaceMono-BoldItalic.ttf-c1ec7f462d2aac3366fb135285015366.fontdata"
 
 [deps]
 
-source_file="res://GUI/SpaceMono-BoldItalic.ttf"
-dest_files=["res://.godot/imported/SpaceMono-BoldItalic.ttf-a1e9a6ccbf81b3abef051ace828537d6.fontdata"]
+source_file="res://gui/SpaceMono-BoldItalic.ttf"
+dest_files=["res://.godot/imported/SpaceMono-BoldItalic.ttf-c1ec7f462d2aac3366fb135285015366.fontdata"]
 
 [params]
 

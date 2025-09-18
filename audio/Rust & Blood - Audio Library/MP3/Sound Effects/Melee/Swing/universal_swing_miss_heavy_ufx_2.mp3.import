@@ -1,0 +1,19 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+uid="uid://c3dcu1areh0w"
+path="res://.godot/imported/universal_swing_miss_heavy_ufx_2.mp3-e89bf49430781d146a68b623724a7b75.mp3str"
+
+[deps]
+
+source_file="res://audio/Rust & Blood - Audio Library/MP3/Sound Effects/Melee/Swing/universal_swing_miss_heavy_ufx_2.mp3"
+dest_files=["res://.godot/imported/universal_swing_miss_heavy_ufx_2.mp3-e89bf49430781d146a68b623724a7b75.mp3str"]
+
+[params]
+
+loop=false
+loop_offset=0
+bpm=0
+beat_count=0
+bar_beats=4

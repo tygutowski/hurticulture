@@ -1,0 +1,7 @@
+[gd_scene load_steps=2 format=3 uid="uid://23mdbdrh2s3w"]
+
+[ext_resource type="Script" uid="uid://5agrc7tc7pda" path="res://world_generation/BiomeGenerator.gd" id="1_3uud7"]
+
+[node name="BiomeGenerator" type="Node"]
+script = ExtResource("1_3uud7")
+metadata/_custom_type_script = "uid://5agrc7tc7pda"

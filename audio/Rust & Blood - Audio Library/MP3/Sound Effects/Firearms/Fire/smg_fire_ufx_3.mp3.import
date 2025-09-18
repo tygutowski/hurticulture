@@ -1,0 +1,19 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+uid="uid://cs7d4s7iu0np1"
+path="res://.godot/imported/smg_fire_ufx_3.mp3-8d39c57bf17c8b9125c38b47488cf295.mp3str"
+
+[deps]
+
+source_file="res://audio/Rust & Blood - Audio Library/MP3/Sound Effects/Firearms/Fire/smg_fire_ufx_3.mp3"
+dest_files=["res://.godot/imported/smg_fire_ufx_3.mp3-8d39c57bf17c8b9125c38b47488cf295.mp3str"]
+
+[params]
+
+loop=false
+loop_offset=0
+bpm=0
+beat_count=0
+bar_beats=4

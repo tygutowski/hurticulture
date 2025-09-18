@@ -1,0 +1,19 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+uid="uid://dm8spevbcki86"
+path="res://.godot/imported/explosion_close_short_ufx_1.mp3-823b218c7634733f514bbbe974eb9cdb.mp3str"
+
+[deps]
+
+source_file="res://audio/Rust & Blood - Audio Library/MP3/Sound Effects/Explosions/explosion_close_short_ufx_1.mp3"
+dest_files=["res://.godot/imported/explosion_close_short_ufx_1.mp3-823b218c7634733f514bbbe974eb9cdb.mp3str"]
+
+[params]
+
+loop=false
+loop_offset=0
+bpm=0
+beat_count=0
+bar_beats=4

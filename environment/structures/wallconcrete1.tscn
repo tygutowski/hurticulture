@@ -1,5 +1,0 @@
-[gd_scene load_steps=2 format=3 uid="uid://bn5by1flo16tj"]
-
-[ext_resource type="PackedScene" uid="uid://c4jq33alyhhba" path="res://psxpack/meshes/buildings/modular/mWallConcrete02.blend" id="1_44aia"]
-
-[node name="mWallConcrete02" instance=ExtResource("1_44aia")]

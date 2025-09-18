@@ -1,5 +1,0 @@
-[gd_scene load_steps=2 format=3 uid="uid://cb53pefkopf1l"]
-
-[ext_resource type="PackedScene" uid="uid://bkom5dknm3aks" path="res://psxpack/meshes/debris/Trashbag01.blend" id="1_51hog"]
-
-[node name="Trashbag012" instance=ExtResource("1_51hog")]

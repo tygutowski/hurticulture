@@ -1,0 +1,19 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+uid="uid://cgfq565eg3bwv"
+path="res://.godot/imported/grenade_launcher_fire_ufx_2.mp3-55ca40ab3c23fc8e5c709de6974256c9.mp3str"
+
+[deps]
+
+source_file="res://audio/Rust & Blood - Audio Library/MP3/Sound Effects/Firearms/Fire/grenade_launcher_fire_ufx_2.mp3"
+dest_files=["res://.godot/imported/grenade_launcher_fire_ufx_2.mp3-55ca40ab3c23fc8e5c709de6974256c9.mp3str"]
+
+[params]
+
+loop=false
+loop_offset=0
+bpm=0
+beat_count=0
+bar_beats=4

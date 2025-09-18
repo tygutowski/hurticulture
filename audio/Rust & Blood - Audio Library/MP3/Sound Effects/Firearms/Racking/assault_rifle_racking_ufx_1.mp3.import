@@ -1,0 +1,19 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+uid="uid://dwqgpspw1l80l"
+path="res://.godot/imported/assault_rifle_racking_ufx_1.mp3-b5607accc2b94f08921b81e41aa4fa9f.mp3str"
+
+[deps]
+
+source_file="res://audio/Rust & Blood - Audio Library/MP3/Sound Effects/Firearms/Racking/assault_rifle_racking_ufx_1.mp3"
+dest_files=["res://.godot/imported/assault_rifle_racking_ufx_1.mp3-b5607accc2b94f08921b81e41aa4fa9f.mp3str"]
+
+[params]
+
+loop=false
+loop_offset=0
+bpm=0
+beat_count=0
+bar_beats=4

@@ -1,0 +1,37 @@
+[remap]
+
+importer="texture"
+type="CompressedTexture2D"
+uid="uid://6bncv8exg3xu"
+path="res://.godot/imported/pine_tree_n_1_2_pine_bark_2.png-a13af519f229131ce78b3490784f1e76.ctex"
+metadata={
+"vram_texture": false
+}
+generator_parameters={
+"md5": "5db042187f0f07d4491c624809509262"
+}
+
+[deps]
+
+source_file="res://environment/objects/plants/models/pine_tree_n_1_2_pine_bark_2.png"
+dest_files=["res://.godot/imported/pine_tree_n_1_2_pine_bark_2.png-a13af519f229131ce78b3490784f1e76.ctex"]
+
+[params]
+
+compress/mode=0
+compress/high_quality=false
+compress/lossy_quality=0.7
+compress/hdr_compression=1
+compress/normal_map=0
+compress/channel_pack=0
+mipmaps/generate=true
+mipmaps/limit=-1
+roughness/mode=0
+roughness/src_normal=""
+process/fix_alpha_border=true
+process/premult_alpha=false
+process/normal_map_invert_y=false
+process/hdr_as_srgb=false
+process/hdr_clamp_exposure=false
+process/size_limit=0
+detect_3d/compress_to=0

@@ -1,20 +1,20 @@
 [gd_scene load_steps=7 format=3 uid="uid://drkfhhj11qpqf"]
 
-[ext_resource type="PackedScene" uid="uid://bmxtbir8jbbn7" path="res://factory/Generator.blend" id="1_t8oox"]
-[ext_resource type="Script" uid="uid://d1tn6rt7avfo5" path="res://environment/objects/generator.gd" id="2_o7xcb"]
-[ext_resource type="Texture2D" uid="uid://b57rwatm8vpi2" path="res://factory/Generator-Texture.png" id="2_on1ie"]
+[ext_resource type="PackedScene" uid="uid://bmxtbir8jbbn7" path="res://environment/objects/factory/Generator.blend" id="1_n166w"]
+[ext_resource type="Script" uid="uid://d1tn6rt7avfo5" path="res://environment/objects/Generator.gd" id="2_abxy1"]
+[ext_resource type="Texture2D" uid="uid://b57rwatm8vpi2" path="res://environment/objects/factory/Generator-Texture.png" id="3_3ocux"]
 
 [sub_resource type="ConcavePolygonShape3D" id="ConcavePolygonShape3D_mk3t2"]
 data = PackedVector3Array(-19.6851, 0, 36.4171, 19.6844, 7.873, 36.4171, 19.6844, 0, 36.4171, -19.6851, 0, 36.4171, -19.6851, 7.873, 36.4171, 19.6844, 7.873, 36.4171, 19.6844, 0, 36.4171, 19.6844, 7.873, -42.3241, 19.6844, 0, -42.3241, 19.6844, 0, 36.4171, 19.6844, 7.873, 36.4171, 19.6844, 7.873, -42.3241, -19.6851, 0, -42.3241, -19.6851, 7.873, 36.4171, -19.6851, 0, 36.4171, -19.6851, 0, -42.3241, -19.6851, 7.873, -42.3241, -19.6851, 7.873, 36.4171, 19.6844, 0, -42.3241, -19.6851, 7.873, -42.3241, -19.6851, 0, -42.3241, 19.6844, 0, -42.3241, 19.6844, 7.873, -42.3241, -19.6851, 7.873, -42.3241, -22.6378, 7.874, 39.3686, 22.6378, 37.4011, 59.0551, 22.6378, 7.874, 39.3686, -22.6378, 7.874, 39.3686, -22.6378, 37.4011, 59.0551, 22.6378, 37.4011, 59.0551, -22.6378, 7.874, 39.3686, 22.6378, 7.874, -45.2756, -22.6378, 7.874, -45.2756, -22.6378, 7.874, 39.3686, 22.6378, 7.874, 39.3686, 22.6378, 7.874, -45.2756, 22.6378, 37.4011, 59.0551, 22.6378, 7.874, -45.2756, 22.6378, 7.874, 39.3686, 22.6378, 7.874, -45.2756, 22.6378, 66.9291, 59.0551, 22.6378, 66.9291, -45.2756, 22.6378, 7.874, -45.2756, 22.6378, 37.4011, 59.0551, 22.6378, 66.9291, 59.0551, -22.6378, 37.4011, 59.0551, 22.6378, 66.9291, 59.0551, 22.6378, 37.4011, 59.0551, -22.6378, 37.4011, 59.0551, -22.6378, 66.9291, 59.0551, 22.6378, 66.9291, 59.0551, -22.6378, 7.874, -45.2756, -22.6378, 37.4011, 59.0551, -22.6378, 7.874, 39.3686, -22.6378, 37.4011, 59.0551, -22.6378, 66.9291, -45.2756, -22.6378, 66.9291, 59.0551, -22.6378, 37.4011, 59.0551, -22.6378, 7.874, -45.2756, -22.6378, 66.9291, -45.2756, 22.6378, 7.874, -45.2756, -22.6378, 66.9291, -45.2756, -22.6378, 7.874, -45.2756, 22.6378, 7.874, -45.2756, 22.6378, 66.9291, -45.2756, -22.6378, 66.9291, -45.2756, -22.6378, 66.9291, 59.0551, 22.6378, 66.9291, -45.2756, 22.6378, 66.9291, 59.0551, -22.6378, 66.9291, 59.0551, -22.6378, 66.9291, -45.2756, 22.6378, 66.9291, -45.2756)
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_1i0tt"]
-albedo_texture = ExtResource("2_on1ie")
+albedo_texture = ExtResource("3_3ocux")
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_iehyo"]
 size = Vector3(1.31476, 1.75952, 2.62451)
 
-[node name="Generator2" instance=ExtResource("1_t8oox")]
-script = ExtResource("2_o7xcb")
+[node name="Generator2" instance=ExtResource("1_n166w")]
+script = ExtResource("2_abxy1")
 
 [node name="StaticBody3D" type="StaticBody3D" parent="." index="0"]
 

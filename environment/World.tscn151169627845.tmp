@@ -1,0 +1,68 @@
+[gd_scene load_steps=11 format=3 uid="uid://xqixgx0mkgd5"]
+
+[ext_resource type="Script" uid="uid://w1ty2w3i5uwo" path="res://world_generation/TerrainGenerator.gd" id="2_u8f1i"]
+[ext_resource type="Curve" uid="uid://bqditxsdtl42r" path="res://world_generation/continent_piecewise.tres" id="3_jweps"]
+[ext_resource type="Curve" uid="uid://duu242uer4xvr" path="res://world_generation/erosion_piecewise.tres" id="4_ab3xd"]
+[ext_resource type="Curve" uid="uid://dbq7kmm5yg5vc" path="res://world_generation/peaks_and_valley_piecewise.tres" id="5_uqj48"]
+[ext_resource type="FastNoiseLite" uid="uid://cvtwh8clakx3" path="res://world_generation/continental_noise.tres" id="6_dedhk"]
+[ext_resource type="Script" uid="uid://des37je3o4mxs" path="res://vfx/grass/LODManager.gd" id="6_na063"]
+[ext_resource type="FastNoiseLite" uid="uid://b5pxnaqfcuhg" path="res://world_generation/erosion_noise.tres" id="7_ly81q"]
+[ext_resource type="FastNoiseLite" uid="uid://b2x26ukcki4j8" path="res://world_generation/peaks_and_valleys_noise.tres" id="8_5dpq7"]
+[ext_resource type="Script" uid="uid://bdea6rp32xwh" path="res://environment/MapGenerator.gd" id="9_yuimj"]
+
+[sub_resource type="SphereMesh" id="SphereMesh_yaee5"]
+radius = 10.0
+height = 20.0
+
+[node name="world" type="Node" groups=["world"]]
+
+[node name="WorldGenerator" type="Node" parent="."]
+script = ExtResource("9_yuimj")
+chunk_size = 64
+generate_radius = 6
+unload_radius = 6
+
+[node name="TerrainGenerator" type="Node" parent="WorldGenerator"]
+script = ExtResource("2_u8f1i")
+continent_piecewise = ExtResource("3_jweps")
+erosion_piecewise = ExtResource("4_ab3xd")
+peaks_and_valleys_piecewise = ExtResource("5_uqj48")
+continent_map = ExtResource("6_dedhk")
+erosion_map = ExtResource("7_ly81q")
+peaks_and_valleys_map = ExtResource("8_5dpq7")
+metadata/_custom_type_script = "uid://w1ty2w3i5uwo"
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="WorldGenerator"]
+transform = Transform3D(0.339762, -0.711401, -0.6152, 0.875372, -2.11323e-08, 0.48345, -0.343927, -0.702787, 0.62274, 0, 95.3634, 0)
+
+[node name="GeneratedItems" type="Node" parent="WorldGenerator"]
+
+[node name="Trees" type="Node" parent="WorldGenerator/GeneratedItems"]
+
+[node name="Bushes" type="Node" parent="WorldGenerator/GeneratedItems"]
+
+[node name="PeerContainer" type="Node" parent="WorldGenerator/GeneratedItems"]
+unique_name_in_owner = true
+
+[node name="Player" type="Node" parent="WorldGenerator/GeneratedItems"]
+
+[node name="Enemies" type="Node" parent="WorldGenerator/GeneratedItems"]
+
+[node name="Camera3D" type="Camera3D" parent="WorldGenerator"]
+transform = Transform3D(1, 0, 0, 0, 0.685818, 0.727773, 0, -0.727773, 0.685818, 167, 250, 0)
+
+[node name="Chunks" type="Node" parent="WorldGenerator"]
+
+[node name="Items" type="Node" parent="."]
+
+[node name="Node" type="Node" parent="."]
+script = ExtResource("6_na063")
+chunk_size = Vector2(5, 5)
+map_size = Vector2(200, 200)
+
+[node name="DebugRay" type="RayCast3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 21.5255, 30.1229, -7.66156)
+target_position = Vector3(0, -100, 0)
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+mesh = SubResource("SphereMesh_yaee5")

@@ -1,0 +1,19 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+uid="uid://cjln0pqtu1e7l"
+path="res://.godot/imported/sharp_hit_heavy_ufx_1.mp3-2b6654d3913d0aa78fda7f7062f2712f.mp3str"
+
+[deps]
+
+source_file="res://audio/Rust & Blood - Audio Library/MP3/Sound Effects/Melee/Hit/sharp_hit_heavy_ufx_1.mp3"
+dest_files=["res://.godot/imported/sharp_hit_heavy_ufx_1.mp3-2b6654d3913d0aa78fda7f7062f2712f.mp3str"]
+
+[params]
+
+loop=false
+loop_offset=0
+bpm=0
+beat_count=0
+bar_beats=4

@@ -3,12 +3,12 @@
 importer="wav"
 type="AudioStreamWAV"
 uid="uid://g2lf41huio10"
-path="res://.godot/imported/goodbye_sound.wav-0df76f05f97bd235c60ac450f15375f6.sample"
+path="res://.godot/imported/goodbye_sound.wav-1d4357b9047d6c89871e43168e8dfabb.sample"
 
 [deps]
 
-source_file="res://GUI/goodbye_sound.wav"
-dest_files=["res://.godot/imported/goodbye_sound.wav-0df76f05f97bd235c60ac450f15375f6.sample"]
+source_file="res://gui/goodbye_sound.wav"
+dest_files=["res://.godot/imported/goodbye_sound.wav-1d4357b9047d6c89871e43168e8dfabb.sample"]
 
 [params]
 

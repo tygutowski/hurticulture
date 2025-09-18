@@ -4,12 +4,12 @@ importer="scene"
 importer_version=1
 type="PackedScene"
 uid="uid://byrajrfm5sqbv"
-path="res://.godot/imported/Granatum.blend-7bcde67285638dfbf1f50a4b319179bc.scn"
+path="res://.godot/imported/Granatum.blend-04d6c1024bbb8d66d816e23fa43785b3.scn"
 
 [deps]
 
-source_file="res://items/Fruits/Granatum/Granatum.blend"
-dest_files=["res://.godot/imported/Granatum.blend-7bcde67285638dfbf1f50a4b319179bc.scn"]
+source_file="res://items/fruits/granatum/Granatum.blend"
+dest_files=["res://.godot/imported/Granatum.blend-04d6c1024bbb8d66d816e23fa43785b3.scn"]
 
 [params]
 

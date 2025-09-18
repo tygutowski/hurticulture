@@ -3,15 +3,15 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://cgi6npypybmet"
-path="res://.godot/imported/host_icon.png-45236e6adc9358185b090442ad7fda77.ctex"
+path="res://.godot/imported/host_icon.png-6c4e3eec58e435c6717f3bb78a5b5981.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://GUI/host_icon.png"
-dest_files=["res://.godot/imported/host_icon.png-45236e6adc9358185b090442ad7fda77.ctex"]
+source_file="res://gui/host_icon.png"
+dest_files=["res://.godot/imported/host_icon.png-6c4e3eec58e435c6717f3bb78a5b5981.ctex"]
 
 [params]
 

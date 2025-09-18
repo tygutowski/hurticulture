@@ -37,9 +37,23 @@
               "icon": "lucide-file",
               "title": "Banana"
             }
+          },
+          {
+            "id": "02c7338da38ee21b",
+            "type": "leaf",
+            "state": {
+              "type": "markdown",
+              "state": {
+                "file": "hurticulture/Ideas/Description.md",
+                "mode": "source",
+                "source": false
+              },
+              "icon": "lucide-file",
+              "title": "Description"
+            }
           }
         ],
-        "currentTab": 1
+        "currentTab": 2
       }
     ],
     "direction": "vertical"
@@ -71,7 +85,7 @@
             "state": {
               "type": "search",
               "state": {
-                "query": "tag:#rarity-uncommon",
+                "query": "",
                 "matchingCase": false,
                 "explainSearch": false,
                 "collapseAll": false,
@@ -92,8 +106,7 @@
               "title": "Bookmarks"
             }
           }
-        ],
-        "currentTab": 1
+        ]
       }
     ],
     "direction": "horizontal",
@@ -187,8 +200,17 @@
       "command-palette:Open command palette": false
     }
   },
-  "active": "2a3ec3dc21c796dd",
+  "active": "02c7338da38ee21b",
   "lastOpenFiles": [
+    "hurticulture/Ideas/Map Design.png.import",
+    "hurticulture/Ideas/Map Design.png",
+    "hurticulture/Ideas/Description.md",
+    "hurticulture/Ideas/Original Idea.md",
+    "hurticulture/Ideas/Untitled.md",
+    "Untitled.md",
+    "Untitled.canvas",
+    "hurticulture/Ideas/Player Design.canvas",
+    "hurticulture/Ideas/Biomes/Untitled.md",
     "hurticulture/Ideas/Plants/Grenadum.md",
     "hurticulture/Ideas/Plants/Gravapple.md",
     "hurticulture/Ideas/Plants/Sparkweed.md",
@@ -211,20 +233,13 @@
     "hurticulture/Software Design/Components/ItemUsable.md",
     "hurticulture/Software Design/Components/Item.md",
     "hurticulture/Software Design/Components/Gun.md",
-    "hurticulture/Software Design/Components/ItemGeneric.md",
-    "hurticulture/Software Design/Components/DealDamage.md",
-    "hurticulture/Software Design/Components/TakeDamage.md",
     "hurticulture/Software Design/Player.canvas",
-    "hurticulture/Software Design/Components/Health.md",
     "hurticulture/Software Design/Fruits.canvas",
     "hurticulture/Software Design/Deployables.canvas",
     "hurticulture/Software Design/Enemies.canvas",
-    "hurticulture/Software Design/Untitled.md",
-    "hurticulture/Software Design/Items.md",
     "hurticulture/Software Design/Components",
     "hurticulture/Board.canvas",
     "hurticulture/Software Design",
-    "hurticulture/Ideas/Player Design.canvas",
     "hurticulture/Images/Pasted image 20250403091157.png.import24945534.tmp",
     "hurticulture/images.jpg.import",
     "hurticulture/images 1.jpg.import",

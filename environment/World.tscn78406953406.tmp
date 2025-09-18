@@ -1,0 +1,58 @@
+[gd_scene load_steps=3 format=3 uid="uid://xqixgx0mkgd5"]
+
+[ext_resource type="Script" uid="uid://des37je3o4mxs" path="res://vfx/grass/LODManager.gd" id="6_na063"]
+[ext_resource type="Script" uid="uid://bdea6rp32xwh" path="res://environment/MapGenerator.gd" id="9_yuimj"]
+
+[node name="world" type="Node" groups=["world"]]
+
+[node name="WorldGenerator" type="Node" parent="."]
+script = ExtResource("9_yuimj")
+random = false
+
+[node name="StaticBody3D" type="StaticBody3D" parent="WorldGenerator"]
+collision_layer = 257
+collision_mask = 257
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="WorldGenerator"]
+
+[node name="RayCast3D" type="RayCast3D" parent="WorldGenerator"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 69.1498, 100, -113.064)
+visible = false
+target_position = Vector3(0, -1000, 0)
+collision_mask = 257
+hit_from_inside = true
+debug_shape_custom_color = Color(0.89, 0, 0.771333, 1)
+debug_shape_thickness = 3
+
+[node name="RayCast3D2" type="RayCast3D" parent="WorldGenerator"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 41.8159, 500, 47.4729)
+visible = false
+target_position = Vector3(0, -1000, 0)
+collision_mask = 256
+hit_from_inside = true
+debug_shape_custom_color = Color(0.89, 0, 0.771333, 1)
+debug_shape_thickness = 3
+
+[node name="GeneratedItems" type="Node" parent="WorldGenerator"]
+
+[node name="Trees" type="Node" parent="WorldGenerator/GeneratedItems"]
+
+[node name="Bushes" type="Node" parent="WorldGenerator/GeneratedItems"]
+
+[node name="PeerContainer" type="Node" parent="WorldGenerator/GeneratedItems"]
+unique_name_in_owner = true
+
+[node name="Player" type="Node" parent="WorldGenerator/GeneratedItems"]
+
+[node name="Enemies" type="Node" parent="WorldGenerator/GeneratedItems"]
+
+[node name="Items" type="Node" parent="."]
+
+[node name="Node" type="Node" parent="."]
+script = ExtResource("6_na063")
+chunk_size = Vector2(5, 5)
+map_size = Vector2(200, 200)
+
+[node name="DebugRay" type="RayCast3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 21.5255, 30.1229, -7.66156)
+target_position = Vector3(0, -100, 0)

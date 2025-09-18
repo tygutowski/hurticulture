@@ -3,12 +3,12 @@
 importer="wav"
 type="AudioStreamWAV"
 uid="uid://bt7p85avb1ff8"
-path="res://.godot/imported/tow_sound.wav-594608f018e8698d40d0f67d8c1bfb25.sample"
+path="res://.godot/imported/tow_sound.wav-ec4c550f7316a9a1fa9cccc2acc6a668.sample"
 
 [deps]
 
-source_file="res://GUI/tow_sound.wav"
-dest_files=["res://.godot/imported/tow_sound.wav-594608f018e8698d40d0f67d8c1bfb25.sample"]
+source_file="res://gui/tow_sound.wav"
+dest_files=["res://.godot/imported/tow_sound.wav-ec4c550f7316a9a1fa9cccc2acc6a668.sample"]
 
 [params]
 

@@ -1,18 +1,20 @@
 [gd_scene load_steps=11 format=3 uid="uid://cgbaw7yp8q8j4"]
 
-[ext_resource type="Material" uid="uid://bsa0d2vibumou" path="res://environment/materials/metal_material.tres" id="1_3js0s"]
-[ext_resource type="Script" uid="uid://detjeeq1cvrvw" path="res://electrical/door.gd" id="1_8g17h"]
+[ext_resource type="Script" uid="uid://detjeeq1cvrvw" path="res://electrical/Door.gd" id="1_8g17h"]
+[ext_resource type="Material" uid="uid://8srs8hk8bgr3" path="res://environment/MetalDoor.tres" id="2_te37n"]
 [ext_resource type="AudioStream" uid="uid://coj7ublas6ur4" path="res://audio/hydraulic.wav" id="4_md4p6"]
 [ext_resource type="AudioStream" uid="uid://wuxr5hxbu1q2" path="res://audio/air_release.wav" id="5_bvx5h"]
 [ext_resource type="AudioStream" uid="uid://cff72r3ennjm4" path="res://audio/metal_hit.mp3" id="6_wkhkc"]
 
 [sub_resource type="BoxMesh" id="BoxMesh_akm70"]
+material = ExtResource("2_te37n")
 size = Vector3(0.5, 4, 3)
 
 [sub_resource type="ConcavePolygonShape3D" id="ConcavePolygonShape3D_d7o20"]
 data = PackedVector3Array(-0.25, 2, 1.5, 0.25, 2, 1.5, -0.25, -2, 1.5, 0.25, 2, 1.5, 0.25, -2, 1.5, -0.25, -2, 1.5, 0.25, 2, -1.5, -0.25, 2, -1.5, 0.25, -2, -1.5, -0.25, 2, -1.5, -0.25, -2, -1.5, 0.25, -2, -1.5, 0.25, 2, 1.5, 0.25, 2, -1.5, 0.25, -2, 1.5, 0.25, 2, -1.5, 0.25, -2, -1.5, 0.25, -2, 1.5, -0.25, 2, -1.5, -0.25, 2, 1.5, -0.25, -2, -1.5, -0.25, 2, 1.5, -0.25, -2, 1.5, -0.25, -2, -1.5, 0.25, 2, 1.5, -0.25, 2, 1.5, 0.25, 2, -1.5, -0.25, 2, 1.5, -0.25, 2, -1.5, 0.25, 2, -1.5, -0.25, -2, 1.5, 0.25, -2, 1.5, -0.25, -2, -1.5, 0.25, -2, 1.5, 0.25, -2, -1.5, -0.25, -2, -1.5)
 
 [sub_resource type="PrismMesh" id="PrismMesh_q4fxl"]
+material = ExtResource("2_te37n")
 size = Vector3(0.5, 0.25, 4)
 
 [sub_resource type="ConcavePolygonShape3D" id="ConcavePolygonShape3D_g826a"]
@@ -29,31 +31,28 @@ script = ExtResource("1_8g17h")
 [node name="MeshInstance3D3" type="MeshInstance3D" parent="Door"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.125, 0)
 mesh = SubResource("BoxMesh_akm70")
-skeleton = NodePath("")
-surface_material_override/0 = ExtResource("1_3js0s")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Door"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.125, 0)
+visible = false
 shape = SubResource("ConcavePolygonShape3D_d7o20")
 
 [node name="MeshInstance3D4" type="MeshInstance3D" parent="Door"]
 transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 0.125, -1.625)
 mesh = SubResource("PrismMesh_q4fxl")
-skeleton = NodePath("")
-surface_material_override/0 = ExtResource("1_3js0s")
 
 [node name="CollisionShape3D2" type="CollisionShape3D" parent="Door"]
 transform = Transform3D(-1, 8.74228e-08, -3.82137e-15, 0, -4.37114e-08, -1, -8.74228e-08, -1, 4.37114e-08, 0, 0.125, -1.625)
+visible = false
 shape = SubResource("ConcavePolygonShape3D_g826a")
 
 [node name="MeshInstance3D5" type="MeshInstance3D" parent="Door"]
 transform = Transform3D(-1, 8.74228e-08, 3.82137e-15, 0, -4.37114e-08, 1, 8.74228e-08, 1, 4.37114e-08, 0, 0.125, 1.625)
 mesh = SubResource("PrismMesh_q4fxl")
-skeleton = NodePath("")
-surface_material_override/0 = ExtResource("1_3js0s")
 
 [node name="CollisionShape3D3" type="CollisionShape3D" parent="Door"]
 transform = Transform3D(1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0.125, 1.625)
+visible = false
 shape = SubResource("ConcavePolygonShape3D_7yy7x")
 
 [node name="HydraulicPlayer" type="AudioStreamPlayer3D" parent="."]

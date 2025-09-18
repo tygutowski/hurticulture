@@ -1,0 +1,19 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+uid="uid://ccjc63nd71v1u"
+path="res://.godot/imported/assault_rifle_reloading_mag_in_ufx_2.mp3-96ecdc1b6e337e2439be7b78f662c5e6.mp3str"
+
+[deps]
+
+source_file="res://audio/Rust & Blood - Audio Library/MP3/Sound Effects/Firearms/Reloading/assault_rifle_reloading_mag_in_ufx_2.mp3"
+dest_files=["res://.godot/imported/assault_rifle_reloading_mag_in_ufx_2.mp3-96ecdc1b6e337e2439be7b78f662c5e6.mp3str"]
+
+[params]
+
+loop=false
+loop_offset=0
+bpm=0
+beat_count=0
+bar_beats=4

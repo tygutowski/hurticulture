@@ -1,0 +1,19 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+uid="uid://ciuookqnpesms"
+path="res://.godot/imported/slash_bloody_heavy_ufx_1.mp3-866ab2811f1b1fa9d1dfdf9522e1687a.mp3str"
+
+[deps]
+
+source_file="res://audio/Rust & Blood - Audio Library/MP3/Sound Effects/Melee/Hit/slash_bloody_heavy_ufx_1.mp3"
+dest_files=["res://.godot/imported/slash_bloody_heavy_ufx_1.mp3-866ab2811f1b1fa9d1dfdf9522e1687a.mp3str"]
+
+[params]
+
+loop=false
+loop_offset=0
+bpm=0
+beat_count=0
+bar_beats=4

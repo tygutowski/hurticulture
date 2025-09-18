@@ -1,0 +1,10 @@
+[gd_resource type="StandardMaterial3D" load_steps=2 format=3 uid="uid://h0v3avg0fcya"]
+
+[ext_resource type="Texture2D" uid="uid://bdn77doabefxj" path="res://textures/metal_floor_1.png" id="1_1kycu"]
+
+[resource]
+albedo_texture = ExtResource("1_1kycu")
+uv1_scale = Vector3(-0.315, -0.315, -0.315)
+uv1_triplanar = true
+uv1_world_triplanar = true
+uv2_scale = Vector3(2.645, 2.645, 2.645)

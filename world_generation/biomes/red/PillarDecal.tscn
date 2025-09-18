@@ -1,0 +1,58 @@
+[gd_scene load_steps=6 format=3 uid="uid://bu8nhknlr5ida"]
+
+[sub_resource type="CylinderMesh" id="CylinderMesh_agb5l"]
+top_radius = 0.03
+bottom_radius = 0.03
+height = 0.4
+
+[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_rgx3o"]
+load_path = "res://.godot/imported/Stone_07-128x128.png-cbd441b2a08adf990e9882568d94e9cd.s3tc.ctex"
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_e4g4f"]
+albedo_texture = SubResource("CompressedTexture2D_rgx3o")
+uv1_scale = Vector3(0.45, 0.45, 0.45)
+uv1_offset = Vector3(2.825, -1.39, -1.305)
+uv1_triplanar = true
+uv1_triplanar_sharpness = 2.37841
+
+[sub_resource type="CylinderMesh" id="CylinderMesh_rgx3o"]
+top_radius = 0.05
+bottom_radius = 0.05
+height = 0.6
+
+[sub_resource type="CylinderMesh" id="CylinderMesh_35veh"]
+top_radius = 0.02
+bottom_radius = 0.02
+height = 0.2
+
+[node name="Node3D" type="Node3D"]
+
+[node name="Pillar" type="MeshInstance3D" parent="."]
+transform = Transform3D(0.775898, 0.260184, 0.574706, -0.317934, 0.948114, 0, -0.544886, -0.182718, 0.818361, 0.152124, 0.147732, 0)
+mesh = SubResource("CylinderMesh_agb5l")
+surface_material_override/0 = SubResource("StandardMaterial3D_e4g4f")
+
+[node name="Pillar3" type="MeshInstance3D" parent="."]
+transform = Transform3D(-0.798053, -0.267614, 0.539903, -0.317934, 0.948114, -3.63075e-09, -0.511889, -0.171653, -0.841728, -0.0584005, 0.148754, -0.100193)
+mesh = SubResource("CylinderMesh_agb5l")
+surface_material_override/0 = SubResource("StandardMaterial3D_e4g4f")
+
+[node name="Pillar2" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 0.937986, -0.346674, 0, 0.346674, 0.937986, -0.0129828, 0.236836, 0.255539)
+mesh = SubResource("CylinderMesh_rgx3o")
+surface_material_override/0 = SubResource("StandardMaterial3D_e4g4f")
+
+[node name="Pillar4" type="MeshInstance3D" parent="."]
+transform = Transform3D(-0.584844, 0.281203, 0.760843, 0, 0.937986, -0.346674, -0.811145, -0.20275, -0.548576, 0.0546273, 0.236836, -0.284983)
+mesh = SubResource("CylinderMesh_rgx3o")
+surface_material_override/0 = SubResource("StandardMaterial3D_e4g4f")
+
+[node name="Pillar5" type="MeshInstance3D" parent="."]
+transform = Transform3D(-0.301871, 0.330501, 0.894228, 2.95167e-08, 0.937986, -0.346674, -0.953349, -0.104651, -0.283151, 0.0983731, 0.0766553, -0.17298)
+mesh = SubResource("CylinderMesh_35veh")
+surface_material_override/0 = SubResource("StandardMaterial3D_e4g4f")
+
+[node name="Pillar6" type="MeshInstance3D" parent="."]
+transform = Transform3D(0.910518, -0.143339, -0.387829, 3.66197e-08, 0.937986, -0.346674, 0.41347, 0.315653, 0.854053, -0.0562755, 0.0766553, 0.0325368)
+mesh = SubResource("CylinderMesh_35veh")
+surface_material_override/0 = SubResource("StandardMaterial3D_e4g4f")

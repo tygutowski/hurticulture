@@ -1,0 +1,33 @@
+[gd_scene load_steps=5 format=3 uid="uid://cw8o5wflamblx"]
+
+[sub_resource type="CylinderMesh" id="CylinderMesh_rgx3o"]
+top_radius = 1.0
+bottom_radius = 1.0
+height = 10.0
+
+[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_rgx3o"]
+load_path = "res://.godot/imported/Stone_07-128x128.png-cbd441b2a08adf990e9882568d94e9cd.s3tc.ctex"
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_e4g4f"]
+albedo_texture = SubResource("CompressedTexture2D_rgx3o")
+uv1_scale = Vector3(0.45, 0.45, 0.45)
+uv1_offset = Vector3(2.825, -1.39, -1.305)
+uv1_triplanar = true
+uv1_triplanar_sharpness = 2.37841
+
+[sub_resource type="CylinderShape3D" id="CylinderShape3D_b8cfi"]
+height = 10.0
+radius = 1.0
+
+[node name="Node3D" type="Node3D"]
+
+[node name="Pillar" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 0.958944, -0.283597, 0, 0.283597, 0.958944, 0, 4.30564, 1.35156)
+mesh = SubResource("CylinderMesh_rgx3o")
+surface_material_override/0 = SubResource("StandardMaterial3D_e4g4f")
+
+[node name="StaticBody3D" type="StaticBody3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 0.958944, -0.283597, 0, 0.283597, 0.958944, 0, 4.30564, 1.35156)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="StaticBody3D"]
+shape = SubResource("CylinderShape3D_b8cfi")

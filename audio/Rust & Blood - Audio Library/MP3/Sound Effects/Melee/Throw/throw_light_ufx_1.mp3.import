@@ -1,0 +1,19 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+uid="uid://ekvk8q18rkbu"
+path="res://.godot/imported/throw_light_ufx_1.mp3-2f32307f781da1b6552e4b1147734c78.mp3str"
+
+[deps]
+
+source_file="res://audio/Rust & Blood - Audio Library/MP3/Sound Effects/Melee/Throw/throw_light_ufx_1.mp3"
+dest_files=["res://.godot/imported/throw_light_ufx_1.mp3-2f32307f781da1b6552e4b1147734c78.mp3str"]
+
+[params]
+
+loop=false
+loop_offset=0
+bpm=0
+beat_count=0
+bar_beats=4

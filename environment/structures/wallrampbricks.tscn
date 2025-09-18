@@ -1,5 +1,0 @@
-[gd_scene load_steps=2 format=3 uid="uid://behdefioqogoi"]
-
-[ext_resource type="PackedScene" uid="uid://bj6pwqqb7bcvd" path="res://psxpack/meshes/buildings/modular/mWallRampBricksWhite01.blend" id="1_tl0hq"]
-
-[node name="mWallRampBricksWhite01" instance=ExtResource("1_tl0hq")]

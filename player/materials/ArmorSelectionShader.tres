@@ -1,0 +1,24 @@
+[gd_resource type="ShaderMaterial" load_steps=6 format=3 uid="uid://d35kgiq3loavy"]
+
+[ext_resource type="Shader" uid="uid://dv7cutljk2tnd" path="res://player/materials/ColorSelectionShader.gdshader" id="1_wvi0w"]
+[ext_resource type="Texture2D" uid="uid://bmmd26wrcn43j" path="res://player/robot/Textures/Robot_ColorMap.png" id="2_sl2oq"]
+[ext_resource type="Texture2D" uid="uid://blsermwjrmtub" path="res://player/robot/Textures/Robot01_Albedo.png" id="3_7s321"]
+[ext_resource type="Texture2D" uid="uid://db2yv0r45r42t" path="res://player/robot/Textures/Robot02_Albedo.png" id="4_obqbq"]
+[ext_resource type="Texture2D" uid="uid://b65g102ityp5q" path="res://player/robot/Textures/Robot03_Albedo.png" id="5_58ks7"]
+
+[resource]
+render_priority = 0
+shader = ExtResource("1_wvi0w")
+shader_parameter/primary_texture_1 = ExtResource("4_obqbq")
+shader_parameter/primary_texture_2 = ExtResource("3_7s321")
+shader_parameter/primary_texture_3 = ExtResource("5_58ks7")
+shader_parameter/colormap_texture = ExtResource("2_sl2oq")
+shader_parameter/hydraulics_detail = 0.726
+shader_parameter/color_1 = Color(0.2331, 0.57708, 0.63, 1)
+shader_parameter/color_2 = Color(0.231373, 0.576471, 0.631373, 1)
+shader_parameter/color_3 = Color(1, 0.834012, 0.870914, 1)
+shader_parameter/color_4 = Color(0, 0, 0, 1)
+shader_parameter/color_5 = Color(0.690196, 0.937255, 0.945098, 1)
+shader_parameter/color_6 = Color(0.690196, 0.937255, 0.945098, 1)
+shader_parameter/color_7 = Color(0.231373, 0.576471, 0.631373, 1)
+shader_parameter/detail_strength = 2

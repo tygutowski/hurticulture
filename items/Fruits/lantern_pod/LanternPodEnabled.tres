@@ -1,0 +1,7 @@
+[gd_resource type="StandardMaterial3D" format=3 uid="uid://bnhr4mkr2b2xb"]
+
+[resource]
+resource_name = "Material.001"
+cull_mode = 2
+emission_enabled = true
+emission = Color(0.971363, 1, 0.76128, 1)

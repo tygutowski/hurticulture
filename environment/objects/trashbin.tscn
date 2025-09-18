@@ -1,5 +1,0 @@
-[gd_scene load_steps=2 format=3 uid="uid://clg1hk6o01r4f"]
-
-[ext_resource type="PackedScene" uid="uid://bu2nxuibpwrvy" path="res://psxpack/meshes/outdoors/TrashBinOutdoor01.blend" id="1_0ix6t"]
-
-[node name="TrashBinOutdoor012" instance=ExtResource("1_0ix6t")]

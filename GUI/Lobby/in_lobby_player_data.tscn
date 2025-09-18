@@ -1,6 +1,6 @@
 [gd_scene load_steps=2 format=3 uid="uid://cob18i2kinwh0"]
 
-[ext_resource type="Texture2D" uid="uid://b88jvtac1btqp" path="res://GUI/default_icon.png" id="1_neup0"]
+[ext_resource type="Texture2D" uid="uid://b88jvtac1btqp" path="res://gui/default_icon.png" id="1_neup0"]
 
 [node name="HBoxContainer" type="HBoxContainer"]
 offset_top = 181.0

@@ -1,0 +1,19 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+uid="uid://b2mhh71yvxj0x"
+path="res://.godot/imported/smg_racking_ufx_1.mp3-e57de873da87c1f5ca892b2a1b31d6f3.mp3str"
+
+[deps]
+
+source_file="res://audio/Rust & Blood - Audio Library/MP3/Sound Effects/Firearms/Racking/smg_racking_ufx_1.mp3"
+dest_files=["res://.godot/imported/smg_racking_ufx_1.mp3-e57de873da87c1f5ca892b2a1b31d6f3.mp3str"]
+
+[params]
+
+loop=false
+loop_offset=0
+bpm=0
+beat_count=0
+bar_beats=4

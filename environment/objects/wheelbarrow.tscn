@@ -1,6 +1,0 @@
-[gd_scene load_steps=2 format=3 uid="uid://cklmrln4govbd"]
-
-[sub_resource type="Resource" id="Resource_fq3al"]
-metadata/__load_path__ = "res://psxpack/meshes/storage/Wheelbarrow01.blend"
-
-[node name="Wheelbarrow012"]

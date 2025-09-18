@@ -3,12 +3,12 @@
 importer="wav"
 type="AudioStreamWAV"
 uid="uid://cydkov1ttarbi"
-path="res://.godot/imported/ty_sound.wav-856b38ad97de684299532e92e7feb67b.sample"
+path="res://.godot/imported/ty_sound.wav-adc50bada9e4122b261f680ef91d908d.sample"
 
 [deps]
 
-source_file="res://GUI/ty_sound.wav"
-dest_files=["res://.godot/imported/ty_sound.wav-856b38ad97de684299532e92e7feb67b.sample"]
+source_file="res://gui/ty_sound.wav"
+dest_files=["res://.godot/imported/ty_sound.wav-adc50bada9e4122b261f680ef91d908d.sample"]
 
 [params]
 

@@ -1,6 +1,0 @@
-[gd_scene load_steps=2 format=3 uid="uid://3rf4so820epu"]
-
-[ext_resource type="Script" uid="uid://degwcef6pfilm" path="res://environment/items/tools/ItemSnappable.gd" id="1_2ic3r"]
-
-[node name="ItemSnappableComponent" type="Node3D"]
-script = ExtResource("1_2ic3r")

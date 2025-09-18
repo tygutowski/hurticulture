@@ -1,5 +1,0 @@
-[gd_scene load_steps=2 format=3 uid="uid://w2l1ow62560i"]
-
-[ext_resource type="PackedScene" uid="uid://dg4ivvab017xn" path="res://Robot/RobotWithoutRoot.glb" id="1_dl0nd"]
-
-[node name="RobotWithoutRoot" instance=ExtResource("1_dl0nd")]
