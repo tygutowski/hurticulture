@@ -16,8 +16,8 @@
 [node name="WorldGenerator" type="Node" parent="."]
 script = ExtResource("9_yuimj")
 chunk_size = 64
-generate_radius = 20
-unload_radius = 50
+generate_radius = 4
+unload_radius = 10
 
 [node name="TerrainGenerator" type="Node" parent="WorldGenerator"]
 script = ExtResource("2_u8f1i")

@@ -405,7 +405,7 @@ func _process(_delta: float) -> void:
 	if debug_info:
 		var debug_text: String = ""
 		debug_text += "position: " + str(global_position) + "\n"
-		debug_text += "chunk: " + str(get_node("../WorldGenerator").get_chunk_coordinate()) + "\n"
+		debug_text += "chunk: " + str(get_node("../WorldGenerator").get_player_coordinates()) + "\n"
 		
 		$hud/Debug.text = debug_text
 	# check to see if youre hovering over an interactable using the interactray

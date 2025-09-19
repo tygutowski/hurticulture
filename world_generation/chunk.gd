@@ -13,7 +13,7 @@ var colors: Dictionary[int, Color] = {
 # in Chunk.gd (or set on the instance)
 var base_heightmap: Array[Array]        # immutable source
 var neighbor_sig: PackedInt32Array = PackedInt32Array() # [N,S,W,E] last seen
-var lod: int
+var lod: int = -1
 
 
 # these raise the lod for a side (so if LOD is 3, the north side would become LOD 4)

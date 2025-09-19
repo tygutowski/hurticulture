@@ -20,3 +20,9 @@ material_override = SubResource("StandardMaterial3D_dy4wo")
 [node name="StaticBody3D" type="StaticBody3D" parent="."]
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="StaticBody3D"]
+
+[node name="Label3D" type="Label3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 32, 200, 32)
+pixel_size = 1.0
+billboard = 1
+alpha_cut = 1

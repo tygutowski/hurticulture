@@ -25,13 +25,13 @@ func _ready() -> void:
 func _process(_delta) -> void:
 	if player == null:
 		return
-	var current_chunk: Vector2 = get_chunk_coordinate()
+	var current_chunk: Vector2 = get_player_coordinates()
 
 	if current_chunk != last_chunk:
 		update_visible_chunks()
 		last_chunk = current_chunk
 
-func get_chunk_coordinate() -> Vector2:
+func get_player_coordinates() -> Vector2:
 	return Vector2(
 		floor(player.global_position.x/chunk_size),
 		floor(player.global_position.z/chunk_size)
@@ -40,20 +40,28 @@ func get_chunk_coordinate() -> Vector2:
 func update_visible_chunks(reset_everything: bool = false) -> void:
 	delete_old_chunks(reset_everything)
 	
-	var coords: Vector2 = get_chunk_coordinate()
+	var player_coords: Vector2 = get_player_coordinates()
+	var parsed_chunks: Array[Chunk] = []
+	# chunks relative to the player
 	for x in range(-generate_radius, generate_radius + 1):
 		for y in range(-generate_radius, generate_radius + 1):
-			var chunk_coord = Vector2(coords.x + x, coords.y + y)
+			var relative_chunk_coords = Vector2(player_coords.x + x, player_coords.y + y)
 			var lod = get_lod(Vector2(x, y))
-			var chunk: Chunk = get_chunk(chunk_coord, lod)
-			chunk.global_position = Vector3(chunk_coord.x * chunk_size, 0, chunk_coord.y * chunk_size)
-			update_mesh(chunk)
-
-func update_mesh(chunk: Chunk) -> void:
-	var target_lod: int = get_lod(Vector2(chunk.coords))
-	if chunk.lod != target_lod:
-		chunk.lod = target_lod
-		var new_mesh: Mesh = generate_chunk_mesh(chunk.coords, target_lod)
+			var chunk: Chunk = get_chunk(relative_chunk_coords, lod)
+			chunk.global_position = Vector3(relative_chunk_coords.x * chunk_size, 0, relative_chunk_coords.y * chunk_size)
+			update_mesh(chunk, lod)
+			parsed_chunks.append(chunk)
+	
+	#for chunk_coord in chunks:
+	#	var chunk = chunks[chunk_coord]
+	#	if chunk in parsed_chunks:
+	#		continue
+	#	update_mesh(chunk, 4)
+func update_mesh(chunk: Chunk, new_lod: int) -> void:
+	if chunk.lod != new_lod:
+		chunk.lod = new_lod
+		chunk.get_node("Label3D").text = str(chunk.lod)
+		var new_mesh: Mesh = generate_chunk_mesh(chunk.coords, new_lod)
 		chunk.get_node("MeshInstance3D").mesh = new_mesh
 		chunk.global_position = Vector3(chunk.coords.x * chunk_size, 0, chunk.coords.y * chunk_size)
 
@@ -62,15 +70,15 @@ func update_collider(chunk: Chunk) -> void:
 	chunk.get_node("StaticBody3D/CollisionShape3D").shape = new_collider
 
 func get_lod(coords: Vector2) -> int:
-	var r: int = int(max(abs(coords.x), abs(coords.y)))
-	if r <= 1:
+	var dist: int = int(max(abs(coords.x), abs(coords.y)))
+	if dist <= 1:
 		return 0
-	elif r <= 3:
+	elif dist <= 3:
 		return 1
-	elif r == 4:
-		return 3
+	elif dist <= 5:
+		return 2
 	else:
-		return 4
+		return 3
 
 func get_chunk(coords: Vector2, lod: int) -> Chunk:
 	if chunks.has(coords):
@@ -82,7 +90,7 @@ func get_chunk(coords: Vector2, lod: int) -> Chunk:
 	return chunk
 
 func delete_old_chunks(reset_everything: bool = false) -> void:
-	var coords: Vector2 = get_chunk_coordinate()
+	var coords: Vector2 = get_player_coordinates()
 	var to_remove: Array = []
 
 	for chunk_coord in chunks.keys():
