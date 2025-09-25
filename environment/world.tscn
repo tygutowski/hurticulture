@@ -1,4 +1,4 @@
-[gd_scene load_steps=11 format=3 uid="uid://xqixgx0mkgd5"]
+[gd_scene load_steps=15 format=3 uid="uid://xqixgx0mkgd5"]
 
 [ext_resource type="Script" uid="uid://w1ty2w3i5uwo" path="res://world_generation/TerrainGenerator.gd" id="2_u8f1i"]
 [ext_resource type="Curve" uid="uid://bqditxsdtl42r" path="res://world_generation/continent_piecewise.tres" id="3_jweps"]
@@ -10,14 +10,29 @@
 [ext_resource type="FastNoiseLite" uid="uid://b2x26ukcki4j8" path="res://world_generation/peaks_and_valleys_noise.tres" id="8_5dpq7"]
 [ext_resource type="Script" uid="uid://bdea6rp32xwh" path="res://environment/MapGenerator.gd" id="9_yuimj"]
 [ext_resource type="PackedScene" uid="uid://b5xjtp4qjtafs" path="res://player/Player.tscn" id="10_jweps"]
+[ext_resource type="Texture2D" uid="uid://bdg8i2u2yhm4h" path="res://textures/grass_8.png" id="11_ab3xd"]
+
+[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_jweps"]
+sky_top_color = Color(0.444334, 0.463911, 0.325638, 1)
+sky_horizon_color = Color(0.510945, 0.291624, 0.157127, 1)
+sky_cover = ExtResource("11_ab3xd")
+ground_horizon_color = Color(0.509804, 0.290196, 0.156863, 1)
+
+[sub_resource type="Sky" id="Sky_dedhk"]
+sky_material = SubResource("ProceduralSkyMaterial_jweps")
+
+[sub_resource type="Environment" id="Environment_jweps"]
+background_mode = 2
+background_color = Color(0.560996, 0.424614, 0.200798, 1)
+sky = SubResource("Sky_dedhk")
 
 [node name="world" type="Node" groups=["world"]]
 
 [node name="WorldGenerator" type="Node" parent="."]
 script = ExtResource("9_yuimj")
 chunk_size = 64
-generate_radius = 4
-unload_radius = 10
+generate_radius = 16
+unload_radius = 16
 
 [node name="TerrainGenerator" type="Node" parent="WorldGenerator"]
 script = ExtResource("2_u8f1i")
@@ -65,3 +80,6 @@ target_position = Vector3(0, -100, 0)
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 103.622, 0)
 noclip = true
 debug_info = true
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_jweps")

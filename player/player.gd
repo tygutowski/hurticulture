@@ -50,6 +50,7 @@ var inventory_index: int = 0
 
 @export_category("Debug")
 @export var noclip: bool = false
+@export var freeze_map: bool = false
 @export var debug_info: bool = false
 
 func _ready() -> void:
@@ -305,6 +306,8 @@ func _physics_process(delta: float) -> void:
 	
 	if Input.is_action_just_pressed("fly"):
 		noclip = not noclip
+	if Input.is_action_just_pressed("freeze_map"):
+		freeze_map = not freeze_map
 	
 	if Input.is_action_just_pressed("ui_accept") and is_on_floor():
 		velocity.y = JUMP_VELOCITY

@@ -1,7 +1,7 @@
 [gd_scene load_steps=35 format=3 uid="uid://bnf8skrh5pjuk"]
 
 [ext_resource type="Script" uid="uid://des37je3o4mxs" path="res://vfx/grass/LODManager.gd" id="1_oc8cb"]
-[ext_resource type="PackedScene" uid="uid://kyq05jxp3yn4" path="res://items/weapons/shotgun/Shotgun.tscn" id="2_1pa1w"]
+[ext_resource type="PackedScene" uid="uid://cpkam65s6p7xf" path="res://items/weapons/shotgun/Shotgun.tscn" id="2_1pa1w"]
 [ext_resource type="PackedScene" uid="uid://b3bro3nus3giu" path="res://items/tools/battery/large_battery/LargeBattery.tscn" id="3_pc7rr"]
 [ext_resource type="PackedScene" uid="uid://di2hyd5dw6fsg" path="res://items/tools/battery/Battery.tscn" id="4_y1nea"]
 [ext_resource type="PackedScene" uid="uid://d3m15aoueok6r" path="res://items/weapons/smg/SubMachineGun.tscn" id="5_5l22i"]

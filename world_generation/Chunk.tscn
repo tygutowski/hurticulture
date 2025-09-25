@@ -1,7 +1,7 @@
 [gd_scene load_steps=4 format=3 uid="uid://cm2e4xr5q00bl"]
 
 [ext_resource type="Script" uid="uid://suxkm8krid4e" path="res://world_generation/Chunk.gd" id="1_dy4wo"]
-[ext_resource type="Texture2D" uid="uid://bp8qgmbcomjqv" path="res://textures/grass_5.png" id="2_kyodq"]
+[ext_resource type="Texture2D" uid="uid://bdg8i2u2yhm4h" path="res://textures/grass_8.png" id="2_kyodq"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_dy4wo"]
 shading_mode = 2
@@ -23,6 +23,7 @@ material_override = SubResource("StandardMaterial3D_dy4wo")
 
 [node name="Label3D" type="Label3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 32, 200, 32)
+visible = false
 pixel_size = 1.0
 billboard = 1
 alpha_cut = 1

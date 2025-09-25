@@ -1,4 +1,4 @@
-[gd_scene load_steps=28 format=4 uid="uid://kyq05jxp3yn4"]
+[gd_scene load_steps=28 format=4 uid="uid://cpkam65s6p7xf"]
 
 [ext_resource type="Script" uid="uid://dtbnrgwp3vldv" path="res://items/weapons/shotgun/Shotgun.gd" id="1_p6k6k"]
 [ext_resource type="Texture2D" uid="uid://c4biah6dkg5pv" path="res://items/weapons/shotgun/OneBarrelShotGunText.jpg" id="2_crxyp"]
