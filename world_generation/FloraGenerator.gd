@@ -36,7 +36,7 @@ func generate_trees(number_of_trees: int) -> void:
 				break
 
 func generate_grass(mesh_per_chunk: int, chunk_size: Vector2, map_size: Vector2) -> void:
-	var grass_ray: RayCast3D = get_tree().get_first_node_in_group("world").get_node("WorldGenerator/RayCast3D2")
+	var grass_ray: RayCast3D = get_tree().get_first_node_in_group("world").get_node("MapGenerator/RayCast3D2")
 	var chunks_x: int = int(map_size.x / chunk_size.x)
 	var chunks_y: int = int(map_size.y / chunk_size.y)
 	var total_chunks: int = chunks_x * chunks_y

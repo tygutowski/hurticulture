@@ -15,7 +15,6 @@
 [ext_resource type="PackedScene" uid="uid://drkfhhj11qpqf" path="res://environment/objects/Generator.tscn" id="11_7heok"]
 [ext_resource type="Texture2D" uid="uid://c1w2tvc83jv3x" path="res://textures/concrete_wall_tx_4_1.png" id="11_bgo26"]
 [ext_resource type="Script" uid="uid://de34gck4uknth" path="res://technical/GameStarter.gd" id="11_n0l0v"]
-[ext_resource type="Shader" uid="uid://d27b45pl5v1y4" path="res://environment/TriPlanarShader.gdshader" id="13_1262h"]
 [ext_resource type="Texture2D" uid="uid://d27umlppljrl2" path="res://textures/grass_1.png" id="14_bgo26"]
 [ext_resource type="PackedScene" uid="uid://c5g70al4ueyt3" path="res://gui/CameraComputer.tscn" id="14_ckd3g"]
 [ext_resource type="PackedScene" uid="uid://w042e6wfvpt" path="res://gui/SkinPickerComputer.tscn" id="14_twnom"]
@@ -150,9 +149,62 @@ data = PackedVector3Array(-7, 3.5, 0.5, 7, 3.5, 0.5, -7, -3.5, 0.5, 7, 3.5, 0.5,
 [sub_resource type="ConcavePolygonShape3D" id="ConcavePolygonShape3D_23vt3"]
 data = PackedVector3Array(-7, 3.5, 0.5, 7, 3.5, 0.5, -7, -3.5, 0.5, 7, 3.5, 0.5, 7, -3.5, 0.5, -7, -3.5, 0.5, 7, 3.5, -0.5, -7, 3.5, -0.5, 7, -3.5, -0.5, -7, 3.5, -0.5, -7, -3.5, -0.5, 7, -3.5, -0.5, 7, 3.5, 0.5, 7, 3.5, -0.5, 7, -3.5, 0.5, 7, 3.5, -0.5, 7, -3.5, -0.5, 7, -3.5, 0.5, -7, 3.5, -0.5, -7, 3.5, 0.5, -7, -3.5, -0.5, -7, 3.5, 0.5, -7, -3.5, 0.5, -7, -3.5, -0.5, 7, 3.5, 0.5, -7, 3.5, 0.5, 7, 3.5, -0.5, -7, 3.5, 0.5, -7, 3.5, -0.5, 7, 3.5, -0.5, -7, -3.5, 0.5, 7, -3.5, 0.5, -7, -3.5, -0.5, 7, -3.5, 0.5, 7, -3.5, -0.5, -7, -3.5, -0.5)
 
+[sub_resource type="Shader" id="Shader_bgo26"]
+code = "shader_type spatial;
+
+// Textures to blend
+uniform sampler2D texture1;
+uniform float scale1 = 1.0;
+
+uniform sampler2D texture2;
+uniform float scale2 = 1.0;
+
+// Noise texture used as blend mask
+uniform sampler2D noise_texture;
+uniform float noise_scale = 1.0;
+
+// Blend weights based on how aligned surface normal is to each axis
+vec3 blend_weights(vec3 normal) {
+	return pow(abs(normal), vec3(4.0));
+}
+
+// Triplanar projection with weighted sampling from each axis
+vec4 triplanar_sample(sampler2D tex, vec3 world_pos, vec3 normal, float scale) {
+	vec3 weights = blend_weights(normal);
+	weights /= (weights.x + weights.y + weights.z);
+
+	vec2 xz = world_pos.xz * scale;
+	vec2 yz = world_pos.yz * scale;
+	vec2 xy = world_pos.xy * scale;
+
+	vec4 x_proj = texture(tex, yz);
+	vec4 y_proj = texture(tex, xz);
+	vec4 z_proj = texture(tex, xy);
+
+	return x_proj * weights.x + y_proj * weights.y + z_proj * weights.z;
+}
+
+void fragment() {
+	// Get world-space position and convert normal to world-space
+	vec3 world_pos = (MODEL_MATRIX * vec4(VERTEX, 1.0)).xyz;
+	vec3 world_normal = normalize((INV_VIEW_MATRIX * vec4(NORMAL, 0.0)).xyz);
+
+	// Triplanar sample both main textures
+	vec4 tex1 = triplanar_sample(texture1, world_pos, world_normal, scale1);
+	vec4 tex2 = triplanar_sample(texture2, world_pos, world_normal, scale2);
+
+	// Triplanar sample the noise blend texture
+	float noise_val = triplanar_sample(noise_texture, world_pos, world_normal, noise_scale).r;
+	float blend = clamp(noise_val, 0.0, 1.0);
+
+	// Final blended result
+	ALBEDO = mix(tex1.rgb, tex2.rgb, blend);
+}
+"
+
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_fgdh6"]
 render_priority = 0
-shader = ExtResource("13_1262h")
+shader = SubResource("Shader_bgo26")
 shader_parameter/texture1 = ExtResource("9_6ip2x")
 shader_parameter/scale1 = 1.0
 shader_parameter/texture2 = ExtResource("14_bgo26")

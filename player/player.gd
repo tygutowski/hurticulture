@@ -1,8 +1,6 @@
 class_name Player
 extends CharacterBody3D
 
-
-
 var mouse_sensitivity = 0.3
 const JUMP_VELOCITY = 5
 const ACCELERATION : float = 13
@@ -329,7 +327,7 @@ func _physics_process(delta: float) -> void:
 		camera.rotation.z = lerp(camera.rotation.z, 0.0, 0.2)
 	var movement_speed = WALK_SPEED
 	if Input.is_action_pressed("run") and input_dir.y < 0:
-		movement_speed = RUN_SPEED * 10
+		movement_speed = RUN_SPEED
 		camera.fov = lerp(camera.fov, float(Settings.fov + 10), 0.2)
 	else:
 		camera.fov = lerp(camera.fov, float(Settings.fov), 0.2)
@@ -405,12 +403,6 @@ func handle_computers(event: InputEvent) -> void:
 			computer.mouse_outside_area()
 
 func _process(_delta: float) -> void:
-	if debug_info:
-		var debug_text: String = ""
-		debug_text += "position: " + str(global_position) + "\n"
-		debug_text += "chunk: " + str(get_node("../WorldGenerator").get_player_coordinates()) + "\n"
-		
-		$hud/Debug.text = debug_text
 	# check to see if youre hovering over an interactable using the interactray
 	interactray.check_interactions(self)
 	handle_computer_cursor_movement()

@@ -241,6 +241,11 @@ func _generate_world() -> void:
 	var world: Node = MultiplayerManager.instance_world()
 	visible = false
 
+func _load_sandbox_world() -> void:
+	set_miniscreen_focus(worldloading)
+	var world: Node = MultiplayerManager.instance_world(true)
+	visible = false
+
 func _on_slider_value_changed(_value: float) -> void:
 	play_hovering_noise()
 

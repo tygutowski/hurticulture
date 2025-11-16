@@ -107,10 +107,15 @@ func join_lobby(this_lobby_id: int) -> void:
 	Steam.joinLobby(this_lobby_id)
 
 # load a new world scene and instance all players that are in the lobby
-func instance_world() -> Node:
+func instance_world(is_sandbox: bool = false) -> Node:
 	var world_scene = load("res://environment/World.tscn")
 	var world = world_scene.instantiate()
 	get_tree().get_root().add_child(world)
+	
+	if is_sandbox:
+		var sandbox_scene: PackedScene = load("res://testing/Sandbox.tscn")
+		var sandbox = sandbox_scene.instantiate()
+		world.add_child(sandbox)
 	
 	peer_container = world.get_node("%PeerContainer")
 	# load and add players

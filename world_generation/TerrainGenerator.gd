@@ -38,6 +38,41 @@ func get_height(coords: Vector2) -> float:
 
 	return base
 
+func generate_chunk_data(chunk: Chunk) -> void:
+	var chunk_pos: Vector2 = chunk.coords * get_parent().chunk_size
+
+	# allocate
+	chunk.biome_map.resize(get_parent().chunk_size + 1)
+
+	for x: int in get_parent().chunk_size + 1:
+		chunk.biome_map[x] = []
+
+		for y: int in get_parent().chunk_size + 1:
+			# world-space coordinate
+			var world_pos: Vector2 = Vector2(
+				chunk_pos.x + x,
+				chunk_pos.y + y
+			)
+
+			# world-space height for this exact location
+			var height: float = get_height(world_pos)
+
+			# world-space parameters from noise fields
+			var temp: float = temperature_map.get_noise_2dv(world_pos)
+			var moist: float = humidity_map.get_noise_2dv(world_pos)
+			var weird: float = weirdness_map.get_noise_2dv(world_pos)
+
+			# fetch biome based on continuous world-space values
+			var biome: Biome = get_parent().biome_generator.get_biome_at(
+				height,
+				temp,
+				moist,
+				weird
+			)
+
+			chunk.biome_map[x].append(biome)
+
+
 func get_height_from(x: float, curve: Curve) -> float:
 	#TODO: change to sample_baked in the future.
 	return curve.sample(x)

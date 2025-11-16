@@ -26,15 +26,3 @@ func check_interactions(player: Player) -> void:
 
 func generate_outline_for(item: Item) -> void:
 	return
-	var meshes = item.find_children("*", "MeshInstance3D", true)
-	for mesh_instance: MeshInstance3D in meshes:
-		var mesh_outline: Mesh = mesh_instance.mesh.create_outline(0.01)
-		var new_mesh: MeshInstance3D = MeshInstance3D.new()
-		new_mesh.mesh = mesh_outline
-		new_mesh.add_to_group("outlines")
-		new_mesh.set_layer_mask_value(3, true)
-		new_mesh.set_layer_mask_value(1, false)
-		new_mesh.transform = mesh_instance.transform
-		item.get_node("Deletables").add_child(new_mesh)
-		new_mesh.set_surface_override_material(0, outline_material)
-		item.has_outline = true

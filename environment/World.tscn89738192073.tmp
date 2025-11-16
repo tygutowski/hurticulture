@@ -1,4 +1,4 @@
-[gd_scene load_steps=18 format=3 uid="uid://xqixgx0mkgd5"]
+[gd_scene load_steps=15 format=3 uid="uid://xqixgx0mkgd5"]
 
 [ext_resource type="Script" uid="uid://w1ty2w3i5uwo" path="res://world_generation/TerrainGenerator.gd" id="2_u8f1i"]
 [ext_resource type="Curve" uid="uid://bqditxsdtl42r" path="res://world_generation/continent_piecewise.tres" id="3_jweps"]
@@ -10,18 +10,6 @@
 [ext_resource type="Script" uid="uid://5agrc7tc7pda" path="res://world_generation/BiomeGenerator.gd" id="9_ab3xd"]
 [ext_resource type="Script" uid="uid://bdea6rp32xwh" path="res://environment/MapGenerator.gd" id="9_yuimj"]
 [ext_resource type="PackedScene" uid="uid://b5xjtp4qjtafs" path="res://player/Player.tscn" id="10_jweps"]
-
-[sub_resource type="FastNoiseLite" id="FastNoiseLite_jweps"]
-seed = 3
-frequency = 0.002
-
-[sub_resource type="FastNoiseLite" id="FastNoiseLite_ab3xd"]
-seed = 2
-frequency = 0.002
-
-[sub_resource type="FastNoiseLite" id="FastNoiseLite_uqj48"]
-seed = 1
-frequency = 0.002
 
 [sub_resource type="GDScript" id="GDScript_8bjj6"]
 script/source = "extends Node
@@ -100,18 +88,17 @@ sky_material = SubResource("ProceduralSkyMaterial_jweps")
 background_mode = 2
 background_color = Color(0.560996, 0.424614, 0.200798, 1)
 sky = SubResource("Sky_dedhk")
-fog_mode = 1
-fog_light_color = Color(0.366595, 0.366595, 0.366595, 1)
-fog_density = 1.0
-fog_depth_begin = 40.2
-fog_depth_end = 156.5
+fog_light_color = Color(0.577543, 0.364962, 0.243274, 1)
+fog_density = 0.0171
+fog_depth_begin = 150.0
+fog_depth_end = 200.0
 
 [node name="world" type="Node" groups=["world"]]
 
-[node name="MapGenerator" type="Node" parent="."]
+[node name="WorldGenerator" type="Node" parent="."]
 script = ExtResource("9_yuimj")
 
-[node name="TerrainGenerator" type="Node" parent="MapGenerator"]
+[node name="TerrainGenerator" type="Node" parent="WorldGenerator"]
 script = ExtResource("2_u8f1i")
 continent_piecewise = ExtResource("3_jweps")
 erosion_piecewise = ExtResource("4_ab3xd")
@@ -119,35 +106,32 @@ peaks_and_valleys_piecewise = ExtResource("5_uqj48")
 continent_map = ExtResource("6_dedhk")
 erosion_map = ExtResource("7_ly81q")
 peaks_and_valleys_map = ExtResource("8_5dpq7")
-temperature_map = SubResource("FastNoiseLite_jweps")
-humidity_map = SubResource("FastNoiseLite_ab3xd")
-weirdness_map = SubResource("FastNoiseLite_uqj48")
 metadata/_custom_type_script = "uid://w1ty2w3i5uwo"
 
-[node name="BiomeGenerator" type="Node" parent="MapGenerator"]
+[node name="BiomeGenerator" type="Node" parent="WorldGenerator"]
 script = ExtResource("9_ab3xd")
 metadata/_custom_type_script = "uid://5agrc7tc7pda"
 
-[node name="DirectionalLight3D" type="DirectionalLight3D" parent="MapGenerator"]
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="WorldGenerator"]
 transform = Transform3D(0.339762, -0.711401, -0.6152, 0.875372, -2.11323e-08, 0.48345, -0.343927, -0.702787, 0.62274, 0, 95.3634, 0)
 
-[node name="GeneratedItems" type="Node" parent="MapGenerator"]
+[node name="GeneratedItems" type="Node" parent="WorldGenerator"]
 
-[node name="Trees" type="Node" parent="MapGenerator/GeneratedItems"]
+[node name="Trees" type="Node" parent="WorldGenerator/GeneratedItems"]
 
-[node name="Bushes" type="Node" parent="MapGenerator/GeneratedItems"]
+[node name="Bushes" type="Node" parent="WorldGenerator/GeneratedItems"]
 
-[node name="PeerContainer" type="Node" parent="MapGenerator/GeneratedItems"]
+[node name="PeerContainer" type="Node" parent="WorldGenerator/GeneratedItems"]
 unique_name_in_owner = true
 
-[node name="Player" type="Node" parent="MapGenerator/GeneratedItems"]
+[node name="Player" type="Node" parent="WorldGenerator/GeneratedItems"]
 
-[node name="Enemies" type="Node" parent="MapGenerator/GeneratedItems"]
+[node name="Enemies" type="Node" parent="WorldGenerator/GeneratedItems"]
 
-[node name="Camera3D" type="Camera3D" parent="MapGenerator"]
+[node name="Camera3D" type="Camera3D" parent="WorldGenerator"]
 transform = Transform3D(1, 0, 0, 0, 0.685818, 0.727773, 0, -0.727773, 0.685818, 167, 250, 0)
 
-[node name="Chunks" type="Node" parent="MapGenerator"]
+[node name="Chunks" type="Node" parent="WorldGenerator"]
 
 [node name="Items" type="Node" parent="."]
 
