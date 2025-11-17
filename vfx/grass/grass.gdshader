@@ -33,4 +33,7 @@ void fragment() {
 	if (!FRONT_FACING) {
 		NORMAL = -NORMAL;
 	}
+	ROUGHNESS = 1.0;
+	METALLIC = 0.0;
+	SPECULAR = 0.0;
 }

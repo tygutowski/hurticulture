@@ -1,4 +1,4 @@
-[gd_scene load_steps=18 format=3 uid="uid://xqixgx0mkgd5"]
+[gd_scene load_steps=20 format=3 uid="uid://xqixgx0mkgd5"]
 
 [ext_resource type="Script" uid="uid://w1ty2w3i5uwo" path="res://world_generation/TerrainGenerator.gd" id="2_u8f1i"]
 [ext_resource type="Curve" uid="uid://bqditxsdtl42r" path="res://world_generation/continent_piecewise.tres" id="3_jweps"]
@@ -9,19 +9,21 @@
 [ext_resource type="FastNoiseLite" uid="uid://b2x26ukcki4j8" path="res://world_generation/peaks_and_valleys_noise.tres" id="8_5dpq7"]
 [ext_resource type="Script" uid="uid://5agrc7tc7pda" path="res://world_generation/BiomeGenerator.gd" id="9_ab3xd"]
 [ext_resource type="Script" uid="uid://bdea6rp32xwh" path="res://environment/MapGenerator.gd" id="9_yuimj"]
+[ext_resource type="Script" uid="uid://cds60mkqqit5f" path="res://world_generation/FloraGenerator.gd" id="10_ab3xd"]
 [ext_resource type="PackedScene" uid="uid://b5xjtp4qjtafs" path="res://player/Player.tscn" id="10_jweps"]
+[ext_resource type="Script" uid="uid://6x50hunks56a" path="res://world_generation/ObjectGenerator.gd" id="11_uqj48"]
 
 [sub_resource type="FastNoiseLite" id="FastNoiseLite_jweps"]
 seed = 3
-frequency = 0.002
+frequency = 0.001
 
 [sub_resource type="FastNoiseLite" id="FastNoiseLite_ab3xd"]
 seed = 2
-frequency = 0.002
+frequency = 0.001
 
 [sub_resource type="FastNoiseLite" id="FastNoiseLite_uqj48"]
 seed = 1
-frequency = 0.002
+frequency = 0.001
 
 [sub_resource type="GDScript" id="GDScript_8bjj6"]
 script/source = "extends Node
@@ -86,8 +88,8 @@ func check_player_chunk(world_pos: Vector3) -> Vector2i:
 "
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_jweps"]
-sky_top_color = Color(0.576471, 0.364706, 0.243137, 1)
-sky_horizon_color = Color(0.576471, 0.364706, 0.243137, 1)
+sky_top_color = Color(1, 1, 1, 1)
+sky_horizon_color = Color(1, 1, 1, 1)
 sky_curve = 0.106066
 ground_bottom_color = Color(0.576471, 0.364706, 0.243137, 1)
 ground_horizon_color = Color(0.576471, 0.364706, 0.243137, 1)
@@ -100,11 +102,15 @@ sky_material = SubResource("ProceduralSkyMaterial_jweps")
 background_mode = 2
 background_color = Color(0.560996, 0.424614, 0.200798, 1)
 sky = SubResource("Sky_dedhk")
+fog_enabled = true
 fog_mode = 1
 fog_light_color = Color(0.366595, 0.366595, 0.366595, 1)
 fog_density = 1.0
-fog_depth_begin = 40.2
-fog_depth_end = 156.5
+fog_height = 771.02
+fog_height_density = -16.0
+fog_depth_curve = 24.09
+fog_depth_begin = 50.0
+fog_depth_end = 125.0
 
 [node name="world" type="Node" groups=["world"]]
 
@@ -128,6 +134,14 @@ metadata/_custom_type_script = "uid://w1ty2w3i5uwo"
 script = ExtResource("9_ab3xd")
 metadata/_custom_type_script = "uid://5agrc7tc7pda"
 
+[node name="FloraGenerator" type="Node" parent="MapGenerator"]
+script = ExtResource("10_ab3xd")
+metadata/_custom_type_script = "uid://cds60mkqqit5f"
+
+[node name="ObjectGenerator" type="Node" parent="MapGenerator"]
+script = ExtResource("11_uqj48")
+metadata/_custom_type_script = "uid://6x50hunks56a"
+
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="MapGenerator"]
 transform = Transform3D(0.339762, -0.711401, -0.6152, 0.875372, -2.11323e-08, 0.48345, -0.343927, -0.702787, 0.62274, 0, 95.3634, 0)
 
@@ -148,6 +162,9 @@ unique_name_in_owner = true
 transform = Transform3D(1, 0, 0, 0, 0.685818, 0.727773, 0, -0.727773, 0.685818, 167, 250, 0)
 
 [node name="Chunks" type="Node" parent="MapGenerator"]
+
+[node name="RayCast3D" type="RayCast3D" parent="MapGenerator"]
+target_position = Vector3(0, -13.62, 0.47)
 
 [node name="Items" type="Node" parent="."]
 

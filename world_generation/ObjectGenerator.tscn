@@ -1,0 +1,7 @@
+[gd_scene load_steps=2 format=3 uid="uid://cct5ef8iaj251"]
+
+[ext_resource type="Script" uid="uid://6x50hunks56a" path="res://world_generation/ObjectGenerator.gd" id="1_72i70"]
+
+[node name="ObjectGenerator" type="Node"]
+script = ExtResource("1_72i70")
+metadata/_custom_type_script = "uid://6x50hunks56a"

@@ -1,8 +1,6 @@
 extends Node
 class_name MapGenerator
 
-signal generation_finished
-
 @export_category("Terrain Generation")
 var chunk_size: int = 12
 var generate_radius: int = 12
@@ -14,15 +12,26 @@ var directions: Array[Vector2] = [Vector2.UP, Vector2.DOWN, Vector2.LEFT, Vector
 @onready var chunk_scene: PackedScene = load("res://world_generation/Chunk.tscn")
 @onready var terrain_generator: TerrainGenerator = get_node("TerrainGenerator")
 @onready var biome_generator: BiomeGenerator = get_node("BiomeGenerator")
+@onready var flora_generator: FloraGenerator = get_node("FloraGenerator")
+@onready var object_generator: ObjectGenerator = get_node("ObjectGenerator")
+
 @onready var player: Player = get_node("../player")
+
+var biome_update_timer: float = 0
+var biome_update_timer_threshold: float = 0.5
 
 var last_chunk: Vector2 = Vector2.INF
 
 func _ready() -> void:
+	
 	biome_generator.initialize()
 	Debug.setup_debug()
 
-func _process(_delta) -> void:
+func _process(delta) -> void:
+	biome_update_timer += delta
+	if biome_update_timer >= biome_update_timer_threshold:
+		biome_update_timer -= biome_update_timer_threshold
+		update_biome()
 	if player == null:
 		return
 	var current_chunk: Vector2 = get_player_coordinates()
@@ -44,17 +53,27 @@ func get_needed_coords(center: Vector2) -> Array[Vector2]:
 			arr.append(center + Vector2(x, y))
 	return arr
 
-func update_visible_chunks() -> void:
-	var player_coords := get_player_coordinates()
+func update_biome() -> void:
 	var player_pos = Vector2(player.global_position.x, player.global_position.z)
 	var temperature = terrain_generator.temperature_map.get_noise_2dv(player_pos)
 	Debug.debug("pos: " + str(player_pos))
-	Debug.debug("chunk: " + str(player_coords))
 	var humidity = terrain_generator.humidity_map.get_noise_2dv(player_pos)
 	Debug.debug("temp: " + str((temperature + 1) / 2))
 	Debug.debug("humid: " + str((humidity + 1) / 2))
 	var biome: Biome = biome_generator.get_biome_at(0, temperature, humidity, 0)
 	Debug.debug("biome: " + biome.biome_name)
+	var env: Environment = get_node("../WorldEnvironment").environment
+	
+	var tween: Tween = get_tree().create_tween()
+	tween.tween_property(
+		env,
+		"fog_light_color",
+		biome.fog_color,
+		0.6
+	)
+
+func update_visible_chunks() -> void:
+	var player_coords := get_player_coordinates()
 	var needed := get_needed_coords(player_coords)
 
 	# Load only new ones
@@ -84,10 +103,12 @@ func create_chunk(coords: Vector2) -> void:
 	chunks[coords] = chunk
 
 	update_chunk_mesh(chunk)
-	update_collider(chunk)
+	await update_collider(chunk)
 	terrain_generator.generate_chunk_data(chunk)
 	chunk.flat_array = make_flat_texture_array(biome_generator.biome_list)
-	apply_biome_data_to_chunk(chunk, chunk_size, biome_generator.biome_list, chunk.flat_array)
+	apply_biome_data_to_chunk(chunk, biome_generator.biome_list, chunk.flat_array)
+	flora_generator.generate_grass(chunk)
+	object_generator.spawn_objects(chunk)
 	
 func make_flat_texture_array(biomes: Array[Biome]) -> Texture2DArray:
 	var images: Array[Image] = []
@@ -105,8 +126,8 @@ func make_flat_texture_array(biomes: Array[Biome]) -> Texture2DArray:
 	return arr
 
 
-func apply_biome_data_to_chunk(chunk: Chunk, chunk_size: int, biome_list: Array[Biome], flat_array: Texture2DArray) -> void:
-	var index_texture: Texture2D = make_biome_index_texture(chunk, chunk_size, biome_list)
+func apply_biome_data_to_chunk(chunk: Chunk, biome_list: Array[Biome], flat_array: Texture2DArray) -> void:
+	var index_texture: Texture2D = make_biome_index_texture(chunk, biome_list)
 
 	var mesh_instance: MeshInstance3D = chunk.get_node("MeshInstance3D")
 	var mat: ShaderMaterial = mesh_instance.material_override
@@ -119,7 +140,7 @@ func apply_biome_data_to_chunk(chunk: Chunk, chunk_size: int, biome_list: Array[
 	mesh_instance.material_override = mat_inst
 
 # this sends chunk info to the shader to designate which biome each subchunk is 
-func make_biome_index_texture(chunk: Chunk, chunk_size: int, biome_list: Array[Biome]) -> ImageTexture:
+func make_biome_index_texture(chunk: Chunk, biome_list: Array[Biome]) -> ImageTexture:
 	var img: Image = Image.create(chunk_size, chunk_size, false, Image.FORMAT_RF)
 	for x in range(chunk_size):
 		for y in range(chunk_size):
@@ -168,6 +189,7 @@ func update_chunk_mesh(chunk: Chunk) -> void:
 func update_collider(chunk: Chunk) -> void:
 	var collider := generate_chunk_collision_shape(chunk.coords)
 	chunk.get_node("StaticBody3D/CollisionShape3D").shape = collider
+	await get_tree().physics_frame
 
 func generate_chunk_mesh(coords: Vector2) -> Mesh:
 	var st := SurfaceTool.new()

@@ -52,7 +52,6 @@ var inventory_index: int = 0
 @export var debug_info: bool = false
 
 func _ready() -> void:
-	get_node("hud/Debug").visible = debug_info
 	for i in range(inventory_size):
 		inventory.append(null)
 	gamestate = PeerGameState.new()

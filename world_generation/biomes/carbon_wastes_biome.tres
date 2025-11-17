@@ -1,0 +1,14 @@
+[gd_resource type="Resource" script_class="Biome" load_steps=4 format=3 uid="uid://b6no0rq7hnb2h"]
+
+[ext_resource type="Script" uid="uid://mxwd73rjsfgb" path="res://world_generation/Biome.gd" id="1_1iw4e"]
+[ext_resource type="Texture2D" uid="uid://1cyge4djvuqp" path="res://textures/dirt_1.png" id="1_g4ba7"]
+[ext_resource type="Texture2D" uid="uid://dghuaceb47t7v" path="res://textures/dirt_2.png" id="3_enjtx"]
+
+[resource]
+script = ExtResource("1_1iw4e")
+id = 0
+biome_name = "Carbon Wastes"
+fog_color = Color(0.884552, 0.755898, 0.716142, 1)
+flat_texture = ExtResource("1_g4ba7")
+sloped_texture = ExtResource("3_enjtx")
+feature = 0

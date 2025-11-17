@@ -5,4 +5,3 @@
 [resource]
 render_priority = 0
 shader = ExtResource("1_4w0ob")
-shader_parameter/biome_count = 3

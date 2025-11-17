@@ -1,0 +1,29 @@
+[gd_scene load_steps=2 format=3 uid="uid://gvebtio65be5"]
+
+[ext_resource type="PackedScene" uid="uid://tpmqvl67oxqd" path="res://environment/biomes/carbon_wastes/bone_big_1.tscn" id="1_abae3"]
+
+[node name="Node3D" type="Node3D"]
+
+[node name="bone_big_1" parent="." instance=ExtResource("1_abae3")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -7.5147, -3.79309, -6.50572)
+
+[node name="bone_big_2" parent="." instance=ExtResource("1_abae3")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.5147, -3.79309, -6.50572)
+
+[node name="bone_big_3" parent="." instance=ExtResource("1_abae3")]
+transform = Transform3D(0.965926, 0, -0.258819, 0, 1, 0, 0.258819, 0, 0.965926, 2.4853, -3.79309, -6.50572)
+
+[node name="bone_big_4" parent="." instance=ExtResource("1_abae3")]
+transform = Transform3D(0.965926, 0, -0.258819, 0, 1, 0, 0.258819, 0, 0.965926, 7.4853, -3.79309, -6.50572)
+
+[node name="bone_big_5" parent="." instance=ExtResource("1_abae3")]
+transform = Transform3D(-0.965926, 0, -0.258819, 0, 1, 0, 0.258819, 0, -0.965926, 7.4853, -3.79309, 6.49428)
+
+[node name="bone_big_6" parent="." instance=ExtResource("1_abae3")]
+transform = Transform3D(-0.965926, 0, -0.258819, 0, 1, 0, 0.258819, 0, -0.965926, 2.4853, -3.79309, 6.49428)
+
+[node name="bone_big_7" parent="." instance=ExtResource("1_abae3")]
+transform = Transform3D(-1, 0, -8.9407e-08, 0, 1, 0, 8.9407e-08, 0, -1, -2.5147, -3.79309, 6.49428)
+
+[node name="bone_big_8" parent="." instance=ExtResource("1_abae3")]
+transform = Transform3D(-1, 0, -8.9407e-08, 0, 1, 0, 8.9407e-08, 0, -1, -7.5147, -3.79309, 6.49428)

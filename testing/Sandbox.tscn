@@ -1,4 +1,4 @@
-[gd_scene load_steps=35 format=3 uid="uid://bnf8skrh5pjuk"]
+[gd_scene load_steps=36 format=3 uid="uid://bnf8skrh5pjuk"]
 
 [ext_resource type="PackedScene" uid="uid://bxxkec2cijwk4" path="res://items/weapons/shotgun/Shotgun.tscn" id="2_1pa1w"]
 [ext_resource type="PackedScene" uid="uid://b3bro3nus3giu" path="res://items/tools/battery/large_battery/LargeBattery.tscn" id="3_pc7rr"]
@@ -10,6 +10,7 @@
 [ext_resource type="Texture2D" uid="uid://t1pmq2y1536g" path="res://textures/concrete_tx_3.png" id="9_jlxi8"]
 [ext_resource type="PackedScene" uid="uid://bfs70m7rkn6ic" path="res://electrical/cctv_camera.tscn" id="10_nux3x"]
 [ext_resource type="PackedScene" uid="uid://cw8o5wflamblx" path="res://world_generation/biomes/red/Pillar.tscn" id="11_8bjj6"]
+[ext_resource type="PackedScene" uid="uid://b5xjtp4qjtafs" path="res://player/Player.tscn" id="12_8bjj6"]
 [ext_resource type="PackedScene" uid="uid://tw1j071ri7l8" path="res://world_generation/biomes/red/HugePillar.tscn" id="13_oq5rl"]
 
 [sub_resource type="GDScript" id="GDScript_8bjj6"]
@@ -177,7 +178,7 @@ size = Vector3(6, 1, 6)
 [sub_resource type="BoxShape3D" id="BoxShape3D_e4g4f"]
 size = Vector3(6, 1, 6)
 
-[node name="Map" type="Node3D" groups=["map"]]
+[node name="Map" type="Node3D" groups=["map", "world"]]
 script = SubResource("GDScript_8bjj6")
 chunk_size = Vector2(5, 5)
 map_size = Vector2(80, 80)
@@ -365,3 +366,5 @@ transform = Transform3D(-1, 0, -0.000244319, 0, 1, 0, 0.000244319, 0, -1, 12.205
 
 [node name="Node3D2" parent="." instance=ExtResource("13_oq5rl")]
 transform = Transform3D(-0.880866, 0, -0.473366, 0, 1, 0, 0.473366, 0, -0.880866, -4.40668, 0, -57.1993)
+
+[node name="player" parent="." instance=ExtResource("12_8bjj6")]
