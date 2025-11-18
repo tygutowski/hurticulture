@@ -1,0 +1,19 @@
+[gd_resource type="ArrayMesh" load_steps=2 format=4 uid="uid://enap8aeraqt1"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_l4cae"]
+
+[resource]
+resource_name = "Cube_001"
+_surfaces = [{
+"aabb": AABB(-0.000433013, -0.00025, -2.86298e-05, 0.000866025, 0.00075, 0.002),
+"attribute_data": PackedByteArray("qqoqPwAAAAAAAIA/AAAAAAAAgD8AAAA/qqoqPwAAAD+pqqo+AAAAAKqqKj8AAAAAqqoqPwAAAD+pqqo+AAAAP6ipLD1SuF4/AACAPlyPAj/Lauo+UrhePwAAgLMAAAAAqaqqPgAAAACpqqo+AAAAPwAAgLMAAAA/msoKP1K4Xj9mNXU/UrhePwAAQD9cjwI/"),
+"format": 34359742487,
+"index_count": 24,
+"index_data": PackedByteArray("AAABAAIAAgADAAAABAAFAAYABgAHAAQACAAJAAoACwAMAA0ADQAOAAsADwAQABEA"),
+"material": SubResource("StandardMaterial3D_l4cae"),
+"primitive": 3,
+"uv_scale": Vector4(0, 0, 0, 0),
+"vertex_count": 18,
+"vertex_data": PackedByteArray("9gXjOXESg7kbMgE7AAAAAHESAzobMgE7AAAAAHESAzoMKvC39gXjOXESg7kMKvC39gXjuXESg7kbMgE79gXjOXESg7kbMgE79gXjOXESg7kMKvC39gXjuXESg7kMKvC39gXjuXESg7kbMgE7AAAAAHESAzobMgE79gXjOXESg7kbMgE7AAAAAHESAzobMgE79gXjuXESg7kbMgE79gXjuXESg7kMKvC3AAAAAHESAzoMKvC39gXjuXESg7kMKvC39gXjOXESg7kMKvC3AAAAAHESAzoMKvC3JdHZriVRkugl0dmuJVGS6CXR2a4lUZLoJdHZriVRkuj/fwAA////v/9/AAD///+//38AAP///7//fwAA////v/9//3////+//3//f////7//f/9/////v9ku2a4lUWyX2S7ZriVRbJfZLtmuJVFsl9ku2a4lUWyX/////////z//////////P/////////8/")
+}]
+blend_shape_mode = 0

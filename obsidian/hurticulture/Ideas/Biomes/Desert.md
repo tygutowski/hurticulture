@@ -1,1 +1,0 @@
-Large gray dunes littered with dark obsidian formations left behind from a time long ago. Its impossible to tell if they are natural or manmade.

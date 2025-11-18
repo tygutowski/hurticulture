@@ -1,1 +1,0 @@
-Rolling hills of tall purple grass with the occasional purple shrub.

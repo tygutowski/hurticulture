@@ -1,0 +1,8 @@
+[gd_scene load_steps=2 format=3 uid="uid://dnqjbouieejji"]
+
+[ext_resource type="PackedScene" uid="uid://cybsdm7sigucs" path="res://environment/objects/plants/models/pine_tree_n_2_1.glb" id="1_qrrkr"]
+
+[node name="pine_tree_n_2_12" instance=ExtResource("1_qrrkr")]
+
+[node name="pine_tree_n_2_1" parent="." index="0"]
+transform = Transform3D(0.45076, -2.96594, 1.29645e-07, 0, -1.31134e-07, -3, 2.96594, 0.45076, -1.97033e-08, 0, 0, 0)

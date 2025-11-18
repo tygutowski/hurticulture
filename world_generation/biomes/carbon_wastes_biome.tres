@@ -9,6 +9,7 @@ script = ExtResource("1_1iw4e")
 id = 0
 biome_name = "Carbon Wastes"
 fog_color = Color(0.884552, 0.755898, 0.716142, 1)
+fog_strength = 0.0
 flat_texture = ExtResource("1_g4ba7")
 sloped_texture = ExtResource("3_enjtx")
 feature = 0

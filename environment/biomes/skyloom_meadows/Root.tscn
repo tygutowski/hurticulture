@@ -1,0 +1,28 @@
+[gd_scene load_steps=5 format=3 uid="uid://cvvhw5u20llok"]
+
+[ext_resource type="Texture2D" uid="uid://td104fk6c4a6" path="res://textures/grass_7.png" id="1_lk3bl"]
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_lk3bl"]
+radius = 2.5
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_b0jy6"]
+albedo_texture = ExtResource("1_lk3bl")
+
+[sub_resource type="SphereMesh" id="SphereMesh_lk3bl"]
+radius = 2.5
+height = 5.0
+
+[node name="Root" type="Node3D"]
+
+[node name="RigidBody3D" type="RigidBody3D" parent="."]
+gravity_scale = -0.5
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="RigidBody3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 6.1548, 0)
+shape = SubResource("SphereShape3D_lk3bl")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="RigidBody3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 6.1548, 0)
+material_override = SubResource("StandardMaterial3D_b0jy6")
+mesh = SubResource("SphereMesh_lk3bl")
+skeleton = NodePath("")

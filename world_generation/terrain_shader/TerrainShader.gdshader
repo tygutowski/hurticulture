@@ -6,7 +6,7 @@ uniform int biome_count;
 
 void fragment() {
 	// UV comes from mesh per-vertex
-	vec2 uv = UV * 3.0;
+	vec2 uv = UV;
 
 	// biome index stored in R channel
 	float idx_f = texture(biome_index_map, uv).r;

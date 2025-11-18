@@ -10,13 +10,17 @@ const BIOME_TABLE := [
 	[Global.biomeEnum.CARBON_WASTES, Global.biomeEnum.CARBON_WASTES, Global.biomeEnum.CARBON_WASTES]   # hot
 ]
 
+var generation_thread: Thread
+var generation_mutex: Mutex
 
 var biome_list: Array[Biome] = [
 	ResourceLoader.load("res://world_generation/biomes/carbon_wastes_biome.tres", "Biome"),
 	ResourceLoader.load("res://world_generation/biomes/skyloom_meadow_biome.tres", "Biome"),
 ]
-	
-func initialize() -> void:
+
+func initialize(_generation_thread: Thread = null, _generation_mutex: Mutex = null) -> void:
+	generation_thread = _generation_thread
+	generation_mutex = _generation_mutex
 	for biome in biome_list:
 		assert(biome != null, "Biome must not be null")
 		assert(biome is Biome, "Biome must be of type Biome")

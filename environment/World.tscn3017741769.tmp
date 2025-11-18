@@ -114,7 +114,7 @@ fog_depth_end = 150.0
 
 [node name="MapGenerator" type="Node" parent="."]
 script = ExtResource("9_yuimj")
-using_threading = false
+using_threading = null
 
 [node name="TerrainGenerator" type="Node" parent="MapGenerator"]
 script = ExtResource("2_u8f1i")

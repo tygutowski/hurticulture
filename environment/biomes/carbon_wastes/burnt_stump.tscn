@@ -1,0 +1,17 @@
+[gd_scene load_steps=6 format=3 uid="uid://dr4jht3rdu4ac"]
+
+[ext_resource type="PackedScene" uid="uid://ci7imbr3xtv6m" path="res://environment/objects/plants/models/tree_stump_1.glb" id="1_k6pi2"]
+[ext_resource type="Texture2D" uid="uid://ytbaqo7ext5f" path="res://environment/biomes/carbon_wastes/burnt_stump_bark.png" id="2_ip0q0"]
+[ext_resource type="Texture2D" uid="uid://b645sk2f6ccse" path="res://environment/biomes/carbon_wastes/burnt_stump_log.png" id="3_6f3it"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_cflgy"]
+albedo_texture = ExtResource("2_ip0q0")
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_xflk5"]
+albedo_texture = ExtResource("3_6f3it")
+
+[node name="BurntStump" instance=ExtResource("1_k6pi2")]
+
+[node name="tree_stump_1" parent="." index="0"]
+surface_material_override/0 = SubResource("StandardMaterial3D_cflgy")
+surface_material_override/1 = SubResource("StandardMaterial3D_xflk5")

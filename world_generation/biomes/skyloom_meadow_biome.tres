@@ -8,7 +8,8 @@
 script = ExtResource("2_h5p6t")
 id = 1
 biome_name = "Skyloom Meadow"
-fog_color = Color(0.424324, 0.675499, 0.56988, 1)
+fog_color = Color(0.546399, 0.650807, 0.498624, 1)
+fog_strength = 0.0
 flat_texture = ExtResource("1_8t81t")
 sloped_texture = ExtResource("3_ck17f")
 feature = 0

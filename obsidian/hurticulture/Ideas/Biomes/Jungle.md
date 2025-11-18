@@ -1,1 +1,0 @@
-Tall, thick trees block the horizon, vines hanging between them. Vegetation covers the ground, blocking vision. An abundance of hostile plants, evolved to fend off predators.

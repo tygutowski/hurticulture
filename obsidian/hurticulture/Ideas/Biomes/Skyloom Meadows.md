@@ -11,3 +11,6 @@ The clouds are a pasty white, with the vibrant green grass cutting through it. A
 The most valuable plants lie at the top of the biome, requiring vertical parkour.
 
 (Require player to collect blimpblooms to float)
+
+disappearing enemies into the fog
+huge enemy that you can see in the fog
