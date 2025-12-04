@@ -1,6 +1,5 @@
 extends Gun
 
-
 func fire_projectile() -> void:
 	if thing_holding_me.is_in_group("player"):
 		var ray: RayCast3D = thing_holding_me.head_pivot.get_node("ShootRay")

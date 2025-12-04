@@ -1,0 +1,13 @@
+[gd_resource type="Resource" script_class="BiomeParticle" load_steps=4 format=3 uid="uid://dv2ht45hixpvq"]
+
+[ext_resource type="Material" uid="uid://1g0274xcdvr1" path="res://environment/biomes/carbon_wastes/particles/carbon_wastes_ash_particle_material.tres" id="1_d7m6q"]
+[ext_resource type="QuadMesh" uid="uid://biojdsqx7roha" path="res://environment/DefaultParticleMesh.tres" id="2_vik03"]
+[ext_resource type="Script" uid="uid://cbkncb5e7vcyt" path="res://BiomeParticle.gd" id="3_4nq0s"]
+
+[resource]
+script = ExtResource("3_4nq0s")
+amount = 4000
+lifetime = 10.0
+particle_material = ExtResource("1_d7m6q")
+particle_mesh = ExtResource("2_vik03")
+metadata/_custom_type_script = "uid://cbkncb5e7vcyt"

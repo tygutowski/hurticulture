@@ -1,0 +1,46 @@
+[gd_resource type="ParticleProcessMaterial" load_steps=9 format=3 uid="uid://bv8s3c3l0ibmj"]
+
+[sub_resource type="Curve" id="Curve_q0y8f"]
+_data = [Vector2(0.751773, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="CurveTexture" id="CurveTexture_mnw5i"]
+curve = SubResource("Curve_q0y8f")
+
+[sub_resource type="Curve" id="Curve_rus4o"]
+_limits = [0.0, 200.0, 0.0, 1.0]
+_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(1, 1), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="CurveTexture" id="CurveTexture_dedhk"]
+curve = SubResource("Curve_rus4o")
+
+[sub_resource type="Curve" id="Curve_aff4u"]
+_data = [Vector2(0.747045, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="CurveTexture" id="CurveTexture_gbk0x"]
+curve = SubResource("Curve_aff4u")
+
+[sub_resource type="Curve" id="Curve_vm7qs"]
+_limits = [0.0, 3.0, 0.0, 1.0]
+_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(1, 1), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="CurveTexture" id="CurveTexture_ly81q"]
+curve = SubResource("Curve_vm7qs")
+
+[resource]
+emission_shape = 3
+emission_box_extents = Vector3(60, 60, 60)
+spread = 5.0
+initial_velocity_min = 1.0
+initial_velocity_max = 8.0
+gravity = Vector3(0, 0, 0)
+scale_min = 0.8
+scale_max = 1.2
+scale_over_velocity_curve = SubResource("CurveTexture_ly81q")
+color = Color(0.941262, 0.240473, 0, 1)
+alpha_curve = SubResource("CurveTexture_mnw5i")
+emission_curve = SubResource("CurveTexture_gbk0x")
+anim_speed_curve = SubResource("CurveTexture_dedhk")

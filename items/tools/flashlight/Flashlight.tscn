@@ -1,6 +1,6 @@
 [gd_scene load_steps=8 format=3 uid="uid://cv15t3tmcetnu"]
 
-[ext_resource type="Script" uid="uid://bndnfp3qyajme" path="res://items/tools/flashlight/Flashlight.gd" id="1_hp6w2"]
+[ext_resource type="Script" uid="uid://bndnfp3qyajme" path="res://items/tools/flashlight/Flashlight.gd" id="1_63mbd"]
 [ext_resource type="Texture2D" uid="uid://bjev117e6gm3c" path="res://items/tools/flashlight/Flashlight.png" id="2_78h6x"]
 [ext_resource type="Texture2D" uid="uid://bv82mnr1h3get" path="res://gui/flashlight_texture.png" id="2_n1cg6"]
 [ext_resource type="PackedScene" uid="uid://dv86qo0tus0n2" path="res://items/components/ItemUsableComponent.tscn" id="3_n1cg6"]
@@ -12,19 +12,20 @@ size = Vector3(0.0739746, 0.292953, 0.0716553)
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_vdkfi"]
 albedo_texture = ExtResource("2_78h6x")
 
-[node name="Flashlight" type="Node3D"]
-script = ExtResource("1_hp6w2")
+[node name="Flashlight" type="RigidBody3D" groups=["item"]]
+collision_layer = 2
+collision_mask = 3
+script = ExtResource("1_63mbd")
+item_name = "Flashlight"
 inventory_texture = ExtResource("2_n1cg6")
+fps_hand_offset = Vector3(0.366839, -0.337219, -0.447201)
+fps_hand_rotation = Vector3(0, 1.5708, 0)
 
 [node name="ItemUsableComponent" parent="." instance=ExtResource("3_n1cg6")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -0.0772085)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.415, 0, -0.077)
 
-[node name="StaticBody3D" type="StaticBody3D" parent="." groups=["item"]]
-transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 0.0916203, 0, 0)
-collision_layer = 2
-
-[node name="CollisionShape3D" type="CollisionShape3D" parent="StaticBody3D"]
-transform = Transform3D(1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 0.000854494, 0.000221058, 0.0167618)
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+transform = Transform3D(-4.37114e-08, -1, 4.37114e-08, 0, -4.37114e-08, -1, 1, -4.37114e-08, 1.91069e-15, 0.0748585, 0.000221058, 0.000854493)
 shape = SubResource("BoxShape3D_n1cg6")
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="."]
@@ -35,7 +36,6 @@ skeleton = NodePath("")
 
 [node name="SpotLight3D" type="SpotLight3D" parent="."]
 transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 0.233702, 0, 0)
-layers = 9
 light_color = Color(0.83, 1, 0.9915, 1)
 light_energy = 2.0
 shadow_enabled = true

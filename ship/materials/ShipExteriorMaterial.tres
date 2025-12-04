@@ -1,0 +1,9 @@
+[gd_resource type="StandardMaterial3D" load_steps=2 format=3 uid="uid://whlure04mpef"]
+
+[ext_resource type="Texture2D" uid="uid://bdp1qm34tctkh" path="res://textures/ship_exterior.png" id="1_ppcp1"]
+
+[resource]
+resource_name = "ShipExterior"
+cull_mode = 2
+albedo_color = Color(1, 0.8132522, 0.63159114, 1)
+albedo_texture = ExtResource("1_ppcp1")

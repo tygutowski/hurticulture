@@ -1,0 +1,17 @@
+[gd_resource type="Resource" script_class="Biome" load_steps=4 format=3 uid="uid://col67j440cg80"]
+
+[ext_resource type="Texture2D" uid="uid://ru1egda7c3j2" path="res://textures/WorldTextures_Rock.png" id="1_cjjl8"]
+[ext_resource type="Script" uid="uid://cbkncb5e7vcyt" path="res://BiomeParticle.gd" id="2_10pqa"]
+[ext_resource type="Script" uid="uid://mxwd73rjsfgb" path="res://world_generation/Biome.gd" id="2_gowsa"]
+
+[resource]
+script = ExtResource("2_gowsa")
+id = 2
+biome_name = "Titanpad Mire"
+biome_color = Color(0.791111, 0.688118, 0.816514, 1)
+fog_color = Color(1, 1, 1, 1)
+fog_strength = 3.0
+flat_texture = ExtResource("1_cjjl8")
+feature = 0
+particles = Array[ExtResource("2_10pqa")]([])
+metadata/_custom_type_script = "uid://mxwd73rjsfgb"

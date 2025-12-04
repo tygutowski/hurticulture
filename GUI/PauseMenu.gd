@@ -26,3 +26,9 @@ func toggle_pause_menu() -> void:
 		close_pause_menu()
 	else:
 		open_pause_menu()
+
+func _on_set_time_pressed() -> void:
+	var text = get_node("VBoxContainer/HBoxContainer/TextEdit").text
+	if text.is_valid_int():
+		get_tree().get_first_node_in_group("world").get_node("GameManager").set_time(int(text))
+	get_node("VBoxContainer/HBoxContainer/TextEdit").text = ""

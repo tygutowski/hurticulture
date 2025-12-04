@@ -3,19 +3,20 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://dotn2bu7y8jax"
-path="res://.godot/imported/bush6_winter.png-15005636bf243e58d0057b87a497c9dd.ctex"
+path.s3tc="res://.godot/imported/bush6_winter.png-15005636bf243e58d0057b87a497c9dd.s3tc.ctex"
 metadata={
-"vram_texture": false
+"imported_formats": ["s3tc_bptc"],
+"vram_texture": true
 }
 
 [deps]
 
 source_file="res://environment/objects/plants/bushes/bush6_winter.png"
-dest_files=["res://.godot/imported/bush6_winter.png-15005636bf243e58d0057b87a497c9dd.ctex"]
+dest_files=["res://.godot/imported/bush6_winter.png-15005636bf243e58d0057b87a497c9dd.s3tc.ctex"]
 
 [params]
 
-compress/mode=0
+compress/mode=2
 compress/high_quality=false
 compress/lossy_quality=0.7
 compress/hdr_compression=1
@@ -31,4 +32,4 @@ process/normal_map_invert_y=false
 process/hdr_as_srgb=false
 process/hdr_clamp_exposure=false
 process/size_limit=0
-detect_3d/compress_to=1
+detect_3d/compress_to=0

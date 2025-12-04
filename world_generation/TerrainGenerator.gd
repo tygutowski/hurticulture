@@ -17,33 +17,28 @@ var map_generator: MapGenerator
 @export var humidity_map: FastNoiseLite
 @export var weirdness_map: FastNoiseLite
 
-var generation_thread: Thread
-var generation_mutex: Mutex
-
-func initialize(_generation_thread: Thread = null, _generation_mutex: Mutex = null) -> void:
-	generation_thread = _generation_thread
-	generation_mutex = _generation_mutex
-	
-func update_chunks() -> void:
-	get_parent().update_visible_chunks()
-
-func get_height(coords: Vector2) -> float:
+func get_height_data(coords: Vector2) -> Dictionary:
 	var continent_noise: float = (continent_map.get_noise_2dv(coords) + 1.0) * 0.5
 	var erosion_noise: float = (erosion_map.get_noise_2dv(coords) + 1.0) * 0.5
 	var peaks_noise: float = (peaks_and_valleys_map.get_noise_2dv(coords) + 1.0) * 0.5
-	
-	var continent_height: float = continent_piecewise.sample(continent_noise)
-	var erosion_height: float = erosion_piecewise.sample(erosion_noise)
-	var peaks_and_valleys_height: float = peaks_and_valleys_piecewise.sample(peaks_noise)
-	
-	# blend them progressively
-	var erosion_factor: float = smoothstep(0.4, 1.0, continent_noise)
-	var base: float = lerp(continent_height, erosion_height, erosion_factor)
 
-	var peaks_and_valleys_factor: float = smoothstep(0.7, 1.0, erosion_noise)
-	base = lerp(base, peaks_and_valleys_height, peaks_and_valleys_factor)
+	var continent_height: float = continent_piecewise.sample(continent_noise) / (continent_map.frequency * 200)
+	var erosion_height: float = erosion_piecewise.sample(erosion_noise) / (erosion_map.frequency * 50)
+	var peaks_height: float = peaks_and_valleys_piecewise.sample(peaks_noise) / (peaks_and_valleys_map.frequency * 10)
 
-	return base
+	# erosion modifies continent at 30%
+	var continent_with_erosion: float = lerp(continent_height, erosion_height, 0.3)
+
+	# peaks modify erosion-stage result at 30%
+	var final_height: float = lerp(continent_with_erosion, peaks_height, 0.3)
+
+	return {
+		"height": final_height,
+		"continent": continent_noise,
+		"erosion": erosion_noise,
+		"peaks": peaks_noise
+	}
+
 
 func generate_chunk_data(chunk: Chunk) -> void:
 	var chunk_pos: Vector2 = chunk.coords * get_parent().chunk_size
@@ -57,16 +52,20 @@ func generate_chunk_data(chunk: Chunk) -> void:
 				chunk_pos.y + y * get_parent().subchunk_length
 			)
 
-			var height: float = get_height(world_pos)
-			var temp: float = temperature_map.get_noise_2dv(world_pos)
-			var moist: float = humidity_map.get_noise_2dv(world_pos)
-			var weird: float = weirdness_map.get_noise_2dv(world_pos)
+			var data = get_height_data(world_pos)
+			var continent = data["continent"]
+			var erosion  = data["erosion"]
+			var temperature: float = temperature_map.get_noise_2dv(world_pos)
+			var humidity: float = humidity_map.get_noise_2dv(world_pos)
+			var weirdness: float = weirdness_map.get_noise_2dv(world_pos)
 
 			var biome: Biome = get_parent().biome_generator.get_biome_at(
-				height,
-				temp,
-				moist,
-				weird
+				self,
+				temperature,
+				humidity,
+				weirdness,
+				continent,
+				erosion,
 			)
 
 			chunk.biome_map[x].append(biome)

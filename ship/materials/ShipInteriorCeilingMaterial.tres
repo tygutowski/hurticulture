@@ -1,0 +1,8 @@
+[gd_resource type="StandardMaterial3D" load_steps=2 format=3 uid="uid://dkpn3eh4l8jvk"]
+
+[ext_resource type="Texture2D" uid="uid://bl3kgaovmq5ig" path="res://textures/metal_wall_tx_1.png" id="1_6kfr8"]
+
+[resource]
+resource_name = "ShipInteriorCeiling"
+cull_mode = 2
+albedo_texture = ExtResource("1_6kfr8")

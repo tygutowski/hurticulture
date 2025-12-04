@@ -2,21 +2,11 @@ extends Node3D
 class_name Chunk
 
 var coords: Vector2 = Vector2.INF
-@onready var mesh_instance: MeshInstance3D = get_node("MeshInstance3D")
+@onready var mesh_instance: MeshInstance3D = get_node("TerrainMesh")
 var is_new: bool = true
 var is_dirty: bool = true
-
-# 2d array of array
-# size of chunk_size
-# contains what biome each subchunk is 
 var biome_map: Array[Array]
 var flat_array: Texture2DArray
-var thread_data: Dictionary = {}
-
-#signal chunk_ready(chunk: Chunk)
-
-#func _ready() -> void:
-#	emit_signal("chunk_ready", self)
 
 func get_biome_at_world_pos(
 		wx: float,

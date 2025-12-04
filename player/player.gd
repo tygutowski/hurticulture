@@ -4,7 +4,7 @@ extends CharacterBody3D
 var mouse_sensitivity = 0.3
 const JUMP_VELOCITY = 5
 const ACCELERATION : float = 13
-const FRICTION : float = 14
+const FRICTION : float = 20
 const MAX_HEAD_TURN_ANGLE: float = 25
 var increment_progress_bar: bool = false
 var item_preventing_movement: bool = false
@@ -31,8 +31,8 @@ var feet_stance_angle: float = 0
 @onready var robotmesh = get_node("MeshAndAnimation/RobotAnimated/Robot_Armature/Skeleton3D/RobotMesh")
 @export var holding_bones: Array[LookAtModifier3D] = []
 
-const WALK_SPEED : float = 3
-const RUN_SPEED : float = 5
+const WALK_SPEED : float = 5
+const RUN_SPEED : float = 8
 var pullback_time : float = 0.0
 var max_pullback_time : float = 2.0
 
@@ -52,14 +52,16 @@ var inventory_index: int = 0
 @export var debug_info: bool = false
 
 func _ready() -> void:
+	Settings.settings_initialized.connect(load_settings)
 	for i in range(inventory_size):
 		inventory.append(null)
 	gamestate = PeerGameState.new()
 	set_inventory_index(0)
-	camera.fov = Settings.fov
 	Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
-
 	load_skin()
+
+func load_settings() -> void:
+	camera.fov = Settings.fov
 
 # adds the item to your first person hand
 func add_item_to_fps_hand(item: Node3D) -> void:
@@ -335,7 +337,7 @@ func _physics_process(delta: float) -> void:
 	#get_node("MeshAndAnimation/AnimationTree")["parameters/LookAngle/blend_position"] = Vector2(gameplay_head.rotation.y, gameplay_head.get_node("HeadPivot").rotation.x)
 
 	if input_dir != Vector2.ZERO and is_on_floor():
-		camera.v_offset = lerp(camera.v_offset, sin(Time.get_unix_time_from_system()*3 * movement_speed)/48 * movement_speed, 0.2)
+		camera.v_offset = lerp(camera.v_offset, sin(Time.get_unix_time_from_system()*2 * movement_speed)/48 * movement_speed, 0.2)
 	else:
 		camera.v_offset = lerp(camera.v_offset, 0.0, 0.2)
 	if direction:

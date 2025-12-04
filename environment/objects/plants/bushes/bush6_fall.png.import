@@ -3,19 +3,20 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://1pkigoen11tl"
-path="res://.godot/imported/bush6_fall.png-43f3ffe6295782d75ee35a5e94e97c68.ctex"
+path.s3tc="res://.godot/imported/bush6_fall.png-43f3ffe6295782d75ee35a5e94e97c68.s3tc.ctex"
 metadata={
-"vram_texture": false
+"imported_formats": ["s3tc_bptc"],
+"vram_texture": true
 }
 
 [deps]
 
 source_file="res://environment/objects/plants/bushes/bush6_fall.png"
-dest_files=["res://.godot/imported/bush6_fall.png-43f3ffe6295782d75ee35a5e94e97c68.ctex"]
+dest_files=["res://.godot/imported/bush6_fall.png-43f3ffe6295782d75ee35a5e94e97c68.s3tc.ctex"]
 
 [params]
 
-compress/mode=0
+compress/mode=2
 compress/high_quality=false
 compress/lossy_quality=0.7
 compress/hdr_compression=1
@@ -31,4 +32,4 @@ process/normal_map_invert_y=false
 process/hdr_as_srgb=false
 process/hdr_clamp_exposure=false
 process/size_limit=0
-detect_3d/compress_to=1
+detect_3d/compress_to=0

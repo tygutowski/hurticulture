@@ -1,0 +1,9 @@
+[gd_resource type="StandardMaterial3D" load_steps=2 format=3 uid="uid://cve2tjebeqddg"]
+
+[ext_resource type="Texture2D" uid="uid://bdp1qm34tctkh" path="res://textures/ship_exterior.png" id="1_gjkgt"]
+
+[resource]
+resource_name = "ShipExteriorEngineStatic"
+cull_mode = 2
+albedo_color = Color(0.46, 0.39560002, 0.299, 1)
+albedo_texture = ExtResource("1_gjkgt")

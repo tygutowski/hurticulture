@@ -7,13 +7,13 @@ var subchunks_per_chunk: int = 8
 var generate_radius: int = 12
 var unload_radius: int = 12
 var subchunk_length: int = chunk_size / subchunks_per_chunk
-
+var current_biome: Biome = null
 # how many chunks to load each frame. this prevents
 # massive lagspikes when loading new chunks
-const CHUNKS_PER_FRAME: int = 1
+const CHUNKS_PER_FRAME: int = 4
 
 var directions: Array[Vector2] = [Vector2.UP, Vector2.DOWN, Vector2.LEFT, Vector2.RIGHT]
-@export var chunks: Dictionary[Vector2, Chunk] = {}
+var chunks: Dictionary[Vector2, Chunk] = {}
 
 @onready var chunk_scene: PackedScene = load("res://world_generation/Chunk.tscn")
 @onready var terrain_generator: TerrainGenerator = get_node("TerrainGenerator")
@@ -26,17 +26,14 @@ var directions: Array[Vector2] = [Vector2.UP, Vector2.DOWN, Vector2.LEFT, Vector
 
 @onready var player: Player = get_node("../player")
 
+var explored_chunks: Dictionary[Vector2, Dictionary] = {}
 var chunks_pending: Dictionary[Vector2, bool] = {}
 var chunks_to_generate: Array[Vector2] = []
-@export var using_threading: bool = true
 
 var biome_update_timer: float = 0
 var biome_update_timer_threshold: float = 0.5
 
 var last_chunk: Vector2 = Vector2.INF
-
-var generation_thread: Thread
-var generation_mutex: Mutex
 
 var needed_cache: Array[Vector2] = []
 var needed_cache_center: Vector2 = Vector2.INF
@@ -44,10 +41,17 @@ var needed_cache_center: Vector2 = Vector2.INF
 var player_coords: Vector2 = Vector2.ZERO
 
 func _ready() -> void:
-	terrain_generator.initialize(generation_thread, generation_mutex)
-	biome_generator.initialize(generation_thread, generation_mutex)
-	flora_generator.initialize(generation_thread, generation_mutex)
-	object_generator.initialize(generation_thread, generation_mutex)
+	for x in range(-1, 1):
+		for y in range(-1, 1):
+			create_chunk(Vector2(x, y))
+	await get_tree().physics_frame
+	var player_spawn_ray: RayCast3D = RayCast3D.new()
+	add_child(player_spawn_ray)
+	player_spawn_ray.position = Vector3(5, 1000, 5)
+	player_spawn_ray.target_position = Vector3(0, -3000, 0)
+	player_spawn_ray.force_raycast_update()
+	var collision_point = player_spawn_ray.get_collision_point()
+	player.global_position = Vector3(collision_point.x, collision_point.y, collision_point.z)
 	Debug.setup_debug()
 
 func process_chunk_queue() -> void:
@@ -55,7 +59,7 @@ func process_chunk_queue() -> void:
 
 	while chunks_to_generate.size() > 0 and count < CHUNKS_PER_FRAME:
 		var coords: Vector2 = chunks_to_generate.pop_front()
-		await create_chunk(coords, self)
+		await create_chunk(coords)
 		count += 1
 
 func cleanup_stragglers() -> void:
@@ -86,11 +90,7 @@ func _process(delta) -> void:
 	process_chunk_queue()
 	cleanup_stragglers()
 	if current_chunk != last_chunk and not player.freeze_map:
-		if using_threading:
-			generation_thread = Thread.new()
-			generation_thread.start(update_visible_chunks.bind(self))
-		else:
-			update_visible_chunks(self)
+		update_visible_chunks()
 
 		last_chunk = current_chunk
 	
@@ -115,25 +115,50 @@ func get_needed_coords(center: Vector2) -> Array[Vector2]:
 	return arr
 
 func update_biome() -> void:
-	var player_pos = Vector2(player.global_position.x, player.global_position.z)
-	var temperature = terrain_generator.temperature_map.get_noise_2dv(player_pos)
-	Debug.debug("pos: " + str(player_pos))
-	var humidity = terrain_generator.humidity_map.get_noise_2dv(player_pos)
-	Debug.debug("temp: " + str((temperature + 1) / 2))
-	Debug.debug("humid: " + str((humidity + 1) / 2))
-	var biome: Biome = biome_generator.get_biome_at(0, temperature, humidity, 0)
-	Debug.debug("biome: " + biome.biome_name)
-	var env: Environment = get_node("../WorldEnvironment").environment
-	
-	var tween: Tween = get_tree().create_tween()
-	tween.tween_property(
-		env,
-		"fog_light_color",
-		biome.fog_color,
-		0.6
+	var cx: int = floor(player.global_position.x / chunk_size)
+	var cy: int = floor(player.global_position.z / chunk_size)
+	var chunk_coords := Vector2(cx, cy)
+
+	if not chunks.has(chunk_coords):
+		return
+
+	var chunk := chunks[chunk_coords]
+
+	var wx: float = player.global_position.x
+	var wy: float = player.global_position.z
+
+	var biome: Biome = chunk.get_biome_at_world_pos(
+		wx,
+		wy,
+		chunk,
+		chunk_size,
+		subchunks_per_chunk
 	)
 
-func update_visible_chunks(map_generator: Node) -> void:
+	
+	if current_biome != biome:
+		var env: Environment = get_node("../WorldEnvironment").environment
+		
+		var tween: Tween = get_tree().create_tween()
+		tween.tween_property(
+			env,
+			"fog_light_color",
+			biome.fog_color,
+			0.6
+		)
+		for particle in player.get_node("NewParticles").get_children():
+			particle.queue_free();
+		for particle in biome.particles:
+			var new_particle: GPUParticles3D = GPUParticles3D.new()
+			new_particle.amount = particle.amount
+			new_particle.lifetime = particle.lifetime
+			new_particle.visibility_aabb = particle.aabb
+			new_particle.cast_shadow = particle.cast_shadow
+			new_particle.process_material = particle.particle_material
+			new_particle.draw_pass_1 = particle.particle_mesh
+			player.get_node("NewParticles").add_child(new_particle)
+		current_biome = biome
+func update_visible_chunks() -> void:
 	var needed := get_needed_coords(player_coords)
 	for coords in needed:
 		if not chunks.has(coords) and not chunks_pending.has(coords):
@@ -151,7 +176,7 @@ func unload_chunk(coords: Vector2) -> void:
 		chunk.queue_free()
 	chunks.erase(coords)
 
-func create_chunk(coords, map_generator: Node) -> void:
+func create_chunk(coords) -> void:
 	var chunk: Chunk = chunk_scene.instantiate()
 	chunks_node.add_child(chunk)
 	chunk.coords = coords
@@ -171,7 +196,7 @@ func create_chunk(coords, map_generator: Node) -> void:
 		return
 
 	chunk.flat_array = flat_array
-	apply_biome_data_to_chunk(chunk, biome_generator.biome_list, flat_array)
+	apply_biome_data_to_chunk(chunk, biome_generator.biome_list)
 
 	# Always clear pending
 	if chunks_pending.has(coords):
@@ -186,7 +211,26 @@ func create_chunk(coords, map_generator: Node) -> void:
 	flora_generator.generate_grass(chunk)
 	object_generator.spawn_objects(chunk)
 	if chunk.coords == Vector2.ZERO:
-		object_generator.spawn_structure(true, load("res://environment/biomes/carbon_wastes/escape_pod.tscn"), chunk)
+		object_generator.spawn_structure(true, load("res://ship/Ship.tscn"), chunk)
+	#save_chunk_to_minimap(chunk)
+	
+
+func save_chunk_to_minimap(chunk: Chunk) -> void:
+	var coords: Vector2 = chunk.coords
+	if explored_chunks.has(coords):
+		return
+
+	var sub_map := []
+	for x: int in range(subchunks_per_chunk):
+		var row := []
+		for y: int in range(subchunks_per_chunk):
+			row.append(chunk.biome_map[x][y].id) # store biome IDs, not objects
+		sub_map.append(row)
+
+	explored_chunks[coords] = {
+		"coords": coords,
+		"biome_map": sub_map
+	}
 
 
 func make_flat_texture_array(biomes: Array[Biome]) -> Texture2DArray:
@@ -205,7 +249,7 @@ func make_flat_texture_array(biomes: Array[Biome]) -> Texture2DArray:
 	return arr
 
 
-func apply_biome_data_to_chunk(chunk: Chunk, biome_list: Array[Biome], flat_array: Texture2DArray) -> void:
+func apply_biome_data_to_chunk(chunk: Chunk, biome_list: Array[Biome]) -> void:
 	var index_texture: Texture2D = make_biome_index_texture(chunk, biome_list)
 
 	var mat: ShaderMaterial = chunk.mesh_instance.material_override
@@ -243,7 +287,6 @@ func get_chunk(coords: Vector2) -> Chunk:
 
 func delete_old_chunks() -> void:
 	update_player_coordinates()
-	var current_chunk: Vector2 = player_coords
 	var to_remove: Array[Vector2] = []
 
 	for key: Vector2 in chunks.keys():
@@ -267,10 +310,10 @@ func generate_chunk_mesh_and_collider(chunk: Chunk) -> void:
 	var pos: Vector2 = chunk.coords * chunk_size
 	for y in range(0, chunk_size, subchunk_length):
 		for x in range(0, chunk_size, subchunk_length):
-			var h1 := terrain_generator.get_height(pos + Vector2(x, y))
-			var h2 := terrain_generator.get_height(pos + Vector2(x + subchunk_length, y))
-			var h3 := terrain_generator.get_height(pos + Vector2(x, y + subchunk_length))
-			var h4 := terrain_generator.get_height(pos + Vector2(x + subchunk_length, y + subchunk_length))
+			var h1: float = terrain_generator.get_height_data(pos + Vector2(x, y))["height"]
+			var h2: float = terrain_generator.get_height_data(pos + Vector2(x + subchunk_length, y))["height"]
+			var h3: float = terrain_generator.get_height_data(pos + Vector2(x, y + subchunk_length))["height"]
+			var h4: float = terrain_generator.get_height_data(pos + Vector2(x + subchunk_length, y + subchunk_length))["height"]
 
 			var p1 := Vector3(x, h1, y)
 			var p2 := Vector3(x + subchunk_length, h2, y)
@@ -292,8 +335,8 @@ func generate_chunk_mesh_and_collider(chunk: Chunk) -> void:
 			faces.append_array([p1, p2, p3])
 			faces.append_array([p2, p4, p3])
 	st.generate_normals()
-	chunk.get_node("MeshInstance3D").mesh = st.commit()
+	chunk.get_node("TerrainMesh").mesh = st.commit()
 	var shape := ConcavePolygonShape3D.new()
 	shape.set_faces(faces)
-	chunk.get_node("StaticBody3D/CollisionShape3D").shape = shape
+	chunk.get_node("TerrainCollider/CollisionShape3D").shape = shape
 	await get_tree().physics_frame

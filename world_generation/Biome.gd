@@ -2,8 +2,9 @@ extends Resource
 class_name Biome
 
 @export_category("Generics")
-@export var id: Global.biomeEnum = -1
+@export var id: Global.biomeEnum = Global.biomeEnum.NONE
 @export var biome_name: String = "Generic Biome Name"
+@export var biome_color: Color = Color.BLACK
 
 @export_category("Fog")
 @export var fog_color: Color = Color(0, 0, 0)
@@ -20,7 +21,8 @@ enum BiomeFeature {
 	OBELISKS,
 }
 
+@export var custom_generation: FastNoiseLite
 @export var feature: BiomeFeature = BiomeFeature.NONE
 
 @export_category("Particles")
-@export var particle: Mesh
+@export var particles: Array[BiomeParticle]

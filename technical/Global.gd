@@ -6,13 +6,10 @@ extends Node
 enum ItemShape {Slot, TwoHigh, TwoL}
 
 enum biomeEnum {
+	NONE = -1,
 	CARBON_WASTES,
-	SKYLOOM_MEADOW
-}
-var item_shape_slot_occupation: Dictionary[int, Array] = {
-	Global.ItemShape.Slot        : [Vector2i(0, 0)],
-	Global.ItemShape.TwoHigh     : [Vector2i(0, 0), Vector2i(0, 1)],
-	Global.ItemShape.TwoL        : [Vector2i(0, 0), Vector2i(0, 1), Vector2i(1, 1)],
+	SKYLOOM_MEADOW,
+	TITANPAD_MIRE
 }
 
 enum PlayerBodyPart {

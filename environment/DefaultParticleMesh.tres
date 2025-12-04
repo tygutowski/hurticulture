@@ -1,0 +1,14 @@
+[gd_resource type="QuadMesh" load_steps=2 format=3 uid="uid://biojdsqx7roha"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_dedhk"]
+shading_mode = 0
+vertex_color_use_as_albedo = true
+disable_receive_shadows = true
+billboard_mode = 1
+proximity_fade_distance = 0.01
+distance_fade_min_distance = 566.11
+distance_fade_max_distance = 50.0
+
+[resource]
+material = SubResource("StandardMaterial3D_dedhk")
+size = Vector2(0.2, 0.2)

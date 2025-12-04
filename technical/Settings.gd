@@ -5,14 +5,12 @@ var resolutions = [
 	Vector2(640, 480)
 	]
 var resolution
-
 var window_modes = [
 	DisplayServer.WINDOW_MODE_EXCLUSIVE_FULLSCREEN, 
 	DisplayServer.WINDOW_MODE_FULLSCREEN,
 	DisplayServer.WINDOW_MODE_WINDOWED
 	]
 var window_mode
-
 var gamma : int = -1
 var base_fov : int = -1 # without any manipulations from charging items or running
 var fov : float = base_fov # with manipulations
@@ -20,7 +18,6 @@ var game_volume : int = -1
 var voice_volume : int = -1
 var microphone_volume : int = -1
 var microphone_threshold : int = -1
-
 const default_resolution : int = 1
 const default_windowmode : int = 0
 const default_gamma : int = 50
@@ -29,6 +26,8 @@ const default_game_volume : int = 50
 const default_voice_volume : int = 50
 const default_microphone_volume : int = 50
 const default_microphone_threshold : int = 50
+
+signal settings_initialized
 
 func _ready():
 	set_resolution(default_resolution)
@@ -39,7 +38,7 @@ func _ready():
 	set_voice_volume(default_voice_volume)
 	set_microphone_volume(default_microphone_volume)
 	set_microphone_threshold(default_microphone_threshold)
-
+	settings_initialized.emit()
 func set_gamma(_gamma):
 	gamma = _gamma
 

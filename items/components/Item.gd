@@ -20,8 +20,8 @@ var viewport_type = viewportType.REALWORLD
 
 @export var item_name: String = "Default Item Name"
 @export var inventory_texture: Texture = null
-@export var fps_hand_offset: Vector3
-@export var fps_hand_rotation: Vector3
+@export var fps_hand_offset: Vector3 = Vector3(0.367, -0.337, -0.447)
+@export var fps_hand_rotation: Vector3 = Vector3(0, 1.571, 0)
 
 @export var contact_sound_threshold: float = 3
 @export var contact_sound_time: float = 0.1
@@ -46,7 +46,6 @@ func _physics_process(_delta: float) -> void:
 func check_for_collisions() -> void:
 	if linear_velocity.length() > contact_sound_threshold:
 		var contacts = get_contact_count()
-		Debug.debug(contact_sound_timer)
 		if contacts > 0 and (contact_sound_timer <= 0):
 			make_contact_sound()
 

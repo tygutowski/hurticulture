@@ -49,12 +49,12 @@ func connect_signals() -> void:
 
 # if there are any errors, close the game
 func initialize_steam() -> void:
-	var error: Dictionary = Steam.steamInit(true, GAME_ID)
-	if error["status"] != 1:
-		Debug.debug("Steamworks Error: " + error["verbal"])
+	var error: Dictionary = Steam.steamInitEx(GAME_ID)
+	if error["status"] != 0:
+		print("Steamworks Error: " + error["verbal"])
 		get_tree().quit()
 	if not Steam.isSubscribed():
-		Debug.debug("User does not own this game")
+		print("User does not own this game")
 		get_tree().quit()
 
 func do_stuff_with_packet(data: Dictionary) -> void:

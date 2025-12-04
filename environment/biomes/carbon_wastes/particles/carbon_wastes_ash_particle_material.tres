@@ -1,0 +1,36 @@
+[gd_resource type="ParticleProcessMaterial" load_steps=7 format=3 uid="uid://1g0274xcdvr1"]
+
+[sub_resource type="Curve" id="Curve_rus4o"]
+_limits = [0.0, 200.0, 0.0, 1.0]
+_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(1, 1), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="CurveTexture" id="CurveTexture_dedhk"]
+curve = SubResource("Curve_rus4o")
+
+[sub_resource type="Gradient" id="Gradient_2nruh"]
+colors = PackedColorArray(0, 0, 0, 1, 0.148996, 0.120073, 0.0935444, 1)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_4wblk"]
+gradient = SubResource("Gradient_2nruh")
+
+[sub_resource type="Curve" id="Curve_vm7qs"]
+_limits = [0.0, 3.0, 0.0, 1.0]
+_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(1, 1), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="CurveTexture" id="CurveTexture_ly81q"]
+curve = SubResource("Curve_vm7qs")
+
+[resource]
+emission_shape = 3
+emission_box_extents = Vector3(60, 60, 60)
+spread = 5.0
+initial_velocity_min = 1.0
+initial_velocity_max = 8.0
+gravity = Vector3(0, 0, 0)
+scale_min = 0.8
+scale_max = 1.2
+scale_over_velocity_curve = SubResource("CurveTexture_ly81q")
+color_initial_ramp = SubResource("GradientTexture1D_4wblk")
+anim_speed_curve = SubResource("CurveTexture_dedhk")
