@@ -1,0 +1,188 @@
+[gd_scene load_steps=12 format=3 uid="uid://clanuu6alcmle"]
+
+[ext_resource type="Script" uid="uid://c2c651x6rln3p" path="res://environment/Beacon.gd" id="1_j2ci0"]
+[ext_resource type="PackedScene" uid="uid://gr2x6a7kv2og" path="res://ship/ShippingBeacon.glb" id="2_4woul"]
+[ext_resource type="Texture2D" uid="uid://b31invvm3uvdw" path="res://ShippingBeaconIcon.png" id="2_j2ci0"]
+[ext_resource type="PackedScene" uid="uid://dv86qo0tus0n2" path="res://items/components/ItemUsableComponent.tscn" id="4_cx7se"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_4woul"]
+size = Vector3(0.2, 0.5418701, 0.2)
+
+[sub_resource type="CylinderMesh" id="CylinderMesh_j2ci0"]
+lightmap_size_hint = Vector2i(4, 5004)
+flip_faces = true
+top_radius = 0.01
+bottom_radius = 0.02
+height = 1000.0
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_j2ci0"]
+shading_mode = 0
+albedo_color = Color(0.24000001, 0.6959999, 1, 1)
+
+[sub_resource type="Animation" id="Animation_cx7se"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:spin_speed")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [0.0]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Laser:visible")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath(".:bounce_speed")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [0.0]
+}
+
+[sub_resource type="Animation" id="Animation_j2ci0"]
+resource_name = "Enable"
+length = 3.0
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:spin_speed")
+tracks/0/interp = 2
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 3),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [0.0, 10.0]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Laser:visible")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(3),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath(".:bounce_speed")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 3),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [0.0, 0.02]
+}
+
+[sub_resource type="Animation" id="Animation_qkyq4"]
+resource_name = "Disable"
+length = 1.5
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:spin_speed")
+tracks/0/interp = 2
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 1.5),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [10.0, 0.0]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Laser:visible")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath(".:bounce_speed")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 1.5),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [0.02, 0.0]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_cx7se"]
+_data = {
+&"Disable": SubResource("Animation_qkyq4"),
+&"Enable": SubResource("Animation_j2ci0"),
+&"RESET": SubResource("Animation_cx7se")
+}
+
+[node name="Beacon" type="RigidBody3D" groups=["item"]]
+collision_layer = 6
+collision_mask = 3
+continuous_cd = true
+script = ExtResource("1_j2ci0")
+spins_when_thrown = true
+item_name = "Beacon"
+inventory_texture = ExtResource("2_j2ci0")
+metadata/_custom_type_script = "uid://dcweqy2klrwsf"
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.2744849, 0)
+shape = SubResource("BoxShape3D_4woul")
+
+[node name="ShippingBeacon" parent="." instance=ExtResource("2_4woul")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.24463871, 0)
+
+[node name="Laser" type="Node3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.24463871, 0)
+visible = false
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Laser"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 500.26, 0)
+mesh = SubResource("CylinderMesh_j2ci0")
+surface_material_override/0 = SubResource("StandardMaterial3D_j2ci0")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+&"": SubResource("AnimationLibrary_cx7se")
+}
+
+[node name="ItemUsableComponent" parent="." instance=ExtResource("4_cx7se")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.24463871, 0)
+held_down_item = true
+hold_duration = 0.5
+can_move_while_using = false
+can_be_deployed = true
+
+[node name="RayCast3D" type="RayCast3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.24463871, 0)
+target_position = Vector3(0, 1000, 0)

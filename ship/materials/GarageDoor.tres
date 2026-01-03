@@ -1,0 +1,8 @@
+[gd_resource type="StandardMaterial3D" load_steps=2 format=3 uid="uid://b75ks5mqyrkwa"]
+
+[ext_resource type="Texture2D" uid="uid://do8sw5xs5kjfr" path="res://ship/GarageDoor_door_interior.png" id="1_60nfe"]
+
+[resource]
+resource_name = "GarageDoor"
+cull_mode = 2
+albedo_texture = ExtResource("1_60nfe")

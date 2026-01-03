@@ -11,8 +11,9 @@ config_version=5
 [application]
 
 config/name="Hurticulture"
-run/main_scene="uid://xqixgx0mkgd5"
+run/main_scene="uid://bnf8skrh5pjuk"
 config/features=PackedStringArray("4.5", "Forward Plus")
+run/max_fps=120
 
 [autoload]
 
@@ -245,9 +246,7 @@ debug={
 textures/canvas_textures/default_texture_filter=0
 textures/canvas_textures/default_texture_repeat=1
 textures/lossless_compression/force_png=true
-lights_and_shadows/directional_shadow/soft_shadow_filter_quality=3
 lights_and_shadows/directional_shadow/16_bits=false
-lights_and_shadows/positional_shadow/soft_shadow_filter_quality.mobile=2
 global_illumination/gi/use_half_resolution=true
 shading/overrides/force_lambert_over_burley=true
 textures/default_filters/anisotropic_filtering_level=0

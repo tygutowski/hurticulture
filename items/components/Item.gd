@@ -4,6 +4,7 @@ class_name Item
 
 var thing_holding_me: Node3D = null
 var has_outline: bool = false
+@export var spins_when_thrown: bool = false
 
 enum viewportType {
 	REALWORLD = 0,
@@ -33,6 +34,9 @@ var contact_sound_timer: float = 0
 var item_components: Array = []
 
 func _ready() -> void:
+	# keep this enabled because small items keep falling through the floor
+	#TODO check if theres a better fix
+	continuous_cd = true
 	# set this up so we can make noises when objects collide with things
 	contact_monitor = true
 	max_contacts_reported = 1
@@ -81,12 +85,41 @@ func get_picked_up_by(parent) -> void:
 		if child is CollisionShape3D:
 			Debug.debug("disabling hitbox")
 			child.disabled = true
+	if self is Fruit:
+		var fruit: Fruit = self as Fruit
+		if fruit.on_plant:
+			fruit.get_picked()
+	for component in item_components:
+		if component.has_method("_on_pickup"):
+			component._on_pickup()
+	_on_picked_up()
+
+# intended to be overridden
+func _on_picked_up():
+	pass
 
 # Called when this item is dropped
-func get_dropped() -> void:
+func get_dropped(drop_strength: float) -> void:
 	freeze = false
-	thing_holding_me = null
-	item_components = []
+	
 	for child in get_children():
 		if child is CollisionShape3D:
 			child.disabled = false
+			
+	if drop_strength >= 0.5:
+		_get_thrown()
+		
+	_on_dropped()
+	
+	for component in item_components:
+		if component.has_method("_on_dropped"):
+			component._on_dropped()
+			
+	item_components.clear()
+	thing_holding_me = null
+
+func _on_dropped() -> void:
+	pass
+
+func _get_thrown() -> void:
+	pass

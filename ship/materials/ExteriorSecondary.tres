@@ -1,0 +1,13 @@
+[gd_resource type="StandardMaterial3D" load_steps=2 format=3 uid="uid://bo3qynx47usq6"]
+
+[ext_resource type="Texture2D" uid="uid://bhdq3swm1brs8" path="res://ship/ship_secondary_exterior.png" id="1_ts6l6"]
+
+[resource]
+resource_name = "ExteriorSecondary"
+cull_mode = 2
+albedo_color = Color(0.5287497, 0.51041687, 0.53179795, 1)
+albedo_texture = ExtResource("1_ts6l6")
+uv1_scale = Vector3(0.08, 0.08, 0.08)
+uv1_triplanar = true
+uv1_triplanar_sharpness = 0.88811517
+uv1_world_triplanar = true

@@ -1,0 +1,40 @@
+[gd_scene load_steps=8 format=3 uid="uid://bt5guomotnasc"]
+
+[ext_resource type="Script" uid="uid://c6iofmq5oepec" path="res://items/fruits/lantern_pod/PrickleburnPod.gd" id="1_727xp"]
+[ext_resource type="PackedScene" uid="uid://bspwqirml2g85" path="res://environment/objects/plants/PrickleburnCactus.tscn" id="2_727xp"]
+[ext_resource type="PackedScene" uid="uid://diublikahj4ir" path="res://ship/PrickleburnFruit.glb" id="2_idr74"]
+[ext_resource type="Texture2D" uid="uid://y5buxq731yo1" path="res://PrickleburnFruitIcon.png" id="2_w438s"]
+[ext_resource type="PackedScene" uid="uid://dv86qo0tus0n2" path="res://items/components/ItemUsableComponent.tscn" id="4_idr74"]
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_idr74"]
+radius = 0.5932617
+height = 1.4780884
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_idr74"]
+size = Vector3(0.25, 0.39172363, 0.25878906)
+
+[node name="PrickleburnPod" type="RigidBody3D" groups=["item"]]
+collision_layer = 6
+collision_mask = 3
+script = ExtResource("1_727xp")
+item_name = "Prickleburn Pod"
+inventory_texture = ExtResource("2_w438s")
+fps_hand_offset = Vector3(0.832, -0.547, -0.727)
+metadata/_custom_type_script = "uid://dggsw40kfh6wu"
+
+[node name="CollisionShape3D2" type="CollisionShape3D" parent="."]
+transform = Transform3D(0.36, 0, 0, 0, 0.36, 0, 0, 0, 0.36, 0.0038829148, 0.2459398, -0.0063513517)
+shape = SubResource("CapsuleShape3D_idr74")
+
+[node name="CollisionShape3D3" type="CollisionShape3D" parent="."]
+transform = Transform3D(0.36, 0, 0, 0, 0.36, 0, 0, 0, 0.36, 0.0038829148, 0.018863384, -0.0063513517)
+shape = SubResource("BoxShape3D_idr74")
+
+[node name="PrickleburnFruit" parent="." instance=ExtResource("2_idr74")]
+
+[node name="ItemUsableComponent" parent="." instance=ExtResource("4_idr74")]
+held_down_item = true
+hold_duration = 0.5
+can_move_while_using = false
+can_be_deployed = true
+scene_to_deploy = ExtResource("2_727xp")

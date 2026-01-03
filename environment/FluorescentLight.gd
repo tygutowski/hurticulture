@@ -5,8 +5,8 @@ extends Electrical
 var light_timer: float = 1.0
 var time_since_last_turned_on : float = 999
 
-@onready var off_texture = load("res://environment/materials/florescentlight_off.tres")
-@onready var on_texture = load("res://environment/materials/florescentlight_on.tres")
+#@onready var off_texture = load("res://environment/materials/florescentlight_off.tres")
+#@onready var on_texture = load("res://environment/materials/florescentlight_on.tres")
 @onready var clinking_audio_list = [
 	load("res://audio/fluorescent-clinking1.wav"),
 	load("res://audio/fluorescent-clinking2.wav")
@@ -44,8 +44,8 @@ func turn_off(_animate : bool, _power_outage : bool) -> void:
 		get_node('OmniLight3D').omni_range = 0
 		get_node('SwitchAudio').play()
 		get_node('SwitchAudio').pitch_scale = .75
-		get_node('Tube1Mesh').set_surface_override_material(0, off_texture)
-		get_node('Tube2Mesh').set_surface_override_material(0, off_texture)
+		#get_node('Tube1Mesh').set_surface_override_material(0, off_texture)
+		#get_node('Tube2Mesh').set_surface_override_material(0, off_texture)
 		get_node('BuzzingAudio').stop()
 
 # Turns on the light
@@ -60,8 +60,8 @@ func turn_on(animate : bool, _power_return : bool) -> void:
 			get_node('OnTimer').start(light_timer)
 			await get_node('OnTimer').timeout
 		get_node('OmniLight3D').omni_range = default_light_range
-		get_node('Tube1Mesh').set_surface_override_material(0, on_texture)
-		get_node('Tube2Mesh').set_surface_override_material(0, on_texture)
+		#get_node('Tube1Mesh').set_surface_override_material(0, on_texture)
+		#get_node('Tube2Mesh').set_surface_override_material(0, on_texture)
 		if animate:
 			get_node('SwitchAudio').play()
 			get_node('SwitchAudio').pitch_scale = 1

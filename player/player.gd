@@ -3,14 +3,17 @@ extends CharacterBody3D
 
 var mouse_sensitivity = 0.3
 const JUMP_VELOCITY = 5
-const ACCELERATION : float = 13
-const FRICTION : float = 20
+var acceleration_ratio : float = .1
+var friction_ratio : float = .2
 const MAX_HEAD_TURN_ANGLE: float = 25
 var increment_progress_bar: bool = false
 var item_preventing_movement: bool = false
 var rotational_offset: float = 0
 var charging_drop: bool = false
 var drop_charge_time: float = 0
+
+@export var ghost_valid_material: StandardMaterial3D
+@export var ghost_invalid_material: StandardMaterial3D
 
 @export var robot_eye_material: ShaderMaterial = null
 @export var robot_armor_shader: ShaderMaterial = null
@@ -30,6 +33,8 @@ var feet_stance_angle: float = 0
 @onready var computer_list: Array = get_tree().get_nodes_in_group("computers")
 @onready var robotmesh = get_node("MeshAndAnimation/RobotAnimated/Robot_Armature/Skeleton3D/RobotMesh")
 @export var holding_bones: Array[LookAtModifier3D] = []
+
+var deploy_ghost: Item = null
 
 const WALK_SPEED : float = 5
 const RUN_SPEED : float = 8
@@ -91,6 +96,14 @@ func add_item_to_world_hand(item: Node3D) -> void:
 	item.viewport_type = item.viewportType.REALWORLD
 	item.orient_item()
 
+func add_item_to_ghost(item: Node3D) -> void:
+	var meshes: Array = item.find_children("*", "MeshInstance3D", true, true)
+	for mesh: MeshInstance3D in meshes:
+		# make it only visible to the fps hand camera
+		mesh.set_layer_mask_value(1, true)
+		mesh.set_layer_mask_value(3, false)
+		mesh.set_layer_mask_value(4, false)
+
 # removes the item from your first person hand
 func remove_item_from_fps_hand() -> void:
 	Debug.debug("removing from fps")
@@ -128,8 +141,8 @@ func interact() -> void:
 # pick up and item and put it in your inventory
 func pickup_item(item: Item) -> void:
 	item.set_item_components()
-	item.get_parent().remove_child(item)
 	item.get_picked_up_by(self)
+	item.get_parent().remove_child(item)
 
 	# if the player has an item, fill in next slot
 	if held_item != null:
@@ -155,14 +168,18 @@ func update_held_item() -> void:
 	held_item = inventory[inventory_index]
 	remove_item_from_world_hand()
 	remove_item_from_fps_hand()
+	remove_deploy_ghost()
+
 	if held_item != null:
 		add_item_to_fps_hand(held_item)
 		add_item_to_world_hand(held_item)
 		for bone in holding_bones:
 			bone.active = true
+		show_deploy_ghost(held_item)
 	else:
 		for bone in holding_bones:
 			bone.active = false
+	
 
 func get_looking_at_ray():
 	dropray.force_raycast_update()
@@ -179,8 +196,8 @@ func drop_item(drop_charge: float = 0) -> void:
 	drop_charge = clamp(drop_charge, 0.0, 5.0)
 	Debug.debug("dropping item")
 	if held_item != null:
+		held_item.get_dropped(drop_charge)
 		remove_item_from_world_hand()
-		held_item.get_dropped()
 		inventory[inventory_index] = null
 		inventory_node.get_child(inventory_index).texture = null
 
@@ -201,13 +218,15 @@ func drop_item(drop_charge: float = 0) -> void:
 		var impulse_strength = clamp(5.0 * drop_charge, 1.5, 8.0)
 		var impulse = forward.normalized() * impulse_strength
 		
-		var inherited_velocity = velocity
-		held_item.linear_velocity = inherited_velocity
+		# thrown objects inherit your velocity
+		held_item.linear_velocity = velocity
 		# This puts a little spin on the item in the air
-		held_item.apply_impulse(
-			Vector3(0, 0, randf_range(-0.01, 0.01)),
-			Vector3(randf_range(-1.0, 1.0), 0, randf_range(-1.0, 1.0))
-			)
+		#held_item.apply_impulse(
+		#	Vector3(0, 0, randf_range(-0.01, 0.01)),
+		#	Vector3(randf_range(-1.0, 1.0), 0, randf_range(-1.0, 1.0))
+		#	)
+		if held_item.spins_when_thrown:
+			held_item.angular_velocity = Vector3(randf_range(0,5), randf_range(0,5), randf_range(15,20))
 		held_item.apply_central_impulse(impulse)
 		update_held_item()
 
@@ -308,9 +327,8 @@ func _physics_process(delta: float) -> void:
 	if Input.is_action_just_pressed("freeze_map"):
 		freeze_map = not freeze_map
 	
-	if Input.is_action_just_pressed("ui_accept") and is_on_floor():
+	if Input.is_action_just_pressed("jump") and is_on_floor():
 		velocity.y = JUMP_VELOCITY
-	
 	if Input.is_action_just_pressed("pause"):
 		pause_menu.toggle_pause_menu()
 	var input_dir := Input.get_vector("left", "right", "forward", "backwards")
@@ -320,7 +338,7 @@ func _physics_process(delta: float) -> void:
 			if item_usable_component.can_move_while_using and item_usable_component.using_item:
 				input_dir = Vector2.ZERO
 	var direction: Vector3 = (gameplay_head.transform.basis * Vector3(input_dir.x, 0, input_dir.y)).normalized()
-	if input_dir.x != 0:
+	if input_dir.x != 0 and not item_preventing_movement:
 		# Interpolate rotation to the target angle
 		camera.rotation.z = lerp(camera.rotation.z, round(input_dir.x) * deg_to_rad(-1.5), .2)
 	else:
@@ -332,17 +350,18 @@ func _physics_process(delta: float) -> void:
 		camera.fov = lerp(camera.fov, float(Settings.fov + 10), 0.2)
 	else:
 		camera.fov = lerp(camera.fov, float(Settings.fov), 0.2)
+		
+	# this is just for animation stuff
 	var local_velocity = get_node("MeshAndAnimation").basis.inverse() * velocity
 	get_node("MeshAndAnimation/AnimationTree")["parameters/WalkVector/blend_position"] = -Vector2(local_velocity.x, local_velocity.z)
-	#get_node("MeshAndAnimation/AnimationTree")["parameters/LookAngle/blend_position"] = Vector2(gameplay_head.rotation.y, gameplay_head.get_node("HeadPivot").rotation.x)
 
-	if input_dir != Vector2.ZERO and is_on_floor():
-		camera.v_offset = lerp(camera.v_offset, sin(Time.get_unix_time_from_system()*2 * movement_speed)/48 * movement_speed, 0.2)
+	if input_dir != Vector2.ZERO and is_on_floor() and not item_preventing_movement:
+		camera.v_offset = lerp(camera.v_offset, sin(Time.get_unix_time_from_system()*2 * movement_speed)/48 * movement_speed, 0.05)
 	else:
 		camera.v_offset = lerp(camera.v_offset, 0.0, 0.2)
-	if direction:
-		velocity.x = move_toward(velocity.x, direction.x * movement_speed, ACCELERATION * delta)
-		velocity.z = move_toward(velocity.z, direction.z * movement_speed, ACCELERATION * delta)
+	if direction and not item_preventing_movement:
+		velocity.x = lerp(velocity.x, direction.x * movement_speed, acceleration_ratio)
+		velocity.z = lerp(velocity.z, direction.z * movement_speed, acceleration_ratio)
 		# if walking forward
 		if local_velocity.z < 0:
 			var target_rotation = gameplay_head.global_transform.basis.get_euler().y  # Get head's global Y rotation
@@ -353,8 +372,8 @@ func _physics_process(delta: float) -> void:
 			$MeshAndAnimation.rotation.y = new_body_rotation
 			
 	else:
-		velocity.x = move_toward(velocity.x, 0, FRICTION * delta)
-		velocity.z = move_toward(velocity.z, 0, FRICTION * delta)
+		velocity.x = lerp(velocity.x, 0.0, friction_ratio)
+		velocity.z = lerp(velocity.z, 0.0, friction_ratio)
 		rotational_offset = 0
 	
 	if noclip:
@@ -367,6 +386,7 @@ func _physics_process(delta: float) -> void:
 			velocity.y += -20
 		elif Input.is_action_pressed("jump"):
 			velocity.y += 20
+
 	move_and_slide()
 
 func normalize_angle(degrees: float) -> float:
@@ -404,6 +424,7 @@ func handle_computers(event: InputEvent) -> void:
 			computer.mouse_outside_area()
 
 func _process(_delta: float) -> void:
+	handle_deploy_ghost()
 	# check to see if youre hovering over an interactable using the interactray
 	interactray.check_interactions(self)
 	handle_computer_cursor_movement()
@@ -454,3 +475,52 @@ func _on_interact_timeout(timer) -> void:
 	Debug.debug("you can interact now")
 	can_interact = true
 	timer.queue_free()
+
+func show_deploy_ghost(item: Item) -> void:
+	print("show ghost")
+	interactray.force_raycast_update()
+	deploy_ghost = item.duplicate()
+	#deploy_ghost.set_physics_process(false)
+	#deploy_ghost.set_process(false)
+	get_tree().get_first_node_in_group("world").add_child(deploy_ghost)
+	add_item_to_ghost(deploy_ghost)
+
+func remove_deploy_ghost() -> void:
+	if deploy_ghost != null:
+		print("remove ghost")
+		deploy_ghost.queue_free()
+
+func handle_deploy_ghost() -> void:
+	if deploy_ghost != null:
+		interactray.force_raycast_update()
+		deploy_ghost.global_rotation = Vector3(0.0, gameplay_head.global_rotation.y, 0.0)
+		deploy_ghost.global_position = interactray.get_collision_point()
+		if interactray.is_colliding():
+			var meshes: Array = deploy_ghost.find_children("*", "MeshInstance3D", true, true)
+			for mesh: MeshInstance3D in meshes:
+				for surface in mesh.get_surface_override_material_count():
+					mesh.set_surface_override_material(surface, ghost_valid_material)
+		else:
+			var meshes: Array = deploy_ghost.find_children("*", "MeshInstance3D", true, true)
+			for mesh: MeshInstance3D in meshes:
+				for surface in mesh.get_surface_override_material_count():
+					mesh.set_surface_override_material(surface, ghost_invalid_material)
+func attempt_to_deploy_item(packed_scene) -> void:
+	if deploy_ghost != null:
+		interactray.force_raycast_update()
+		if interactray.is_colliding():
+			deploy_item(packed_scene)
+
+func deploy_item(packed_scene) -> void:
+	var scene = load(packed_scene).instantiate()
+	get_tree().get_first_node_in_group("world").add_child(scene)
+	scene.global_position = interactray.get_collision_point()
+	scene.global_rotation = Vector3(0.0, gameplay_head.global_rotation.y, 0.0)
+	remove_item_from_inventory()
+
+func remove_item_from_inventory() -> void:
+	if held_item != null:
+		remove_item_from_world_hand()
+		inventory[inventory_index] = null
+		inventory_node.get_child(inventory_index).texture = null
+		update_held_item()

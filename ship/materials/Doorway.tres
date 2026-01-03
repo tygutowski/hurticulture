@@ -1,0 +1,9 @@
+[gd_resource type="StandardMaterial3D" load_steps=2 format=3 uid="uid://13n6am67sr77"]
+
+[ext_resource type="Texture2D" uid="uid://3xrgkutn6rd2" path="res://ship/Ship_concrete_wall_tx_6.png" id="1_t65c5"]
+
+[resource]
+resource_name = "Doorway"
+cull_mode = 2
+vertex_color_use_as_albedo = true
+albedo_texture = ExtResource("1_t65c5")

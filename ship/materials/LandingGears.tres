@@ -1,0 +1,9 @@
+[gd_resource type="StandardMaterial3D" load_steps=2 format=3 uid="uid://cesojl31gld7v"]
+
+[ext_resource type="Texture2D" uid="uid://c0uj66hom74fe" path="res://ship/Ship_Ship2_metal_floor_tx_1.png" id="1_46exu"]
+
+[resource]
+resource_name = "LandingGears"
+cull_mode = 2
+albedo_texture = ExtResource("1_46exu")
+metallic = 1.0

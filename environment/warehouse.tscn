@@ -6,7 +6,7 @@
 [ext_resource type="PackedScene" uid="uid://dsyc6dijis1a1" path="res://electrical/lightswitch.tscn" id="3_fxjy0"]
 [ext_resource type="PackedScene" uid="uid://cgbaw7yp8q8j4" path="res://electrical/Door.tscn" id="4_s5px5"]
 [ext_resource type="PackedScene" uid="uid://ddfxev1m3e0r3" path="res://electrical/siren_light.tscn" id="5_lks6v"]
-[ext_resource type="PackedScene" uid="uid://d2bf5huvt4ak2" path="res://electrical/button.tscn" id="7_gou3n"]
+[ext_resource type="PackedScene" uid="uid://d2bf5huvt4ak2" path="res://electrical/Lever.tscn" id="7_gou3n"]
 [ext_resource type="Script" uid="uid://cxv0cofia8x23" path="res://environment/power_generator.gd" id="8_xc0j5"]
 [ext_resource type="Texture2D" uid="uid://cjegy4gnn10yq" path="res://textures/concrete_1.png" id="9_6ip2x"]
 [ext_resource type="Material" uid="uid://bw4iuu4j5m8w5" path="res://environment/ConcreteWall.tres" id="9_8mhfi"]

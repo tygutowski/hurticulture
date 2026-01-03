@@ -1,0 +1,11 @@
+[gd_resource type="StandardMaterial3D" load_steps=2 format=3 uid="uid://cb2nrl4obo3y"]
+
+[ext_resource type="Texture2D" uid="uid://bdp1qm34tctkh" path="res://textures/ship_exterior.png" id="1_et3u7"]
+
+[resource]
+resource_name = "Exterior"
+cull_mode = 2
+albedo_color = Color(0.38134515, 0.5401136, 0.8197359, 1)
+albedo_texture = ExtResource("1_et3u7")
+uv1_scale = Vector3(5.01, 5.01, 5.01)
+uv1_triplanar_sharpness = 0.16493839

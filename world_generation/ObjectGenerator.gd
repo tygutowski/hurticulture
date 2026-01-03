@@ -109,7 +109,7 @@ func spawn(scene: PackedScene, chunk: Chunk, position: Vector3, rotation: float 
 	object.global_position = position
 	object.rotate_y(rotation)
 
-func spawn_structure(must_spawn: bool, scene: PackedScene, chunk: Chunk, rotation: float = 0, scale: float = 1) -> void:
+func spawn_structure(must_spawn: bool, scene: PackedScene, chunk: Chunk, rotation: float = 0, scale: float = 1):
 	var max_attempts: int = 100
 	var attempt: int = 0
 	while must_spawn or attempt < max_attempts:
@@ -123,8 +123,7 @@ func spawn_structure(must_spawn: bool, scene: PackedScene, chunk: Chunk, rotatio
 		object.scale = Vector3(scale, scale, scale)
 		object.global_position = world_point
 		object.rotate_y(rotation)
-		return
-		#attempt += 1
+		return object
 
 func is_low_incline(normal: Vector3) -> bool:
 	const MAX_ANGLE: float = deg_to_rad(20.0)

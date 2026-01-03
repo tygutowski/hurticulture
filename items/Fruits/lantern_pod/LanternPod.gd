@@ -1,4 +1,4 @@
-extends Item
+extends Fruit
 
 @onready var orb = get_node("Orb")
 @export var x_rotation: float

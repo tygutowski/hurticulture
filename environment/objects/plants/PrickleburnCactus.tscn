@@ -1,0 +1,280 @@
+[gd_scene load_steps=11 format=3 uid="uid://bspwqirml2g85"]
+
+[ext_resource type="Script" uid="uid://binnereyueque" path="res://environment/objects/plants/PrickleburnCactus.gd" id="1_5gewe"]
+[ext_resource type="PackedScene" uid="uid://bysgiv5nq0yvh" path="res://ship/PrickleburnCactus.glb" id="2_f4etf"]
+[ext_resource type="PackedScene" uid="uid://bt5guomotnasc" path="res://items/fruits/lantern_pod/PrickleburnPod.tscn" id="3_f4etf"]
+
+[sub_resource type="Animation" id="Animation_f4etf"]
+resource_name = "Die"
+step = 0.041666668
+
+[sub_resource type="Animation" id="Animation_7cr0j"]
+resource_name = "Grow"
+length = 1.2500042
+step = 0.041666668
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Body:shape:height")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.5416667, 0.7916667, 1.25),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 0,
+"values": [0.165, 2.292, 4.355918, 5.6]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Body:shape:radius")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.5416667, 1, 1.25),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 0,
+"values": [0.09, 0.4222719, 0.5299105, 0.61]
+}
+tracks/2/type = "position_3d"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Body")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = PackedFloat32Array(0, 1, 0, 0.086, 0, 0.5416667, 1, 0, 0.88731325, 0, 1, 1, 0, 2.1230755, 0, 1.25, 1, 0, 2.75, 0)
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("Arm1:shape:height")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0, 0.375, 0.5833333, 0.875, 1.25),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1),
+"update": 0,
+"values": [0.2, 0.2, 1.0396385, 1.9176636, 2.8354492]
+}
+tracks/4/type = "value"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("Arm1:shape:radius")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(0, 0.375, 0.5833333, 1, 1.25),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1),
+"update": 0,
+"values": [0.1, 0.2, 0.4, 0.5, 0.5]
+}
+tracks/5/type = "position_3d"
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/path = NodePath("Arm1")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/keys = PackedFloat32Array(0, 1, 0.025857478, 0.39086232, 0.05179593, 0.45833334, 1, 0.025857478, 0.39086232, 0.05179593, 0.625, 1, -0.44853312, 0.8524946, 0.57813334, 0.8333333, 1, -0.58307457, 2.1837568, 0.8086565, 1.25, 1, -0.5936256, 2.7863574, 0.7879054)
+tracks/6/type = "value"
+tracks/6/imported = false
+tracks/6/enabled = true
+tracks/6/path = NodePath("Arm2:shape:height")
+tracks/6/interp = 1
+tracks/6/loop_wrap = true
+tracks/6/keys = {
+"times": PackedFloat32Array(0, 0.45833334, 1, 1.25),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 0,
+"values": [0.1295166, 0.1295166, 1.1123047, 1.7460938]
+}
+tracks/7/type = "value"
+tracks/7/imported = false
+tracks/7/enabled = true
+tracks/7/path = NodePath("Arm2:shape:radius")
+tracks/7/interp = 1
+tracks/7/loop_wrap = true
+tracks/7/keys = {
+"times": PackedFloat32Array(0, 0.45833334, 1, 1.25),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 0,
+"values": [0.1, 0.1, 0.3828125, 0.3828125]
+}
+tracks/8/type = "position_3d"
+tracks/8/imported = false
+tracks/8/enabled = true
+tracks/8/path = NodePath("Arm2")
+tracks/8/interp = 1
+tracks/8/loop_wrap = true
+tracks/8/keys = PackedFloat32Array(0, 1, 0, 0.3, 0, 0.29166666, 1, 0, 0.255, 0, 0.875, 1, 0.0668813, 3.0996373, -0.84391, 1.25, 1, 0.0668813, 3.917459, -1.0336126)
+
+[sub_resource type="Animation" id="Animation_benie"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Body:shape:height")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [0.5]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Body:shape:radius")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [0.2]
+}
+tracks/2/type = "position_3d"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Body")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = PackedFloat32Array(0, 1, 0, 0.175, 0)
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("Arm1:shape:height")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [0.2]
+}
+tracks/4/type = "value"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("Arm1:shape:radius")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [0.1]
+}
+tracks/5/type = "value"
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/path = NodePath("Arm2:shape:height")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [0.1295166]
+}
+tracks/6/type = "value"
+tracks/6/imported = false
+tracks/6/enabled = true
+tracks/6/path = NodePath("Arm2:shape:radius")
+tracks/6/interp = 1
+tracks/6/loop_wrap = true
+tracks/6/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [0.1]
+}
+tracks/7/type = "position_3d"
+tracks/7/imported = false
+tracks/7/enabled = true
+tracks/7/path = NodePath("Arm2")
+tracks/7/interp = 1
+tracks/7/loop_wrap = true
+tracks/7/keys = PackedFloat32Array(0, 1, 0, 0.3, 0)
+tracks/8/type = "position_3d"
+tracks/8/imported = false
+tracks/8/enabled = true
+tracks/8/path = NodePath("Arm1")
+tracks/8/interp = 1
+tracks/8/loop_wrap = true
+tracks/8/keys = PackedFloat32Array(0, 1, 0.025857478, 0.39086232, 0.05179593)
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_5oifi"]
+_data = {
+&"Die": SubResource("Animation_f4etf"),
+&"Grow": SubResource("Animation_7cr0j"),
+&"RESET": SubResource("Animation_benie")
+}
+
+[sub_resource type="CylinderShape3D" id="CylinderShape3D_5gewe"]
+height = 0.5
+radius = 0.2
+
+[sub_resource type="CylinderShape3D" id="CylinderShape3D_f4etf"]
+height = 0.2
+radius = 0.1
+
+[sub_resource type="CylinderShape3D" id="CylinderShape3D_7cr0j"]
+height = 0.1295166
+radius = 0.1
+
+[node name="PrickleburnCactus" type="Node3D" node_paths=PackedStringArray("visual_animation", "collision_animation", "growth_label", "fruit_spawns")]
+script = ExtResource("1_5gewe")
+visual_animation = NodePath("Visual/AnimationPlayer")
+collision_animation = NodePath("StaticBody3D/AnimationPlayer")
+growth_label = NodePath("BoneAttachment3D/GrowthLabel")
+fruit_spawns = [NodePath("BoneAttachment3D"), NodePath("BoneAttachment3D2"), NodePath("BoneAttachment3D3")]
+fruit_to_spawn = ExtResource("3_f4etf")
+metadata/_custom_type_script = "uid://dfko13eargkjv"
+
+[node name="Visual" parent="." instance=ExtResource("2_f4etf")]
+
+[node name="StaticBody3D" type="StaticBody3D" parent="."]
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="StaticBody3D"]
+libraries = {
+&"": SubResource("AnimationLibrary_5oifi")
+}
+speed_scale = 0.04254564
+
+[node name="Body" type="CollisionShape3D" parent="StaticBody3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.175, 0)
+shape = SubResource("CylinderShape3D_5gewe")
+
+[node name="Arm1" type="CollisionShape3D" parent="StaticBody3D"]
+transform = Transform3D(1, 0, 0, 0, 0.9999998, 0, 0, 0, 0.99999994, 0.025857478, 0.39086232, 0.05179593)
+shape = SubResource("CylinderShape3D_f4etf")
+
+[node name="Arm2" type="CollisionShape3D" parent="StaticBody3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.3, 0)
+shape = SubResource("CylinderShape3D_7cr0j")
+
+[node name="BoneAttachment3D" type="BoneAttachment3D" parent="."]
+transform = Transform3D(0.99999994, -1.4438228e-11, 0.00050568575, -3.2769565e-11, 1, 1.1641532e-09, -0.0005056858, -6.9849193e-10, 0.9999997, -0.0026903148, 7.066414, 0.008063911)
+bone_name = "Trunk.Flower"
+bone_idx = 3
+use_external_skeleton = true
+external_skeleton = NodePath("../Visual/Armature/Skeleton3D")
+
+[node name="GrowthLabel" type="Label3D" parent="BoneAttachment3D"]
+transform = Transform3D(1.0000001, -2.6336267e-11, 0, 5.6347815e-11, 1, -1.7644197e-10, -1.7462298e-10, 5.4569682e-11, 1.0000001, 0, 0.42520857, 0)
+pixel_size = 0.02
+billboard = 1
+text = "0%"
+
+[node name="BoneAttachment3D2" type="BoneAttachment3D" parent="."]
+transform = Transform3D(0.99859357, -0.0041352054, -0.052855905, 0.00381953, 0.99997425, -0.0060729785, 0.05287963, 0.005862723, 0.99858356, -0.71711284, 5.438827, 0.85296774)
+bone_name = "Arm1.Flower"
+bone_idx = 9
+use_external_skeleton = true
+external_skeleton = NodePath("../Visual/Armature/Skeleton3D")
+
+[node name="BoneAttachment3D3" type="BoneAttachment3D" parent="."]
+transform = Transform3D(0.98925596, -0.0015761335, 0.14618494, -0.00010820246, 0.9999337, 0.011513212, -0.14619339, -0.011405439, 0.98919034, -0.008001062, 6.1122894, -1.0125518)
+bone_name = "Arm2.Flower"
+bone_idx = 6
+use_external_skeleton = true
+external_skeleton = NodePath("../Visual/Armature/Skeleton3D")

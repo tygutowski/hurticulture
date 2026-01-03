@@ -45,13 +45,7 @@ func _ready() -> void:
 		for y in range(-1, 1):
 			create_chunk(Vector2(x, y))
 	await get_tree().physics_frame
-	var player_spawn_ray: RayCast3D = RayCast3D.new()
-	add_child(player_spawn_ray)
-	player_spawn_ray.position = Vector3(5, 1000, 5)
-	player_spawn_ray.target_position = Vector3(0, -3000, 0)
-	player_spawn_ray.force_raycast_update()
-	var collision_point = player_spawn_ray.get_collision_point()
-	player.global_position = Vector3(collision_point.x, collision_point.y, collision_point.z)
+
 	Debug.setup_debug()
 
 func process_chunk_queue() -> void:
@@ -211,8 +205,9 @@ func create_chunk(coords) -> void:
 	flora_generator.generate_grass(chunk)
 	object_generator.spawn_objects(chunk)
 	if chunk.coords == Vector2.ZERO:
-		object_generator.spawn_structure(true, load("res://ship/Ship.tscn"), chunk)
-	#save_chunk_to_minimap(chunk)
+		var ship: Node3D = object_generator.spawn_structure(true, load("res://ship/Ship.tscn"), chunk)
+		var spawn_point: Vector3 = ship.get_node("SpawnPoint").global_position
+		player.global_position = spawn_point
 	
 
 func save_chunk_to_minimap(chunk: Chunk) -> void:

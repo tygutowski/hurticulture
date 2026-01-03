@@ -286,7 +286,7 @@ gi_mode = 2
 mesh = SubResource("ArrayMesh_rn8ox")
 
 [node name="Orb" type="MeshInstance3D" parent="."]
-transform = Transform3D(1.75339, -1.18852, 0.593061, 1.19657, 0.987135, -1.55949, 0.576601, 1.56564, 1.43346, 0, 0, 0)
+transform = Transform3D(1.952551, -0.9649612, 0.30825603, 0.941936, 1.4833294, -1.3232609, 0.37271294, 1.3065625, 1.7299387, 0, 0, 0)
 gi_mode = 2
 mesh = SubResource("ArrayMesh_r107f")
 skeleton = NodePath("")

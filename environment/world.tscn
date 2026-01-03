@@ -1,4 +1,4 @@
-[gd_scene load_steps=22 format=3 uid="uid://xqixgx0mkgd5"]
+[gd_scene load_steps=20 format=3 uid="uid://xqixgx0mkgd5"]
 
 [ext_resource type="Script" uid="uid://dhyhed17u3sxm" path="res://GameManager.gd" id="1_dedhk"]
 [ext_resource type="Script" uid="uid://w1ty2w3i5uwo" path="res://world_generation/TerrainGenerator.gd" id="2_u8f1i"]
@@ -13,6 +13,7 @@
 [ext_resource type="Script" uid="uid://cds60mkqqit5f" path="res://world_generation/FloraGenerator.gd" id="10_ab3xd"]
 [ext_resource type="PackedScene" uid="uid://b5xjtp4qjtafs" path="res://player/Player.tscn" id="10_jweps"]
 [ext_resource type="Script" uid="uid://6x50hunks56a" path="res://world_generation/ObjectGenerator.gd" id="11_uqj48"]
+[ext_resource type="Environment" uid="uid://dbk3q5krrwoit" path="res://environment/WorldEnvironment.tres" id="14_5dpq7"]
 [ext_resource type="PackedScene" uid="uid://cv15t3tmcetnu" path="res://items/tools/flashlight/Flashlight.tscn" id="14_ly81q"]
 
 [sub_resource type="FastNoiseLite" id="FastNoiseLite_jweps"]
@@ -88,34 +89,6 @@ func check_player_chunk(world_pos: Vector3) -> Vector2i:
 
 	return Vector2i(x_index, y_index)
 "
-
-[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_jweps"]
-sky_top_color = Color(1, 1, 1, 1)
-sky_horizon_color = Color(1, 1, 1, 1)
-ground_bottom_color = Color(0.576471, 0.364706, 0.243137, 1)
-ground_horizon_color = Color(0.576471, 0.364706, 0.243137, 1)
-use_debanding = false
-
-[sub_resource type="Sky" id="Sky_dedhk"]
-sky_material = SubResource("ProceduralSkyMaterial_jweps")
-
-[sub_resource type="Environment" id="Environment_jweps"]
-background_mode = 2
-background_color = Color(0.560996, 0.424614, 0.200798, 1)
-sky = SubResource("Sky_dedhk")
-ambient_light_source = 3
-ambient_light_color = Color(1, 1, 1, 1)
-reflected_light_source = 2
-glow_intensity = 3.27
-glow_strength = 1.3
-fog_enabled = true
-fog_mode = 1
-fog_light_color = Color(0.23064494, 0.33590105, 0.26964793, 1)
-fog_light_energy = 0.1
-fog_density = 1.0
-fog_depth_curve = 0.42044708
-fog_depth_begin = 5.0
-fog_depth_end = 50.0
 
 [node name="world" type="Node" groups=["world"]]
 
@@ -195,7 +168,7 @@ target_position = Vector3(0, -100, 0)
 [node name="NewParticles" type="Node3D" parent="player"]
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
-environment = SubResource("Environment_jweps")
+environment = ExtResource("14_5dpq7")
 
 [node name="Flashlight" parent="." instance=ExtResource("14_ly81q")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -6.0646644, 4.0920444, 0.04875779)

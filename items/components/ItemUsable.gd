@@ -8,6 +8,12 @@ class_name ItemUsableComponent
 
 @export var use_interval: float = 0.5 # How frequently the item calls use_item()
 @export var can_move_while_using: bool = true
+
+# this is for deployables and plants
+@export var can_be_deployed: bool = false
+@export var scene_to_deploy: PackedScene = null
+
+
 @onready var parent: Node3D = get_parent()
 var using_item: bool = false
 var interval_duration: float = 0.0
@@ -15,7 +21,7 @@ var use_duration: float = 0.0
 
 func _ready() -> void:
 	assert(get_parent() is Item)
-
+	
 func _process(delta) -> void:
 	if held_down_item and using_item:
 		use_duration += delta
@@ -26,14 +32,19 @@ func _process(delta) -> void:
 		if hold_duration > 0:
 			if use_duration > hold_duration:
 				finish_using_item()
+			if held_down_item and get_parent().thing_holding_me != null:
+				get_parent().thing_holding_me.get_node("hud/TextureProgressBar").value += delta
 
 func stop_player_chargebar() -> void:
 	get_parent().thing_holding_me.get_node("hud/TextureProgressBar").visible = false
+	get_parent().thing_holding_me.item_preventing_movement = false
 
 func start_player_chargebar() -> void:
+	get_parent().thing_holding_me.item_preventing_movement = true
 	if hold_duration > 0:
 		get_parent().thing_holding_me.get_node("hud/TextureProgressBar").visible = true
 		get_parent().thing_holding_me.get_node("hud/TextureProgressBar").value = 0
+		get_parent().thing_holding_me.get_node("hud/TextureProgressBar").max_value = hold_duration
 		get_parent().thing_holding_me.increment_progress_bar = true
 
 # Things that occur on an interval.
@@ -53,9 +64,18 @@ func alt_use_item() -> void:
 		parent.alt_use_item()
 
 func use_item() -> void:
-	Debug.debug("use")
 	if parent.has_method("use_item"):
 		parent.use_item()
+	if get_parent().thing_holding_me != null and can_be_deployed:
+		if scene_to_deploy == null:
+			attempt_to_deploy_item(get_parent().scene_file_path)
+		else:
+			print("deploying specific scene")
+			attempt_to_deploy_item(scene_to_deploy)
+
+# will try to deploy. this can fail if no valid terrain or smth
+func attempt_to_deploy_item(scene) -> void:
+	get_parent().thing_holding_me.attempt_to_deploy_item(scene)
 
 func finish_using_item() -> void:
 	if using_item:

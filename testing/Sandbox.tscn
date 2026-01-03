@@ -1,117 +1,17 @@
-[gd_scene load_steps=36 format=3 uid="uid://bnf8skrh5pjuk"]
+[gd_scene load_steps=12 format=3 uid="uid://bnf8skrh5pjuk"]
 
-[ext_resource type="PackedScene" uid="uid://bxxkec2cijwk4" path="res://items/weapons/shotgun/Shotgun.tscn" id="2_1pa1w"]
-[ext_resource type="PackedScene" uid="uid://b3bro3nus3giu" path="res://items/tools/battery/large_battery/LargeBattery.tscn" id="3_pc7rr"]
-[ext_resource type="PackedScene" uid="uid://di2hyd5dw6fsg" path="res://items/tools/battery/Battery.tscn" id="4_y1nea"]
-[ext_resource type="PackedScene" uid="uid://d3m15aoueok6r" path="res://items/weapons/smg/SubMachineGun.tscn" id="5_5l22i"]
-[ext_resource type="PackedScene" uid="uid://dfj6ofye335pq" path="res://items/fruits/lantern_pod/LanternPod.tscn" id="6_d5l5x"]
-[ext_resource type="Texture2D" uid="uid://c0eflimuad3ji" path="res://textures/grass_alien_2.png" id="7_51sly"]
-[ext_resource type="PackedScene" uid="uid://w042e6wfvpt" path="res://gui/SkinPickerComputer.tscn" id="8_mkvsu"]
-[ext_resource type="Texture2D" uid="uid://t1pmq2y1536g" path="res://textures/concrete_tx_3.png" id="9_jlxi8"]
-[ext_resource type="PackedScene" uid="uid://bfs70m7rkn6ic" path="res://electrical/cctv_camera.tscn" id="10_nux3x"]
-[ext_resource type="PackedScene" uid="uid://cw8o5wflamblx" path="res://world_generation/biomes/red/Pillar.tscn" id="11_8bjj6"]
+[ext_resource type="Environment" uid="uid://dbk3q5krrwoit" path="res://environment/WorldEnvironment.tres" id="1_chfey"]
+[ext_resource type="Texture2D" uid="uid://caflgcs37i6ex" path="res://textures/texture_07.png" id="2_chfey"]
+[ext_resource type="PackedScene" uid="uid://f35d24yrtk21" path="res://ship/Ship.tscn" id="4_pe70k"]
+[ext_resource type="PackedScene" uid="uid://cv15t3tmcetnu" path="res://items/tools/flashlight/Flashlight.tscn" id="5_ets0n"]
+[ext_resource type="PackedScene" uid="uid://bspwqirml2g85" path="res://environment/objects/plants/PrickleburnCactus.tscn" id="6_13ly5"]
+[ext_resource type="Script" uid="uid://dhyhed17u3sxm" path="res://GameManager.gd" id="8_6lfr1"]
+[ext_resource type="PackedScene" uid="uid://clanuu6alcmle" path="res://environment/Beacon.tscn" id="8_6vekk"]
 [ext_resource type="PackedScene" uid="uid://b5xjtp4qjtafs" path="res://player/Player.tscn" id="12_8bjj6"]
-[ext_resource type="PackedScene" uid="uid://tw1j071ri7l8" path="res://world_generation/biomes/red/HugePillar.tscn" id="13_oq5rl"]
-
-[sub_resource type="GDScript" id="GDScript_8bjj6"]
-script/source = "extends Node
-
-@export var chunk_size: Vector2
-@export var map_size: Vector2
-@export var player: CharacterBody3D
-
-const LOD_RADIUS := 3
-const LOD_UPDATE_INTERVAL := 0.5
-
-var chunk_count_x: int
-var chunk_count_y: int
-var lod_timer: float = 0.0
-var previous_player_chunk := Vector2i(-999, -999)
-
-func _ready():
-	chunk_count_x = int(map_size.x / chunk_size.x)
-	chunk_count_y = int(map_size.y / chunk_size.y)
-
-func _process(delta):
-	lod_timer += delta
-	if lod_timer < LOD_UPDATE_INTERVAL:
-		return
-	lod_timer = 0.0
-	
-	if player == null:
-		return
-
-	var player_chunk = check_player_chunk(player.global_position)
-	# Skip if still in the same chunk
-	if player_chunk == previous_player_chunk:
-		pass
-		#return
-	previous_player_chunk = player_chunk
-
-	# Update LODs based on distance from player
-	var map_node = get_tree().get_first_node_in_group(\"world\")
-
-	for y in chunk_count_y:
-		for x in chunk_count_x:
-			var node_name = \"MultiMesh%d_%d\" % [x, y]
-			var mesh_node = map_node.get_node_or_null(node_name)
-			if mesh_node == null:
-				continue
-	
-			var dx = abs(x - player_chunk.x)
-			var dy = abs(y - player_chunk.y)
-			mesh_node.visible = dx <= LOD_RADIUS and dy <= LOD_RADIUS
-
-
-func check_player_chunk(world_pos: Vector3) -> Vector2i:
-	var local_pos = Vector2(world_pos.x, world_pos.z) + (map_size / 2.0)
-
-	var x_index = int(floor(local_pos.x / chunk_size.x))
-	var y_index = int(floor(local_pos.y / chunk_size.y))
-
-	x_index = clamp(x_index, 0, chunk_count_x - 1)
-	y_index = clamp(y_index, 0, chunk_count_y - 1)
-
-	return Vector2i(x_index, y_index)
-"
-
-[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_tctsc"]
-sky_top_color = Color(0.823824, 0.87111, 0.965923, 1)
-sky_horizon_color = Color(0.467115, 0.696417, 0.951045, 1)
-ground_bottom_color = Color(0, 0, 0, 1)
-ground_horizon_color = Color(0.380392, 0.321569, 0.25098, 1)
-ground_curve = 0.0193187
-
-[sub_resource type="Sky" id="Sky_ai2o8"]
-sky_material = SubResource("ProceduralSkyMaterial_tctsc")
-
-[sub_resource type="Environment" id="Environment_luwg1"]
-background_mode = 2
-sky = SubResource("Sky_ai2o8")
-reflected_light_source = 2
-ssao_enabled = true
-ssao_sharpness = 1.0
-sdfgi_use_occlusion = true
-sdfgi_cascades = 2
-sdfgi_max_distance = 51.2
-sdfgi_y_scale = 0
-fog_mode = 1
-fog_light_color = Color(0.701464, 0.777056, 0.964214, 1)
-fog_density = 1.0
-fog_depth_begin = 30.0
-fog_depth_end = 80.0
-adjustment_brightness = 0.69
-adjustment_contrast = 5.4
-adjustment_saturation = 8.0
-
-[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_luwg1"]
-load_path = "res://.godot/imported/Rock053_1K-PNG_NormalGL.png-90b32272f5f06af2b464c8f50f316922.s3tc.ctex"
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_nmhe3"]
-albedo_texture = ExtResource("7_51sly")
-roughness_texture = SubResource("CompressedTexture2D_luwg1")
-normal_enabled = true
-uv1_scale = Vector3(1000, 1000, 1000)
+albedo_texture = ExtResource("2_chfey")
+uv1_scale = Vector3(256, 256, 256)
 
 [sub_resource type="PlaneMesh" id="PlaneMesh_hipxm"]
 material = SubResource("StandardMaterial3D_nmhe3")
@@ -120,112 +20,12 @@ size = Vector2(5000, 5000)
 [sub_resource type="BoxShape3D" id="BoxShape3D_tctsc"]
 size = Vector3(5000, 1, 5000)
 
-[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_nmhe3"]
-load_path = "res://.godot/imported/Stone_05-128x128.png-80127bc0565e94c107eec820c4d55430.s3tc.ctex"
-
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_ai2o8"]
-albedo_texture = SubResource("CompressedTexture2D_nmhe3")
-uv1_offset = Vector3(2.605, 0.66, 0)
-uv1_triplanar = true
-uv1_triplanar_sharpness = 1.30028
-
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_rasrj"]
-uv1_scale = Vector3(5000, 5000, 5000)
-uv1_triplanar = true
-
-[sub_resource type="BoxMesh" id="BoxMesh_4thw1"]
-material = SubResource("StandardMaterial3D_rasrj")
-size = Vector3(4, 4, 4)
-
-[sub_resource type="BoxShape3D" id="BoxShape3D_k85kl"]
-size = Vector3(4, 4, 4)
-
-[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_e4g4f"]
-load_path = "res://.godot/imported/Ground037_2K-PNG_NormalDX.png-5027fdd8b7199084548e34804a24d2ba.ctex"
-
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_rgx3o"]
-albedo_texture = ExtResource("9_jlxi8")
-metallic_specular = 0.57
-roughness_texture = SubResource("CompressedTexture2D_e4g4f")
-roughness_texture_channel = 4
-normal_enabled = true
-normal_scale = 0.51
-normal_texture = SubResource("CompressedTexture2D_e4g4f")
-uv1_scale = Vector3(14.28, 14.28, 14.28)
-
-[sub_resource type="BoxMesh" id="BoxMesh_b8cfi"]
-material = SubResource("StandardMaterial3D_rgx3o")
-size = Vector3(50, 20, 10)
-
-[sub_resource type="BoxShape3D" id="BoxShape3D_tihu5"]
-size = Vector3(50, 20, 10)
-
-[sub_resource type="BoxMesh" id="BoxMesh_44b12"]
-size = Vector3(3, 2, 0.25)
-
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_0fpt2"]
-albedo_color = Color(0, 0, 0, 1)
-
-[sub_resource type="GDScript" id="GDScript_igx0j"]
-
-[sub_resource type="ViewportTexture" id="ViewportTexture_tctsc"]
-viewport_path = NodePath("Map/CameraRock/CCTV1_Viewport")
-
-[sub_resource type="BoxMesh" id="BoxMesh_nmhe3"]
-material = SubResource("StandardMaterial3D_rasrj")
-size = Vector3(6, 1, 6)
-
-[sub_resource type="BoxShape3D" id="BoxShape3D_e4g4f"]
-size = Vector3(6, 1, 6)
-
 [node name="Map" type="Node3D" groups=["map", "world"]]
-script = SubResource("GDScript_8bjj6")
-chunk_size = Vector2(5, 5)
-map_size = Vector2(80, 80)
 
-[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
-transform = Transform3D(0.899611, 0.0463454, 0.434227, -0.425191, -0.133756, 0.895166, 0.0995672, -0.98993, -0.100622, 0.999083, 17.5771, 0)
-layers = 9
-shadow_enabled = true
-
-[node name="WorldInstance" type="WorldEnvironment" parent="."]
-environment = SubResource("Environment_luwg1")
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = ExtResource("1_chfey")
 
 [node name="Items" type="Node3D" parent="."]
-
-[node name="Shotgun" parent="Items" instance=ExtResource("2_1pa1w")]
-transform = Transform3D(0.999594, -0.0252626, 0.0131436, 0.0131431, 0.818715, 0.57405, -0.0252629, -0.573644, 0.818715, -2.98721, 1.32979, -1.65336)
-
-[node name="Shotgun2" parent="Items" instance=ExtResource("2_1pa1w")]
-transform = Transform3D(1, 0, 0, 0, 0.856429, 0.516264, 0, -0.516264, 0.856429, -2.98721, 1.32979, -2.22333)
-
-[node name="Shotgun3" parent="Items" instance=ExtResource("2_1pa1w")]
-transform = Transform3D(1, 0, 0, 0, 0.805639, 0.592407, 0, -0.592407, 0.805639, -2.98721, 1.32979, -2.61955)
-
-[node name="Shotgun4" parent="Items" instance=ExtResource("2_1pa1w")]
-transform = Transform3D(1, 0, 0, 0, 0.811441, 0.584434, 0, -0.584434, 0.811441, -2.98721, 1.32979, -3.18952)
-
-[node name="LargeBattery" parent="Items" instance=ExtResource("3_pc7rr")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3.72702, 1.19393, 0.955103)
-
-[node name="Battery" parent="Items" instance=ExtResource("4_y1nea")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3.26474, 1.09694, 1.37081)
-
-[node name="SubMachineGun" parent="Items" instance=ExtResource("5_5l22i")]
-transform = Transform3D(1, 0, 0, 0, 0.196494, 0.980505, 0, -0.980505, 0.196494, -2.50167, 1.22308, 0.405804)
-single_reload = null
-is_hitscan = null
-muzzle_flash_energy = null
-default_flash_size = null
-flash_bound = null
-casing_lifetime = null
-projectile_damage = null
-contact_sound_threshold = null
-contact_sound_time = null
-collision_material = null
-
-[node name="LanternPod" parent="Items" instance=ExtResource("6_d5l5x")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.6193, 1.32872, -1.00054)
 
 [node name="Map" type="Node3D" parent="."]
 
@@ -238,134 +38,34 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.5, 0)
 collision_layer = 257
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Map/Plain/StaticBody3D"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.001, 0)
 shape = SubResource("BoxShape3D_tctsc")
 
-[node name="SkinPickerRock" type="MeshInstance3D" parent="Map"]
-transform = Transform3D(0.889711, 0, -0.456523, 0, 1, 0, 0.456523, 0, 0.889711, 7.84783, 1.43978, -5.2708)
-material_override = SubResource("StandardMaterial3D_ai2o8")
-mesh = SubResource("BoxMesh_4thw1")
-skeleton = NodePath("../..")
-
-[node name="StaticBody3D" type="StaticBody3D" parent="Map/SkinPickerRock"]
-
-[node name="CollisionShape3D" type="CollisionShape3D" parent="Map/SkinPickerRock/StaticBody3D"]
-shape = SubResource("BoxShape3D_k85kl")
-
-[node name="SkinPickerTV" parent="Map/SkinPickerRock" instance=ExtResource("8_mkvsu")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 2.00775)
-
-[node name="MeshInstance3D2" type="MeshInstance3D" parent="Map"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -9, 2, -6.59239)
-material_override = SubResource("StandardMaterial3D_ai2o8")
-mesh = SubResource("BoxMesh_4thw1")
-skeleton = NodePath("../..")
-
-[node name="StaticBody3D" type="StaticBody3D" parent="Map/MeshInstance3D2"]
-
-[node name="CollisionShape3D" type="CollisionShape3D" parent="Map/MeshInstance3D2/StaticBody3D"]
-shape = SubResource("BoxShape3D_k85kl")
-
-[node name="Wall" type="MeshInstance3D" parent="Map"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -9, 10, 22.8609)
-mesh = SubResource("BoxMesh_b8cfi")
-skeleton = NodePath("../..")
-
-[node name="StaticBody3D" type="StaticBody3D" parent="Map/Wall"]
-
-[node name="CollisionShape3D" type="CollisionShape3D" parent="Map/Wall/StaticBody3D"]
-shape = SubResource("BoxShape3D_tihu5")
-
-[node name="Wall2" type="MeshInstance3D" parent="Map"]
-transform = Transform3D(0.965926, 0, -0.258819, 0, 1, 0, 0.258819, 0, 0.965926, -59, 10, 16.2965)
-mesh = SubResource("BoxMesh_b8cfi")
-skeleton = NodePath("../..")
-
-[node name="StaticBody3D" type="StaticBody3D" parent="Map/Wall2"]
-
-[node name="CollisionShape3D" type="CollisionShape3D" parent="Map/Wall2/StaticBody3D"]
-shape = SubResource("BoxShape3D_tihu5")
-
-[node name="Wall3" type="MeshInstance3D" parent="Map"]
-transform = Transform3D(0.965926, 0, 0.258819, 0, 1, 0, -0.258819, 0, 0.965926, 40.4982, 10, 16.2965)
-mesh = SubResource("BoxMesh_b8cfi")
-skeleton = NodePath("../..")
-
-[node name="StaticBody3D" type="StaticBody3D" parent="Map/Wall3"]
-
-[node name="CollisionShape3D" type="CollisionShape3D" parent="Map/Wall3/StaticBody3D"]
-shape = SubResource("BoxShape3D_tihu5")
-
-[node name="Wall4" type="MeshInstance3D" parent="Map"]
-transform = Transform3D(0.770113, 0, 0.637908, 0, 1, 0, -0.637908, 0, 0.770113, 85.4911, 10, -6.93292)
-mesh = SubResource("BoxMesh_b8cfi")
-skeleton = NodePath("../..")
-
-[node name="StaticBody3D" type="StaticBody3D" parent="Map/Wall4"]
-
-[node name="CollisionShape3D" type="CollisionShape3D" parent="Map/Wall4/StaticBody3D"]
-shape = SubResource("BoxShape3D_tihu5")
-
-[node name="CameraRock" type="MeshInstance3D" parent="Map"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 10.7797, 2, -1.14453)
-material_override = SubResource("StandardMaterial3D_ai2o8")
-mesh = SubResource("BoxMesh_4thw1")
-skeleton = NodePath("../..")
-
-[node name="StaticBody3D" type="StaticBody3D" parent="Map/CameraRock"]
-
-[node name="CollisionShape3D" type="CollisionShape3D" parent="Map/CameraRock/StaticBody3D"]
-shape = SubResource("BoxShape3D_k85kl")
-
-[node name="CameraTV" type="MeshInstance3D" parent="Map/CameraRock"]
-transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, -2.02283, -0.61621, 0.36098)
-mesh = SubResource("BoxMesh_44b12")
-skeleton = NodePath("")
-surface_material_override/0 = SubResource("StandardMaterial3D_0fpt2")
-script = SubResource("GDScript_igx0j")
-
-[node name="Sprite3D" type="Sprite3D" parent="Map/CameraRock/CameraTV"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -0.126011)
-texture = SubResource("ViewportTexture_tctsc")
-
-[node name="CCTV1" parent="Map/CameraRock/CameraTV" instance=ExtResource("10_nux3x")]
-transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, -0.0622388, -0.0268195, 0.000303268)
-visible = false
-skeleton = NodePath("../../../..")
-
-[node name="CCTV1_Viewport" type="SubViewport" parent="Map/CameraRock"]
-anisotropic_filtering_level = 1
-gui_disable_input = true
-size = Vector2i(287, 187)
-
-[node name="Camera3D" type="Camera3D" parent="Map/CameraRock/CCTV1_Viewport"]
-transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 8.63879, 1.25255, -1.01945)
-cull_mask = 5
-current = true
-
-[node name="Slab" type="MeshInstance3D" parent="Map"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.01781, 0.432952, -1.14453)
-material_override = SubResource("StandardMaterial3D_ai2o8")
-mesh = SubResource("BoxMesh_nmhe3")
-skeleton = NodePath("../..")
-
-[node name="StaticBody3D" type="StaticBody3D" parent="Map/Slab"]
-
-[node name="CollisionShape3D" type="CollisionShape3D" parent="Map/Slab/StaticBody3D"]
-shape = SubResource("BoxShape3D_e4g4f")
-
-[node name="GrassRay" type="RayCast3D" parent="."]
-target_position = Vector3(0, -100, 0)
-collision_mask = 256
-
-[node name="Node3D" parent="." instance=ExtResource("11_8bjj6")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -14.3047, -0.314294, 0.598739)
-
-[node name="Node3D3" parent="." instance=ExtResource("11_8bjj6")]
-transform = Transform3D(-1, 0, -0.000244319, 0, 1, 0, 0.000244319, 0, -1, 12.2057, -0.279461, -10.6207)
-
-[node name="Node3D2" parent="." instance=ExtResource("13_oq5rl")]
-transform = Transform3D(-0.880866, 0, -0.473366, 0, 1, 0, 0.473366, 0, -0.880866, -4.40668, 0, -57.1993)
-
 [node name="player" parent="." instance=ExtResource("12_8bjj6")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.948454, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -25.764542, 0.06775868, -48.814194)
+
+[node name="Ship" parent="." instance=ExtResource("4_pe70k")]
+transform = Transform3D(0.78904116, 0, 0.6143403, 0, 1, 0, -0.6143403, 0, 0.78904116, -2.06, 0, -13.378)
+primary_color = Color(0.9614404, 0.67540175, 0.477629, 1)
+secondary_color = Color(0.16150671, 0.10217274, 0.16408545, 1)
+shipDecal = 1
+
+[node name="Flashlight" parent="." instance=ExtResource("5_ets0n")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3.3954272, 0.19916773, -1.3972945)
+
+[node name="Item" parent="." instance=ExtResource("8_6vekk")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -19.406805, 0.24405517, -44.25624)
+
+[node name="PrickleburnCactus" parent="." instance=ExtResource("6_13ly5")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -13.129448, 0, -48.411015)
+growth = 1.0
+
+[node name="GameManager" type="Node3D" parent="." node_paths=PackedStringArray("world", "env", "sun")]
+script = ExtResource("8_6lfr1")
+world = NodePath("..")
+env = NodePath("../WorldEnvironment")
+sun = NodePath("../DirectionalLight3D")
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
+transform = Transform3D(0.9999996, 0, 0, 0, -0.04604301, 0.9989397, 0, -0.9989399, -0.04604298, 0, 95.3634, 0)
+shadow_enabled = true
+directional_shadow_mode = 0

@@ -9,10 +9,8 @@ func check_interactions(player: Player) -> void:
 	prompt.text = ''
 	force_raycast_update()
 	if is_colliding():
-		prompt.text = 'Colliding'
 		var detected = get_collider()
 		if detected.is_in_group("item"):
-			prompt.text = 'Hitbox'
 			if detected is Item:
 				prompt.text = detected.item_name
 				if Input.is_action_just_pressed("interact"):
