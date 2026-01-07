@@ -12,6 +12,9 @@ var rotational_offset: float = 0
 var charging_drop: bool = false
 var drop_charge_time: float = 0
 
+var screenshake_strength: float = 0.0
+var screenshake_decay: float = 12.0
+var screenshake_offset: Vector3 = Vector3.ZERO
 @export var ghost_valid_material: StandardMaterial3D
 @export var ghost_invalid_material: StandardMaterial3D
 
@@ -24,6 +27,7 @@ var drop_charge_time: float = 0
 @onready var head_pivot: Node3D = gameplay_head.get_node("HeadPivot")
 @onready var dropray: RayCast3D = head_pivot.get_node("Dropray")
 @onready var interactray: RayCast3D = head_pivot.get_node("InteractRay")
+@onready var deployray: RayCast3D = head_pivot.get_node("DeployRay")
 @onready var computerray: RayCast3D = head_pivot.get_node("ComputerRay")
 var held_item: Item = null
 var feet_stance_angle: float = 0
@@ -34,7 +38,7 @@ var feet_stance_angle: float = 0
 @onready var robotmesh = get_node("MeshAndAnimation/RobotAnimated/Robot_Armature/Skeleton3D/RobotMesh")
 @export var holding_bones: Array[LookAtModifier3D] = []
 
-var deploy_ghost: Item = null
+var deploy_ghost: Node3D = null
 
 const WALK_SPEED : float = 5
 const RUN_SPEED : float = 8
@@ -175,7 +179,13 @@ func update_held_item() -> void:
 		add_item_to_world_hand(held_item)
 		for bone in holding_bones:
 			bone.active = true
-		show_deploy_ghost(held_item)
+		if held_item.has_node("ItemUsableComponent"):
+			print("has")
+			if held_item.get_node("ItemUsableComponent").can_be_deployed:
+				print("can")
+				if held_item.get_node("ItemUsableComponent").scene_to_deploy != null:
+					print("valid")
+					show_deploy_ghost(held_item.get_node("ItemUsableComponent").scene_to_deploy)
 	else:
 		for bone in holding_bones:
 			bone.active = false
@@ -423,8 +433,35 @@ func handle_computers(event: InputEvent) -> void:
 		else:
 			computer.mouse_outside_area()
 
-func _process(_delta: float) -> void:
+func handle_screenshake(delta: float) -> void:
+	if screenshake_strength <= 0.0:
+		screenshake_offset = Vector3.ZERO
+		camera.position = Vector3.ZERO
+		return
+
+	# decay
+	screenshake_strength = max(
+		screenshake_strength - screenshake_decay * delta,
+		0.0
+	)
+
+	# slower oscillation
+	var t: float = Time.get_ticks_msec() * 0.001
+	var frequency: float = 40.0        # lower = slower
+	var amplitude: float = 0.04        # smaller = subtler
+
+	screenshake_offset = Vector3(
+		sin(t * frequency),
+		sin(t * frequency * 1.3),
+		0.0
+	) * screenshake_strength * amplitude
+
+	camera.position = screenshake_offset
+
+
+func _process(delta: float) -> void:
 	handle_deploy_ghost()
+	handle_screenshake(delta)
 	# check to see if youre hovering over an interactable using the interactray
 	interactray.check_interactions(self)
 	handle_computer_cursor_movement()
@@ -476,46 +513,62 @@ func _on_interact_timeout(timer) -> void:
 	can_interact = true
 	timer.queue_free()
 
-func show_deploy_ghost(item: Item) -> void:
+func show_deploy_ghost(scene: PackedScene) -> void:
 	print("show ghost")
-	interactray.force_raycast_update()
-	deploy_ghost = item.duplicate()
-	#deploy_ghost.set_physics_process(false)
-	#deploy_ghost.set_process(false)
-	get_tree().get_first_node_in_group("world").add_child(deploy_ghost)
+	deployray.force_raycast_update()
+	deploy_ghost = scene.instantiate()
+	deploy_ghost.process_mode = Node.PROCESS_MODE_DISABLED
+
+	var labels: Array = deploy_ghost.find_children("*", "Label3D", true, true)
+	for label: Label3D in labels:
+		label.visible = false
+
+	var animations: Array = deploy_ghost.find_children("*", "AnimationPlayer", true, true)
+	for animation: AnimationPlayer in animations:
+		animation.stop()
+
+	var shapes: Array = deploy_ghost.find_children("*", "CollisionShape3D", true, true)
+	for shape: CollisionShape3D in shapes:
+		shape.disabled = true
+
 	add_item_to_ghost(deploy_ghost)
+	get_tree().get_first_node_in_group("world").add_child(deploy_ghost)
 
 func remove_deploy_ghost() -> void:
 	if deploy_ghost != null:
 		print("remove ghost")
 		deploy_ghost.queue_free()
-
+			
 func handle_deploy_ghost() -> void:
 	if deploy_ghost != null:
-		interactray.force_raycast_update()
-		deploy_ghost.global_rotation = Vector3(0.0, gameplay_head.global_rotation.y, 0.0)
-		deploy_ghost.global_position = interactray.get_collision_point()
-		if interactray.is_colliding():
-			var meshes: Array = deploy_ghost.find_children("*", "MeshInstance3D", true, true)
-			for mesh: MeshInstance3D in meshes:
-				for surface in mesh.get_surface_override_material_count():
-					mesh.set_surface_override_material(surface, ghost_valid_material)
-		else:
-			var meshes: Array = deploy_ghost.find_children("*", "MeshInstance3D", true, true)
-			for mesh: MeshInstance3D in meshes:
-				for surface in mesh.get_surface_override_material_count():
-					mesh.set_surface_override_material(surface, ghost_invalid_material)
-func attempt_to_deploy_item(packed_scene) -> void:
-	if deploy_ghost != null:
-		interactray.force_raycast_update()
-		if interactray.is_colliding():
-			deploy_item(packed_scene)
+		deployray.force_raycast_update()
+		if deployray.is_colliding():
+			deploy_ghost.global_rotation = Vector3(0.0, gameplay_head.global_rotation.y, 0.0)
+			deploy_ghost.global_position = deployray.get_collision_point()
+			if deployray.get_collision_point().distance_to(global_position) <= 5:
+				var meshes: Array = deploy_ghost.find_children("*", "MeshInstance3D", true, true)
+				for mesh: MeshInstance3D in meshes:
+					for surface in mesh.get_surface_override_material_count():
+						mesh.set_surface_override_material(surface, ghost_valid_material)
+				return
+		var meshes: Array = deploy_ghost.find_children("*", "MeshInstance3D", true, true)
+		for mesh: MeshInstance3D in meshes:
+			for surface in mesh.get_surface_override_material_count():
+				mesh.set_surface_override_material(surface, ghost_invalid_material)
 
-func deploy_item(packed_scene) -> void:
-	var scene = load(packed_scene).instantiate()
+func attempt_to_deploy_item(scene_to_deploy) -> void:
+	if deploy_ghost != null:
+		deployray.force_raycast_update()
+		if deployray.is_colliding():
+			deploy_item(scene_to_deploy)
+
+func deploy_item(scene_to_deploy) -> void:
+	var scene = scene_to_deploy.instantiate()
 	get_tree().get_first_node_in_group("world").add_child(scene)
-	scene.global_position = interactray.get_collision_point()
+	scene.global_position = deployray.get_collision_point()
 	scene.global_rotation = Vector3(0.0, gameplay_head.global_rotation.y, 0.0)
+	if scene.has_method("deployed"):
+		scene.deployed()
 	remove_item_from_inventory()
 
 func remove_item_from_inventory() -> void:
@@ -524,3 +577,6 @@ func remove_item_from_inventory() -> void:
 		inventory[inventory_index] = null
 		inventory_node.get_child(inventory_index).texture = null
 		update_held_item()
+
+func add_screenshake(shake: float) -> void:
+	screenshake_strength += shake

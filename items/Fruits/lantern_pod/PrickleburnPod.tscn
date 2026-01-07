@@ -1,7 +1,6 @@
-[gd_scene load_steps=8 format=3 uid="uid://bt5guomotnasc"]
+[gd_scene load_steps=7 format=3 uid="uid://bt5guomotnasc"]
 
 [ext_resource type="Script" uid="uid://c6iofmq5oepec" path="res://items/fruits/lantern_pod/PrickleburnPod.gd" id="1_727xp"]
-[ext_resource type="PackedScene" uid="uid://bspwqirml2g85" path="res://environment/objects/plants/PrickleburnCactus.tscn" id="2_727xp"]
 [ext_resource type="PackedScene" uid="uid://diublikahj4ir" path="res://ship/PrickleburnFruit.glb" id="2_idr74"]
 [ext_resource type="Texture2D" uid="uid://y5buxq731yo1" path="res://PrickleburnFruitIcon.png" id="2_w438s"]
 [ext_resource type="PackedScene" uid="uid://dv86qo0tus0n2" path="res://items/components/ItemUsableComponent.tscn" id="4_idr74"]
@@ -37,4 +36,4 @@ held_down_item = true
 hold_duration = 0.5
 can_move_while_using = false
 can_be_deployed = true
-scene_to_deploy = ExtResource("2_727xp")
+scene_path_to_deploy = "res://environment/objects/plants/PrickleburnCactus.tscn"

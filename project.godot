@@ -235,6 +235,7 @@ debug={
 3d_physics/layer_4="Only Raycast"
 3d_physics/layer_5="Player"
 3d_physics/layer_6="Projectiles"
+3d_physics/layer_7="Ghost"
 3d_physics/layer_9="Grass"
 
 [physics]

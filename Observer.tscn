@@ -1,0 +1,404 @@
+[gd_scene load_steps=7 format=3 uid="uid://bb8jjt12jejcr"]
+
+[ext_resource type="Script" uid="uid://0ny0ah6x0b6x" path="res://observer.gd" id="1_465ax"]
+[ext_resource type="PackedScene" uid="uid://ksphxyekj23s" path="res://Observer/Observer.glb" id="1_vyo15"]
+
+[sub_resource type="Curve" id="Curve_465ax"]
+_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="Curve" id="Curve_55cby"]
+_data = [Vector2(0, 0.75018835), 0.0, 0.0, 0, 0, Vector2(1, 0.505275), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_465ax"]
+radius = 0.2919922
+height = 1.5927734
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_55cby"]
+radius = 0.2866099
+
+[node name="Observer" type="CharacterBody3D"]
+transform = Transform3D(1, 0, 0, 0, 0.99999994, 0, 0, 0, 0.99999994, 0, 0, 0)
+motion_mode = 1
+script = ExtResource("1_465ax")
+
+[node name="ObserverMesh" parent="." instance=ExtResource("1_vyo15")]
+
+[node name="SpringBoneSimulator3CCape" type="SpringBoneSimulator3D" parent="ObserverMesh/Armature/Skeleton3D" index="1"]
+external_force = Vector3(0, 9, 0)
+setting_count = 1
+settings/0/root_bone_name = "Cape.FrontRight.1"
+settings/0/root_bone = 9
+settings/0/end_bone_name = "Cape.FrontRight.3"
+settings/0/end_bone = 11
+settings/0/extend_end_bone = false
+settings/0/center_from = 0
+settings/0/individual_config = false
+settings/0/rotation_axis = 3
+settings/0/radius/value = 0.02
+settings/0/radius/damping_curve = null
+settings/0/stiffness/value = 0.72
+settings/0/stiffness/damping_curve = SubResource("Curve_465ax")
+settings/0/drag/value = 0.41
+settings/0/drag/damping_curve = SubResource("Curve_55cby")
+settings/0/gravity/value = 9.8
+settings/0/gravity/damping_curve = null
+settings/0/gravity/direction = Vector3(0, -1, 0)
+settings/0/enable_all_child_collisions = true
+settings/0/exclude_collision_count = 0
+
+[node name="SpringBoneSimulator3CCape2" type="SpringBoneSimulator3D" parent="ObserverMesh/Armature/Skeleton3D" index="2"]
+external_force = Vector3(0, 9, 0)
+setting_count = 1
+settings/0/root_bone_name = "Cape.BackLeft.1"
+settings/0/root_bone = 12
+settings/0/end_bone_name = "Cape.BackLeft.2"
+settings/0/end_bone = 13
+settings/0/extend_end_bone = false
+settings/0/center_from = 0
+settings/0/individual_config = false
+settings/0/rotation_axis = 3
+settings/0/radius/value = 0.02
+settings/0/radius/damping_curve = null
+settings/0/stiffness/value = 0.72
+settings/0/stiffness/damping_curve = SubResource("Curve_465ax")
+settings/0/drag/value = 0.41
+settings/0/drag/damping_curve = SubResource("Curve_55cby")
+settings/0/gravity/value = 9.8
+settings/0/gravity/damping_curve = null
+settings/0/gravity/direction = Vector3(0, -1, 0)
+settings/0/enable_all_child_collisions = true
+settings/0/exclude_collision_count = 0
+
+[node name="SpringBoneSimulator3CCape3" type="SpringBoneSimulator3D" parent="ObserverMesh/Armature/Skeleton3D" index="3"]
+external_force = Vector3(0, 9, 0)
+setting_count = 1
+settings/0/root_bone_name = "Cape.BackRight.1"
+settings/0/root_bone = 14
+settings/0/end_bone_name = "Cape.BackRight.2"
+settings/0/end_bone = 15
+settings/0/extend_end_bone = false
+settings/0/center_from = 0
+settings/0/individual_config = false
+settings/0/rotation_axis = 3
+settings/0/radius/value = 0.02
+settings/0/radius/damping_curve = null
+settings/0/stiffness/value = 0.72
+settings/0/stiffness/damping_curve = SubResource("Curve_465ax")
+settings/0/drag/value = 0.41
+settings/0/drag/damping_curve = SubResource("Curve_55cby")
+settings/0/gravity/value = 9.8
+settings/0/gravity/damping_curve = null
+settings/0/gravity/direction = Vector3(0, -1, 0)
+settings/0/enable_all_child_collisions = true
+settings/0/exclude_collision_count = 0
+
+[node name="SpringBoneSimulator3CCape4" type="SpringBoneSimulator3D" parent="ObserverMesh/Armature/Skeleton3D" index="4"]
+external_force = Vector3(0, 9, 0)
+setting_count = 1
+settings/0/root_bone_name = "Cape.FrontRight.Decor.1"
+settings/0/root_bone = 16
+settings/0/end_bone_name = "Cape.FrontRight.Decor.2"
+settings/0/end_bone = 17
+settings/0/extend_end_bone = false
+settings/0/center_from = 0
+settings/0/individual_config = false
+settings/0/rotation_axis = 3
+settings/0/radius/value = 0.02
+settings/0/radius/damping_curve = null
+settings/0/stiffness/value = 0.72
+settings/0/stiffness/damping_curve = SubResource("Curve_465ax")
+settings/0/drag/value = 0.41
+settings/0/drag/damping_curve = SubResource("Curve_55cby")
+settings/0/gravity/value = 9.8
+settings/0/gravity/damping_curve = null
+settings/0/gravity/direction = Vector3(0, -1, 0)
+settings/0/enable_all_child_collisions = true
+settings/0/exclude_collision_count = 0
+
+[node name="SpringBoneSimulator3CCape5" type="SpringBoneSimulator3D" parent="ObserverMesh/Armature/Skeleton3D" index="5"]
+external_force = Vector3(0, 9, 0)
+setting_count = 1
+settings/0/root_bone_name = "Cape.Right.Decor.1"
+settings/0/root_bone = 18
+settings/0/end_bone_name = "Cape.Right.Decor.2"
+settings/0/end_bone = 19
+settings/0/extend_end_bone = false
+settings/0/center_from = 0
+settings/0/individual_config = false
+settings/0/rotation_axis = 3
+settings/0/radius/value = 0.02
+settings/0/radius/damping_curve = null
+settings/0/stiffness/value = 0.72
+settings/0/stiffness/damping_curve = SubResource("Curve_465ax")
+settings/0/drag/value = 0.41
+settings/0/drag/damping_curve = SubResource("Curve_55cby")
+settings/0/gravity/value = 9.8
+settings/0/gravity/damping_curve = null
+settings/0/gravity/direction = Vector3(0, -1, 0)
+settings/0/enable_all_child_collisions = true
+settings/0/exclude_collision_count = 0
+
+[node name="SpringBoneSimulator3CCape6" type="SpringBoneSimulator3D" parent="ObserverMesh/Armature/Skeleton3D" index="6"]
+external_force = Vector3(0, 9, 0)
+setting_count = 1
+settings/0/root_bone_name = "Cape.FrontLeft.1"
+settings/0/root_bone = 20
+settings/0/end_bone_name = "Cape.FrontLeft.2"
+settings/0/end_bone = 21
+settings/0/extend_end_bone = false
+settings/0/center_from = 0
+settings/0/individual_config = false
+settings/0/rotation_axis = 3
+settings/0/radius/value = 0.02
+settings/0/radius/damping_curve = null
+settings/0/stiffness/value = 0.72
+settings/0/stiffness/damping_curve = SubResource("Curve_465ax")
+settings/0/drag/value = 0.41
+settings/0/drag/damping_curve = SubResource("Curve_55cby")
+settings/0/gravity/value = 9.8
+settings/0/gravity/damping_curve = null
+settings/0/gravity/direction = Vector3(0, -1, 0)
+settings/0/enable_all_child_collisions = true
+settings/0/exclude_collision_count = 0
+
+[node name="SpringBoneSimulator3CCape7" type="SpringBoneSimulator3D" parent="ObserverMesh/Armature/Skeleton3D" index="7"]
+external_force = Vector3(0, 9, 0)
+setting_count = 1
+settings/0/root_bone_name = "Cape.FrontLeft.Decor.1"
+settings/0/root_bone = 22
+settings/0/end_bone_name = "Cape.FrontLeft.Decor.2"
+settings/0/end_bone = 23
+settings/0/extend_end_bone = false
+settings/0/center_from = 0
+settings/0/individual_config = false
+settings/0/rotation_axis = 3
+settings/0/radius/value = 0.02
+settings/0/radius/damping_curve = null
+settings/0/stiffness/value = 0.72
+settings/0/stiffness/damping_curve = SubResource("Curve_465ax")
+settings/0/drag/value = 0.41
+settings/0/drag/damping_curve = SubResource("Curve_55cby")
+settings/0/gravity/value = 9.8
+settings/0/gravity/damping_curve = null
+settings/0/gravity/direction = Vector3(0, -1, 0)
+settings/0/enable_all_child_collisions = true
+settings/0/exclude_collision_count = 0
+
+[node name="SpringBoneSimulator3CCape8" type="SpringBoneSimulator3D" parent="ObserverMesh/Armature/Skeleton3D" index="8"]
+external_force = Vector3(0, 9, 0)
+setting_count = 1
+settings/0/root_bone_name = "Cape.BottomRight.Decor.1"
+settings/0/root_bone = 24
+settings/0/end_bone_name = "Cape.BottomRight.Decor.2"
+settings/0/end_bone = 25
+settings/0/extend_end_bone = false
+settings/0/center_from = 0
+settings/0/individual_config = false
+settings/0/rotation_axis = 3
+settings/0/radius/value = 0.02
+settings/0/radius/damping_curve = null
+settings/0/stiffness/value = 0.72
+settings/0/stiffness/damping_curve = SubResource("Curve_465ax")
+settings/0/drag/value = 0.41
+settings/0/drag/damping_curve = SubResource("Curve_55cby")
+settings/0/gravity/value = 9.8
+settings/0/gravity/damping_curve = null
+settings/0/gravity/direction = Vector3(0, -1, 0)
+settings/0/enable_all_child_collisions = true
+settings/0/exclude_collision_count = 0
+
+[node name="SpringBoneSimulator3CCape9" type="SpringBoneSimulator3D" parent="ObserverMesh/Armature/Skeleton3D" index="9"]
+external_force = Vector3(0, 9, 0)
+setting_count = 1
+settings/0/root_bone_name = "Cape.BackLeft.Over.1"
+settings/0/root_bone = 26
+settings/0/end_bone_name = "Cape.BackLeft.Over.2"
+settings/0/end_bone = 27
+settings/0/extend_end_bone = false
+settings/0/center_from = 0
+settings/0/individual_config = false
+settings/0/rotation_axis = 3
+settings/0/radius/value = 0.02
+settings/0/radius/damping_curve = null
+settings/0/stiffness/value = 0.72
+settings/0/stiffness/damping_curve = SubResource("Curve_465ax")
+settings/0/drag/value = 0.41
+settings/0/drag/damping_curve = SubResource("Curve_55cby")
+settings/0/gravity/value = 9.8
+settings/0/gravity/damping_curve = null
+settings/0/gravity/direction = Vector3(0, -1, 0)
+settings/0/enable_all_child_collisions = true
+settings/0/exclude_collision_count = 0
+
+[node name="SpringBoneSimulator3CCape10" type="SpringBoneSimulator3D" parent="ObserverMesh/Armature/Skeleton3D" index="10"]
+external_force = Vector3(0, 9, 0)
+setting_count = 1
+settings/0/root_bone_name = "Cape.BackRight.Over.1"
+settings/0/root_bone = 28
+settings/0/end_bone_name = "Cape.BackRight.Over.2"
+settings/0/end_bone = 29
+settings/0/extend_end_bone = false
+settings/0/center_from = 0
+settings/0/individual_config = false
+settings/0/rotation_axis = 3
+settings/0/radius/value = 0.02
+settings/0/radius/damping_curve = null
+settings/0/stiffness/value = 0.72
+settings/0/stiffness/damping_curve = SubResource("Curve_465ax")
+settings/0/drag/value = 0.41
+settings/0/drag/damping_curve = SubResource("Curve_55cby")
+settings/0/gravity/value = 9.8
+settings/0/gravity/damping_curve = null
+settings/0/gravity/direction = Vector3(0, -1, 0)
+settings/0/enable_all_child_collisions = true
+settings/0/exclude_collision_count = 0
+
+[node name="SpringBoneSimulator3CCape11" type="SpringBoneSimulator3D" parent="ObserverMesh/Armature/Skeleton3D" index="11"]
+external_force = Vector3(0, 9, 0)
+setting_count = 1
+settings/0/root_bone_name = "Cape.BottomRight.Decor.1"
+settings/0/root_bone = 24
+settings/0/end_bone_name = "Cape.BottomRight.Decor.2"
+settings/0/end_bone = 25
+settings/0/extend_end_bone = false
+settings/0/center_from = 0
+settings/0/individual_config = false
+settings/0/rotation_axis = 3
+settings/0/radius/value = 0.02
+settings/0/radius/damping_curve = null
+settings/0/stiffness/value = 0.72
+settings/0/stiffness/damping_curve = SubResource("Curve_465ax")
+settings/0/drag/value = 0.41
+settings/0/drag/damping_curve = SubResource("Curve_55cby")
+settings/0/gravity/value = 9.8
+settings/0/gravity/damping_curve = null
+settings/0/gravity/direction = Vector3(0, -1, 0)
+settings/0/enable_all_child_collisions = true
+settings/0/exclude_collision_count = 0
+
+[node name="SpringBoneSimulator3CCape12" type="SpringBoneSimulator3D" parent="ObserverMesh/Armature/Skeleton3D" index="12"]
+external_force = Vector3(0, 9, 0)
+setting_count = 1
+settings/0/root_bone_name = "Cape.BackMiddle.Decor.1"
+settings/0/root_bone = 30
+settings/0/end_bone_name = "Cape.BackMiddle.Decor.2"
+settings/0/end_bone = 31
+settings/0/extend_end_bone = false
+settings/0/center_from = 0
+settings/0/individual_config = false
+settings/0/rotation_axis = 3
+settings/0/radius/value = 0.02
+settings/0/radius/damping_curve = null
+settings/0/stiffness/value = 0.72
+settings/0/stiffness/damping_curve = SubResource("Curve_465ax")
+settings/0/drag/value = 0.41
+settings/0/drag/damping_curve = SubResource("Curve_55cby")
+settings/0/gravity/value = 9.8
+settings/0/gravity/damping_curve = null
+settings/0/gravity/direction = Vector3(0, -1, 0)
+settings/0/enable_all_child_collisions = true
+settings/0/exclude_collision_count = 0
+
+[node name="SpringBoneSimulator3DLeg" type="SpringBoneSimulator3D" parent="ObserverMesh/Armature/Skeleton3D" index="13"]
+external_force = Vector3(0, 9, 0)
+setting_count = 1
+settings/0/root_bone_name = "Leg1.1"
+settings/0/root_bone = 32
+settings/0/end_bone_name = "Leg.1.3"
+settings/0/end_bone = 34
+settings/0/extend_end_bone = false
+settings/0/center_from = 0
+settings/0/individual_config = false
+settings/0/rotation_axis = 3
+settings/0/radius/value = 0.02
+settings/0/radius/damping_curve = null
+settings/0/stiffness/value = 0.72
+settings/0/stiffness/damping_curve = SubResource("Curve_465ax")
+settings/0/drag/value = 0.41
+settings/0/drag/damping_curve = SubResource("Curve_55cby")
+settings/0/gravity/value = 9.8
+settings/0/gravity/damping_curve = null
+settings/0/gravity/direction = Vector3(0, -1, 0)
+settings/0/enable_all_child_collisions = true
+settings/0/exclude_collision_count = 0
+
+[node name="SpringBoneSimulator3DLeg2" type="SpringBoneSimulator3D" parent="ObserverMesh/Armature/Skeleton3D" index="14"]
+external_force = Vector3(0, 9, 0)
+setting_count = 1
+settings/0/root_bone_name = "Leg.2.1"
+settings/0/root_bone = 35
+settings/0/end_bone_name = "Leg.2.3"
+settings/0/end_bone = 37
+settings/0/extend_end_bone = false
+settings/0/center_from = 0
+settings/0/individual_config = false
+settings/0/rotation_axis = 3
+settings/0/radius/value = 0.02
+settings/0/radius/damping_curve = null
+settings/0/stiffness/value = 0.72
+settings/0/stiffness/damping_curve = SubResource("Curve_465ax")
+settings/0/drag/value = 0.41
+settings/0/drag/damping_curve = SubResource("Curve_55cby")
+settings/0/gravity/value = 9.8
+settings/0/gravity/damping_curve = null
+settings/0/gravity/direction = Vector3(0, -1, 0)
+settings/0/enable_all_child_collisions = true
+settings/0/exclude_collision_count = 0
+
+[node name="SpringBoneSimulator3DLeg3" type="SpringBoneSimulator3D" parent="ObserverMesh/Armature/Skeleton3D" index="15"]
+external_force = Vector3(0, 9, 0)
+setting_count = 1
+settings/0/root_bone_name = "Leg.3.1"
+settings/0/root_bone = 38
+settings/0/end_bone_name = "Leg.3.3"
+settings/0/end_bone = 40
+settings/0/extend_end_bone = false
+settings/0/center_from = 0
+settings/0/individual_config = false
+settings/0/rotation_axis = 3
+settings/0/radius/value = 0.02
+settings/0/radius/damping_curve = null
+settings/0/stiffness/value = 0.72
+settings/0/stiffness/damping_curve = SubResource("Curve_465ax")
+settings/0/drag/value = 0.41
+settings/0/drag/damping_curve = SubResource("Curve_55cby")
+settings/0/gravity/value = 9.8
+settings/0/gravity/damping_curve = null
+settings/0/gravity/direction = Vector3(0, -1, 0)
+settings/0/enable_all_child_collisions = true
+settings/0/exclude_collision_count = 0
+
+[node name="SpringBoneSimulator3DLeg4" type="SpringBoneSimulator3D" parent="ObserverMesh/Armature/Skeleton3D" index="16"]
+external_force = Vector3(0, 9, 0)
+setting_count = 1
+settings/0/root_bone_name = "Leg.4.1"
+settings/0/root_bone = 41
+settings/0/end_bone_name = "Leg.4.3"
+settings/0/end_bone = 43
+settings/0/extend_end_bone = false
+settings/0/center_from = 0
+settings/0/individual_config = false
+settings/0/rotation_axis = 3
+settings/0/radius/value = 0.02
+settings/0/radius/damping_curve = null
+settings/0/stiffness/value = 0.72
+settings/0/stiffness/damping_curve = SubResource("Curve_465ax")
+settings/0/drag/value = 0.41
+settings/0/drag/damping_curve = SubResource("Curve_55cby")
+settings/0/gravity/value = 9.8
+settings/0/gravity/damping_curve = null
+settings/0/gravity/direction = Vector3(0, -1, 0)
+settings/0/enable_all_child_collisions = true
+settings/0/exclude_collision_count = 0
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 0.99999213, 0, 0, 0, 0.99999213, 0, 0.12541139, 0)
+shape = SubResource("CapsuleShape3D_465ax")
+
+[node name="CollisionShape3D2" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 0.99999213, 0, 0, 0, 0.99999213, 0, 1.0510917, 0)
+shape = SubResource("SphereShape3D_55cby")
+
+[editable path="ObserverMesh"]

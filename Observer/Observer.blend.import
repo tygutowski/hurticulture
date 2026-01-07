@@ -3,12 +3,12 @@
 importer="scene"
 importer_version=1
 type="PackedScene"
-uid="uid://dniguwtjthg7g"
+uid="uid://jupygvpl2ky8"
 valid=false
 
 [deps]
 
-source_file="res://ship/Ship.blend"
+source_file="res://Observer/Observer.blend"
 
 [params]
 

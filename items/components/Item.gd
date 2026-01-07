@@ -123,3 +123,7 @@ func _on_dropped() -> void:
 
 func _get_thrown() -> void:
 	pass
+	
+# should be overridden
+func deployed() -> void:
+	print("override deployed")

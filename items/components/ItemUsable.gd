@@ -11,8 +11,8 @@ class_name ItemUsableComponent
 
 # this is for deployables and plants
 @export var can_be_deployed: bool = false
-@export var scene_to_deploy: PackedScene = null
-
+@export_file("*.tscn") var scene_path_to_deploy: String = ""
+var scene_to_deploy = null
 
 @onready var parent: Node3D = get_parent()
 var using_item: bool = false
@@ -20,6 +20,8 @@ var interval_duration: float = 0.0
 var use_duration: float = 0.0
 
 func _ready() -> void:
+	if scene_path_to_deploy != null:
+		scene_to_deploy = load(scene_path_to_deploy)
 	assert(get_parent() is Item)
 	
 func _process(delta) -> void:
@@ -67,15 +69,12 @@ func use_item() -> void:
 	if parent.has_method("use_item"):
 		parent.use_item()
 	if get_parent().thing_holding_me != null and can_be_deployed:
-		if scene_to_deploy == null:
-			attempt_to_deploy_item(get_parent().scene_file_path)
-		else:
-			print("deploying specific scene")
-			attempt_to_deploy_item(scene_to_deploy)
+		attempt_to_deploy_item(scene_to_deploy)
 
 # will try to deploy. this can fail if no valid terrain or smth
-func attempt_to_deploy_item(scene) -> void:
+func attempt_to_deploy_item(scene: PackedScene) -> void:
 	get_parent().thing_holding_me.attempt_to_deploy_item(scene)
+	
 
 func finish_using_item() -> void:
 	if using_item:

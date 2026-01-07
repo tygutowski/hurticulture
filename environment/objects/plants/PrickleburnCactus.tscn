@@ -1,8 +1,7 @@
-[gd_scene load_steps=11 format=3 uid="uid://bspwqirml2g85"]
+[gd_scene load_steps=10 format=3 uid="uid://bspwqirml2g85"]
 
 [ext_resource type="Script" uid="uid://binnereyueque" path="res://environment/objects/plants/PrickleburnCactus.gd" id="1_5gewe"]
 [ext_resource type="PackedScene" uid="uid://bysgiv5nq0yvh" path="res://ship/PrickleburnCactus.glb" id="2_f4etf"]
-[ext_resource type="PackedScene" uid="uid://bt5guomotnasc" path="res://items/fruits/lantern_pod/PrickleburnPod.tscn" id="3_f4etf"]
 
 [sub_resource type="Animation" id="Animation_f4etf"]
 resource_name = "Die"
@@ -227,7 +226,7 @@ visual_animation = NodePath("Visual/AnimationPlayer")
 collision_animation = NodePath("StaticBody3D/AnimationPlayer")
 growth_label = NodePath("BoneAttachment3D/GrowthLabel")
 fruit_spawns = [NodePath("BoneAttachment3D"), NodePath("BoneAttachment3D2"), NodePath("BoneAttachment3D3")]
-fruit_to_spawn = ExtResource("3_f4etf")
+fruit_path_to_spawn = "res://items/fruits/lantern_pod/PrickleburnPod.tscn"
 metadata/_custom_type_script = "uid://dfko13eargkjv"
 
 [node name="Visual" parent="." instance=ExtResource("2_f4etf")]

@@ -10,7 +10,8 @@ var final_grow_duration: float = 0.0
 
 @export var fruit_spawns: Array[Node3D]
 var empty_fruit_spawns: Array[Node3D]
-@export var fruit_to_spawn: PackedScene
+@export_file_path("*.tscn") var fruit_path_to_spawn
+@onready var fruit_to_spawn = load(fruit_path_to_spawn)
 
 var can_grow_fruit: bool = false
 

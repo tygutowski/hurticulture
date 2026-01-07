@@ -342,3 +342,5 @@ transform = Transform3D(0.9512512, 0.254887, 0.17364821, -0.25881907, 0.9659258,
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="SciFiThrusters/StaticBody3D3"]
 shape = SubResource("ConcavePolygonShape3D_hbs67")
+
+[editable path="Ship"]
