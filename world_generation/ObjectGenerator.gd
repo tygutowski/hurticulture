@@ -1,15 +1,8 @@
 extends Node
 class_name ObjectGenerator
 
-var spawn_ray: RayCast3D
-
 @onready var map_generator: MapGenerator = get_parent()
-
-func _ready() -> void:
-	spawn_ray = RayCast3D.new()
-	spawn_ray.target_position = Vector3(0, -3000, 0)
-	spawn_ray.enabled = true
-	add_child(spawn_ray)
+@export var object_raycast: RayCast3D
 
 const MIN_TREE_DIST: float = 3.0
 
@@ -42,13 +35,13 @@ func spawn_objects(chunk: Chunk) -> void:
 				Global.biomeEnum.SKYLOOM_MEADOW,
 				load("res://environment/biomes/skyloom_meadows/PineTree.tscn"),
 				chunk,
-				0.15
+				0.000
 			)
 			spawn_biome_objects(
 				Global.biomeEnum.SKYLOOM_MEADOW,
 				load("res://environment/biomes/skyloom_meadows/ShortBush.tscn"),
 				chunk,
-				0.1,
+				0.01,
 				1.0,
 				2.0
 			)
@@ -86,16 +79,16 @@ func spawn_biome_objects(
 				continue
 
 			# raycast to ground
-			spawn_ray.global_position = Vector3(wx, 1000.0, wy)
-			spawn_ray.force_raycast_update()
-			if not spawn_ray.is_colliding():
+			object_raycast.global_position = Vector3(wx, 1000.0, wy)
+			object_raycast.force_raycast_update()
+			if not object_raycast.is_colliding():
 				continue
 
 			# roll
 			if randf() > probability:
 				continue
 
-			var hit: Vector3 = spawn_ray.get_collision_point()
+			var hit: Vector3 = object_raycast.get_collision_point()
 			var rot: float = randf_range(0.0, TAU)
 			var scl: float = randf_range(scale_min, scale_max)
 
@@ -113,10 +106,10 @@ func spawn_structure(must_spawn: bool, scene: PackedScene, chunk: Chunk, rotatio
 	var max_attempts: int = 100
 	var attempt: int = 0
 	while must_spawn or attempt < max_attempts:
-		spawn_ray.global_position = Vector3(randf_range(0, 12), 1000.0, randf_range(0,12))
-		spawn_ray.force_raycast_update()
-		var world_point: Vector3 = spawn_ray.get_collision_point()
-		var _normal: Vector3 = spawn_ray.get_collision_normal()
+		object_raycast.global_position = Vector3(randf_range(0, 12), 1000.0, randf_range(0,12))
+		object_raycast.force_raycast_update()
+		var world_point: Vector3 = object_raycast.get_collision_point()
+		var _normal: Vector3 = object_raycast.get_collision_normal()
 		#if is_low_incline(normal):
 		var object = scene.instantiate()
 		chunk.add_child(object)

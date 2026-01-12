@@ -8,10 +8,8 @@
 script = ExtResource("2_gowsa")
 id = 2
 biome_name = "Titanpad Mire"
-biome_color = Color(0.791111, 0.688118, 0.816514, 1)
-fog_color = Color(1, 1, 1, 1)
-fog_strength = 3.0
+biome_color = Color(0.24076405, 0.4058465, 0.1730817, 1)
+fog_color = Color(0.491166, 0.5726188, 0.4244167, 1)
+fog_intensity = 2
 flat_texture = ExtResource("1_cjjl8")
-feature = 0
-particles = Array[ExtResource("2_10pqa")]([])
 metadata/_custom_type_script = "uid://mxwd73rjsfgb"

@@ -92,8 +92,11 @@ func check_player_chunk(world_pos: Vector3) -> Vector2i:
 
 [node name="world" type="Node" groups=["world"]]
 
-[node name="GameManager" type="Node" parent="."]
+[node name="GameManager" type="Node" parent="." node_paths=PackedStringArray("world", "env", "sun")]
 script = ExtResource("1_dedhk")
+world = NodePath("..")
+env = NodePath("../WorldEnvironment")
+sun = NodePath("../MapGenerator/DirectionalLight3D")
 metadata/_custom_type_script = "uid://dhyhed17u3sxm"
 
 [node name="MapGenerator" type="Node" parent="."]
@@ -120,8 +123,9 @@ metadata/_custom_type_script = "uid://5agrc7tc7pda"
 script = ExtResource("10_ab3xd")
 metadata/_custom_type_script = "uid://cds60mkqqit5f"
 
-[node name="ObjectGenerator" type="Node" parent="MapGenerator"]
+[node name="ObjectGenerator" type="Node" parent="MapGenerator" node_paths=PackedStringArray("object_raycast")]
 script = ExtResource("11_uqj48")
+object_raycast = NodePath("../ObjectRayCast3D")
 metadata/_custom_type_script = "uid://6x50hunks56a"
 
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="MapGenerator"]
@@ -149,6 +153,11 @@ transform = Transform3D(1, 0, 0, 0, 0.685818, 0.727773, 0, -0.727773, 0.685818, 
 
 [node name="RayCast3D" type="RayCast3D" parent="MapGenerator"]
 target_position = Vector3(0, -13.62, 0.47)
+collision_mask = 512
+
+[node name="ObjectRayCast3D" type="RayCast3D" parent="MapGenerator"]
+target_position = Vector3(0, -3000, 0.47)
+collision_mask = 512
 
 [node name="Items" type="Node" parent="."]
 

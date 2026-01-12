@@ -1,0 +1,460 @@
+[gd_scene load_steps=29 format=3 uid="uid://d4icmcs1uvts0"]
+
+[ext_resource type="Script" uid="uid://dipcroknp8nkm" path="res://Depot.gd" id="1_7io3k"]
+[ext_resource type="Texture2D" uid="uid://dwu7uf236nv45" path="res://smoke_particle3.png" id="2_8rw7m"]
+[ext_resource type="Texture2D" uid="uid://b4r0h7cpex53o" path="res://smoke_particle.png" id="2_86gfb"]
+[ext_resource type="PackedScene" uid="uid://df3bbgwdm0y1m" path="res://Depot.glb" id="2_di50r"]
+[ext_resource type="Texture2D" uid="uid://i4ucl1w23eax" path="res://smoke_particle2.png" id="4_k8c5g"]
+[ext_resource type="AudioStream" uid="uid://dfxvoco8wceuj" path="res://bass_impact.mp3" id="5_bmtvt"]
+[ext_resource type="AudioStream" uid="uid://creyi5n685akw" path="res://thruster_sfx.mp3" id="5_wb1mn"]
+[ext_resource type="AudioStream" uid="uid://tyen1vglfww2" path="res://dirt_impact.mp3" id="6_wb1mn"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_di50r"]
+size = Vector3(4, 4, 4)
+
+[sub_resource type="ConvexPolygonShape3D" id="ConvexPolygonShape3D_gefiv"]
+points = PackedVector3Array(-2.388825, 3.0251527, -0.41517472, -1.6878111, 3.0251527, 1.7428288, -0.9245992, 4.292419, -0.15943432, -2.1779127, 3.0251527, -1.0654222, -1.4076861, -0.08323601, -0.687816, -1.5419029, -0.08323601, -0.26706767, -1.134576, 3.0251527, 2.144897, -0.65335965, 4.292419, 0.67539096, -1.0850046, -0.08323601, 1.1206014, -0.45460653, 4.458387, -0.07759738, -0.8427597, 4.292419, -0.4111718, -0.13239264, 4.292419, -0.92754483, -0.34236956, 3.0251527, -2.39883, -0.20534682, -0.08323601, -1.5577779, -0.107607126, -0.33125073, -0.82302487, -0.7361345, -0.33125073, -0.3680296, -0.8067503, -0.33125073, -0.14787054, -0.56777894, -0.33125073, 0.5784321, -0.72911966, -0.08323601, 1.3785655, 0.72902656, -0.08323601, 1.3799, 1.1340153, 3.0251527, 2.144897, -0.43917394, 4.292419, 0.8306143, -0.21610284, 4.458387, 0.40897632, -0.32132506, 4.458387, 0.33247662, -0.4143883, 4.458387, -0.20124245, -0.06551814, 4.458387, -0.45475876, 0.13183188, 4.292419, -0.92754483, 0.3418088, 3.0251527, -2.39883, 0.21133327, -0.08323601, -1.5573331, 0.11078763, -0.33125073, -0.82302487, -0.38118482, -0.33125073, 0.71319604, 0.38155937, -0.33125073, 0.7136409, 0.56862116, -0.33125073, 0.5793216, 1.0863144, -0.08323601, 1.1228254, 1.6872501, 3.0251527, 1.7428288, 0.6527989, 4.292419, 0.67539096, 0.43861318, 4.292419, 0.8306143, 0.21554208, 4.458387, 0.40897632, 0.06495738, 4.458387, -0.45475876, 0.41382766, 4.458387, -0.20124245, 0.84219885, 4.292419, -0.4111718, 2.177352, 3.0251527, -1.0654222, 1.4197521, -0.08323601, -0.66869116, 0.7430563, -0.33125073, -0.35824466, 0.80852795, -0.33125073, -0.14831519, 1.5450835, -0.08323601, -0.26751232, 2.388732, 3.0251527, -0.41517472, 0.9240384, 4.292419, -0.15943432, 0.45404577, 4.458387, -0.07759738, 0.3207643, 4.458387, 0.33247662)
+
+[sub_resource type="CylinderShape3D" id="CylinderShape3D_di50r"]
+height = 1.2514648
+radius = 1.534668
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_7io3k"]
+radius = 38.854122
+
+[sub_resource type="Gradient" id="Gradient_k8c5g"]
+colors = PackedColorArray(0.62967473, 0.62967473, 0.6296747, 1, 1, 1, 1, 1)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_acdtx"]
+gradient = SubResource("Gradient_k8c5g")
+
+[sub_resource type="Gradient" id="Gradient_bmtvt"]
+colors = PackedColorArray(1, 1, 1, 1, 1, 1, 1, 0)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_wb1mn"]
+gradient = SubResource("Gradient_bmtvt")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_7io3k"]
+lifetime_randomness = 0.1
+particle_flag_rotate_y = true
+emission_shape = 3
+emission_box_extents = Vector3(1.5, 0.135, 1.5)
+angle_min = -285.9
+angle_max = 279.2
+direction = Vector3(0, 0, 0)
+spread = 180.0
+flatness = 0.982
+initial_velocity_min = 12.0
+initial_velocity_max = 14.0
+gravity = Vector3(0, -0.5, 0)
+damping_min = 8.0
+damping_max = 14.000001
+scale_min = 0.7
+scale_max = 1.3
+color_ramp = SubResource("GradientTexture1D_wb1mn")
+color_initial_ramp = SubResource("GradientTexture1D_acdtx")
+turbulence_noise_strength = 9.72
+turbulence_influence_min = 0.0
+turbulence_influence_max = 0.063
+turbulence_initial_displacement_min = -0.9999985
+turbulence_initial_displacement_max = 1.0000015
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_k8c5g"]
+transparency = 1
+shading_mode = 0
+vertex_color_use_as_albedo = true
+albedo_texture = ExtResource("2_8rw7m")
+disable_receive_shadows = true
+billboard_mode = 3
+billboard_keep_scale = true
+particles_anim_h_frames = 1
+particles_anim_v_frames = 1
+particles_anim_loop = false
+proximity_fade_distance = 0.01
+distance_fade_min_distance = 566.11
+distance_fade_max_distance = 50.0
+
+[sub_resource type="QuadMesh" id="QuadMesh_acdtx"]
+material = SubResource("StandardMaterial3D_k8c5g")
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_86gfb"]
+transparency = 1
+shading_mode = 0
+vertex_color_use_as_albedo = true
+albedo_texture = ExtResource("2_86gfb")
+disable_receive_shadows = true
+billboard_mode = 3
+billboard_keep_scale = true
+particles_anim_h_frames = 1
+particles_anim_v_frames = 1
+particles_anim_loop = false
+proximity_fade_distance = 0.01
+distance_fade_min_distance = 566.11
+distance_fade_max_distance = 50.0
+
+[sub_resource type="QuadMesh" id="QuadMesh_8rw7m"]
+material = SubResource("StandardMaterial3D_86gfb")
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_acdtx"]
+transparency = 1
+blend_mode = 1
+shading_mode = 0
+vertex_color_use_as_albedo = true
+albedo_texture = ExtResource("4_k8c5g")
+disable_receive_shadows = true
+billboard_mode = 3
+billboard_keep_scale = true
+particles_anim_h_frames = 1
+particles_anim_v_frames = 1
+particles_anim_loop = false
+proximity_fade_distance = 0.01
+distance_fade_min_distance = 566.11
+distance_fade_max_distance = 50.0
+
+[sub_resource type="QuadMesh" id="QuadMesh_bmtvt"]
+material = SubResource("StandardMaterial3D_acdtx")
+
+[sub_resource type="Animation" id="Animation_k8c5g"]
+resource_name = "Falling"
+length = 3.0
+tracks/0/type = "method"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("FallingSound")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"values": [{
+"args": [0.0],
+"method": &"play"
+}]
+}
+tracks/1/type = "scale_3d"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Depot")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = PackedFloat32Array(0, 1, 0.1, 0, 0, 2.9333334, 1, 1, 1, 1)
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("StaticBody3D/PlayerCollision:disabled")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+
+[sub_resource type="Animation" id="Animation_86gfb"]
+resource_name = "Impact"
+length = 2.0
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("ImpactParticles1:emitting")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("ImpactParticles2:emitting")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("ImpactParticles3:emitting")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+tracks/3/type = "method"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("ImpactBassSound")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"values": [{
+"args": [0.0],
+"method": &"play"
+}]
+}
+tracks/4/type = "method"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("FallingSound")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(0.03333333),
+"transitions": PackedFloat32Array(1),
+"values": [{
+"args": [],
+"method": &"stop"
+}]
+}
+tracks/5/type = "method"
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/path = NodePath("ImpactSound")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"values": [{
+"args": [0.0],
+"method": &"play"
+}]
+}
+tracks/6/type = "scale_3d"
+tracks/6/imported = false
+tracks/6/enabled = true
+tracks/6/path = NodePath("Depot")
+tracks/6/interp = 1
+tracks/6/loop_wrap = true
+tracks/6/keys = PackedFloat32Array(0, 1, 1, 1, 1)
+tracks/7/type = "value"
+tracks/7/imported = false
+tracks/7/enabled = true
+tracks/7/path = NodePath("StaticBody3D/PlayerCollision:disabled")
+tracks/7/interp = 1
+tracks/7/loop_wrap = true
+tracks/7/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+
+[sub_resource type="Animation" id="Animation_8rw7m"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("ImpactParticles1:emitting")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("ImpactParticles2:emitting")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("ImpactParticles3:emitting")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+tracks/3/type = "method"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("ImpactBassSound")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"values": [{
+"args": [],
+"method": &"stop"
+}]
+}
+tracks/4/type = "method"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("FallingSound")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"values": [{
+"args": [],
+"method": &"stop"
+}]
+}
+tracks/5/type = "method"
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/path = NodePath("ImpactSound")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"values": [{
+"args": [],
+"method": &"stop"
+}]
+}
+tracks/6/type = "scale_3d"
+tracks/6/imported = false
+tracks/6/enabled = true
+tracks/6/path = NodePath("Depot")
+tracks/6/interp = 1
+tracks/6/loop_wrap = true
+tracks/6/keys = PackedFloat32Array(0, 1, 1, 1, 1)
+tracks/7/type = "value"
+tracks/7/imported = false
+tracks/7/enabled = true
+tracks/7/path = NodePath("StaticBody3D/PlayerCollision:disabled")
+tracks/7/interp = 1
+tracks/7/loop_wrap = true
+tracks/7/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+
+[sub_resource type="Animation" id="Animation_di50r"]
+resource_name = "Liftoff"
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_k8c5g"]
+_data = {
+&"Falling": SubResource("Animation_k8c5g"),
+&"Impact": SubResource("Animation_86gfb"),
+&"Liftoff": SubResource("Animation_di50r"),
+&"RESET": SubResource("Animation_8rw7m")
+}
+
+[node name="Depot" type="CharacterBody3D"]
+transform = Transform3D(0.9992007, -0.03986967, 0.002897764, 0.03997484, 0.99657196, -0.07243176, 0, 0.0724897, 0.99736917, 0, 0, 0)
+collision_layer = 0
+floor_snap_length = 0.0
+platform_on_leave = 2
+platform_floor_layers = 1
+script = ExtResource("1_7io3k")
+
+[node name="GroundCollision" type="CollisionShape3D" parent="."]
+transform = Transform3D(0.9992007, 0.03997484, 0, -0.03986967, 0.99657196, 0.0724897, 0.002897764, -0.07243176, 0.99736917, 0.068947144, 2.435419, -0.12492758)
+shape = SubResource("BoxShape3D_di50r")
+
+[node name="StaticBody3D" type="StaticBody3D" parent="."]
+
+[node name="PlayerCollision" type="CollisionShape3D" parent="StaticBody3D"]
+shape = SubResource("ConvexPolygonShape3D_gefiv")
+disabled = true
+
+[node name="Depot" parent="." instance=ExtResource("2_di50r")]
+
+[node name="SmashArea" type="Area3D" parent="."]
+collision_mask = 50
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="SmashArea"]
+transform = Transform3D(0.9992007, 0.03997484, 0, -0.03986967, 0.99657196, 0.0724897, 0.002897764, -0.07243176, 0.99736917, -1.8626451e-09, -0.6134843, 0)
+shape = SubResource("CylinderShape3D_di50r")
+
+[node name="ShakeArea" type="Area3D" parent="."]
+collision_mask = 16
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="ShakeArea"]
+shape = SubResource("SphereShape3D_7io3k")
+
+[node name="ImpactParticles1" type="GPUParticles3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.65203035, 0)
+emitting = false
+amount = 120
+lifetime = 3.0
+one_shot = true
+explosiveness = 1.0
+randomness = 0.25
+use_fixed_seed = true
+seed = 550673134
+process_material = SubResource("ParticleProcessMaterial_7io3k")
+draw_pass_1 = SubResource("QuadMesh_acdtx")
+
+[node name="ImpactParticles2" type="GPUParticles3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.65203035, 0)
+emitting = false
+amount = 120
+lifetime = 3.0
+one_shot = true
+explosiveness = 1.0
+randomness = 0.25
+use_fixed_seed = true
+seed = 3859008214
+process_material = SubResource("ParticleProcessMaterial_7io3k")
+draw_pass_1 = SubResource("QuadMesh_8rw7m")
+
+[node name="ImpactParticles3" type="GPUParticles3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.65203035, 0)
+emitting = false
+amount = 120
+lifetime = 3.0
+one_shot = true
+explosiveness = 1.0
+randomness = 0.25
+use_fixed_seed = true
+seed = 200234698
+process_material = SubResource("ParticleProcessMaterial_7io3k")
+draw_pass_1 = SubResource("QuadMesh_bmtvt")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+&"": SubResource("AnimationLibrary_k8c5g")
+}
+
+[node name="FallingSound" type="AudioStreamPlayer3D" parent="."]
+stream = ExtResource("5_wb1mn")
+unit_size = 20.0
+max_distance = 1000.0
+
+[node name="ImpactBassSound" type="AudioStreamPlayer3D" parent="."]
+stream = ExtResource("5_bmtvt")
+volume_db = 14.804
+
+[node name="ImpactSound" type="AudioStreamPlayer3D" parent="."]
+stream = ExtResource("6_wb1mn")
+volume_db = 10.0
+
+[connection signal="body_entered" from="SmashArea" to="." method="_on_smash_area_body_entered"]
+[connection signal="body_entered" from="ShakeArea" to="." method="_on_shake_area_body_entered"]
+[connection signal="body_exited" from="ShakeArea" to="." method="_on_shake_area_body_exited"]
+
+[editable path="Depot"]

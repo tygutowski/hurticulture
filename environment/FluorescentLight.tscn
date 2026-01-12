@@ -37,10 +37,10 @@ surface_material_override/0 = SubResource("StandardMaterial3D_cmysy")
 [node name="OmniLight3D" type="OmniLight3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, -8.52651e-15, 0, 8.52651e-15, 1, 0, 2.18557e-07, 5)
 layers = 9
-light_color = Color(0.84098846, 0.6886705, 0.53330183, 1)
-light_energy = 3.019
+light_color = Color(0.6688275, 0.52366865, 0.41654938, 1)
+light_energy = 4.814
+light_indirect_energy = 0.0
 shadow_enabled = true
-distance_fade_begin = 20.0
 omni_range = 8.0
 
 [node name="OnTimer" type="Timer" parent="."]

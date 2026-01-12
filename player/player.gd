@@ -21,6 +21,7 @@ var screenshake_offset: Vector3 = Vector3.ZERO
 @export var robot_eye_material: ShaderMaterial = null
 @export var robot_armor_shader: ShaderMaterial = null
 
+@onready var dev_menu = get_node("DevMenu")
 @onready var head = get_node("Head")
 @onready var animation_head = head.get_node("BoneAttachment3D/HeadAnimation")
 @onready var gameplay_head = head.get_node("HeadGameplay")
@@ -341,6 +342,8 @@ func _physics_process(delta: float) -> void:
 		velocity.y = JUMP_VELOCITY
 	if Input.is_action_just_pressed("pause"):
 		pause_menu.toggle_pause_menu()
+	if Input.is_action_just_pressed("tab"):
+		dev_menu.toggle_dev_menu()
 	var input_dir := Input.get_vector("left", "right", "forward", "backwards")
 	if held_item != null:
 		if ItemUsableComponent in held_item.item_components:
@@ -546,13 +549,13 @@ func handle_deploy_ghost() -> void:
 			deploy_ghost.global_rotation = Vector3(0.0, gameplay_head.global_rotation.y, 0.0)
 			deploy_ghost.global_position = deployray.get_collision_point()
 			if deployray.get_collision_point().distance_to(global_position) <= 5:
-				var meshes: Array = deploy_ghost.find_children("*", "MeshInstance3D", true, true)
-				for mesh: MeshInstance3D in meshes:
+				var validmeshes: Array = deploy_ghost.find_children("*", "MeshInstance3D", true, true)
+				for mesh: MeshInstance3D in validmeshes:
 					for surface in mesh.get_surface_override_material_count():
 						mesh.set_surface_override_material(surface, ghost_valid_material)
 				return
-		var meshes: Array = deploy_ghost.find_children("*", "MeshInstance3D", true, true)
-		for mesh: MeshInstance3D in meshes:
+		var invalidmeshes: Array = deploy_ghost.find_children("*", "MeshInstance3D", true, true)
+		for mesh: MeshInstance3D in invalidmeshes:
 			for surface in mesh.get_surface_override_material_count():
 				mesh.set_surface_override_material(surface, ghost_invalid_material)
 
@@ -580,3 +583,7 @@ func remove_item_from_inventory() -> void:
 
 func add_screenshake(shake: float) -> void:
 	screenshake_strength += shake
+
+
+func _on_fog_button_pressed() -> void:
+	pass # Replace with function body.

@@ -12,4 +12,5 @@ albedo_texture = ExtResource("2_4fkr8")
 [node name="bush06" instance=ExtResource("1_2k7q7")]
 
 [node name="bush6" parent="." index="0"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.24772221, 0)
 material_override = SubResource("StandardMaterial3D_n2bwa")

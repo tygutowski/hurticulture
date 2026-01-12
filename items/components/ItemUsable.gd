@@ -21,6 +21,8 @@ var use_duration: float = 0.0
 
 func _ready() -> void:
 	if scene_path_to_deploy != null:
+		if scene_path_to_deploy == "":
+			return
 		scene_to_deploy = load(scene_path_to_deploy)
 	assert(get_parent() is Item)
 	
@@ -68,8 +70,6 @@ func alt_use_item() -> void:
 func use_item() -> void:
 	if parent.has_method("use_item"):
 		parent.use_item()
-	if get_parent().thing_holding_me != null and can_be_deployed:
-		attempt_to_deploy_item(scene_to_deploy)
 
 # will try to deploy. this can fail if no valid terrain or smth
 func attempt_to_deploy_item(scene: PackedScene) -> void:
@@ -84,6 +84,8 @@ func finish_using_item() -> void:
 		use_item()
 	if parent.has_method("finish_using_item"):
 		parent.finish_using_item()
+	if get_parent().thing_holding_me != null and can_be_deployed:
+		attempt_to_deploy_item(scene_to_deploy)
 
 func stop_using_item() -> void:
 	if using_item:

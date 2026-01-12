@@ -1,0 +1,177 @@
+[gd_scene load_steps=20 format=3 uid="uid://xqixgx0mkgd5"]
+
+[ext_resource type="Script" uid="uid://dhyhed17u3sxm" path="res://GameManager.gd" id="1_dedhk"]
+[ext_resource type="Script" uid="uid://w1ty2w3i5uwo" path="res://world_generation/TerrainGenerator.gd" id="2_u8f1i"]
+[ext_resource type="Curve" uid="uid://bqditxsdtl42r" path="res://world_generation/continent_piecewise.tres" id="3_jweps"]
+[ext_resource type="Curve" uid="uid://duu242uer4xvr" path="res://world_generation/erosion_piecewise.tres" id="4_ab3xd"]
+[ext_resource type="Curve" uid="uid://dbq7kmm5yg5vc" path="res://world_generation/peaks_and_valley_piecewise.tres" id="5_uqj48"]
+[ext_resource type="FastNoiseLite" uid="uid://cvtwh8clakx3" path="res://world_generation/continental_noise.tres" id="6_dedhk"]
+[ext_resource type="FastNoiseLite" uid="uid://b5pxnaqfcuhg" path="res://world_generation/erosion_noise.tres" id="7_ly81q"]
+[ext_resource type="FastNoiseLite" uid="uid://b2x26ukcki4j8" path="res://world_generation/peaks_and_valleys_noise.tres" id="8_5dpq7"]
+[ext_resource type="Script" uid="uid://5agrc7tc7pda" path="res://world_generation/BiomeGenerator.gd" id="9_ab3xd"]
+[ext_resource type="Script" uid="uid://bdea6rp32xwh" path="res://environment/MapGenerator.gd" id="9_yuimj"]
+[ext_resource type="Script" uid="uid://cds60mkqqit5f" path="res://world_generation/FloraGenerator.gd" id="10_ab3xd"]
+[ext_resource type="PackedScene" uid="uid://b5xjtp4qjtafs" path="res://player/Player.tscn" id="10_jweps"]
+[ext_resource type="Script" uid="uid://6x50hunks56a" path="res://world_generation/ObjectGenerator.gd" id="11_uqj48"]
+[ext_resource type="Environment" uid="uid://dbk3q5krrwoit" path="res://environment/WorldEnvironment.tres" id="14_5dpq7"]
+[ext_resource type="PackedScene" uid="uid://cv15t3tmcetnu" path="res://items/tools/flashlight/Flashlight.tscn" id="14_ly81q"]
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_jweps"]
+seed = 3
+frequency = 0.001
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_ab3xd"]
+seed = 2
+frequency = 0.001
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_uqj48"]
+seed = 1
+frequency = 0.001
+
+[sub_resource type="GDScript" id="GDScript_8bjj6"]
+script/source = "extends Node
+
+@export var chunk_size: Vector2
+@export var map_size: Vector2
+@export var player: CharacterBody3D
+
+const LOD_RADIUS := 3
+const LOD_UPDATE_INTERVAL := 0.5
+
+var chunk_count_x: int
+var chunk_count_y: int
+var lod_timer: float = 0.0
+var previous_player_chunk := Vector2i(-999, -999)
+
+func _ready():
+	chunk_count_x = int(map_size.x / chunk_size.x)
+	chunk_count_y = int(map_size.y / chunk_size.y)
+
+func _process(delta):
+	lod_timer += delta
+	if lod_timer < LOD_UPDATE_INTERVAL:
+		return
+	lod_timer = 0.0
+	
+	if player == null:
+		return
+
+	var player_chunk = check_player_chunk(player.global_position)
+	# Skip if still in the same chunk
+	if player_chunk == previous_player_chunk:
+		pass
+		#return
+	previous_player_chunk = player_chunk
+
+	# Update LODs based on distance from player
+	var map_node = get_tree().get_first_node_in_group(\"world\")
+
+	for y in chunk_count_y:
+		for x in chunk_count_x:
+			var node_name = \"MultiMesh%d_%d\" % [x, y]
+			var mesh_node = map_node.get_node_or_null(node_name)
+			if mesh_node == null:
+				continue
+	
+			var dx = abs(x - player_chunk.x)
+			var dy = abs(y - player_chunk.y)
+			mesh_node.visible = dx <= LOD_RADIUS and dy <= LOD_RADIUS
+
+
+func check_player_chunk(world_pos: Vector3) -> Vector2i:
+	var local_pos = Vector2(world_pos.x, world_pos.z) + (map_size / 2.0)
+
+	var x_index = int(floor(local_pos.x / chunk_size.x))
+	var y_index = int(floor(local_pos.y / chunk_size.y))
+
+	x_index = clamp(x_index, 0, chunk_count_x - 1)
+	y_index = clamp(y_index, 0, chunk_count_y - 1)
+
+	return Vector2i(x_index, y_index)
+"
+
+[node name="world" type="Node" groups=["world"]]
+
+[node name="GameManager" type="Node" parent="." node_paths=PackedStringArray("world", "env", "sun")]
+script = ExtResource("1_dedhk")
+world = NodePath("..")
+env = NodePath("../WorldEnvironment")
+sun = NodePath("../MapGenerator/DirectionalLight3D")
+metadata/_custom_type_script = "uid://dhyhed17u3sxm"
+
+[node name="MapGenerator" type="Node" parent="."]
+script = ExtResource("9_yuimj")
+
+[node name="TerrainGenerator" type="Node" parent="MapGenerator"]
+script = ExtResource("2_u8f1i")
+continent_piecewise = ExtResource("3_jweps")
+erosion_piecewise = ExtResource("4_ab3xd")
+peaks_and_valleys_piecewise = ExtResource("5_uqj48")
+continent_map = ExtResource("6_dedhk")
+erosion_map = ExtResource("7_ly81q")
+peaks_and_valleys_map = ExtResource("8_5dpq7")
+temperature_map = SubResource("FastNoiseLite_jweps")
+humidity_map = SubResource("FastNoiseLite_ab3xd")
+weirdness_map = SubResource("FastNoiseLite_uqj48")
+metadata/_custom_type_script = "uid://w1ty2w3i5uwo"
+
+[node name="BiomeGenerator" type="Node" parent="MapGenerator"]
+script = ExtResource("9_ab3xd")
+metadata/_custom_type_script = "uid://5agrc7tc7pda"
+
+[node name="FloraGenerator" type="Node" parent="MapGenerator"]
+script = ExtResource("10_ab3xd")
+metadata/_custom_type_script = "uid://cds60mkqqit5f"
+
+[node name="ObjectGenerator" type="Node" parent="MapGenerator"]
+script = ExtResource("11_uqj48")
+metadata/_custom_type_script = "uid://6x50hunks56a"
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="MapGenerator"]
+transform = Transform3D(0.885393, -0.463583, -0.0341871, 0.312718, 0.539613, 0.781682, -0.343927, -0.702787, 0.62274, 0, 95.3634, 0)
+shadow_enabled = true
+directional_shadow_mode = 0
+
+[node name="GeneratedItems" type="Node" parent="MapGenerator"]
+
+[node name="Trees" type="Node" parent="MapGenerator/GeneratedItems"]
+
+[node name="Bushes" type="Node" parent="MapGenerator/GeneratedItems"]
+
+[node name="PeerContainer" type="Node" parent="MapGenerator/GeneratedItems"]
+unique_name_in_owner = true
+
+[node name="Player" type="Node" parent="MapGenerator/GeneratedItems"]
+
+[node name="Enemies" type="Node" parent="MapGenerator/GeneratedItems"]
+
+[node name="Camera3D" type="Camera3D" parent="MapGenerator"]
+transform = Transform3D(1, 0, 0, 0, 0.685818, 0.727773, 0, -0.727773, 0.685818, 167, 250, 0)
+
+[node name="Chunks" type="Node" parent="MapGenerator"]
+
+[node name="RayCast3D" type="RayCast3D" parent="MapGenerator"]
+target_position = Vector3(0, -13.62, 0.47)
+
+[node name="Items" type="Node" parent="."]
+
+[node name="Node" type="Node" parent="."]
+script = SubResource("GDScript_8bjj6")
+chunk_size = Vector2(5, 5)
+map_size = Vector2(200, 200)
+
+[node name="DebugRay" type="RayCast3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 21.5255, 30.1229, -7.66156)
+target_position = Vector3(0, -100, 0)
+
+[node name="player" parent="." instance=ExtResource("10_jweps")]
+
+[node name="OldParticles" type="Node3D" parent="player"]
+
+[node name="NewParticles" type="Node3D" parent="player"]
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = ExtResource("14_5dpq7")
+
+[node name="Flashlight" parent="." instance=ExtResource("14_ly81q")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -6.0646644, 4.0920444, 0.04875779)

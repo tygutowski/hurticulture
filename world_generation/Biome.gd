@@ -8,7 +8,21 @@ class_name Biome
 
 @export_category("Fog")
 @export var fog_color: Color = Color(0, 0, 0)
-@export var fog_strength: float
+@export var fog_intensity: FogStrength 
+
+enum FogStrength {
+	LOW,
+	MEDIUM,
+	HIGH,
+	VERY_HIGH
+}
+
+var fogStrength = {
+	FogStrength.LOW: 0.025,
+	FogStrength.MEDIUM: 0.035,
+	FogStrength.HIGH: 0.07,
+	FogStrength.VERY_HIGH: 0.1
+}
 
 @export_category("Terrain")
 @export var flat_texture: Texture

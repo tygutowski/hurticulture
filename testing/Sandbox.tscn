@@ -37,7 +37,7 @@ skeleton = NodePath("../..")
 
 [node name="StaticBody3D" type="StaticBody3D" parent="Map/Plain"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.5, 0)
-collision_layer = 257
+collision_layer = 513
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Map/Plain/StaticBody3D"]
 shape = SubResource("BoxShape3D_tctsc")
@@ -47,7 +47,6 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -25.764542, 0.06775868, -48.8
 
 [node name="Ship" parent="." instance=ExtResource("4_pe70k")]
 transform = Transform3D(0.78904116, 0, 0.6143403, 0, 1, 0, -0.6143403, 0, 0.78904116, -2.06, 0, -13.378)
-visible = false
 primary_color = Color(0.9614404, 0.67540175, 0.477629, 1)
 secondary_color = Color(0.16150671, 0.10217274, 0.16408545, 1)
 shipDecal = 1
@@ -57,6 +56,15 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3.3954272, 0.19916773, -1.39
 
 [node name="Beacon" parent="." instance=ExtResource("8_6vekk")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -19.406805, 0.24405517, -44.25624)
+
+[node name="Beacon2" parent="." instance=ExtResource("8_6vekk")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -16.195333, 0.24405517, -44.25624)
+
+[node name="Beacon3" parent="." instance=ExtResource("8_6vekk")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -12.079963, 0.24405517, -44.25624)
+
+[node name="Beacon4" parent="." instance=ExtResource("8_6vekk")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -9.254743, 0.24405517, -44.25624)
 
 [node name="GameManager" type="Node3D" parent="." node_paths=PackedStringArray("world", "env", "sun")]
 script = ExtResource("8_6lfr1")
@@ -71,7 +79,6 @@ directional_shadow_mode = 0
 
 [node name="Observer" parent="." instance=ExtResource("8_f1pjx")]
 transform = Transform3D(1, 0, 0, 0, 0.99999994, 0, 0, 0, 0.99999994, -12.657295, 2.0179925, -51.53435)
-visible = false
 
 [node name="PrickleburnPod" parent="." instance=ExtResource("9_6lfr1")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -22.146532, 0.07600165, -49.6171)

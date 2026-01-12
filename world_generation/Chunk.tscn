@@ -1,14 +1,7 @@
-[gd_scene load_steps=5 format=3 uid="uid://cm2e4xr5q00bl"]
+[gd_scene load_steps=3 format=3 uid="uid://cm2e4xr5q00bl"]
 
 [ext_resource type="Script" uid="uid://bllij4b1an2re" path="res://world_generation/Chunk.gd" id="1_kyodq"]
 [ext_resource type="Material" uid="uid://da3jj3o8imfb3" path="res://world_generation/terrain_shader/TerrainMaterial.tres" id="2_kyodq"]
-
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_kyodq"]
-albedo_color = Color(0.2352, 0.36576, 0.48, 1)
-
-[sub_resource type="PlaneMesh" id="PlaneMesh_kyodq"]
-material = SubResource("StandardMaterial3D_kyodq")
-size = Vector2(16, 16)
 
 [node name="Chunk" type="Node3D"]
 script = ExtResource("1_kyodq")
@@ -17,9 +10,6 @@ script = ExtResource("1_kyodq")
 material_override = ExtResource("2_kyodq")
 
 [node name="TerrainCollider" type="StaticBody3D" parent="."]
+collision_layer = 513
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="TerrainCollider"]
-
-[node name="WaterMesh" type="MeshInstance3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 184.605, 0)
-mesh = SubResource("PlaneMesh_kyodq")
