@@ -57,6 +57,7 @@ item_component=""
 item=""
 map=""
 ship_decal=""
+flat_spawn=""
 
 [importer_defaults]
 

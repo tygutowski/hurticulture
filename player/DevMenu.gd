@@ -1,7 +1,7 @@
 extends CanvasLayer
 
 var dev_menu_opened: bool = false
-
+var nightvision: bool = false
 func _ready() -> void:
 	visible = false
 	var env: Environment = get_tree().get_first_node_in_group("world").get_node("WorldEnvironment").environment
@@ -28,3 +28,14 @@ func _on_fog_button_pressed() -> void:
 	var env: Environment = get_tree().get_first_node_in_group("world").get_node("WorldEnvironment").environment
 	env.fog_enabled = not env.fog_enabled
 	env.volumetric_fog_enabled = not env.volumetric_fog_enabled
+
+func _on_night_vision_button_pressed() -> void:
+	nightvision = not nightvision
+	if nightvision:
+		get_tree().get_first_node_in_group("player").get_node("Head/BoneAttachment3D/OmniLight3D").omni_range = 10000
+		get_tree().get_first_node_in_group("player").get_node("Head/BoneAttachment3D/OmniLight3D").omni_attenuation = 0
+		get_tree().get_first_node_in_group("player").get_node("Head/BoneAttachment3D/OmniLight3D").light_size = 10000
+	else:
+		get_tree().get_first_node_in_group("player").get_node("Head/BoneAttachment3D/OmniLight3D").omni_range = 5
+		get_tree().get_first_node_in_group("player").get_node("Head/BoneAttachment3D/OmniLight3D").omni_attenuation = 1
+		get_tree().get_first_node_in_group("player").get_node("Head/BoneAttachment3D/OmniLight3D").light_size = 0

@@ -1,4 +1,4 @@
-[gd_scene load_steps=18 format=3 uid="uid://xqixgx0mkgd5"]
+[gd_scene load_steps=20 format=3 uid="uid://xqixgx0mkgd5"]
 
 [ext_resource type="Script" uid="uid://dhyhed17u3sxm" path="res://GameManager.gd" id="1_dedhk"]
 [ext_resource type="Script" uid="uid://w1ty2w3i5uwo" path="res://world_generation/TerrainGenerator.gd" id="2_u8f1i"]
@@ -11,8 +11,10 @@
 [ext_resource type="Script" uid="uid://5agrc7tc7pda" path="res://world_generation/BiomeGenerator.gd" id="9_ab3xd"]
 [ext_resource type="Script" uid="uid://bdea6rp32xwh" path="res://environment/MapGenerator.gd" id="9_yuimj"]
 [ext_resource type="Script" uid="uid://cds60mkqqit5f" path="res://world_generation/FloraGenerator.gd" id="10_ab3xd"]
+[ext_resource type="PackedScene" uid="uid://b5xjtp4qjtafs" path="res://player/Player.tscn" id="10_jweps"]
 [ext_resource type="Script" uid="uid://6x50hunks56a" path="res://world_generation/ObjectGenerator.gd" id="11_uqj48"]
 [ext_resource type="Environment" uid="uid://dbk3q5krrwoit" path="res://environment/WorldEnvironment.tres" id="14_5dpq7"]
+[ext_resource type="PackedScene" uid="uid://cv15t3tmcetnu" path="res://items/tools/flashlight/Flashlight.tscn" id="14_ly81q"]
 
 [sub_resource type="FastNoiseLite" id="FastNoiseLite_jweps"]
 seed = 3
@@ -99,6 +101,7 @@ metadata/_custom_type_script = "uid://dhyhed17u3sxm"
 
 [node name="MapGenerator" type="Node" parent="."]
 script = ExtResource("9_yuimj")
+chunks_per_frame = 2
 
 [node name="ObjectGenerator" type="Node3D" parent="MapGenerator" node_paths=PackedStringArray("object_raycast")]
 script = ExtResource("11_uqj48")
@@ -168,5 +171,14 @@ map_size = Vector2(200, 200)
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 21.5255, 30.1229, -7.66156)
 target_position = Vector3(0, -100, 0)
 
+[node name="player" parent="." instance=ExtResource("10_jweps")]
+
+[node name="OldParticles" type="Node3D" parent="player"]
+
+[node name="NewParticles" type="Node3D" parent="player"]
+
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
 environment = ExtResource("14_5dpq7")
+
+[node name="Flashlight" parent="." instance=ExtResource("14_ly81q")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -6.0646644, 4.0920444, 0.04875779)

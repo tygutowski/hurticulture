@@ -1,10 +1,11 @@
-extends Node
+extends Node3D
 class_name ObjectGenerator
 
 @onready var map_generator: MapGenerator = get_parent()
 @export var object_raycast: RayCast3D
 
 const MIN_TREE_DIST: float = 3.0
+const MAX_HEIGHT_DIFF: float = 1 # meters
 
 func spawn_objects(chunk: Chunk) -> void:
 	var biome: Biome = chunk.get_biome_at_world_pos(
@@ -102,24 +103,6 @@ func spawn(scene: PackedScene, chunk: Chunk, position: Vector3, rotation: float 
 	object.global_position = position
 	object.rotate_y(rotation)
 
-func spawn_structure(must_spawn: bool, scene: PackedScene, chunk: Chunk, rotation: float = 0, scale: float = 1):
-	var max_attempts: int = 100
-	var attempt: int = 0
-	while must_spawn or attempt < max_attempts:
-		object_raycast.global_position = Vector3(randf_range(0, 12), 1000.0, randf_range(0,12))
-		object_raycast.force_raycast_update()
-		var world_point: Vector3 = object_raycast.get_collision_point()
-		var _normal: Vector3 = object_raycast.get_collision_normal()
-		#if is_low_incline(normal):
-		var object = scene.instantiate()
-		chunk.add_child(object)
-		object.scale = Vector3(scale, scale, scale)
-		object.global_position = world_point
-		object.rotate_y(rotation)
-		return object
-
-func is_low_incline(normal: Vector3) -> bool:
-	const MAX_ANGLE: float = deg_to_rad(20.0)
-	var dot: float = clamp(normal.dot(Vector3.UP), -1.0, 1.0)
-	var angle: float = acos(dot) # radians
-	return angle <= MAX_ANGLE
+func _is_flat_enough(normal: Vector3, max_slope_deg: float = 10.0) -> bool:
+	var min_dot: float = cos(deg_to_rad(max_slope_deg))
+	return normal.dot(Vector3.UP) >= min_dot

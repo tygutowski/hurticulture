@@ -7,10 +7,11 @@ var debug_text_array_max_length: int = 10
 
 func setup_debug() -> void:
 	debug_text_array = []
-	player = get_tree().get_first_node_in_group("player")
-	debug_text = player.get_node("hud/RichTextLabel")
+
 
 func debug(string) -> void:
+	if player == null:
+		return
 	string = str(string)
 	if debug_text != null:
 		if len(debug_text_array) > debug_text_array_max_length:

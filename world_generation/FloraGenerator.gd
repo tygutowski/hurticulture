@@ -13,8 +13,6 @@ func _ready() -> void:
 	add_child(spawn_ray)
 
 func generate_grass(chunk: Chunk) -> void:
-	var chunk_seed: int = hash(chunk.coords)
-	seed(chunk_seed)
 	var attempts: int = 50
 	var max_instances: int = 50
 
