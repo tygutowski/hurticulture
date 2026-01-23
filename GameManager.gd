@@ -23,7 +23,6 @@ func handle_day_cycle() -> void:
 	var angle_rad: float = cos(TAU * t) * deg_to_rad(90.0)
 
 	sun.transform.basis = Basis(axis, angle_rad)
-	
 
 func set_time(new_time: int) -> void:
 	Debug.debug("Game time set to " + str(new_time))

@@ -68,8 +68,6 @@ func do_stuff_with_packet(data: Dictionary) -> void:
 			var _item_data: Array = data["item_data"]
 			# List of all enemies
 			var _enemy_data: Array = data["enemy_data"]
-			var _has_already_started: bool = data["has_game_started"]
-			var _current_power: float = data["current_power"]
 			
 		elif type == MessageType.SPAWN_ITEM:
 			var _item = data["item"]
@@ -223,8 +221,6 @@ func send_p2p_packet(this_target: int, packet_data: Dictionary, type: MessageTyp
 func initialize_new_peer(player_id: int) -> void:
 	Debug.debug("Sending P2P handshake to new player")
 	var packet = {
-		"has_game_started" : PowerManager.has_game_started,
-		"current_power" : PowerManager.current_power,
 		"item_data" : item_data,
 		"enemy_data" : enemy_data,
 		"player_data" : player_data

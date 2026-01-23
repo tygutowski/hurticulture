@@ -1,0 +1,99 @@
+[gd_scene load_steps=15 format=3 uid="uid://nunhy32jc18l"]
+
+[ext_resource type="Script" uid="uid://csetk368f3dh2" path="res://testing/Relay.gd" id="1_fxxj2"]
+[ext_resource type="Texture2D" uid="uid://djldopmbpbsxq" path="res://gui/enemyo.png" id="2_fxxj2"]
+[ext_resource type="PackedScene" uid="uid://dv86qo0tus0n2" path="res://items/components/ItemUsableComponent.tscn" id="3_fxxj2"]
+[ext_resource type="PackedScene" uid="uid://su2gda7c3p50" path="res://PSX Electric Poles Pack by Retro/FBX/Meshes/E_Pole_5.fbx" id="5_8umpt"]
+[ext_resource type="PackedScene" uid="uid://b3ds1v8wdnlgc" path="res://testing/ElectricNode.tscn" id="6_d4jre"]
+[ext_resource type="PackedScene" uid="uid://6o2tii3f00c2" path="res://PSX Electric Poles Pack by Retro/FBX/Meshes/E_Pole_Light.fbx" id="7_5rx38"]
+[ext_resource type="Script" uid="uid://bqr8iqhmwgidb" path="res://testing/Light.gd" id="7_tdsf8"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_dv67o"]
+size = Vector3(0.18847656, 4.014557, 0.15991211)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_8umpt"]
+size = Vector3(1.4216309, 0.26031494, 0.2)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_l5xt7"]
+size = Vector3(0.42578125, 0.5774536, 0.16967773)
+
+[sub_resource type="Animation" id="Animation_8umpt"]
+resource_name = "Close"
+length = 2.0
+
+[sub_resource type="Animation" id="Animation_dv67o"]
+resource_name = "Open"
+length = 2.0
+
+[sub_resource type="Animation" id="Animation_l5xt7"]
+length = 0.001
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_4gvev"]
+_data = {
+&"Close": SubResource("Animation_8umpt"),
+&"Open": SubResource("Animation_dv67o"),
+&"RESET": SubResource("Animation_l5xt7")
+}
+
+[node name="Relay" type="RigidBody3D" groups=["item"]]
+collision_layer = 130
+script = ExtResource("1_fxxj2")
+item_name = "Energy Pylon"
+inventory_texture = ExtResource("2_fxxj2")
+metadata/_custom_type_script = "uid://dcweqy2klrwsf"
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.9975504, 0)
+shape = SubResource("BoxShape3D_dv67o")
+
+[node name="CollisionShape3D2" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 4.127408, 0)
+shape = SubResource("BoxShape3D_8umpt")
+
+[node name="CollisionShape3D3" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3.2650216, 0.17419434)
+shape = SubResource("BoxShape3D_l5xt7")
+
+[node name="ItemUsableComponent" parent="." instance=ExtResource("3_fxxj2")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.47970617, 0)
+held_down_item = true
+can_move_while_using = false
+can_be_deployed = true
+scene_path_to_deploy = "uid://nunhy32jc18l"
+
+[node name="OmniLight3D" type="OmniLight3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.1587696, 0)
+visible = false
+light_color = Color(0.999999, 0.7697099, 0.49011725, 1)
+light_energy = 3.0
+light_volumetric_fog_energy = 2.0
+light_size = 0.115
+omni_range = 8.0
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+&"": SubResource("AnimationLibrary_4gvev")
+}
+
+[node name="E_Pole_5" parent="." instance=ExtResource("5_8umpt")]
+transform = Transform3D(0.71, 0, 0, 0, 0.71, 0, 0, 0, 0.71, 0, 0, 0)
+
+[node name="ElectricNode1" parent="." instance=ExtResource("6_d4jre")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3.2994058, 0.1604392)
+electrical_type = 1
+
+[node name="Light" type="Node3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 4.9804754, 1.1914126)
+script = ExtResource("7_tdsf8")
+
+[node name="SpotLight3D" type="SpotLight3D" parent="Light"]
+transform = Transform3D(1, 0, 0, 0, -4.371139e-08, 1, 0, -1, -4.371139e-08, 0, -0.042963505, 0.27550912)
+light_energy = 16.0
+spot_range = 7.570197
+spot_angle = 46.99141
+
+[node name="ElectricNode2" parent="Light" instance=ExtResource("6_d4jre")]
+electrical_type = 2
+
+[node name="E_Pole_Light" parent="Light" instance=ExtResource("7_5rx38")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.008198768, -0.7229099, -1.1869797)

@@ -1,0 +1,25 @@
+[gd_scene load_steps=4 format=3 uid="uid://b3ds1v8wdnlgc"]
+
+[ext_resource type="Script" uid="uid://bji3ww35raj3o" path="res://technical/Electrical.gd" id="1_j0e1y"]
+[ext_resource type="PackedScene" uid="uid://bg2gbksxblksu" path="res://testing/Wire.tscn" id="2_egbbv"]
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_dv67o"]
+radius = 6.756599
+
+[node name="ElectricNode" type="Node3D"]
+script = ExtResource("1_j0e1y")
+wire_scene = ExtResource("2_egbbv")
+
+[node name="PowerLabel" type="Label3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5687568, 0)
+pixel_size = 0.01
+billboard = 1
+text = "Power: "
+
+[node name="Area3D" type="Area3D" parent="."]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Area3D"]
+shape = SubResource("SphereShape3D_dv67o")
+
+[connection signal="area_entered" from="Area3D" to="." method="_on_connection_area_entered"]
+[connection signal="area_exited" from="Area3D" to="." method="_on_connection_area_exit"]

@@ -1,0 +1,25 @@
+[gd_scene load_steps=3 format=3 uid="uid://bg2gbksxblksu"]
+
+[ext_resource type="Material" uid="uid://dgh22brxjn5hs" path="res://testing/WireMaterial.tres" id="1_p6tyr"]
+
+[sub_resource type="Curve3D" id="Curve3D_dk7sl"]
+
+[node name="Wire" type="Path3D"]
+curve = SubResource("Curve3D_dk7sl")
+
+[node name="CSGPolygon3D" type="CSGPolygon3D" parent="." groups=["fps_hidden"]]
+cast_shadow = 0
+polygon = PackedVector2Array(0.0003258083, -0.014161122, -0.015025962, -0.0047884127, -0.009081904, 0.013741085, 0.009348107, 0.013724034, 0.016159207, -0.0039770547)
+mode = 2
+path_node = NodePath("..")
+path_interval_type = 0
+path_interval = 1.0
+path_simplify_angle = 0.0
+path_rotation = 2
+path_rotation_accurate = false
+path_local = true
+path_continuous_u = true
+path_u_distance = 0.0
+path_joined = false
+smooth_faces = true
+material = ExtResource("1_p6tyr")

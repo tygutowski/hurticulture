@@ -1,0 +1,116 @@
+[gd_scene load_steps=19 format=3 uid="uid://bnf8skrh5pjuk"]
+
+[ext_resource type="Environment" uid="uid://dbk3q5krrwoit" path="res://environment/WorldEnvironment.tres" id="1_chfey"]
+[ext_resource type="Texture2D" uid="uid://caflgcs37i6ex" path="res://textures/texture_07.png" id="2_chfey"]
+[ext_resource type="PackedScene" uid="uid://f35d24yrtk21" path="res://ship/Ship.tscn" id="4_pe70k"]
+[ext_resource type="PackedScene" uid="uid://cv15t3tmcetnu" path="res://items/tools/flashlight/Flashlight.tscn" id="5_ets0n"]
+[ext_resource type="Script" uid="uid://dhyhed17u3sxm" path="res://GameManager.gd" id="8_6lfr1"]
+[ext_resource type="PackedScene" uid="uid://clanuu6alcmle" path="res://environment/Beacon.tscn" id="8_6vekk"]
+[ext_resource type="PackedScene" uid="uid://bb8jjt12jejcr" path="res://Observer.tscn" id="8_f1pjx"]
+[ext_resource type="PackedScene" uid="uid://bt5guomotnasc" path="res://items/fruits/lantern_pod/PrickleburnPod.tscn" id="9_6lfr1"]
+[ext_resource type="PackedScene" uid="uid://dfj6ofye335pq" path="res://items/fruits/lantern_pod/LanternPod.tscn" id="10_f1pjx"]
+[ext_resource type="PackedScene" uid="uid://b5xjtp4qjtafs" path="res://player/Player.tscn" id="12_8bjj6"]
+[ext_resource type="PackedScene" uid="uid://drkfhhj11qpqf" path="res://environment/objects/Generator.tscn" id="12_51sly"]
+[ext_resource type="PackedScene" uid="uid://bxq1mnjbcjkj1" path="res://environment/FluorescentLight.tscn" id="13_51sly"]
+[ext_resource type="Script" uid="uid://dqr2whtmwpv6b" path="res://testing/MovingPlatform.gd" id="13_oq5rl"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_nmhe3"]
+albedo_texture = ExtResource("2_chfey")
+uv1_scale = Vector3(256, 256, 256)
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_hipxm"]
+material = SubResource("StandardMaterial3D_nmhe3")
+size = Vector2(5000, 5000)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_tctsc"]
+size = Vector3(5000, 1, 5000)
+
+[sub_resource type="CylinderShape3D" id="CylinderShape3D_8bjj6"]
+height = 0.5
+radius = 3.0
+
+[sub_resource type="CylinderMesh" id="CylinderMesh_51sly"]
+top_radius = 3.0
+bottom_radius = 3.0
+height = 0.5
+
+[node name="Map" type="Node3D" groups=["map", "world"]]
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = ExtResource("1_chfey")
+
+[node name="Items" type="Node3D" parent="."]
+
+[node name="Map" type="Node3D" parent="."]
+
+[node name="Plain" type="MeshInstance3D" parent="Map"]
+mesh = SubResource("PlaneMesh_hipxm")
+skeleton = NodePath("../..")
+
+[node name="StaticBody3D" type="StaticBody3D" parent="Map/Plain"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.5, 0)
+collision_layer = 513
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Map/Plain/StaticBody3D"]
+shape = SubResource("BoxShape3D_tctsc")
+
+[node name="player" parent="." instance=ExtResource("12_8bjj6")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -25.764542, 0.06775868, -48.814194)
+
+[node name="Ship" parent="." instance=ExtResource("4_pe70k")]
+transform = Transform3D(0.78904116, 0, 0.6143403, 0, 1, 0, -0.6143403, 0, 0.78904116, -2.06, 0, -13.378)
+primary_color = Color(0.9614404, 0.67540175, 0.477629, 1)
+secondary_color = Color(0.16150671, 0.10217274, 0.16408545, 1)
+shipDecal = 1
+
+[node name="Flashlight" parent="." instance=ExtResource("5_ets0n")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3.3954272, 0.19916773, -1.3972945)
+
+[node name="Beacon" parent="." instance=ExtResource("8_6vekk")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -19.406805, 0.24405517, -44.25624)
+
+[node name="Beacon2" parent="." instance=ExtResource("8_6vekk")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -16.195333, 0.24405517, -44.25624)
+
+[node name="Beacon3" parent="." instance=ExtResource("8_6vekk")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -12.079963, 0.24405517, -44.25624)
+
+[node name="Beacon4" parent="." instance=ExtResource("8_6vekk")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -9.254743, 0.24405517, -44.25624)
+
+[node name="GameManager" type="Node3D" parent="." node_paths=PackedStringArray("world", "env", "sun")]
+script = ExtResource("8_6lfr1")
+world = NodePath("..")
+env = NodePath("../WorldEnvironment")
+sun = NodePath("../DirectionalLight3D")
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
+transform = Transform3D(0.9999995, 0, 0, 0, -0.6655563, 0.74634784, 0, -0.74634796, -0.6655562, 0, 95.3634, 0)
+shadow_enabled = true
+directional_shadow_mode = 0
+
+[node name="Observer" parent="." instance=ExtResource("8_f1pjx")]
+transform = Transform3D(1, 0, 0, 0, 0.99999994, 0, 0, 0, 0.99999994, -12.657295, 2.0179925, -51.53435)
+
+[node name="PrickleburnPod" parent="." instance=ExtResource("9_6lfr1")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -22.146532, 0.07600165, -49.6171)
+
+[node name="LanternPod" parent="." instance=ExtResource("10_f1pjx")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -21.434143, 0.44288182, -49.581875)
+
+[node name="Generator2" parent="." instance=ExtResource("12_51sly")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -17.586208, 1.1584224e-19, -33.99816)
+
+[node name="florescentlight" parent="." instance=ExtResource("13_51sly")]
+transform = Transform3D(1, 0, 0, 0, -4.371139e-08, 1, 0, -1, -4.371139e-08, -40.113567, -0.002228558, -38.91444)
+
+[node name="CharacterBody3D" type="CharacterBody3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -33.737213, 0.78850937, -47.9078)
+script = ExtResource("13_oq5rl")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="CharacterBody3D"]
+shape = SubResource("CylinderShape3D_8bjj6")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="CharacterBody3D"]
+mesh = SubResource("CylinderMesh_51sly")
+skeleton = NodePath("")

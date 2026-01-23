@@ -17,7 +17,6 @@ run/max_fps=120
 
 [autoload]
 
-PowerManager="*res://environment/powermanager.gd"
 Settings="*res://technical/Settings.gd"
 MultiplayerManager="*res://technical/MultiplayerManager.gd"
 Debug="*res://testing/Debug.gd"
@@ -40,10 +39,6 @@ window/stretch/mode="viewport"
 
 project/assembly_name="Hurticulture"
 
-[editor_plugins]
-
-enabled=PackedStringArray()
-
 [global_group]
 
 player=""
@@ -58,6 +53,7 @@ item=""
 map=""
 ship_decal=""
 flat_spawn=""
+fps_hidden=""
 
 [importer_defaults]
 
@@ -242,6 +238,7 @@ tab={
 3d_physics/layer_5="Player"
 3d_physics/layer_6="Projectiles"
 3d_physics/layer_7="Ghost"
+3d_physics/layer_8="Deployables"
 3d_physics/layer_9="Grass"
 3d_physics/layer_10="Ground"
 

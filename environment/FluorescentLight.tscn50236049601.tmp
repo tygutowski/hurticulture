@@ -1,0 +1,68 @@
+[gd_scene load_steps=11 format=3 uid="uid://bxq1mnjbcjkj1"]
+
+[ext_resource type="Script" uid="uid://djiwyia17h48d" path="res://environment/FluorescentLight.gd" id="1_3ud4b"]
+[ext_resource type="Texture2D" uid="uid://cu5mu4ga7d34g" path="res://textures/metal_wall_2.png" id="2_cmysy"]
+[ext_resource type="ArrayMesh" uid="uid://bldtvcm18efg3" path="res://environment/objects/fluorescent_light_case/Fluorecent_Light_Case_LP.obj" id="2_gqxft"]
+[ext_resource type="ArrayMesh" uid="uid://btu86wogjxqn1" path="res://environment/objects/fluorescent_light_tube/LightTube_LP.obj" id="3_s2hnc"]
+[ext_resource type="AudioStream" uid="uid://s4eydfqv1f00" path="res://audio/fluorescent-clinking1.wav" id="4_wxs50"]
+[ext_resource type="AudioStream" uid="uid://r0ianggupm4b" path="res://audio/fluorescent-switch.wav" id="5_lsgtv"]
+[ext_resource type="AudioStream" uid="uid://vlohxh2uu7i5" path="res://audio/fluorescent-buzz.wav" id="6_dy7ul"]
+[ext_resource type="PackedScene" uid="uid://b3ds1v8wdnlgc" path="res://testing/ElectricNode.tscn" id="8_cmysy"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_f2y1y"]
+albedo_texture = ExtResource("2_cmysy")
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_cmysy"]
+emission_enabled = true
+emission = Color(0.8228246, 0.85830384, 0.7887531, 1)
+
+[node name="FluorescentLight" type="Node3D" groups=["electrical"]]
+transform = Transform3D(1, 0, 0, 0, -4.371139e-08, -1, 0, 1, -4.371139e-08, 0, 0, 0)
+script = ExtResource("1_3ud4b")
+electrical_type = 2
+
+[node name="ElectricNode" parent="." instance=ExtResource("8_cmysy")]
+transform = Transform3D(3.5527137e-15, -8.742278e-08, -1, -1, 0, -2.6865725e-16, -3.5527137e-15, 1, -8.742278e-08, -0.046538353, 0, 0)
+
+[node name="CaseMesh" type="MeshInstance3D" parent="."]
+transform = Transform3D(0.06, 0, 0, 0, 0.06, 0, 0, 0, 0.06, 0, 0, 0)
+material_override = SubResource("StandardMaterial3D_f2y1y")
+mesh = ExtResource("2_gqxft")
+
+[node name="Tube1Mesh" type="MeshInstance3D" parent="."]
+transform = Transform3D(0.006, 0, 0, 0, 0.006, 0, 0, 0, 0.006, 0, 0.03101649, 0.10869622)
+mesh = ExtResource("3_s2hnc")
+surface_material_override/0 = SubResource("StandardMaterial3D_cmysy")
+
+[node name="Tube2Mesh" type="MeshInstance3D" parent="."]
+transform = Transform3D(0.006, 0, 0, 0, 0.006, 0, 0, 0, 0.006, 0, -0.032397475, 0.10176623)
+mesh = ExtResource("3_s2hnc")
+surface_material_override/0 = SubResource("StandardMaterial3D_cmysy")
+
+[node name="OmniLight3D" type="OmniLight3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, -8.52651e-15, 0, 8.52651e-15, 1, 0, 2.18557e-07, 5)
+layers = 9
+light_color = Color(0.6688275, 0.52366865, 0.41654938, 1)
+light_energy = 4.814
+light_indirect_energy = 0.0
+shadow_enabled = true
+omni_range = 8.0
+
+[node name="OnTimer" type="Timer" parent="."]
+
+[node name="OffTimer" type="Timer" parent="."]
+
+[node name="ClinkingTimer" type="Timer" parent="."]
+
+[node name="ClinkingAudio" type="AudioStreamPlayer3D" parent="."]
+stream = ExtResource("4_wxs50")
+volume_db = -20.0
+
+[node name="SwitchAudio" type="AudioStreamPlayer3D" parent="."]
+stream = ExtResource("5_lsgtv")
+volume_db = -30.0
+
+[node name="BuzzingAudio" type="AudioStreamPlayer3D" parent="."]
+stream = ExtResource("6_dy7ul")
+volume_db = -30.0
+unit_size = 40.0

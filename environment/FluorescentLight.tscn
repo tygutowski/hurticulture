@@ -1,4 +1,4 @@
-[gd_scene load_steps=10 format=3 uid="uid://bxq1mnjbcjkj1"]
+[gd_scene load_steps=11 format=3 uid="uid://bxq1mnjbcjkj1"]
 
 [ext_resource type="Script" uid="uid://djiwyia17h48d" path="res://environment/FluorescentLight.gd" id="1_3ud4b"]
 [ext_resource type="Texture2D" uid="uid://cu5mu4ga7d34g" path="res://textures/metal_wall_2.png" id="2_cmysy"]
@@ -7,6 +7,7 @@
 [ext_resource type="AudioStream" uid="uid://s4eydfqv1f00" path="res://audio/fluorescent-clinking1.wav" id="4_wxs50"]
 [ext_resource type="AudioStream" uid="uid://r0ianggupm4b" path="res://audio/fluorescent-switch.wav" id="5_lsgtv"]
 [ext_resource type="AudioStream" uid="uid://vlohxh2uu7i5" path="res://audio/fluorescent-buzz.wav" id="6_dy7ul"]
+[ext_resource type="PackedScene" uid="uid://b3ds1v8wdnlgc" path="res://testing/ElectricNode.tscn" id="8_cmysy"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_f2y1y"]
 albedo_texture = ExtResource("2_cmysy")
@@ -15,33 +16,38 @@ albedo_texture = ExtResource("2_cmysy")
 emission_enabled = true
 emission = Color(0.8228246, 0.85830384, 0.7887531, 1)
 
-[node name="florescentlight" type="Node3D" groups=["electrical"]]
-transform = Transform3D(0.075, 0, 0, 0, -3.27835e-09, -0.075, 0, 0.075, -3.27835e-09, 0, 0, 0)
+[node name="FluorescentLight" type="Node3D" groups=["electrical"]]
+transform = Transform3D(1, 0, 0, 0, -4.371139e-08, -1, 0, 1, -4.371139e-08, 0, 0, 0)
 script = ExtResource("1_3ud4b")
-power_consumption = 0.2
+
+[node name="ElectricNode" parent="." instance=ExtResource("8_cmysy")]
+transform = Transform3D(3.5527137e-15, -8.742278e-08, -1, -1, 0, -2.6865725e-16, -3.5527137e-15, 1, -8.742278e-08, -0.046538353, 0, 0)
+electrical_type = 2
 
 [node name="CaseMesh" type="MeshInstance3D" parent="."]
+transform = Transform3D(0.06, 0, 0, 0, 0.06, 0, 0, 0, 0.06, 0, 0, 0)
 material_override = SubResource("StandardMaterial3D_f2y1y")
 mesh = ExtResource("2_gqxft")
 
 [node name="Tube1Mesh" type="MeshInstance3D" parent="."]
-transform = Transform3D(0.1, 0, 0, 0, 0.15, 0, 0, 0, 0.15, 0, 0.713728, 1.82629)
+transform = Transform3D(0.006, 0, 0, 0, -0.010098225, 0, 0, 5.551115e-17, -0.009421055, 0, -0.040707666, 0.102026)
 mesh = ExtResource("3_s2hnc")
 surface_material_override/0 = SubResource("StandardMaterial3D_cmysy")
 
 [node name="Tube2Mesh" type="MeshInstance3D" parent="."]
-transform = Transform3D(0.1, 0, 0, 0, 0.15, 0, 0, 0, 0.15, 0, -0.705616, 1.81936)
+transform = Transform3D(0.006, 0, 0, 0, -0.010098225, 0, 0, 5.551115e-17, -0.009421055, 0, 0.04373696, 0.099256635)
 mesh = ExtResource("3_s2hnc")
 surface_material_override/0 = SubResource("StandardMaterial3D_cmysy")
 
 [node name="OmniLight3D" type="OmniLight3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, -8.52651e-15, 0, 8.52651e-15, 1, 0, 2.18557e-07, 5)
 layers = 9
-light_color = Color(0.6688275, 0.52366865, 0.41654938, 1)
-light_energy = 4.814
+light_color = Color(0.8192714, 0.61705506, 0.49204677, 1)
+light_energy = 8.509
 light_indirect_energy = 0.0
+light_volumetric_fog_energy = 0.0
 shadow_enabled = true
-omni_range = 8.0
+omni_range = 15.215
 
 [node name="OnTimer" type="Timer" parent="."]
 

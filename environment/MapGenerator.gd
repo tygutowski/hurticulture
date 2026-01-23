@@ -50,7 +50,7 @@ func _ready() -> void:
 				var coords: Vector2 = Vector2(x, y)
 				if not chunks.has(coords):
 					await create_chunk(coords)
-					ship.get_node("Anchors").max_distance_to_floor += 0.0001
+					ship.get_node("Anchors").max_distance_to_floor
 
 				# only place if this chunk can support the ship footprint
 				if not has_chunk_neighborhood(coords, 1):
@@ -101,7 +101,7 @@ func attempt_to_place(node: Node3D, chunk: Chunk) -> bool:
 		print("")
 		# random yaw on ship ONLY
 		node.rotation.y = randf_range(0.0, TAU)
-		await get_tree().physics_frame
+		#await get_tree().physics_frame
 
 		# place ship so shapecast starts above chunk
 		var local_cast: Vector3 = shape_cast.position
@@ -117,7 +117,7 @@ func attempt_to_place(node: Node3D, chunk: Chunk) -> bool:
 		if not shape_cast.is_colliding():
 			continue
 
-		await get_tree().physics_frame
+		#await get_tree().physics_frame
 
 		var cast_vector: Vector3 = shape_cast.target_position
 		var t: float = shape_cast.get_closest_collision_safe_fraction()

@@ -46,6 +46,7 @@ const RUN_SPEED : float = 8
 var pullback_time : float = 0.0
 var max_pullback_time : float = 2.0
 
+
 var can_interact : bool = true
 var gamestate: PeerGameState
 var inventory_index: int = 0
@@ -66,8 +67,12 @@ func _ready() -> void:
 	for i in range(inventory_size):
 		inventory.append(null)
 	gamestate = PeerGameState.new()
-	set_inventory_index(0)
 	Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
+	set_inventory_index(0)
+	await get_tree().physics_frame
+	pickup_item(load("res://testing/Relay.tscn").instantiate())
+	pickup_item(load("res://testing/Relay.tscn").instantiate())
+	pickup_item(load("res://testing/Relay.tscn").instantiate())
 	load_skin()
 
 func load_settings() -> void:
@@ -75,15 +80,25 @@ func load_settings() -> void:
 
 # adds the item to your first person hand
 func add_item_to_fps_hand(item: Node3D) -> void:
-	Debug.debug("adding to fps")
 	var fps_hand_item = item.duplicate(15)
-	var meshes: Array = fps_hand_item.find_children("*", "MeshInstance3D", true, true)
+	
+	var electric_nodes: Array = fps_hand_item.find_children("*", "Electrical", true, false)
+	for electric_node in electric_nodes:
+		electric_node.queue_free()
+	var meshes: Array = fps_hand_item.find_children("*", "MeshInstance3D", true, false)
 	item.set_counterpart(fps_hand_item)
 	for mesh: MeshInstance3D in meshes:
+		mesh.set_layer_mask_value(4, not mesh.is_in_group("fps_hidden"))
 		# make it only visible to the fps hand camera
 		mesh.set_layer_mask_value(1, false)
 		mesh.set_layer_mask_value(3, false)
-		mesh.set_layer_mask_value(4, true)
+	var csgmeshes: Array = fps_hand_item.find_children("*", "CSGPolygon3D", true, false)
+	for mesh: CSGShape3D in csgmeshes:
+		mesh.set_layer_mask_value(4, not mesh.is_in_group("fps_hidden"))
+		# make it only visible to the fps hand camera
+		mesh.set_layer_mask_value(1, false)
+		mesh.set_layer_mask_value(3, false)
+
 	fps_hand.add_child(fps_hand_item)
 	fps_hand_item.viewport_type = fps_hand_item.viewportType.FIRSTPERSON
 	fps_hand_item.orient_item()
@@ -91,23 +106,24 @@ func add_item_to_fps_hand(item: Node3D) -> void:
 # adds the item to your real world hand
 func add_item_to_world_hand(item: Node3D) -> void:
 	Debug.debug("adding to world")
+	var electric_nodes: Array = item.find_children("*", "Electrical", true, false)
+	for electric_node in electric_nodes:
+		electric_node.queue_free()
 	var meshes: Array = item.find_children("*", "MeshInstance3D", true, true)
 	for mesh: MeshInstance3D in meshes:
+		mesh.set_layer_mask_value(3, not mesh.is_in_group("fps_hidden"))
 		# make it only visible to the fps hand camera
 		mesh.set_layer_mask_value(1, false)
-		mesh.set_layer_mask_value(3, true)
 		mesh.set_layer_mask_value(4, false)
+	var csgmeshes: Array = item.find_children("*", "CSGPolygon3D", true, false)
+	for mesh: CSGShape3D in csgmeshes:
+		mesh.set_layer_mask_value(3, not mesh.is_in_group("fps_hidden"))
+		# make it only visible to the fps hand camera
+		mesh.set_layer_mask_value(1, false)
+		mesh.set_layer_mask_value(3, false)
 	world_hand.add_child(item)
 	item.viewport_type = item.viewportType.REALWORLD
 	item.orient_item()
-
-func add_item_to_ghost(item: Node3D) -> void:
-	var meshes: Array = item.find_children("*", "MeshInstance3D", true, true)
-	for mesh: MeshInstance3D in meshes:
-		# make it only visible to the fps hand camera
-		mesh.set_layer_mask_value(1, true)
-		mesh.set_layer_mask_value(3, false)
-		mesh.set_layer_mask_value(4, false)
 
 # removes the item from your first person hand
 func remove_item_from_fps_hand() -> void:
@@ -147,7 +163,8 @@ func interact() -> void:
 func pickup_item(item: Item) -> void:
 	item.set_item_components()
 	item.get_picked_up_by(self)
-	item.get_parent().remove_child(item)
+	if item.get_parent() != null:
+		item.get_parent().remove_child(item)
 
 	# if the player has an item, fill in next slot
 	if held_item != null:
@@ -181,12 +198,9 @@ func update_held_item() -> void:
 		for bone in holding_bones:
 			bone.active = true
 		if held_item.has_node("ItemUsableComponent"):
-			print("has")
 			if held_item.get_node("ItemUsableComponent").can_be_deployed:
-				print("can")
 				if held_item.get_node("ItemUsableComponent").scene_to_deploy != null:
-					print("valid")
-					show_deploy_ghost(held_item.get_node("ItemUsableComponent").scene_to_deploy)
+					build_deploy_ghost(held_item.get_node("ItemUsableComponent").scene_to_deploy)
 	else:
 		for bone in holding_bones:
 			bone.active = false
@@ -241,11 +255,10 @@ func drop_item(drop_charge: float = 0) -> void:
 		held_item.apply_central_impulse(impulse)
 		update_held_item()
 
-
-
-
 func set_inventory_index(index: int) -> void:
 	if inventory_size == 0:
+		return
+	if index == inventory_index:
 		return
 	# 5 slots if 4 index
 	var max_inventory_index = max_inventory_slots - 1
@@ -516,58 +529,66 @@ func _on_interact_timeout(timer) -> void:
 	can_interact = true
 	timer.queue_free()
 
-func show_deploy_ghost(scene: PackedScene) -> void:
-	print("show ghost")
-	deployray.force_raycast_update()
-	deploy_ghost = scene.instantiate()
-	deploy_ghost.process_mode = Node.PROCESS_MODE_DISABLED
+func build_deploy_ghost(scene: PackedScene) -> void:
+	var world: Node = get_tree().get_first_node_in_group("world")
 
-	var labels: Array = deploy_ghost.find_children("*", "Label3D", true, true)
-	for label: Label3D in labels:
-		label.visible = false
+	# temp instance so global transforms resolve correctly
+	var temp_scene: Node3D = scene.instantiate()
+	temp_scene.visible = false
+	world.add_child(temp_scene)
 
-	var animations: Array = deploy_ghost.find_children("*", "AnimationPlayer", true, true)
-	for animation: AnimationPlayer in animations:
-		animation.stop()
+	deploy_ghost = Node3D.new()
+	world.add_child(deploy_ghost)
 
-	var shapes: Array = deploy_ghost.find_children("*", "CollisionShape3D", true, true)
-	for shape: CollisionShape3D in shapes:
-		shape.disabled = true
+	var meshes: Array[Node] = temp_scene.find_children("*", "MeshInstance3D", true, true)
+	for node: Node in meshes:
+		var mesh: MeshInstance3D = node as MeshInstance3D
+		mesh.set_layer_mask_value(1, true)
+		mesh.set_layer_mask_value(3, false)
+		mesh.set_layer_mask_value(4, false)
+		if mesh == null:
+			continue
 
-	add_item_to_ghost(deploy_ghost)
-	get_tree().get_first_node_in_group("world").add_child(deploy_ghost)
+		var ghost: MeshInstance3D = mesh.duplicate(Node.DUPLICATE_USE_INSTANTIATION)
+		ghost.global_transform = mesh.global_transform
+		deploy_ghost.add_child(ghost)
+
+	temp_scene.queue_free()
 
 func remove_deploy_ghost() -> void:
 	if deploy_ghost != null:
-		print("remove ghost")
 		deploy_ghost.queue_free()
-			
+	
 func handle_deploy_ghost() -> void:
-	if deploy_ghost != null:
-		deployray.force_raycast_update()
-		if deployray.is_colliding():
-			deploy_ghost.global_rotation = Vector3(0.0, gameplay_head.global_rotation.y, 0.0)
-			deploy_ghost.global_position = deployray.get_collision_point()
-			if deployray.get_collision_point().distance_to(global_position) <= 5:
-				var validmeshes: Array = deploy_ghost.find_children("*", "MeshInstance3D", true, true)
-				for mesh: MeshInstance3D in validmeshes:
-					for surface in mesh.get_surface_override_material_count():
-						mesh.set_surface_override_material(surface, ghost_valid_material)
-				return
-		var invalidmeshes: Array = deploy_ghost.find_children("*", "MeshInstance3D", true, true)
-		for mesh: MeshInstance3D in invalidmeshes:
+	if deploy_ghost == null:
+		return
+	deployray.force_raycast_update()
+	if not deployray.is_colliding():
+		return
+		
+	deploy_ghost.global_rotation = Vector3(0.0, gameplay_head.global_rotation.y, 0.0)
+	deploy_ghost.global_position = deployray.get_collision_point()
+	
+	if deployray.get_collision_point().distance_to(global_position) <= 5:
+		var validmeshes: Array = deploy_ghost.find_children("*", "MeshInstance3D", true, false)
+		for mesh: MeshInstance3D in validmeshes:
 			for surface in mesh.get_surface_override_material_count():
-				mesh.set_surface_override_material(surface, ghost_invalid_material)
+				mesh.set_surface_override_material(surface, ghost_valid_material)
+		return
+	var invalidmeshes: Array = deploy_ghost.find_children("*", "MeshInstance3D", true, false)
+	for mesh: MeshInstance3D in invalidmeshes:
+		for surface in mesh.get_surface_override_material_count():
+			mesh.set_surface_override_material(surface, ghost_invalid_material)
 
 func attempt_to_deploy_item(scene_to_deploy) -> void:
 	if deploy_ghost != null:
 		deployray.force_raycast_update()
 		if deployray.is_colliding():
-			deploy_item(scene_to_deploy)
+			deploy_item(scene_to_deploy, deployray.get_collider())
 
-func deploy_item(scene_to_deploy) -> void:
+func deploy_item(scene_to_deploy, surface) -> void:
 	var scene = scene_to_deploy.instantiate()
-	get_tree().get_first_node_in_group("world").add_child(scene)
+	surface.add_child(scene)
 	scene.global_position = deployray.get_collision_point()
 	scene.global_rotation = Vector3(0.0, gameplay_head.global_rotation.y, 0.0)
 	if scene.has_method("deployed"):
