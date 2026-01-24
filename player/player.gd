@@ -99,12 +99,12 @@ func add_item_to_fps_hand(item: Node3D) -> void:
 		mesh.set_layer_mask_value(1, false)
 		mesh.set_layer_mask_value(3, false)
 
-	fps_hand.add_child(fps_hand_item)
 	fps_hand_item.viewport_type = fps_hand_item.viewportType.FIRSTPERSON
+	fps_hand.add_child(fps_hand_item)
 	fps_hand_item.orient_item()
 
 # adds the item to your real world hand
-func add_item_to_world_hand(item: Node3D) -> void:
+func add_item_to_world_hand(item: Item) -> void:
 	Debug.debug("adding to world")
 	var electric_nodes: Array = item.find_children("*", "Electrical", true, false)
 	for electric_node in electric_nodes:
@@ -204,7 +204,6 @@ func update_held_item() -> void:
 	else:
 		for bone in holding_bones:
 			bone.active = false
-	
 
 func get_looking_at_ray():
 	dropray.force_raycast_update()

@@ -8,7 +8,8 @@ var has_outline: bool = false
 
 enum viewportType {
 	REALWORLD = 0,
-	FIRSTPERSON = 1
+	INVENTORY = 1,
+	FIRSTPERSON = 2
 }
 
 enum materialType {
@@ -37,37 +38,16 @@ func _ready() -> void:
 	# keep this enabled because small items keep falling through the floor
 	#TODO check if theres a better fix
 	continuous_cd = true
-	# set this up so we can make noises when objects collide with things
-	contact_monitor = true
-	max_contacts_reported = 1
-
-func _process(delta) -> void:
-	contact_sound_timer -= delta
-
-func _physics_process(_delta: float) -> void:
-	check_for_collisions()
-
-func check_for_collisions() -> void:
-	if linear_velocity.length() > contact_sound_threshold:
-		var contacts = get_contact_count()
-		if contacts > 0 and (contact_sound_timer <= 0):
-			make_contact_sound()
-
-func make_contact_sound() -> void:
-	contact_sound_timer = contact_sound_time
-	#get_node("ContactSound").play()
 
 func set_counterpart(item: Item) -> void:
 	viewport_counterpart = item
 
-# Update the list of item components
+## Update the list of item components (ItemUsableComponent, ItemSnappableComponent, etc.) 
 func set_item_components() -> void:
 	item_components = StandardFunctions.find_children_in_group("item_component", self)
 	Debug.debug(item_components)
 
-# this is called after being picked up
-# its what orients the item based on if its in the real-world
-# or the player's viewport
+## Orients items based on if its in the real-world or the player's viewport
 func orient_item() -> void:
 	Debug.debug(viewport_type)
 	if viewport_type == viewportType.REALWORLD:
@@ -77,7 +57,8 @@ func orient_item() -> void:
 		position = fps_hand_offset
 		rotation = fps_hand_rotation
 
-# Called when this item is picked up
+## Indicates to this object's parent that it has been picked up.
+## Handles things like picking off a plant.
 func get_picked_up_by(parent) -> void:
 	freeze = true
 	thing_holding_me = parent
@@ -94,11 +75,7 @@ func get_picked_up_by(parent) -> void:
 			component._on_pickup()
 	_on_picked_up()
 
-# intended to be overridden
-func _on_picked_up():
-	pass
-
-# Called when this item is dropped
+## Handles when this item is dropped, enables collisions and updates item components.
 func get_dropped(drop_strength: float) -> void:
 	freeze = false
 	
@@ -118,12 +95,18 @@ func get_dropped(drop_strength: float) -> void:
 	item_components.clear()
 	thing_holding_me = null
 
+## Intended to be overridden
+func _on_deployed() -> void:
+	pass
+
+## Intended to be overridden
+func _on_picked_up():
+	pass
+
+## Intended to be overridden
 func _on_dropped() -> void:
 	pass
 
+## Intended to be overridden
 func _get_thrown() -> void:
 	pass
-	
-# should be overridden
-func deployed() -> void:
-	print("override deployed")

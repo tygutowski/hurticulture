@@ -6,15 +6,12 @@ func _ready() -> void:
 	disable()
 
 func enable() -> void:
-	print("attempt to enable " + str(name))
-	print(get_parent())
-	#if light == null:
-	#	return
+	if get_parent().viewport_type == get_parent().viewportType.FIRSTPERSON:
+		return
 	light.spot_range = 8
 
 func disable() -> void:
-	print("attempt to disable " + str(name))
-	print(get_parent())
-	#if light == null:
-	#	return
+	print(get_parent().viewport_type)
+	if get_parent().viewport_type == get_parent().viewportType.FIRSTPERSON:
+		return
 	light.spot_range = 0

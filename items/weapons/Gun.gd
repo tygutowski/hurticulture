@@ -48,7 +48,7 @@ func enable_muzzle_flash() -> void:
 	if viewport_type == viewportType.FIRSTPERSON:
 		flash = get_node_or_null("Animatables/MuzzleFlashLocal")
 		get_node("Animatables/MuzzleLightLocal").light_energy = muzzle_flash_energy
-	if viewport_type == viewportType.REALWORLD:
+	if viewport_type == viewportType.PLAYER_HAND:
 		flash = get_node_or_null("Animatables/MuzzleFlashGlobal")
 		get_node("Animatables/MuzzleLightGlobal").light_energy = muzzle_flash_energy
 		viewport_counterpart.enable_muzzle_flash()
